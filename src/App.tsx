@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
-        <p className='bg-gray-600'>
+        <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <span>
