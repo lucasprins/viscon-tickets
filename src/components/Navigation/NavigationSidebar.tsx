@@ -22,7 +22,7 @@ export function NavigationSidebar() {
             {/* Navigation Header */}
             <div className='flex flex-col gap-y-6'>
                 <NavigationHeader />
-                <ul className='flex flex-col gap-y-1 px-4'>
+                <ul className='flex flex-col gap-y-2 px-4'>
                     <NavigationItem name={translations[language].dashboard} url='' icon={<IconHome size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].tickets} url='tickets' icon={<IconTicket size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].knowledgebase} url='knowledgebase' icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
@@ -31,7 +31,7 @@ export function NavigationSidebar() {
             </div>
             {/* Navigation Footer */}
             <div className='flex flex-col gap-y-6 px-4'>
-                <ul className='flex flex-col gap-y-1'>
+                <ul className='flex flex-col gap-y-2'>
                     <NavigationItem name={translations[language].language} url='language' icon={<IconGlobe size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].notifications} url='notifications' icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].account} url='account' icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
