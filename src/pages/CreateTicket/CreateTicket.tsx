@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { NavigationSidebar } from '../../components/Navigation/NavigationSidebar';
+import React from 'react';
+import { NavigationSidebarDesktop } from '../../components/Navigation/NavigationSidebarDesktop';
 
 export function CreateTicket() {
 
   return (
     <>
-      <NavigationSidebar />
+      <NavigationSidebarDesktop />
       <h1>CreateTicket</h1>
     </>
   );

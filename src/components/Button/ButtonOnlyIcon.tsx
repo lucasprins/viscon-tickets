@@ -2,11 +2,12 @@ import React from 'react'
 
 type ButtonOnlyIconProps = {
     icon: JSX.Element
+    onclick: () => any
 }
 
-export const ButtonOnlyIcon = ({ icon }: ButtonOnlyIconProps) => {
+export const ButtonOnlyIcon = ({ icon, onclick }: ButtonOnlyIconProps) => {
     return (
-        <button className='flex h-min items-center justify-center p-2 hover:bg-gray-100 rounded-md'>
+        <button onClick={onclick} className='flex h-min items-center justify-center p-2 dark:hover:bg-dark-600 hover:bg-gray-100 rounded-md'>
             {icon}
         </button>
     )

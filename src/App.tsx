@@ -14,6 +14,7 @@ import { Notifications } from './pages/Notifications/Notifications';
 import { Account } from './pages/Account/Account';
 
 function App() {
+
 	return (
 		<>
 			<Router>

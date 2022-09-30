@@ -1,0 +1,18 @@
+{
+    "nl": {
+        "dashboard": "Dashboard",
+        "tickets": "Tickets",
+        "knowledgebase": "Kennisbank",
+        "language": "Taal",
+        "notifications": "Meldingen",
+        "account": "Account" 
+    },
+    "en": {
+        "dashboard": "Dashboard",
+        "tickets": "Tickets",
+        "knowledgebase": "Knowledgebase",
+        "language": "Language",
+        "notifications": "Notifications",
+        "account": "Account" 
+    }
+}

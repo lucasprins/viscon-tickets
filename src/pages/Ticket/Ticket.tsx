@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { NavigationSidebar } from '../../components/Navigation/NavigationSidebar';
+import Layout from '../../components/Layout/Layout';
 
 export function Ticket() {
-  // Get the ticketID from the URL.
-  const { ticketID } = useParams();
+	// Get the ticketID from the URL.
+	const { ticketID } = useParams();
 
-  return (
-    <div className='flex'>
-      <NavigationSidebar />
-      <h1>Ticket: {ticketID}</h1>
-    </div>
-  );
+	return (
+		<div className='flex flex-col md:flex-row'>
+			<Layout />
+			<h1>Ticket: {ticketID}</h1>
+		</div>
+	);
 }

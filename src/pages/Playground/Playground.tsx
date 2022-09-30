@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { NavigationSidebar } from '../../components/Navigation/NavigationSidebar';
+import React from 'react';
+import Layout from '../../components/Layout/Layout';
 
 export function Playground() {
 
-  return (
-    <div className='flex'>
-      <NavigationSidebar />
-      <h1>Playground</h1>
-    </div>
-  );
+	return (
+		<div className='flex flex-col md:flex-row'>
+			<Layout />
+			<h1>Playground</h1>
+		</div>
+	);
 }

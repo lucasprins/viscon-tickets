@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { NavigationSidebar } from '../../components/Navigation/NavigationSidebar';
+import React from 'react';
 
 export function AccessDenied() {
 
   return (
     <>
-      <NavigationSidebar />
       <h1>AccessDenied</h1>
     </>
   );
