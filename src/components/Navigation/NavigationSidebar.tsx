@@ -17,6 +17,16 @@ export function NavigationSidebar() {
     const [ language, setLanguage ] = React.useState('en');
     const root = document.getElementsByTagName('html')[0];
 
+    const toggleLightMode = () => {
+        root.removeAttribute('class');
+        localStorage.theme = 'light';
+    };
+
+    const toggleDarkMode = () => {
+        root.setAttribute('class', 'dark');
+        localStorage.theme = 'dark';
+    }
+
 	return (
         <>
             {/* Navigation Header */}
@@ -36,18 +46,18 @@ export function NavigationSidebar() {
                     <NavigationItem name={translations[language].notifications} url='notifications' icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].account} url='account' icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                 </ul>
-                <div className='flex p-1 border border-gray-200 dark:border-dark-500 gap-x-1 rounded-lg'>
+                <div className='flex p-1 border border-gray-200 dark:border-dark-600 gap-x-1 rounded-lg'>
                     {/* Enable Lightmode */}
                     <button
-                        className='text-gray-700 dark:text-gray-400 dark:bg-dark-900 bg-gray-100 flex justify-center items-center gap-x-1.5 w-full rounded-lg py-3 dark:hover:bg-dark-600 ease-in duration-200 dark:hover:text-white'
-                        onClick={() => root.removeAttribute('class')}>
+                        className='text-gray-700 dark:text-gray-400 dark:bg-dark-800 bg-gray-100 flex justify-center items-center gap-x-1.5 w-full rounded-lg py-3 dark:hover:bg-dark-600 ease-in duration-200 dark:hover:text-white'
+                        onClick={toggleLightMode}>
                         <IconSun size={'20'} color='stroke-gray-700 dark:stroke-gray-400' fill='fill-gray-500' />
                         <span className='font-semibold dark:font-medium'>Light</span>
                     </button>
                     {/* Enable Darkmode */}
                     <button
-                        className='text-gray-500 dark:text-white flex justify-center items-center gap-x-1.5 w-full rounded-lg dark:bg-dark-600 ease-in duration-200 hover:bg-gray-100'
-                        onClick={() => root.setAttribute('class', 'dark')}>
+                        className='text-gray-500 dark:text-white flex justify-center items-center gap-x-1.5 w-full rounded-lg dark:bg-dark-600 ease-in duration-200 hover:bg-gray-100 hover:text-gray-700'
+                        onClick={toggleDarkMode}>
                         <IconMoon size={'18'} color='stroke-gray-500 dark:stroke-gray-200' fill='fill-gray-500' />
                         <span className='font-semibold dark:font-medium'>Dark</span>
                     </button>

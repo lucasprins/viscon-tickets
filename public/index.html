@@ -21,6 +21,14 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Viscon Tickets</title>
+  <!-- Check if the user has prefered a light or dark theme for TailwindCSS -->
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
 </head>
 
 <body>
