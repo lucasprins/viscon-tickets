@@ -4,7 +4,7 @@ import Layout from '../../components/Layout/Layout';
 export function Tickets() {
 
 	return (
-		<div className='flex flex-col md:flex-row dark:bg-dark-900 dark:text-white'>
+		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
 			<Layout />
 			<h1>Tickets</h1>
 		</div>
