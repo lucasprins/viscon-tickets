@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconUser } from '../../components/Icons/IconUser';
 import Layout from '../../components/Layout/Layout';
 
 export function Playground() {
