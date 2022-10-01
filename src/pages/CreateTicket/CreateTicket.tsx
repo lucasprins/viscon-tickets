@@ -1,12 +1,14 @@
 import React from 'react';
-import { NavigationSidebarDesktop } from '../../components/Navigation/NavigationSidebarDesktop';
+import Layout from '../../components/Layout/Layout';
 
 export function CreateTicket() {
 
-  return (
-    <>
-      <NavigationSidebarDesktop />
-      <h1>CreateTicket</h1>
-    </>
-  );
+	return (
+		<>
+			<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
+				<Layout />
+				<h1>Create Ticket</h1>
+			</div>
+		</>
+	);
 }
