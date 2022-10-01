@@ -49,14 +49,14 @@ export function NavigationSidebar() {
                 <div className='flex p-1 border border-gray-200 dark:border-dark-500 gap-x-1 rounded-lg'>
                     {/* Enable Lightmode */}
                     <button
-                        className='text-gray-700 dark:text-gray-400 dark:bg-dark-700 bg-gray-100 flex justify-center items-center gap-x-1.5 w-full rounded-lg py-3 dark:hover:bg-dark-600 ease-in duration-200 dark:hover:text-white'
+                        className='text-gray-700 dark:text-gray-400 dark:bg-dark-700 bg-gray-100 flex justify-center items-center gap-x-1.5 w-full rounded-lg py-3 dark:hover:bg-dark-600 dark:hover:text-white'
                         onClick={toggleLightMode}>
                         <IconSun size={'20'} color='stroke-gray-700 dark:stroke-gray-400' fill='fill-gray-500' />
                         <span className='font-semibold dark:font-medium'>Light</span>
                     </button>
                     {/* Enable Darkmode */}
                     <button
-                        className='text-gray-500 dark:text-white flex justify-center items-center gap-x-1.5 w-full rounded-lg dark:bg-dark-600 ease-in duration-200 hover:bg-gray-100 hover:text-gray-700'
+                        className='text-gray-500 dark:text-white flex justify-center items-center gap-x-1.5 w-full rounded-lg dark:bg-dark-600 hover:bg-gray-100 hover:text-gray-700'
                         onClick={toggleDarkMode}>
                         <IconMoon size={'18'} color='stroke-gray-500 dark:stroke-gray-200' fill='fill-gray-500' />
                         <span className='font-semibold dark:font-medium'>Dark</span>

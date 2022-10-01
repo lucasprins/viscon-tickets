@@ -6,7 +6,7 @@ export function Knowledgebase() {
 	return (
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
 			<Layout />
-			<h1>Knowledgebase</h1>
+			<h1>Playground</h1>
 		</div>
 	);
 }
