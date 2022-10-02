@@ -18,7 +18,7 @@ export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
             <IconChevron size='18' color='stroke-gray-300 dark:stroke-gray-500' fill='fill-gray-300' />
             {crumbs.map((crumb, index) => (
                 <>
-                    <Link to={'/' + crumb}>
+                    <Link to={crumb === 'Dashboard' ? '/' : '/' + crumb.toLowerCase()}>
                         <button className='bg-gray-50 dark:bg-dark-600 dark:text-dark-300 py-1 px-2 rounded-md text-sm text-gray-700 font-semibold'>{crumb}</button>
                     </Link>
                     {!(index === crumbs.length - 1)

@@ -5,7 +5,11 @@
         "knowledgebase": "Kennisbank",
         "language": "Taal",
         "notifications": "Meldingen",
-        "account": "Account" 
+        "account": "Account", 
+        "manage_users": "Gebruikers",
+        "manage_customers": "Klanten",
+        "manage_machines": "Machines",
+        "manage_solutions": "Oplossingen"
     },
     "en": {
         "dashboard": "Dashboard",
@@ -13,6 +17,10 @@
         "knowledgebase": "Knowledgebase",
         "language": "Language",
         "notifications": "Notifications",
-        "account": "Account" 
+        "account": "Account" ,
+        "manage_users": "Users",
+        "manage_customers": "Customers",
+        "manage_machines": "Machines",
+        "manage_solutions": "Solutions"
     }
 }
