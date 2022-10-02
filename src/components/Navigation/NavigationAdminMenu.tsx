@@ -42,7 +42,9 @@ export function NavigationAdminMenu() {
                     <Disclosure.Panel>
                         <div className='flex flex-col gap-y-3'>
                             <div className='flex flex-col gap-y-2 px-4'>
-                                {navigationItems}
+                                {navigationItems.map((item) => (
+                                    <div key={item.props.name}>{item}</div>
+                                ))}
                             </div>
                         </div>
                     </Disclosure.Panel>
