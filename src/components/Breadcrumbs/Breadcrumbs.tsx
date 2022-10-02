@@ -19,7 +19,7 @@ export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
             {crumbs.map((crumb, index) => (
                 <div key={index}>
                     <Link to={crumb === 'Dashboard' ? '/' : '/' + crumb.toLowerCase()}>
-                        <button className='bg-gray-50 dark:bg-dark-600 dark:text-dark-300 py-1 px-2 rounded-md text-sm text-gray-700 font-semibold'>{crumb}</button>
+                        <button className='bg-gray-50 dark:bg-dark-600 dark:font-medium dark:text-white py-1 px-2 rounded-md text-sm text-gray-700 font-semibold'>{crumb}</button>
                     </Link>
                     {!(index === crumbs.length - 1)
                     ? <IconChevron size='18' color='stroke-gray-300 dark:stroke-gray-500' fill='fill-gray-300' />
@@ -31,7 +31,7 @@ export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
             ticketID && 
             <>
                 <IconChevron size='18' color='stroke-gray-300 dark:stroke-gray-500' fill='fill-gray-300' />
-                <span className='bg-gray-50 dark:bg-dark-600 dark:text-dark-300 py-1 px-2 rounded-md text-sm text-gray-700 font-semibold'>{'Ticket ' + ticketID}</span>
+                <span className='bg-gray-50 dark:bg-dark-600 dark:font-medium dark:text-white py-1 px-2 rounded-md text-sm text-gray-700 font-semibold'>{'Ticket ' + ticketID}</span>
             </>
             }
         </div>
