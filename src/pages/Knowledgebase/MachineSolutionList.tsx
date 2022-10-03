@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OneMachineSolutionBox from './OneMachineSolutionBox'
+import OneMachineSolutionBox from './MachineSolutionBox'
 
 
 // type MachineSolutionListProps = {
@@ -44,7 +44,7 @@ import OneMachineSolutionBox from './OneMachineSolutionBox'
     )
 
   return (
-      <div className='pl-8 flex flex-col gap-4 pt-5' >
+      <div className='pl-8 flex flex-col gap-4 pt-5 w-full' >
           {FilteredSolutions.map((solution) => (
             <OneMachineSolutionBox solution={solution.solution} issue={solution.issue}  />
           ))}
