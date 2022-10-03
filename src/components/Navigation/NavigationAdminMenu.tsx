@@ -33,8 +33,8 @@ export function NavigationAdminMenu() {
         <Disclosure>
             {({ open }) => (
                 <>
-                    <div className='w-100 px-3 py-2 flex hover:bg-gray-100 dark:hover:bg-dark-600 rounded-md'>
-                        <Disclosure.Button className='flex items-center w-72 justify-between'>
+                    <div className='w-100 flex hover:bg-gray-100 dark:hover:bg-dark-600 rounded-md'>
+                        <Disclosure.Button className='flex items-center px-3 py-2 w-72 justify-between'>
                             <h1 className='font-semibold text-gray-700 dark:text-white'>Admin</h1>
                             <IconChevron size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' direction={open ? 'down' : 'up'} />
                         </Disclosure.Button>
