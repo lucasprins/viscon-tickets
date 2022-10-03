@@ -40,7 +40,7 @@ export function NavigationAdminMenu() {
                         </Disclosure.Button>
                     </div>
                     <Disclosure.Panel>
-                        <div className='flex flex-col gap-y-3'>
+                        <div className='absolute backdrop-blur w-64 flex flex-col gap-y-3'>
                             <div className='flex flex-col gap-y-2'>
                                 {navigationItems.map((item) => (
                                     <div key={item.props.name}>{item}</div>
