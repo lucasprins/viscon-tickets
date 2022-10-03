@@ -38,8 +38,8 @@ export function NavigationSidebar() {
                     <NavigationItem name={translations[language].tickets} url='tickets' icon={<IconTicket size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].knowledgebase} url='knowledgebase' icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name="Playground" url='playground' icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
+                    <NavigationAdminMenu />
                 </ul>
-                <NavigationAdminMenu />
             </div>
             {/* Navigation Footer */}
             <div className='flex flex-col gap-y-6 px-4'>
