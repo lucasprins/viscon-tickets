@@ -27,7 +27,7 @@ export function DropdownSelectMachine({ machines, label }: DropdownSelectProps) 
                         </div>
                     )}
                 </Listbox.Button>
-                <Listbox.Options className='focus:outline-4 outline-primary-200 dark:outline-0 z-index cursor-pointer 50 overflow-y-scroll p-1.5 h-64 rounded-lg shadow dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-200 dark:text-white dark:font-normal dark:border-dark-500'>
+                <Listbox.Options className='z-40 focus:outline-4 outline-primary-200 dark:outline-0 cursor-pointer overflow-y-scroll p-1.5 h-64 rounded-lg shadow dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-200 dark:text-white dark:font-normal dark:border-dark-500'>
                     {machines.map((machine) => (
                         <Listbox.Option key={machine.machine_id} value={machine}>
                             {({ active, selected }) => (
