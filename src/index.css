@@ -21,3 +21,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #EAECF0;
+	border-radius: 2rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #D0D5DD;
+}
+
+.scrollbar {
+	scrollbar-color: #EAECF0 rgba(0, 0, 0, 0) !important;
+	scrollbar-width: thin;
+}

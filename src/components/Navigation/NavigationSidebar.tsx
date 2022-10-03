@@ -8,6 +8,7 @@ import { IconMoon } from '../Icons/IconMoon'
 import { IconSun } from '../Icons/IconSun'
 import { IconTicket } from '../Icons/IconTicket'
 import { IconUser } from '../Icons/IconUser'
+import { NavigationAdminMenu } from './NavigationAdminMenu'
 import { NavigationHeader } from './NavigationHeader'
 import { NavigationItem } from './NavigationItem'
 
@@ -37,6 +38,7 @@ export function NavigationSidebar() {
                     <NavigationItem name={translations[language].tickets} url='tickets' icon={<IconTicket size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].knowledgebase} url='knowledgebase' icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name="Playground" url='playground' icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
+                    <NavigationAdminMenu />
                 </ul>
             </div>
             {/* Navigation Footer */}

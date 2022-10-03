@@ -1,4 +1,5 @@
 import React from 'react';
+import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import Layout from '../../components/Layout/Layout';
 import MachineSolutionList from './MachineSolutionList';
 
@@ -8,22 +9,9 @@ export function Knowledgebase() {
 		
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
 			<Layout />
-			
-			<div >
+			<div className='p-8'>
+				<Breadcrumbs crumbs={['Knowledgebase']}/>
 			</div>
-			
-			<div>
-				<div>
-					
-				</div>
-
-				<div> 
-					<MachineSolutionList /> 
-					{/* MachineSOlutionList will be called when User selects a machine. The choice the User made will be given with the function */}
-				</div>
-					
-			</div>
-				
 		</div>
 	);
 }
