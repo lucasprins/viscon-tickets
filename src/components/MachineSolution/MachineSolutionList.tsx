@@ -24,7 +24,7 @@ export function MachineSolutionList() {
 	);
 
 	return (
-		<div className='flex flex-col gap-6 w-full' >
+		<div className='flex flex-col h-min gap-6 w-full' >
 			{filteredSolutions.map(({ issue, solution }) => (
 				<MachineSolution issue={issue} solution={solution} machine_name={selectedMachine.name} machine_blueprint={selectedMachine.blueprint_number} />
 			))}
