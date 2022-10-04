@@ -5,7 +5,7 @@ import { MachineType } from '../../types/MachineType';
 // useStates worden vervangen met useSelector wanneer we Redux+Api hebben
 
 export function MachineSolutionList() {
-	const [ language, setLanguage ] = useState('nl;'); // Dit gaan we later dynamisch maken met Redux
+	const [ language, setLanguage ] = useState('en'); // Dit gaan we later dynamisch maken met Redux
 	const [ selectedMachine, setSelectedMachine ] = useState<MachineType>({ machine_id: '1', name: 'Satteliet shuttle', blueprint_number: '52525', type: 'Satteliet shuttle' });
 
 	const solutions = [
@@ -26,7 +26,7 @@ export function MachineSolutionList() {
 	return (
 		<div className='flex flex-col gap-6 w-full' >
 			{filteredSolutions.map(({ issue, solution }) => (
-				<MachineSolution issue={issue} solution={solution} machine_name={selectedMachine.name} machine_blueprint={selectedMachine.blueprint_number} tag={"Satteliet shuttle"} />
+				<MachineSolution issue={issue} solution={solution} machine_name={selectedMachine.name} machine_blueprint={selectedMachine.blueprint_number} />
 			))}
 		</div>
 	)

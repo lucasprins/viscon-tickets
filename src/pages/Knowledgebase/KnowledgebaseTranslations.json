@@ -1,0 +1,10 @@
+{
+    "nl": {
+        "blueprint_number": "Tekeningnummer",
+        "search_machine": "Zoek een machine"
+    },
+    "en": {
+        "blueprint_number": "Blueprint:",
+        "search_machine": "Search for a machine"
+    }
+}

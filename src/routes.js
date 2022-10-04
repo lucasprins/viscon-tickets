@@ -1,5 +1,9 @@
 import { AccessDenied } from "./pages/AccessDenied/AccessDenied";
 import { Account } from "./pages/Account/Account";
+import { AdminCustomers } from "./pages/Admin/AdminCustomers";
+import { AdminMachines } from "./pages/Admin/AdminMachines";
+import { AdminSolutions } from "./pages/Admin/AdminSolutions";
+import { AdminUsers } from "./pages/Admin/AdminUsers";
 import { CreateTicket } from "./pages/CreateTicket/CreateTicket";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Knowledgebase } from "./pages/Knowledgebase/Knowledgebase";
@@ -18,8 +22,12 @@ export const routes = [
     { path: '/knowledgebase', name: 'knowledgebase', component: <Knowledgebase /> },
     { path: '/knowledgebase/create-ticket', name: 'create-ticket', component: <CreateTicket /> },
     { path: '/playground', name: 'playground', component: <Playground /> },
+    { path: '/admin/users', name: 'notifications', component: <AdminUsers /> },
+    { path: '/admin/customers', name: 'notifications', component: <AdminCustomers /> },
+    { path: '/admin/machines', name: 'notifications', component: <AdminMachines /> },
+    { path: '/admin/solutions', name: 'notifications', component: <AdminSolutions /> },
     { path: '/notifications', name: 'notifications', component: <Notifications /> },
     { path: '/account', name: 'account', component: <Account /> },
     { path: '/access-denied', name: 'access-denied', component: <AccessDenied /> },
     { path: '*', name: 'page-not-found', component: <PageNotFound /> }
-]
+];

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { Divider } from '../../components/Divider/Divider';
 import { DropdownSelectMachine } from '../../components/Dropdown/DropdownSelect';
 import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
 
+var translations = require('./KnowledgebaseTranslations.json');
+
 export function Knowledgebase() {
+	const [ language, setLanguage ] = React.useState('en');
+
 	const machines = [
 		{ machine_id: '1', name: 'Satteliet shuttle 1', blueprint_number: '02315', type: 'Satteliet shuttle' },
 		{ machine_id: '2', name: 'Satteliet shuttle 2', blueprint_number: '02315', type: 'Satteliet shuttle' },
@@ -28,7 +32,7 @@ export function Knowledgebase() {
 					<p>Search for a machine and view all of the common problems and solutions</p>
 				</div>
 				<Divider />
-				<DropdownSelectMachine machines={machines} label='Search for a machine' />
+				<DropdownSelectMachine machines={machines} label={translations[language].search_machine} />
 			</div>
 			{/* Solutions */}
 			<div className='flex flex-col gap-6 p-8'>

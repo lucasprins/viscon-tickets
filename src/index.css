@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
   margin: 0;
@@ -10,36 +10,36 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 ::-webkit-scrollbar {
-    width: 0.5rem;
-  }
+  width: 0.5rem;
+}
 
 ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #EAECF0;
-	border-radius: 2rem;
+  background: #eaecf0;
+  border-radius: 2rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #D0D5DD;
+  background: #d0d5dd;
 }
 
 .scrollbar {
-	scrollbar-color: #EAECF0 rgba(0, 0, 0, 0) !important;
-	scrollbar-width: thin;
+  scrollbar-color: #eaecf0 rgba(0, 0, 0, 0) !important;
+  scrollbar-width: thin;
 }
