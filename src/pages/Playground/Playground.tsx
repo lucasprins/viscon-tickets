@@ -2,6 +2,7 @@ import React from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { DropdownSelectMachine } from '../../components/Dropdown/DropdownSelect';
 import Layout from '../../components/Layout/Layout';
+import { Tag } from '../../components/Tag/Tag';
 
 export function Playground() {
 
