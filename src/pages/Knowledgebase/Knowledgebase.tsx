@@ -4,6 +4,7 @@ import { Divider } from '../../components/Divider/Divider';
 import { DropdownSelectMachine } from '../../components/Dropdown/DropdownSelect';
 import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
+import { PageHeader } from '../../components/PageHeader/PageHeader';
 
 var translations = require('./KnowledgebaseTranslations.json');
 
@@ -27,10 +28,8 @@ export function Knowledgebase() {
 			{/* Sidebar */}
 			<div className='flex flex-col gap-6 p-8 border-r border-gray-200 dark:border-dark-500'>
 				{/* Page Header Placeholder */}
-				<div>
-					<h1>Knowledgebase</h1>
-					<p>Search for a machine and view all of the common problems and solutions</p>
-				</div>
+				<PageHeader title='Knowledgebase'
+							subtitle='Search for a machine and view all of the common problems and solutions.'/>
 				<Divider />
 				<DropdownSelectMachine machines={machines} label={translations[language].search_machine} />
 			</div>
