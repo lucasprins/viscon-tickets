@@ -27,7 +27,7 @@ export function Knowledgebase() {
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
 			<Layout />
 			{/* Sidebar */}
-			<div className='flex flex-col w-min gap-6 p-8 border-r border-gray-200 dark:border-dark-500'>
+			<div className='flex flex-col w-min gap-6 p-8 border-r border-gray-300 dark:border-dark-500'>
 				{/* Page Header Placeholder */}
 				<div>
 					<h1>Knowledgebase</h1>
