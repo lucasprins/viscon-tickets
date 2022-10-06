@@ -24,9 +24,9 @@ export function MachineSolutionList() {
 	);
 
 	return (
-		<div className='flex flex-col h-min gap-6 w-full overflow-scroll' >
-			{filteredSolutions.map(({ issue, solution }) => (
-				<MachineSolution issue={issue} solution={solution} machine_name={selectedMachine.name} machine_blueprint={selectedMachine.blueprint_number} />
+		<div className='flex flex-col h-min gap-6 w-full overflow-clip' >
+			{filteredSolutions.map(({ issue, solution, solution_id }) => (
+				<MachineSolution key={solution_id} issue={issue} solution={solution} machine_name={selectedMachine.name} machine_blueprint={selectedMachine.blueprint_number} />
 			))}
 		</div>
 	)

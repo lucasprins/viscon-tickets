@@ -44,7 +44,7 @@ export function NavigationSidebar() {
             {/* Navigation Footer */}
             <div className='flex flex-col gap-y-6 px-4'>
                 <ul className='flex flex-col gap-y-2'>
-                    <NavigationItem name={translations[language].language} url='language' icon={<IconGlobe size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
+                    <NavigationItem name={translations[language].language} onclick={() => console.log("changeLanguage")} icon={<IconGlobe size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].notifications} url='notifications' icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].account} url='account' icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                 </ul>

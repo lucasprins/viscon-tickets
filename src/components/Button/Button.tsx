@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export enum ButtonSize {
     SMALL,
     MEDIUM,
-    LARGE
+    LARGE,
 }
 
 export enum ButtonWidth {
@@ -31,7 +31,6 @@ type ButtonProps = {
 }
 
 export function Button({ size, width, type, text, icon, url, onclick }: ButtonProps) {
-
     const buttonWidthStyle = width === ButtonWidth.FULL ? "w-full" : "";
     let buttonSizeStyle = "";
     let buttonTypeStyle = "";
@@ -50,19 +49,19 @@ export function Button({ size, width, type, text, icon, url, onclick }: ButtonPr
 
     switch (type) {
         case ButtonType.PRIMARY:
-            buttonTypeStyle = "shadow-sm bg-primary-600 text-white";
+            buttonTypeStyle = "shadow-sm bg-primary-600 border border-primary-600 text-white hover:bg-primary-700 focus:outline outline-primary-200 dark:outline-primary-500 hover:border-primary-700";
             break;
         case ButtonType.SECONDARY_GRAY:
-            buttonTypeStyle = "shadow-sm text-gray-700 border border-gray-300 dark:border-dark-500 dark:text-white";
+            buttonTypeStyle = "shadow-sm text-gray-800 border border-gray-300 dark:border-dark-500 dark:text-white hover:bg-gray-50 dark:hover:bg-dark-700 focus:outline outline-gray-100 dark:outline-dark-600";
             break;
         case ButtonType.SECONDARY_COLOR:
-            buttonTypeStyle = "shadow-sm text-primary-700 bg-primary-50 dark:bg-dark-700";
+            buttonTypeStyle = "text-primary-600 dark:text-gray-300 border border-primary-50 dark:border-dark-600 bg-primary-50 dark:bg-dark-600 hover:bg-primary-100 focus:outline outline-primary-100 dark:outline-dark-500";
             break;
         case ButtonType.TERTIARY_GRAY:
-            buttonTypeStyle = "text-gray-700";
+            buttonTypeStyle = "text-gray-800 border border-primary-600 border-opacity-0 hover:bg-gray-50 dark:text-white dark:hover:bg-dark-600";
             break;
         case ButtonType.TERTIARY_COLOR:
-            buttonTypeStyle = "text-primary-700";
+            buttonTypeStyle = "text-primary-600 dark:text-gray-300 border border-primary-600 border-opacity-0 hover:bg-primary-50 dark:hover:bg-dark-600";
             break;
     };
 

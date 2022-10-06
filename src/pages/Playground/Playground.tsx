@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { Button, ButtonSize, ButtonType, ButtonWidth } from '../../components/Button/Button';
+import { ButtonLink, ButtonLinkSize, ButtonLinkType } from '../../components/Button/ButtonLink';
 import { IconTicket } from '../../components/Icons/IconTicket';
 import Layout from '../../components/Layout/Layout';
 
@@ -11,14 +12,24 @@ export function Playground() {
 			<Layout />
 			<div className='p-8 flex w-full  flex-col gap-y-12'>
 				<Breadcrumbs crumbs={['Playground']} />
-				<div className='w-72'>
+				<div className='w-72 flex gap-2'>
+					{/* <ButtonLink
+						size={ButtonLinkSize.MEDIUM}
+						type={ButtonLinkType.COLOR}
+						text="Create a ticket"
+						url="/knowledgebase/create-ticket"
+					/> */}
+					<Button
+						size={ButtonSize.MEDIUM}
+						type={ButtonType.TERTIARY_COLOR}
+						text="No"
+						width={ButtonWidth.FULL}
+					/>
 					<Button
 						size={ButtonSize.MEDIUM}
 						type={ButtonType.PRIMARY}
-						text="Create a ticket"
-						width={ButtonWidth.CONTENT}
-						icon={<IconTicket size='18' color='stroke-white dark:stroke-gray-300' fill='fill-gray-500' />}
-						url="/knowledgebase/create-ticket"
+						text="Yes"
+						width={ButtonWidth.FULL}
 					/>
 				</div>
 			</div>

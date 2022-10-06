@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ButtonOnlyIcon } from '../Button/ButtonOnlyIcon'
+import { ButtonIcon } from '../Button/ButtonIcon'
 import { IconMenu } from '../Icons/IconMenu'
 
 type NavigationMobileTypes = {
@@ -15,7 +15,7 @@ export const NavigationMobile = ({ openSidebar }: NavigationMobileTypes) => {
 				<Link to='/'>
 					<h2 className='text-lg text-gray-900 font-semibold dark:font-medium dark:text-white'>Viscon Tickets</h2>
 				</Link>
-				<ButtonOnlyIcon onclick={openSidebar} icon={<IconMenu size='24' color='stroke-gray-500 dark:stroke-gray-400' fill='fill-gray-500' />} />
+				<ButtonIcon onclick={openSidebar} icon={<IconMenu size='24' color='stroke-gray-500 dark:stroke-gray-400' fill='fill-gray-500' />} />
 			</div>
 		</>
 	)
