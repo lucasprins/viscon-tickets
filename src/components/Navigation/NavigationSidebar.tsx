@@ -8,6 +8,7 @@ import { IconMoon } from '../Icons/IconMoon'
 import { IconSun } from '../Icons/IconSun'
 import { IconTicket } from '../Icons/IconTicket'
 import { IconUser } from '../Icons/IconUser'
+import { NavigationAdminMenu } from './NavigationAdminMenu'
 import { NavigationHeader } from './NavigationHeader'
 import { NavigationItem } from './NavigationItem'
 
@@ -37,6 +38,7 @@ export function NavigationSidebar() {
                     <NavigationItem name={translations[language].tickets} url='tickets' icon={<IconTicket size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].knowledgebase} url='knowledgebase' icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name="Playground" url='playground' icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
+                    <NavigationAdminMenu />
                 </ul>
             </div>
             {/* Navigation Footer */}
@@ -46,7 +48,7 @@ export function NavigationSidebar() {
                     <NavigationItem name={translations[language].notifications} url='notifications' icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].account} url='account' icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                 </ul>
-                <div className='flex p-1 border border-gray-200 dark:border-dark-500 gap-x-1 rounded-lg'>
+                <div className='flex p-1 border border-gray-300 dark:border-dark-500 gap-x-1 rounded-lg'>
                     {/* Enable Lightmode */}
                     <button
                         className='text-gray-700 dark:text-gray-400 dark:bg-dark-700 bg-gray-100 flex justify-center items-center gap-x-1.5 w-full rounded-lg py-3 dark:hover:bg-dark-600 dark:hover:text-white'
