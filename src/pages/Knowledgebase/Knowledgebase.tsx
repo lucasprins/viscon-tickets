@@ -32,7 +32,7 @@ export function Knowledgebase() {
 				{/* Page Header Placeholder */}
 				<PageHeader
 					title={translations[language].knowledgebase}
-					subtitle={translations[language].knowledgebase} />
+					subtitle={translations[language].knowledgebase_subtitle} />
 				<Divider />
 				<DropdownSelectMachine machines={machines} label={translations[language].search_machine} />
 				<InlineCTA

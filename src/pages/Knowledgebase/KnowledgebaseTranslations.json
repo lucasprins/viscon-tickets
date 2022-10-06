@@ -14,6 +14,7 @@
         "cant_find_solution_title": "Can't find your problem or solution?",
         "cant_find_solution_text": "Please make sure your problem isn't in this knowledgebase before creating a ticket.",
         "create_ticket": "Create a ticket",
+        "knowledgebase": "Knowledgebase",
         "knowledgebase_subtitle": "Search for a machine and view all of the common problems and solutions."
     }
 }
