@@ -4,13 +4,16 @@
         "search_machine": "Zoek een machine",
         "cant_find_solution_title": "Kunt u uw probleem of oplossing niet vinden?",
         "cant_find_solution_text": "Zorg er alstublieft voor dat u zeker weet dat uw probleem niet in deze kennisbank staat voordat u een ticket aanmaakt.",
-        "create_ticket": "Creëer een ticket"
+        "create_ticket": "Creëer een ticket",
+        "knowledgebase": "Kennisbank",
+        "knowledgebase_subtitle": "Zoek voor een machine en bekijk alle veelvoorkomend problemen en oplossingen."
     },
     "en": {
         "blueprint_number": "Blueprint:",
         "search_machine": "Search for a machine",
         "cant_find_solution_title": "Can't find your problem or solution?",
         "cant_find_solution_text": "Please make sure your problem isn't in this knowledgebase before creating a ticket.",
-        "create_ticket": "Create a ticket"
+        "create_ticket": "Create a ticket",
+        "knowledgebase_subtitle": "Search for a machine and view all of the common problems and solutions."
     }
 }
