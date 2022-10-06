@@ -31,8 +31,8 @@ export function Knowledgebase() {
 			<div className='flex flex-col w-min gap-6 p-8 border-r border-gray-300 dark:border-dark-500'>
 				{/* Page Header Placeholder */}
 				<PageHeader
-					title='Knowledgebase'
-					subtitle='Search for a machine and view all of the common problems and solutions.' />
+					title={translations[language].knowledgebase}
+					subtitle={translations[language].knowledgebase_subtitle} />
 				<Divider />
 				<DropdownSelectMachine machines={machines} label={translations[language].search_machine} />
 				<InlineCTA
