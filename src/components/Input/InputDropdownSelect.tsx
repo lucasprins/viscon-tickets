@@ -10,7 +10,7 @@ type DropdownSelectProps = {
     label?: string
 }
 
-export function DropdownSelectMachine({ machines, label }: DropdownSelectProps) {
+export function InputDropdownSelectMachine({ machines, label }: DropdownSelectProps) {
     const [selectedMachine, setSelectedMachine] = useState(machines[0]);
 
     return (

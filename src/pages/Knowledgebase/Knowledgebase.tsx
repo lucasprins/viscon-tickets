@@ -3,7 +3,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ButtonSize, ButtonType } from '../../components/Button/Button';
 import { InlineCTA } from '../../components/CTA/InlineCTA';
 import { Divider } from '../../components/Divider/Divider';
-import { DropdownSelectMachine } from '../../components/Dropdown/DropdownSelect';
+import { InputDropdownSelectMachine } from '../../components/Input/InputDropdownSelect';
 import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
@@ -28,13 +28,12 @@ export function Knowledgebase() {
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
 			<Layout />
 			{/* Sidebar */}
-			<div className='flex flex-col w-min gap-6 p-8 border-r border-gray-300 dark:border-dark-500'>
-				{/* Page Header Placeholder */}
+			<div className='flex flex-col w-full lg:w-min gap-4 lg:gap-6 px-6 pt-6 lg:p-8 md:border-r border-gray-300 dark:border-dark-500'>
 				<PageHeader
 					title={translations[language].knowledgebase}
 					subtitle={translations[language].knowledgebase_subtitle} />
 				<Divider />
-				<DropdownSelectMachine machines={machines} label={translations[language].search_machine} />
+				<InputDropdownSelectMachine machines={machines} label={translations[language].search_machine} />
 				<InlineCTA
 					title={translations[language].cant_find_solution_title}
 					text={translations[language].cant_find_solution_text}
@@ -45,7 +44,7 @@ export function Knowledgebase() {
 				/>
 			</div>
 			{/* Solutions */}
-			<div className='flex flex-col w-full gap-6 p-8'>
+			<div className='flex flex-col w-full gap-6 px-6 pb-6 md:pt-6 lg:p-8'>
 				<div className=''>
 					<Breadcrumbs crumbs={['Knowledgebase']} />
 				</div>
