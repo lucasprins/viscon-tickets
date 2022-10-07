@@ -1,0 +1,14 @@
+{
+    "nl": {
+        "title": "Toegang geweigerd",
+        "subtitle": "U heeft geen toegang tot de pagina die u probeert te bekijken.",
+        "button_secondary": "View tickets",
+        "button_primary": "Dashboard"
+    },
+    "en": {
+        "title": "Access denied",
+        "subtitle": "You dont have access to the page you are trying to view.",
+        "button_secondary": "View tickets",
+        "button_primary": "Dashboard"
+    }
+}
