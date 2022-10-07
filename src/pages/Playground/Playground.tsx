@@ -16,10 +16,10 @@ export function Playground() {
 					<IconVideo size='24' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
 				</div>
 				<div className='w-72 flex gap-2 items-center'>
-					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.SM} icon={<IconAlert size='15' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />} />
-					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.MD} icon={<IconAlert size='17' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />} />
-					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.LG} icon={<IconAlert size='21' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />} />
-					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.XL} icon={<IconAlert size='24' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />} />
+					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.SM} icon={<IconVideo size='15' color='stroke-primary-500' fill='fill-primary-500' />} />
+					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.MD} icon={<IconVideo size='17' color='stroke-primary-500' fill='fill-primary-500' />} />
+					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.LG} icon={<IconVideo size='21' color='stroke-primary-500' fill='fill-primary-500' />} />
+					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.XL} icon={<IconVideo size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
 				</div>
 			</div>
 		</div>

@@ -41,16 +41,16 @@ export function FeaturedIcon({ size, type, icon }: FeaturedIconProps) {
 
     switch (type) {
         case FeaturedIconType.PRIMARY:
-            featuredIconType = "bg-primary-100 border-primary-50 ";
+            featuredIconType = "bg-primary-100 border-primary-50 dark:border-dark-700 dark:bg-dark-600";
             break;
         case FeaturedIconType.GRAY:
-            featuredIconType = "bg-gray-100 border-gray-50";
+            featuredIconType = "bg-gray-100 border-gray-50 dark:border-dark-700 dark:bg-dark-600";
             break;
         case FeaturedIconType.ERROR:
-            featuredIconType = "bg-error-100 border-error-50";
+            featuredIconType = "bg-error-100 border-error-50 dark:border-dark-700 dark:bg-dark-600";
             break;
         case FeaturedIconType.SUCCESS:
-            featuredIconType = "bg-success-100 border-success-50";
+            featuredIconType = "bg-success-100 border-success-50 dark:border-dark-700 dark:bg-dark-600";
             break;
     };
 
