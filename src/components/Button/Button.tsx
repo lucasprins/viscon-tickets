@@ -78,7 +78,7 @@ export function Button({ size, width, type, text, icon, url, onclick }: ButtonPr
                 </Link>
                 :
                 <button onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center gap-x-2 rounded-lg`}>
+                flex justify-center items-center gap-x-2.5 rounded-lg`}>
                     {icon}
                     {text}
                 </button>
