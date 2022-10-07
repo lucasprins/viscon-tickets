@@ -1,0 +1,14 @@
+{
+    "nl": {
+        "title": "Pagina niet gevonden",
+        "subtitle": "De pagina waar u naar opzoek bent bestaat niet.",
+        "button_secondary": "Tickets Bekijken",
+        "button_primary": "Dashboard"
+    },
+    "en": {
+        "title": "Page not found",
+        "subtitle": "The page you are looking for doesn't exist.",
+        "button_secondary": "View Tickets",
+        "button_primary": "Dashboard"
+    }
+}
