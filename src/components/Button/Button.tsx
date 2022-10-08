@@ -55,7 +55,7 @@ export function Button({ size, width, type, text, icon, url, onclick }: ButtonPr
             buttonTypeStyle = "shadow-sm text-gray-800 border border-gray-300 dark:border-dark-500 dark:text-white hover:bg-gray-50 dark:hover:bg-dark-700 focus:outline outline-gray-100 dark:outline-dark-600";
             break;
         case ButtonType.SECONDARY_COLOR:
-            buttonTypeStyle = "text-primary-600 dark:text-white border border-primary-50 dark:border-dark-600 bg-primary-50 dark:bg-dark-600 hover:bg-primary-100 focus:outline outline-primary-100 dark:outline-dark-500";
+            buttonTypeStyle = "text-primary-600 dark:text-white border border-primary-50 dark:border-dark-600 bg-primary-50 dark:bg-dark-600 hover:bg-primary-100";
             break;
         case ButtonType.TERTIARY_GRAY:
             buttonTypeStyle = "text-gray-800 border border-primary-600 border-opacity-0 hover:bg-gray-50 dark:text-white dark:hover:bg-dark-600";
