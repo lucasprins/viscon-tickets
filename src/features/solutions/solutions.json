@@ -1,0 +1,16 @@
+[
+    {
+        "solution_id": "1",
+        "machine_id": "1",
+        "issue": "Product verkeerd op machine",
+        "solution": "Fotocellen controleren. Eventueel product handmatig op juiste positie plaatsen.",
+        "language": "nl"
+    },
+    {
+        "solution_id": "2",
+        "machine_id": "1",
+        "issue": "Product placed wrong on machine",
+        "solution": "Check photocells. Manually place the product in the correct position if necessary.",
+        "language": "en"
+    }
+]

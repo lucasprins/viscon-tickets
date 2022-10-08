@@ -5,19 +5,18 @@ import { NavigationSidebarDesktop } from "../Navigation/NavigationSidebarDesktop
 import { NavigationSidebarMobile } from "../Navigation/NavigationSidebarMobile";
 
 export default function Layout() {
-  const [sidebar, setSidebar] = useState(false);
+	const [sidebar, setSidebar] = useState(false);
 
-  const toggleSidebar = () => {
-    setSidebar((prevState) => !prevState);
-    
-  };
+	const toggleSidebar = () => {
+		setSidebar((prevState) => !prevState);
+	};
 
-  return (
-    <>
-      <NavigationMobile openSidebar={toggleSidebar} />
-      <Backdrop state={sidebar} close={toggleSidebar} />
-      <NavigationSidebarMobile state={sidebar} />
-      <NavigationSidebarDesktop />
-    </>
-  );
+	return (
+		<>
+			<NavigationMobile openSidebar={toggleSidebar} />
+			<Backdrop state={sidebar} close={toggleSidebar} />
+			<NavigationSidebarMobile state={sidebar} />
+			<NavigationSidebarDesktop />
+		</>
+	);
 }

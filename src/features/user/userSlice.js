@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 // const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-    language: 'en'
+    user: {},
+    language: 'en',
 }
 
-const authSlice = createSlice({
+const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
@@ -16,7 +17,7 @@ const authSlice = createSlice({
     }
 });
 
-const { reducer, actions } = authSlice;
+const { reducer, actions } = userSlice;
 
 // Actions
 export const getCurrentLanguage = (state) => state.user.language;

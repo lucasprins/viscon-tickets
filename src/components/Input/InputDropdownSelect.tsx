@@ -1,21 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Listbox } from '@headlessui/react'
 import { MachineType } from '../../types/MachineType';
 import { IconCheck } from '../Icons/IconCheck';
-import '../../index.css';
 import { IconChevron } from '../Icons/IconChevron';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { getMachines, getSelectedMachine, setSelectedMachine } from '../../features/machines/machinesSlice';
 
 type DropdownSelectProps = {
-    machines: Array<MachineType> // We get a list of machine names
     label?: string
 }
 
-export function InputDropdownSelectMachine({ machines, label }: DropdownSelectProps) {
-    const [selectedMachine, setSelectedMachine] = useState(machines[0]);
+export function InputDropdownSelectMachine({ label }: DropdownSelectProps) {
+    const machines = useAppSelector(getMachines);
+    const selectedMachine = useAppSelector(getSelectedMachine);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(setSelectedMachine(machines[0]));
+    }, [dispatch]);
+
+    const onChange = (payload: MachineType) => {
+        dispatch(setSelectedMachine(payload));
+    };
 
     return (
         <div>
-            <Listbox value={selectedMachine} onChange={setSelectedMachine}>
+            <Listbox value={selectedMachine} onChange={onChange}>
                 <div className='mb-1.5'>
                     <Listbox.Label className='text-sm font-medium text-gray-700 dark:text-dark-300'>{label}</Listbox.Label>
                 </div>
@@ -28,7 +38,7 @@ export function InputDropdownSelectMachine({ machines, label }: DropdownSelectPr
                     )}
                 </Listbox.Button>
                 <Listbox.Options className='bg-white z-40 focus:outline-4 outline-primary-200 dark:outline-0 cursor-pointer overflow-y-scroll p-1.5 h-64 rounded-lg drop-shadow-sm dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-300 dark:text-white dark:font-normal dark:border-dark-500'>
-                    {machines.map((machine) => (
+                    {machines.map((machine: MachineType) => (
                         <Listbox.Option key={machine.machine_id} value={machine}>
                             {({ active, selected }) => (
                                 <div className=

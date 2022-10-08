@@ -6,11 +6,13 @@ import { IconLightbulb } from '../Icons/IconLightbulb';
 import { IconUsers } from '../Icons/IconUsers';
 import { NavigationItem } from './NavigationItem';
 import { IconChevron } from '../Icons/IconChevron';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { getCurrentLanguage } from '../../features/user/userSlice';
 
 var translations = require('../../translations/SidebarTranslations.json');
 
 export function NavigationAdminMenu() {
-    const [language, setLanguage] = useState('en');
+    const language = useAppSelector(getCurrentLanguage);
     const [userType, setUserType] = useState('viscon');
     const [userIsAdmin, setUserIsAdmin] = useState(true);
 

@@ -12,8 +12,8 @@ export default function Backdrop({ state, close }: BackkdropType) {
 		<div
 			onClick={close}
 			className={state
-				? 'z-40 fixed inset-0 w-100 h-100 bg-dark-900 opacity-40 dark:opacity-60'
-				: 'z-40 fixed inset-0 w-100 h-100 bg-dark-900 opacity-40 dark:opacity-60 hidden'
+				? 'z-40 fixed inset-0 w-100 h-100 bg-dark-900 opacity-40 dark:opacity-70'
+				: 'hidden'
 			}>
 		</div>
 	)
