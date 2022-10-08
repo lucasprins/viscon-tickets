@@ -7,7 +7,7 @@ import { IconTicket } from '../../components/Icons/IconTicket';
 var translations = require('./PageNotFoundTranslations.json');
 
 export function PageNotFound() {
-	const [language, seLanguage] = useState('en');
+	const [language, setLanguage] = useState('en');
 
 	return (
 		<div className='h-screen w-screen flex items-center justify-center p-6 lg:p-8 dark:bg-dark-800'>
