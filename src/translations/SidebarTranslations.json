@@ -9,7 +9,9 @@
         "manage_users": "Gebruikers",
         "manage_customers": "Klanten",
         "manage_machines": "Machines",
-        "manage_solutions": "Oplossingen"
+        "manage_solutions": "Oplossingen",
+        "light": "Licht",
+        "dark": "Donker"
     },
     "en": {
         "dashboard": "Dashboard",
@@ -21,6 +23,8 @@
         "manage_users": "Users",
         "manage_customers": "Customers",
         "manage_machines": "Machines",
-        "manage_solutions": "Solutions"
+        "manage_solutions": "Solutions",
+        "light": "Light",
+        "dark": "Dark"
     }
 }

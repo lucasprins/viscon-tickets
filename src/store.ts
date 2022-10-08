@@ -1,8 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import userReducer from './features/user/userSlice';
+import modalReducer from './features/modal/modalSlice';
+
+const reducers = {
+	user: userReducer,
+	modal: modalReducer
+  };
 
 export const store = configureStore({
-	reducer: {
-	},
+	reducer: reducers,
+	devTools: true
 });
 
 /** Redux Types */

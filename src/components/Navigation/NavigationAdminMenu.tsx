@@ -7,7 +7,7 @@ import { IconUsers } from '../Icons/IconUsers';
 import { NavigationItem } from './NavigationItem';
 import { IconChevron } from '../Icons/IconChevron';
 
-var translations = require('../../pages/Dashboard/DashboardTranslations.json');
+var translations = require('../../translations/SidebarTranslations.json');
 
 export function NavigationAdminMenu() {
     const [language, setLanguage] = useState('en');

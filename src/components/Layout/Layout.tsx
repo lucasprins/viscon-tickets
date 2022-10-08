@@ -9,6 +9,7 @@ export default function Layout() {
 
   const toggleSidebar = () => {
     setSidebar((prevState) => !prevState);
+    
   };
 
   return (

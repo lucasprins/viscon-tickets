@@ -8,7 +8,6 @@ type NavigationMobileTypes = {
 }
 
 export const NavigationMobile = ({ openSidebar }: NavigationMobileTypes) => {
-
 	return (
 		<>
 			<div className='z-50 drop-shadow-sm sticky inset-0 bg-white dark:bg-dark-700 dark:border-dark-500 flex items-center md:hidden justify-between py-3 pr-3 pl-6 border-b border-gray-200'>
