@@ -8,6 +8,7 @@ import { IconClose } from '../Icons/IconClose';
 import { ButtonIcon } from '../Button/ButtonIcon';
 import { IconNL } from '../Icons/Flags/IconNL';
 import { IconGB } from '../Icons/Flags/IconEN';
+import { IconCheck } from '../Icons/IconCheck';
 
 export function ModalChangeLanguage() {
     const dispatch = useAppDispatch();
@@ -38,6 +39,7 @@ export function ModalChangeLanguage() {
                             width={ButtonWidth.FULL}
                             type={language === 'nl' ? ButtonType.SECONDARY_COLOR : ButtonType.TERTIARY_GRAY}
                             text="Nederlands"
+                            icon={language === 'nl' ? <IconCheck size='20' color='stroke-primary-500 dark:stroke-white' fill='fill-gray-500'/> : undefined}
                             onclick={() => changeLanguage('nl')}
                         />
                     </div>
@@ -48,6 +50,7 @@ export function ModalChangeLanguage() {
                             width={ButtonWidth.FULL}
                             type={language === 'en' ? ButtonType.SECONDARY_COLOR : ButtonType.TERTIARY_GRAY}
                             text="English"
+                            icon={language === 'en' ? <IconCheck size='20' color='stroke-primary-500 dark:stroke-white' fill='fill-gray-500'/> : undefined}
                             onclick={() => changeLanguage('en')}
                         />
                     </div>
