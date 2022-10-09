@@ -18,6 +18,7 @@ export enum ButtonType {
     SECONDARY_COLOR,
     TERTIARY_GRAY,
     TERTIARY_COLOR,
+    SECONDARY_RED
 }
 
 type ButtonProps = {
@@ -63,6 +64,8 @@ export function Button({ size, width, type, text, icon, url, onclick }: ButtonPr
         case ButtonType.TERTIARY_COLOR:
             buttonTypeStyle = "text-primary-600 dark:text-gray-300 border border-primary-600 border-opacity-0 hover:bg-primary-50 dark:hover:bg-dark-600";
             break;
+        case ButtonType.SECONDARY_RED:
+            buttonTypeStyle = "shadow-sm bg-error-600 border border-error-600 text-white hover:bg-error-700 focus:outline outline-error-200 dark:outline-error-500 hover:border-error-700"
     };
 
     return (

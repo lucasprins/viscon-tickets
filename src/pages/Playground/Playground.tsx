@@ -4,6 +4,9 @@ import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../componen
 import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconVideo } from '../../components/Icons/IconVideo';
 import Layout from '../../components/Layout/Layout';
+import { Button, ButtonSize, ButtonType, ButtonWidth } from '../../components/Button/Button';
+import {Modal, ModalType} from '../../components/Modal/ModalButtonClick';
+
 
 export function Playground() {
 
@@ -20,6 +23,30 @@ export function Playground() {
 					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.MD} icon={<IconVideo size='17' color='stroke-primary-500' fill='fill-primary-500' />} />
 					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.LG} icon={<IconVideo size='21' color='stroke-primary-500' fill='fill-primary-500' />} />
 					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.XL} icon={<IconVideo size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
+				</div>
+				<div className="flex flex-row">
+					
+					<Modal 
+						type={ModalType.ERROR}
+						title={"Test"}
+						subtitle={"This is error!"}
+						text_button_primary={"Succes"}
+						text_button_secondary={"Fail"}
+					/>
+					<Modal 
+						type={ModalType.SUCCESS}
+						title={"Test"}
+						subtitle={"This is succes!"}
+						text_button_primary={"Succes"}
+						text_button_secondary={"Fail"}
+					/>
+					<Modal 
+						type={ModalType.PRIMARY}
+						title={"Test"}
+						subtitle={"This is primary!"}
+						text_button_primary={"Succes"}
+						text_button_secondary={"Fail"}
+					/>
 				</div>
 			</div>
 		</div>
