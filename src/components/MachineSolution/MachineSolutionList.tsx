@@ -11,7 +11,6 @@ export function MachineSolutionList() {
 	const language = useAppSelector(getCurrentLanguage);
 
 	const selectedMachine = useAppSelector(getSelectedMachine);
-	console.log(selectedMachine);
 
 	const filteredSolutionsMachine = solutions.filter((solution: SolutionType) => solution.machine_id === selectedMachine.machine_id);
 	const filteredSolutionsLanguage = filteredSolutionsMachine.filter((solution: SolutionType) => solution.language === language);
