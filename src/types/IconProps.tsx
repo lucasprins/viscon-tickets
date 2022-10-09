@@ -5,3 +5,8 @@ export type IconProps = {
     strokeWidth?: number,
     direction?: string
 }
+
+export type IconFlagProps = {
+    size: string,
+    language: string
+}

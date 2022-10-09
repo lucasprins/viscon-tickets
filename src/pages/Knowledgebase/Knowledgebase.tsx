@@ -7,22 +7,15 @@ import { InputDropdownSelectMachine } from '../../components/Input/InputDropdown
 import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
+import { getMachines, setSelectedMachine } from '../../features/machines/machinesSlice';
+import { getCurrentLanguage } from '../../features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 var translations = require('./KnowledgebaseTranslations.json');
 
 export function Knowledgebase() {
-	const [language, setLanguage] = React.useState('en');
-
-	const machines = [
-		{ machine_id: '1', name: 'Satteliet shuttle 1', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '2', name: 'Satteliet shuttle 2', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '3', name: 'Satteliet shuttle 3', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '4', name: 'Satteliet shuttle 4', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '5', name: 'Satteliet shuttle 5', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '6', name: 'Satteliet shuttle 6', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '7', name: 'Satteliet shuttle 7', blueprint_number: '02315', type: 'Satteliet shuttle' },
-		{ machine_id: '8', name: 'Satteliet shuttle 8', blueprint_number: '02315', type: 'Satteliet shuttle' },
-	]
+	const language = useAppSelector(getCurrentLanguage);
+	const machines = useAppSelector(getMachines);
 
 	return (
 		<div className='flex flex-col md:flex-row md:h-screen dark:bg-dark-800 dark:text-white overflow-x-hidden'>
@@ -33,7 +26,7 @@ export function Knowledgebase() {
 					title={translations[language].knowledgebase}
 					subtitle={translations[language].knowledgebase_subtitle} />
 				<Divider />
-				<InputDropdownSelectMachine machines={machines} label={translations[language].search_machine} />
+				<InputDropdownSelectMachine label={translations[language].search_machine} />
 				<InlineCTA
 					title={translations[language].cant_find_solution_title}
 					text={translations[language].cant_find_solution_text}
@@ -46,7 +39,7 @@ export function Knowledgebase() {
 			{/* Solutions */}
 			<div className='flex flex-col w-full gap-6 px-6 pb-6 md:pt-6 lg:p-8'>
 				<div className=''>
-					<Breadcrumbs crumbs={['Knowledgebase']} />
+					<Breadcrumbs crumbs={[translations[language].knowledgebase]} />
 				</div>
 				<Divider />
 				<MachineSolutionList />
