@@ -9,7 +9,7 @@ import { IconChevron } from '../Icons/IconChevron';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { getCurrentLanguage } from '../../features/user/userSlice';
 
-var translations = require('../../translations/SidebarTranslations.json');
+var translations = require('../../translations/sidebarTranslations.json');
 
 export function NavigationAdminMenu() {
     const language = useAppSelector(getCurrentLanguage);

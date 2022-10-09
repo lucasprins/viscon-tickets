@@ -21,7 +21,7 @@ export enum LanguagesEnum {
     NL
 }
 
-var translations = require('../../translations/SidebarTranslations.json');
+var translations = require('../../translations/sidebarTranslations.json');
 
 export function NavigationSidebar() {
     const dispatch = useAppDispatch();
