@@ -16,7 +16,7 @@ export function MachineSolutionList() {
 	const filteredSolutionsLanguage = filteredSolutionsMachine.filter((solution: SolutionType) => solution.language === language);
 
 	return (
-		<div className='flex flex-col h-min gap-6 w-full overflow-clip' >
+		<div className='flex flex-col h-min gap-6 w-full' >
 			{filteredSolutionsLanguage.map((solution: SolutionType) => (
 				<MachineSolution key={solution.solution_id} solution={solution} machine={selectedMachine} />
 			))}
