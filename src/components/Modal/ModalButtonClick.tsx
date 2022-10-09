@@ -6,7 +6,7 @@ import { IconAlert } from '../Icons/IconAlert';
 import { IconCheck } from '../Icons/IconCheck';
 
 export enum ModalType {
-    PRIMARY,
+    CHECK,
     ERROR,
     SUCCESS
 }
@@ -41,20 +41,23 @@ export function Modal({ type, title, subtitle, text_button_secondary, text_butto
     let modalIcon;
     let modalPrimaryButtonColor;
     switch (type) {
-        case ModalType.PRIMARY:
-            modalIcon = <IconCheck size='17' color='stroke-primary-500' fill='fill-primary-500' />;
+      //Check asks the user if they are sure about choice
+        case ModalType.CHECK:
+            modalIcon = <IconAlert size='30' color='stroke-primary-500' fill='fill-primary-500' />;
             modalTypeIcon = FeaturedIconType.PRIMARY;
             modalTypeStyle = "py-2.5 px-5 font-semibold";
             modalPrimaryButtonColor = ButtonType.PRIMARY
             break;
+      //ERROR is used when error appears or if user is going to quit (premature) without saving it ;)
         case ModalType.ERROR:
-            modalIcon = <IconAlert size='20' color='stroke-error-500' fill='fill-error-500' />;
+            modalIcon = <IconAlert size='30' color='stroke-error-500' fill='fill-error-500' />;
             modalTypeIcon = FeaturedIconType.ERROR;
             modalTypeStyle = "py-2.5 px-4 font-semibold text-sm";
             modalPrimaryButtonColor = ButtonType.SECONDARY_RED;
             break;
+        //SUCCES is used when an interaction from user has been succesfull completed. Like sending filled in ticket
         case ModalType.SUCCESS:
-            modalIcon = <IconCheck size='17' color='stroke-primary-500' fill='fill-primary-500' />;
+            modalIcon = <IconCheck size='30' color='stroke-primary-500' fill='fill-succes-500' />;
             modalTypeIcon = FeaturedIconType.SUCCESS;
             modalTypeStyle = "py-2 px-3.5 font-semibold text-sm";
             modalPrimaryButtonColor = ButtonType.PRIMARY;   

@@ -41,9 +41,9 @@ export function Playground() {
 						text_button_secondary={"Fail"}
 					/>
 					<Modal 
-						type={ModalType.PRIMARY}
+						type={ModalType.CHECK}
 						title={"Test"}
-						subtitle={"This is primary!"}
+						subtitle={"This is Check?!"}
 						text_button_primary={"Succes"}
 						text_button_secondary={"Fail"}
 					/>
