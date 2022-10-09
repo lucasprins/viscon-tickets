@@ -10,7 +10,7 @@ type NavigationMobileTypes = {
 export const NavigationMobile = ({ openSidebar }: NavigationMobileTypes) => {
 	return (
 		<>
-			<div className='z-50 drop-shadow-sm sticky inset-0 bg-white dark:bg-dark-700 dark:border-dark-500 flex items-center md:hidden justify-between py-3 pr-3 pl-6 border-b border-gray-200'>
+			<div className='z-10 drop-shadow-sm sticky inset-0 bg-white dark:bg-dark-700 dark:border-dark-500 flex items-center md:hidden justify-between py-3 pr-3 pl-6 border-b border-gray-200'>
 				<Link to='/'>
 					<h2 className='text-lg text-gray-900 font-semibold dark:font-medium dark:text-white'>Viscon Tickets</h2>
 				</Link>

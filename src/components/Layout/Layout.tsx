@@ -14,7 +14,7 @@ export default function Layout() {
 	return (
 		<>
 			<NavigationMobile openSidebar={toggleSidebar} />
-			<Backdrop state={sidebar} close={toggleSidebar} />
+			<Backdrop state={sidebar} z_index='z-20' close={toggleSidebar} />
 			<NavigationSidebarMobile state={sidebar} />
 			<NavigationSidebarDesktop />
 		</>

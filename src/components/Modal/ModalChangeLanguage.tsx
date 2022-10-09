@@ -24,7 +24,7 @@ export function ModalChangeLanguage() {
     };
 
     return (
-        <Dialog className='z-50 absolute inset-0 flex items-center justify-center' open={isOpen} onClose={closeModal}>
+        <Dialog className='z-50 absolute inset-0 flex items-center p-6 lg:p-0 justify-center' open={isOpen} onClose={closeModal}>
             <Dialog.Panel className='bg-white dark:bg-dark-800 w-full lg:w-96 flex flex-col items-center gap-6 p-6 rounded-xl drop-shadow'>
                 <div className='flex justify-between items-center w-full'>
                     <Dialog.Title className='text-gray-900 dark:text-white text-xl font-semibold'>Select a language</Dialog.Title>

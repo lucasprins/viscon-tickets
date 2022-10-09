@@ -12,7 +12,7 @@ function App() {
 	return (
 		<>
 			<ModalChangeLanguage />
-			<Backdrop state={backdropState} />
+			<Backdrop state={backdropState} z_index='z-40' />
 			<Router>
 				<Routes>
 					{routes.map(({ path, component }, key) => (
