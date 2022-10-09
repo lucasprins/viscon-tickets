@@ -39,7 +39,7 @@ export function Knowledgebase() {
 			{/* Solutions */}
 			<div className='flex flex-col w-full gap-6 px-6 pb-6 md:pt-6 lg:p-8'>
 				<div className=''>
-					<Breadcrumbs crumbs={['Knowledgebase']} />
+					<Breadcrumbs crumbs={[translations[language].knowledgebase]} />
 				</div>
 				<Divider />
 				<MachineSolutionList />
