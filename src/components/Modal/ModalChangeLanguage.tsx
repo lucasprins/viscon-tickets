@@ -6,8 +6,7 @@ import { getCurrentLanguage, setLanguage } from '../../features/user/userSlice';
 import { Button, ButtonSize, ButtonType, ButtonWidth } from '../Button/Button';
 import { IconClose } from '../Icons/IconClose';
 import { ButtonIcon } from '../Button/ButtonIcon';
-import { IconNL } from '../Icons/Flags/IconNL';
-import { IconGB } from '../Icons/Flags/IconEN';
+import { IconFlag } from '../Icons/IconFlag';
 import { IconCheck } from '../Icons/IconCheck';
 
 export function ModalChangeLanguage() {
@@ -33,7 +32,7 @@ export function ModalChangeLanguage() {
                 </div>
                 <div className='flex flex-col w-full gap-4'>
                     <div className='flex items-center gap-4'>
-                        <IconNL size='32' />
+                        <IconFlag language='nl' size='32' />
                         <Button
                             size={ButtonSize.MEDIUM}
                             width={ButtonWidth.FULL}
@@ -44,7 +43,7 @@ export function ModalChangeLanguage() {
                         />
                     </div>
                     <div className='flex items-center gap-4'>
-                        <IconGB size='32' />
+                        <IconFlag language='en' size='32' />
                         <Button
                             size={ButtonSize.MEDIUM}
                             width={ButtonWidth.FULL}

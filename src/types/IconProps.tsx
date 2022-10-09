@@ -7,5 +7,6 @@ export type IconProps = {
 }
 
 export type IconFlagProps = {
-    size: string
+    size: string,
+    language: string
 }

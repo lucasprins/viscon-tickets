@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { toggleBackdrop, toggleLanguageModal } from '../../features/modal/modalSlice'
 import { getCurrentLanguage } from '../../features/user/userSlice'
 import { useAppDispatch } from '../../hooks/reduxHooks'
+import { IconFlag } from '../Icons/IconFlag'
 import { IconBell } from '../Icons/IconBell'
 import { IconBook } from '../Icons/IconBook'
 import { IconCube } from '../Icons/IconCube'
@@ -16,11 +17,15 @@ import { NavigationAdminMenu } from './NavigationAdminMenu'
 import { NavigationHeader } from './NavigationHeader'
 import { NavigationItem } from './NavigationItem'
 
+export enum LanguagesEnum {
+    NL
+}
+
 var translations = require('../../translations/SidebarTranslations.json');
 
 export function NavigationSidebar() {
     const dispatch = useAppDispatch();
-    const language = useSelector(getCurrentLanguage);
+    const language: string = useSelector(getCurrentLanguage);
     const root = document.getElementsByTagName('html')[0];
 
 	const openLanguageModal = () => {
@@ -54,7 +59,7 @@ export function NavigationSidebar() {
             {/* Navigation Footer */}
             <div className='flex flex-col gap-y-6 px-4'>
                 <ul className='flex flex-col gap-y-2'>
-                    <NavigationItem name={translations[language].language} onclick={openLanguageModal} icon={<IconGlobe size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
+                    <NavigationItem name={translations[language].language} onclick={openLanguageModal} icon={<IconFlag language={language} size='24' />} />
                     <NavigationItem name={translations[language].notifications} url='notifications' icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                     <NavigationItem name={translations[language].account} url='account' icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
                 </ul>
