@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Disclosure } from '@headlessui/react'
+import React, { Fragment, useState } from 'react'
+import { Disclosure, Transition } from '@headlessui/react'
 import { IconBuilding } from '../Icons/IconBuilding';
 import { IconGear } from '../Icons/IconGear';
 import { IconLightbulb } from '../Icons/IconLightbulb';
@@ -41,15 +41,24 @@ export function NavigationAdminMenu() {
                             <IconChevron size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' direction={open ? 'down' : 'up'} />
                         </Disclosure.Button>
                     </div>
-                    <Disclosure.Panel>
-                        <div className='absolute bg-gray-100 md:bg-white dark:bg-dark-600 md:dark:bg-dark-700 rounded-md py-1.5 w-64 flex flex-col gap-y-3'>
-                            <div className='flex flex-col gap-y-2'>
-                                {navigationItems.map((item) => (
-                                    <div key={item.props.name}>{item}</div>
-                                ))}
+                    <Transition
+                        as={Fragment}
+                        enter="ease-out duration-200"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0">
+                        <Disclosure.Panel>
+                            <div className='absolute bg-gray-100 md:bg-white dark:bg-dark-600 md:dark:bg-dark-700 rounded-md py-1.5 w-64 flex flex-col gap-y-3'>
+                                <div className='flex flex-col gap-y-2'>
+                                    {navigationItems.map((item) => (
+                                        <div key={item.props.name}>{item}</div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    </Disclosure.Panel>
+                        </Disclosure.Panel>
+                    </Transition>
                 </>
             )}
         </Disclosure>
