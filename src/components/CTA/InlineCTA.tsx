@@ -1,13 +1,13 @@
 import React from 'react'
-import { Button, ButtonSize, ButtonType, ButtonWidth } from '../Button/Button'
+import { Button } from '../Button/Button'
 
 type InlineCTAProps = {
 	title: string,
 	text: string,
 	url: string,
 	button_text: string,
-	button_size: ButtonSize,
-	button_type: ButtonType
+	button_size: 'small' | 'medium' | 'large',
+	button_type: 'primary' | 'secondary-gray' | 'secondary-color' | 'tertiary-gray' | 'tertiary-color' | 'error'
 }
 
 export function InlineCTA({ title, text, url, button_text, button_size, button_type }: InlineCTAProps) {
@@ -21,7 +21,7 @@ export function InlineCTA({ title, text, url, button_text, button_size, button_t
 				size={button_size}
 				type={button_type}
 				text={button_text}
-				width={ButtonWidth.FULL}
+				width='full'
 				url={url}
 			/>
 		</div>

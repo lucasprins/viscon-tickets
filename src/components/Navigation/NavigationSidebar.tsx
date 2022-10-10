@@ -17,10 +17,6 @@ import { NavigationAdminMenu } from './NavigationAdminMenu'
 import { NavigationHeader } from './NavigationHeader'
 import { NavigationItem } from './NavigationItem'
 
-export enum LanguagesEnum {
-    NL
-}
-
 var translations = require('../../translations/sidebarTranslations.json');
 
 export function NavigationSidebar() {

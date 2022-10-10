@@ -1,20 +1,20 @@
 import { render } from "@testing-library/react";
-import { Button, ButtonSize, ButtonType, ButtonWidth } from "./Button";
+import { Button } from "./Button";
 
 describe("Button", () => {
     it("renders", () => {
         const { queryAllByText } = render(<Button
-            size={ButtonSize.MEDIUM}
-            type={ButtonType.PRIMARY}
+            size='medium'
+            type='primary'
             text="Foobar"
-            width={ButtonWidth.FULL}
+            width='full'
         />);
 
         const { container } = render(<Button
-            size={ButtonSize.MEDIUM}
-            type={ButtonType.PRIMARY}
+            size='medium'
+            type='primary'
             text="Foo"
-            width={ButtonWidth.FULL}
+            width='full'
         />);
 
         expect(queryAllByText("Foobar")).toHaveLength(1);

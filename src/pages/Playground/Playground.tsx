@@ -4,7 +4,6 @@ import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../componen
 import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconVideo } from '../../components/Icons/IconVideo';
 import Layout from '../../components/Layout/Layout';
-import { Button, ButtonSize, ButtonType, ButtonWidth } from '../../components/Button/Button';
 import { Modal } from '../../components/Modal/Modal';
 
 
@@ -26,7 +25,7 @@ export function Playground() {
 				</div>
 
 				{/* Modals */}
-				<div className="flex flex-row">
+				{/* <div className="flex flex-row">
 					<Modal
 						type='error'
 						title={"Are you sure you want to leave?"}
@@ -46,7 +45,7 @@ export function Playground() {
 						button_primary_text={"Yes"}
 						button_secondary_text={"No"}
 					/>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

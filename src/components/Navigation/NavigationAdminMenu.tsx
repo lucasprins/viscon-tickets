@@ -12,7 +12,7 @@ import { getCurrentLanguage } from '../../features/user/userSlice';
 var translations = require('../../translations/sidebarTranslations.json');
 
 export function NavigationAdminMenu() {
-    const language = useAppSelector(getCurrentLanguage);
+    const language: string = useAppSelector(getCurrentLanguage);
     const [userType, setUserType] = useState('viscon');
     const [userIsAdmin, setUserIsAdmin] = useState(true);
 
