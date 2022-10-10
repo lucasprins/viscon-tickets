@@ -1,5 +1,6 @@
 import React from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
+import { Button } from '../../components/Button/Button';
 import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../components/FeaturedIcon/FeaturedIcon';
 import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconVideo } from '../../components/Icons/IconVideo';
@@ -24,28 +25,42 @@ export function Playground() {
 					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.XL} icon={<IconVideo size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
 				</div>
 
-				{/* Modals */}
-				{/* <div className="flex flex-row">
-					<Modal
-						type='error'
-						title={"Are you sure you want to leave?"}
-						subtitle={"If you leave this page, any progress will be lost."}
-						button_primary_text={"Yes"}
-						button_secondary_text={"No"}
-					/>
-					<Modal
-						type='success'
-						title={"Perfect! Your ticket has been created."}
-						button_primary_text={"Dashboard"}
-						button_secondary_text={"View ticket"}
-					/>
-					<Modal
-						type='primary'
-						title={"Are you sure your problem is not in the knowledgebase?"}
-						button_primary_text={"Yes"}
-						button_secondary_text={"No"}
-					/>
-				</div> */}
+				<Button
+					size='medium'
+					width='full'
+					type='primary'
+					text="English"
+				/>
+				<Button
+					size='medium'
+					width='full'
+					type='secondary-gray'
+					text="English"
+				/>
+				<Button
+					size='medium'
+					width='full'
+					type='secondary-color'
+					text="English"
+				/>
+				<Button
+					size='medium'
+					width='full'
+					type='tertiary-gray'
+					text="English"
+				/>
+				<Button
+					size='medium'
+					width='full'
+					type='tertiary-color'
+					text="English"
+				/>
+				<Button
+					size='medium'
+					width='full'
+					type='error'
+					text="English"
+				/>
 			</div>
 		</div>
 	);

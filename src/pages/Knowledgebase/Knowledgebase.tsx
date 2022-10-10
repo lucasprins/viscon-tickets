@@ -9,7 +9,7 @@ import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
 import { Modal } from '../../components/Modal/Modal';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-import { getKnowledgebaseModal, toggleBackdrop, toggleKnowledgebaseModal } from '../../features/modal/modalSlice';
+import { toggleBackdrop, toggleKnowledgebaseModal } from '../../features/modal/modalSlice';
 import { getCurrentLanguage } from '../../features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
@@ -17,38 +17,9 @@ var translations = require('./KnowledgebaseTranslations.json');
 
 export function Knowledgebase() {
 	const language = useAppSelector(getCurrentLanguage);
-	const isOpen = useAppSelector(getKnowledgebaseModal);
-	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
-
-	const closeModal = () => {
-		dispatch(toggleBackdrop());
-		dispatch(toggleKnowledgebaseModal());
-	};
-
-	const openModal = () => {
-		dispatch(toggleBackdrop());
-		dispatch(toggleKnowledgebaseModal());
-		console.log('toggled modal');
-	};
-
-	const onclickPrimary = () => {
-		closeModal();
-		navigate('/knowledgebase/create-ticket');
-	}
 
 	return (
 		<>
-			<Modal
-				type='error'
-				title={"Are you sure you want to leave?"}
-				subtitle={"If you leave this page, any progress will be lost."}
-				is_open={isOpen}
-				close_modal={closeModal}
-				button_primary_text={"Yes"}
-				button_secondary_text={"No"}
-				button_primary_onclick={onclickPrimary}
-			/>
 			<div className='flex flex-col md:flex-row md:h-screen dark:bg-dark-800 dark:text-white overflow-x-hidden'>
 				<Layout />
 				{/* Sidebar */}
@@ -65,13 +36,6 @@ export function Knowledgebase() {
 						button_text={translations[language].create_ticket}
 						button_size='medium'
 						button_type='primary'
-					/>
-					<Button
-						size='large'
-						type='primary'
-						text='asdasd'
-						width='full'
-						onclick={openModal}
 					/>
 				</div>
 				{/* Solutions */}

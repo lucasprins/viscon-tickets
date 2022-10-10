@@ -1,7 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { getKnowledgebaseModal } from '../../features/modal/modalSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { Button } from '../Button/Button';
 import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../FeaturedIcon/FeaturedIcon';
 import { IconAlert } from '../Icons/IconAlert';
