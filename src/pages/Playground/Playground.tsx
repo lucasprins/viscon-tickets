@@ -26,7 +26,7 @@ export function Playground() {
 				</div>
 
 				<div className='flex gap-x-2'>
-					<InputField type={InputType.ICON} text='First Name' icon={<IconPhone size='20' color='stroke-gray-500 dark:stroke-white' fill='' />} />
+					<InputField disabled={true} disabled_value={'Lucas Prins'} type={InputType.ICON} text='First Name' icon={<IconPhone size='20' color='stroke-gray-500 dark:stroke-white' fill='' />} />
 					<InputField type={InputType.ICONLESS} text='Last Name' />
 				</div>
 

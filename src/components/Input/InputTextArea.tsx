@@ -5,24 +5,18 @@ type InputTextArea = {
 };
 
 export function InputTextArea({ text }: InputTextArea) {
-
-	const [value, setValue] = useState<string>('')
+	const [value, setValue] = useState<string>('');
 
 	return (
-		<form
-			className="w-full"
-			onSubmit={x => {x.preventDefault()}}
+		<textarea
+			className='h-48 w-full bg-white border rounded-lg stroke-gray-300 px-3.5 py-3 text-md font-normal dark:bg-dark-700 dark:text-gray-300 dark:border-dark-500'
+			placeholder={text}
+			value={value}
+			onChange={x => {
+				setValue(x.target.value)
+				// console.log({ value: value})
+			}}
 		>
-            <textarea
-				className='pb-40 h-full w-full bg-white border rounded-lg stroke-gray-300 px-3.5 py-3 text-md font-normal dark:bg-dark-700 dark:text-gray-300 dark:border-dark-500'
-				placeholder={text}
-				value={value}
-				onChange={x => {
-					setValue(x.target.value)
-					// console.log({ value: value})
-				}}
-				>
-			</textarea>
-        </form>
+		</textarea>
 	);
 };
