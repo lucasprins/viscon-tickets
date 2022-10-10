@@ -4,7 +4,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { Button } from '../../components/Button/Button';
 import { InlineCTA } from '../../components/CTA/InlineCTA';
 import { Divider } from '../../components/Divider/Divider';
-import { InputDropdownSelectMachine } from '../../components/Input/InputDropdownSelect';
+import { InputDropdownMachine } from '../../components/Input/InputDropdownMachine';
 import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
 import { Modal } from '../../components/Modal/Modal';
@@ -28,7 +28,7 @@ export function Knowledgebase() {
 						title={translations[language].knowledgebase}
 						subtitle={translations[language].knowledgebase_subtitle} />
 					<Divider />
-					<InputDropdownSelectMachine label={translations[language].search_machine} />
+					<InputDropdownMachine label={translations[language].search_machine} />
 					<InlineCTA
 						title={translations[language].cant_find_solution_title}
 						text={translations[language].cant_find_solution_text}

@@ -10,7 +10,7 @@ type DropdownSelectProps = {
     label?: string
 }
 
-export function InputDropdownSelectMachine({ label }: DropdownSelectProps) {
+export function InputDropdownMachine({ label }: DropdownSelectProps) {
     const machines = useAppSelector(getMachines);
     const selectedMachine = useAppSelector(getSelectedMachine);
     const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export function InputDropdownSelectMachine({ label }: DropdownSelectProps) {
     };
 
     return (
-        <div className='w-96'>
+        <div>
             <Listbox value={selectedMachine} onChange={onChange}>
                 <div className='relative'>
                     <div className='mb-1.5'>

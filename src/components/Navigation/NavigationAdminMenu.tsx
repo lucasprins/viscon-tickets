@@ -50,7 +50,7 @@ export function NavigationAdminMenu() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
                         <Disclosure.Panel>
-                            <div className='absolute bg-gray-100 md:bg-white dark:bg-dark-600 md:dark:bg-dark-700 rounded-md py-1.5 w-64 flex flex-col gap-y-3'>
+                            <div className='absolute backdrop-blur-lg md:bg-white dark:bg-dark-600 md:dark:bg-dark-700 rounded-md py-1.5 w-64 flex flex-col gap-y-3'>
                                 <div className='flex flex-col gap-y-2'>
                                     {navigationItems.map((item) => (
                                         <div key={item.props.name}>{item}</div>
