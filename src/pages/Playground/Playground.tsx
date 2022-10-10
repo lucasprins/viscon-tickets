@@ -5,7 +5,7 @@ import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconVideo } from '../../components/Icons/IconVideo';
 import Layout from '../../components/Layout/Layout';
 import { Button, ButtonSize, ButtonType, ButtonWidth } from '../../components/Button/Button';
-import {Modal, ModalType} from '../../components/Modal/ModalButtonClick';
+import { Modal } from '../../components/Modal/Modal';
 
 
 export function Playground() {
@@ -24,28 +24,27 @@ export function Playground() {
 					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.LG} icon={<IconVideo size='21' color='stroke-primary-500' fill='fill-primary-500' />} />
 					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.XL} icon={<IconVideo size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
 				</div>
+
+				{/* Modals */}
 				<div className="flex flex-row">
-					
-					<Modal 
-						type={ModalType.ERROR}
-						title={"Test"}
-						subtitle={"This is error!"}
-						text_button_primary={"Succes"}
-						text_button_secondary={"Fail"}
+					<Modal
+						type='error'
+						title={"Are you sure you want to leave?"}
+						subtitle={"If you leave this page, any progress will be lost."}
+						button_primary_text={"Yes"}
+						button_secondary_text={"No"}
 					/>
-					<Modal 
-						type={ModalType.SUCCESS}
-						title={"Test"}
-						subtitle={"This is succes!"}
-						text_button_primary={"Succes"}
-						text_button_secondary={"Fail"}
+					<Modal
+						type='success'
+						title={"Perfect! Your ticket has been created."}
+						button_primary_text={"Dashboard"}
+						button_secondary_text={"View ticket"}
 					/>
-					<Modal 
-						type={ModalType.CHECK}
-						title={"Test"}
-						subtitle={"This is Check?!"}
-						text_button_primary={"Succes"}
-						text_button_secondary={"Fail"}
+					<Modal
+						type='primary'
+						title={"Are you sure your problem is not in the knowledgebase?"}
+						button_primary_text={"Yes"}
+						button_secondary_text={"No"}
 					/>
 				</div>
 			</div>
