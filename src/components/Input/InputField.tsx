@@ -29,7 +29,7 @@ export function InputField({ type, text, icon }: InputFieldProps) {
             className="w-full"
             onSubmit={x => {
             x.preventDefault()
-            console.log({ value: value })
+            // console.log({ value: value })
         }}
         >
             <div className="relative flex items-center text-gray-900">
