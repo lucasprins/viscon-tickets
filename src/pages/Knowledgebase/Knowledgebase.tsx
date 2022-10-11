@@ -1,17 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
-import { Button } from '../../components/Button/Button';
 import { InlineCTA } from '../../components/CTA/InlineCTA';
 import { Divider } from '../../components/Divider/Divider';
 import { InputDropdownMachine } from '../../components/Input/InputDropdownMachine';
 import Layout from '../../components/Layout/Layout';
 import { MachineSolutionList } from '../../components/MachineSolution/MachineSolutionList';
-import { Modal } from '../../components/Modal/Modal';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-import { toggleBackdrop, toggleKnowledgebaseModal } from '../../features/modal/modalSlice';
 import { getCurrentLanguage } from '../../features/user/userSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 var translations = require('./KnowledgebaseTranslations.json');
 

@@ -2,10 +2,8 @@ import React from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { Button } from '../../components/Button/Button';
 import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../components/FeaturedIcon/FeaturedIcon';
-import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconVideo } from '../../components/Icons/IconVideo';
 import Layout from '../../components/Layout/Layout';
-import { Modal } from '../../components/Modal/Modal';
 
 
 export function Playground() {

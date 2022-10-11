@@ -1,27 +1,33 @@
 {
     "nl": {
-        "view-solutions": "",
-        "view-solutions-subtitle": "",
-        "contact-information": "",
-        "contact-information-subtitle": "",
-        "describe-issue": "",
-        "describe-issue-subtitle": "",
-        "add-attachments": "",
-        "add-attachments-subtitle": "",
-        "select-machine": "Kies een machine",
-        "cancel-ticket": "Ticket annuleren"
+        "view_solutions": "Veelvoorkomende oplossingen",
+        "view_solutions_subtitle": "Bekijk een reeks gebruikelijke problemen en hun oplossingen.",
+        "view_solutions_subtitle_long": "Selecteer een machine en zorg ervoor dat u alle oplossingen voor uw probleem hebt geprobeerd.",
+        "contact_information": "Contact informatie",
+        "contact_information_subtitle": "Verander alstublieft het telefoonnummer als dat nodig is.",
+        "describe_issue": "Omschrijf het probleem",
+        "describe_issue_subtitle": "Beschrijf zorgvuldig wat er mis gaat en wat u ziet.",
+        "add_attachments": "Bijlage toevoegen",
+        "add_attachments_subtitle": "Voeg alstublieft zoveel mogelijk relevante bijlage toe.",
+        "review": "Controleren",
+        "review_subtitle": "Controleer alstublieft of alle ingevoerde informatie klopt.",
+        "select_machine": "Kies een machine",
+        "cancel_ticket": "Ticket annuleren"
 
     },
     "en": {
-        "view-solutions": "View common solutions",
-        "view-solutions-subtitle": "View a range of problems with their common solutions.",
-        "contact-information": "",
-        "contact-information-subtitle": "",
-        "describe-issue": "",
-        "describe-issue-subtitle": "",
-        "add-attachments": "",
-        "add-attachments-subtitle": "",
-        "select-machine": "Select a machine",
-        "cancel-ticket": "Cancel ticket"
+        "view_solutions": "View common solutions",
+        "view_solutions_subtitle": "View a range of problems with their common solutions.",
+        "view_solutions_subtitle_long": "Please select a machine and make sure you have tried all the common solutions for your problem.",
+        "contact_information": "Contact information",
+        "contact_information_subtitle": "Please change the default phone number if necessary.",
+        "describe_issue": "Describe the issue",
+        "describe_issue_subtitle": "Please describe carefully what is going wrong and what you are seeing.",
+        "add_attachments": "Add attachments",
+        "add_attachments_subtitle": "Please provide us with as many photos and videos as you can.",
+        "review": "Validate",
+        "review_subtitle": "Please check if all information has been entered correctly.",
+        "select_machine": "Select a machine",
+        "cancel_ticket": "Cancel ticket"
     }
 }
