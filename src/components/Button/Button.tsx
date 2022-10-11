@@ -8,10 +8,11 @@ type ButtonProps = {
     text: string,
     icon?: JSX.Element,
     url?: string,
-    onclick?: () => any
+    onclick?: () => any,
+    formType?: "submit" | "button" | "reset"
 }
 
-export function Button({ size, width, type, text, icon, url, onclick }: ButtonProps) {
+export function Button({ size, width, type, text, icon, url, onclick, formType }: ButtonProps) {
     const buttonWidthStyle = width === 'full' ? "w-full" : "";
     let buttonSizeStyle = "";
     let buttonTypeStyle = "";
@@ -53,14 +54,14 @@ export function Button({ size, width, type, text, icon, url, onclick }: ButtonPr
             {url
                 ?
                 <Link to={url} className={buttonWidthStyle}>
-                    <button onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
+                    <button type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
                 flex justify-center items-center gap-x-2.5 rounded-lg`}>
                         {icon}
                         {text}
                     </button>
                 </Link>
                 :
-                <button onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
+                <button type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
                 flex justify-center items-center gap-x-2.5 rounded-lg`}>
                     {icon}
                     {text}

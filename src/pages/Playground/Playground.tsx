@@ -5,7 +5,7 @@ import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../componen
 import { IconBuilding } from '../../components/Icons/IconBuilding';
 import { IconPhone } from '../../components/Icons/IconPhone';
 import { IconVideo } from '../../components/Icons/IconVideo';
-import { InputField, InputType } from '../../components/Input/InputField';
+import { InputField } from '../../components/Input/InputField';
 import { InputTextArea } from '../../components/Input/InputTextArea';
 import Layout from '../../components/Layout/Layout';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
@@ -19,7 +19,7 @@ export function Playground() {
 			<div className='p-8 flex flex-col gap-y-5'>
 				<Breadcrumbs crumbs={['Playground']} />
 
-				<PageHeader title="Create a ticket" />
+				{/* <PageHeader title="Create a ticket" />
 
 				<Divider />
 
@@ -106,7 +106,7 @@ export function Playground() {
 					</div>
 				</div>
 
-				<Divider />
+				<Divider /> */}
 
 				{/* <div className='w-72 flex gap-2'>
 					<IconVideo size='24' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
