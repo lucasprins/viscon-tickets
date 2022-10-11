@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, ButtonSize, ButtonType, ButtonWidth } from '../../components/Button/Button';
+import { Button } from '../../components/Button/Button';
 import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../components/FeaturedIcon/FeaturedIcon';
 import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconTicket } from '../../components/Icons/IconTicket';
@@ -22,13 +22,13 @@ export function PageNotFound() {
 				</div>
 				{/* Actions Desktop */}
 				<div className='hidden lg:flex justify-center gap-3'>
-					<Button size={ButtonSize.LARGE} width={ButtonWidth.CONTENT} type={ButtonType.SECONDARY_GRAY} text={translations[language].button_secondary} url="/tickets" icon={<IconTicket size='20' color='stroke-gray-800 dark:stroke-white' fill='' />} />
-					<Button size={ButtonSize.LARGE} width={ButtonWidth.CONTENT} type={ButtonType.PRIMARY} text={translations[language].button_primary} url="/" />
+					<Button size='large' width='content' type='secondary-gray' text={translations[language].button_secondary} url="/tickets" icon={<IconTicket size='20' color='stroke-gray-800 dark:stroke-white' fill='' />} />
+					<Button size='large' width='content' type='primary' text={translations[language].button_primary} url="/" />
 				</div>
 				{/* Actions Mobile */}
 				<div className='flex lg:hidden flex-col justify-center gap-3'>
-					<Button size={ButtonSize.LARGE} width={ButtonWidth.FULL} type={ButtonType.PRIMARY} text={translations[language].button_primary} url="/" />
-					<Button size={ButtonSize.LARGE} width={ButtonWidth.FULL} type={ButtonType.SECONDARY_GRAY} text={translations[language].button_secondary} url="/tickets" icon={<IconTicket size='20' color='stroke-gray-800 dark:stroke-white' fill='' />} />
+					<Button size='large' width='content' type='primary' text={translations[language].button_primary} url="/" />
+					<Button size='large' width='content' type='secondary-gray' text={translations[language].button_secondary} url="/tickets" icon={<IconTicket size='20' color='stroke-gray-800 dark:stroke-white' fill='' />} />
 				</div>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ export function MachineSolution({ solution, machine }: MachineSolutionProps) {
 	const language = useAppSelector(getCurrentLanguage);
 	
 	return (
-		<div className='p-5 flex flex-col gap-4 bg-white dark:bg-dark-700 dark:border-dark-500 border-solid border border-gray-100 rounded-xl w-full drop-shadow dark:text-white'>
+		<div className='p-5 flex flex-col gap-4 bg-white dark:bg-dark-700 dark:border-dark-500 border-solid border border-gray-300 rounded-xl w-full drop-shadow-sm dark:text-white'>
 			<div className='flex flex-col gap-y-1'>
 				<h3 className=' text-gray-800 dark:text-white font-medium'>{solution.issue}</h3>
 				<p className=' text-gray-600 dark:text-dark-300'>{solution.solution}</p>

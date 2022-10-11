@@ -10,6 +10,7 @@ import { InputTextArea } from '../../components/Input/InputTextArea';
 import Layout from '../../components/Layout/Layout';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
 
+
 export function Playground() {
 
 	return (
@@ -125,6 +126,7 @@ export function Playground() {
 				<div>
 					<InputTextArea placeholder='Enter some text...' />
 				</div> */}
+
 			</div>
 		</div>
 	);

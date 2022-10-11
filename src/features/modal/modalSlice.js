@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     backdrop: false,
-    languageModal: false
+    languageModal: false,
 }
 
 const modalSlice = createSlice({
@@ -26,7 +26,8 @@ export const getLanguageModal = (state) => state.modal.languageModal;
 
 export const { 
     toggleBackdrop,
-    toggleLanguageModal, 
+    toggleLanguageModal,
+    toggleKnowledgebaseModal
 } = actions
 
 export default reducer;
