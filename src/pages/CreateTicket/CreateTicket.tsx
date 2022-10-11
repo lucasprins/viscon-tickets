@@ -22,12 +22,11 @@ import { UserType } from "../../types/UserType";
 var translations = require("../../translations/createTicketTranslations.json");
 
 export function CreateTicket() {
+	const [currentStep, setCurrentStep ] = useState(1);
 	const language = useAppSelector(getCurrentLanguage);
 	const dispatch = useAppDispatch();
-	const [currentStep, setCurrentStep ] = useState(1);
 
 	const user: UserType = useAppSelector(getUser);
-
 	const ticket = useAppSelector(getTicket);
 
 	const contactInitialValues = {
@@ -35,7 +34,7 @@ export function CreateTicket() {
 		lastName: user.lastName,
 		company: user.company,
 		phoneNumber: user.phoneNumber
-	}
+	};
 	
 	const openLanguageModal = () => {
 		dispatch(toggleBackdrop());
@@ -94,8 +93,7 @@ export function CreateTicket() {
 						<PageHeader title="Contact information" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
 						<Formik
 							initialValues={ticket.lastName === "" ? contactInitialValues : ticket}
-							onSubmit={submitContactInformation}
-						>
+							onSubmit={submitContactInformation}>
 							{({ errors, touched, isValidating }) => (
 								<Form className="flex flex-col gap-4 w-full">
 								<div className="flex gap-4 w-full">

@@ -14,18 +14,7 @@ type InputFieldProps = {
   error?: string | undefined;
 };
 
-export function InputField({
-  style,
-  type,
-  placeholder,
-  icon,
-  disabled,
-  id,
-  name,
-  validate,
-  error
-}: InputFieldProps) {
-  const [value, setValue] = useState<string>("");
+export function InputField({ style, type, placeholder, icon, disabled, id, name, validate, error }: InputFieldProps) {
   let iconStyling = "";
   let inputStyling = "";
   let borderStyling = "";
