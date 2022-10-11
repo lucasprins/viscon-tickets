@@ -1,0 +1,27 @@
+{
+    "nl": {
+        "view-solutions": "",
+        "view-solutions-subtitle": "",
+        "contact-information": "",
+        "contact-information-subtitle": "",
+        "describe-issue": "",
+        "describe-issue-subtitle": "",
+        "add-attachments": "",
+        "add-attachments-subtitle": "",
+        "select-machine": "Kies een machine",
+        "cancel-ticket": "Ticket annuleren"
+
+    },
+    "en": {
+        "view-solutions": "View common solutions",
+        "view-solutions-subtitle": "View a range of problems with their common solutions.",
+        "contact-information": "",
+        "contact-information-subtitle": "",
+        "describe-issue": "",
+        "describe-issue-subtitle": "",
+        "add-attachments": "",
+        "add-attachments-subtitle": "",
+        "select-machine": "Select a machine",
+        "cancel-ticket": "Cancel ticket"
+    }
+}

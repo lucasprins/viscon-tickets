@@ -52,9 +52,9 @@ export function Button({ size, width, type, text, icon, url, onclick }: ButtonPr
         <>
             {url
                 ?
-                <Link to={url}>
+                <Link to={url} className={buttonWidthStyle}>
                     <button onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                        flex justify-center items-center gap-x-2.5 rounded-lg`}>
+                flex justify-center items-center gap-x-2.5 rounded-lg`}>
                         {icon}
                         {text}
                     </button>
