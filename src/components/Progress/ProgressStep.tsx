@@ -34,8 +34,8 @@ export function ProgressStep({ title, subtitle, status, connector }: ProgressSte
       break;
     case "incomplete":
       progressStepIcon = (
-        <div className="flex bg-white rounded-full w-7 h-7 items-center justify-center border-2 border-gray-200 dark:border-dark-500 dark:bg-dark-800">
-          <div className="bg-gray-200 dark:bg-dark-400 w-2.5 h-2.5 rounded-full"></div>
+        <div className="flex bg-white rounded-full w-7 h-7 items-center justify-center border-2 border-gray-300 dark:border-dark-500 dark:bg-dark-800">
+          <div className="bg-gray-300 dark:bg-dark-400 w-2.5 h-2.5 rounded-full"></div>
         </div>
       );
       break;
