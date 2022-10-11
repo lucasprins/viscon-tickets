@@ -1,3 +1,4 @@
+import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { Divider } from "../../components/Divider/Divider";
@@ -34,7 +35,6 @@ export function CreateTicket() {
 						<ProgressStep title={translations[language].describe_issue} subtitle={translations[language].describe_issue_subtitle} status={currentStep === 3 ? 'current' : currentStep > 3 ? 'complete' : 'incomplete'} connector={false} />
 						<ProgressStep title={translations[language].add_attachments} subtitle={translations[language].add_attachments_subtitle} status={currentStep === 4 ? 'current' : currentStep > 4 ? 'complete' : 'incomplete'} connector={false}/>
 						<ProgressStep title={translations[language].review} subtitle={translations[language].review_subtitle} status={currentStep === 5 ? 'current' : currentStep > 5 ? 'complete' : 'incomplete'} connector={false}/>
-
 					</div>
 				</div>
 				<button onClick={openLanguageModal}><IconFlag language={language} size="24" /></button>
@@ -48,8 +48,8 @@ export function CreateTicket() {
 						<Divider />
 						<MachineSolutionList />
 						<div className="flex flex-row gap-4 pt-4">
-							<Button size="medium" width="full" type="secondary-gray" text="Cancel ticket" url="/" />
-							<Button size="medium" width="full" type="primary" text="Continue" onclick={() => setCurrentStep(2)} />
+							<Button size="medium" width="full" type="secondary-gray" text={translations[language].cancel_ticket} url="/" />
+							<Button size="medium" width="full" type="primary" text={translations[language].continue} onclick={() => setCurrentStep(2)} />
 						</div>
 					</div>
 				</div>}
@@ -58,9 +58,41 @@ export function CreateTicket() {
 				<div className="flex flex-col items-center w-2/3 pt-36 overflow-y-scroll">
 					<div className="w-2/3 flex flex-col gap-6">
 						<PageHeader title="Contact information" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
+						
+						
+						
+						
+						<Formik
+							initialValues={{
+								firstName: 'Lucas',
+								lastName: 'Prins',
+								company: 'Hogeschool Rotterdam',
+								phoneNumber: '+6985304041'
+							}}
+							onSubmit={() => console.log("submit")}
+						>
+							<Form className="flex flex-col gap-4">
+								<div className="flex flex-col">
+									<label htmlFor="firstName">First Name</label>
+									<Field className="" id="firstName" name="firstName" placeholder="John" />
+								</div>
+
+								<label htmlFor="lastName">Last Name</label>
+								<Field id="lastName" name="lastName" placeholder="Doe" />
+
+								<label htmlFor="email">Email</label>
+								<Field id="email" name="email" placeholder="john@acme.com" type="email" />
+
+								<button type="submit">Submit</button>
+							</Form>
+						</Formik>
+
+
+
+						
 						<div className="flex flex-row gap-4 pt-4">
-							<Button size="medium" width="full" type="secondary-gray" text="Back" onclick={() => setCurrentStep(1)} />
-							<Button size="medium" width="full" type="primary" text="Confirm" onclick={() => setCurrentStep(3)} />
+							<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(1)} />
+							<Button size="medium" width="full" type="primary" text={translations[language].confirm} onclick={() => setCurrentStep(3)} />
 						</div>
 					</div>
 				</div>}

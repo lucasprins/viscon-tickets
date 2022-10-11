@@ -1,12 +1,12 @@
 {
     "nl": {
         "blueprint_number": "Tekeningnummer",
-        "search_machine": "Kies een machine",
+        "search_machine": "Selecteer een machine",
         "cant_find_solution_title": "Kunt u uw probleem of oplossing niet vinden?",
         "cant_find_solution_text": "Zorg er alstublieft voor dat u zeker weet dat uw probleem niet in deze kennisbank staat voordat u een ticket aanmaakt.",
         "create_ticket": "Creëer een ticket",
         "knowledgebase": "Kennisbank",
-        "knowledgebase_subtitle": "Zoek voor een machine en bekijk alle veelvoorkomend problemen en oplossingen."
+        "knowledgebase_subtitle": "Selecteer een machine en bekijk alle veelvoorkomend problemen en oplossingen."
     },
     "en": {
         "blueprint_number": "Blueprint",

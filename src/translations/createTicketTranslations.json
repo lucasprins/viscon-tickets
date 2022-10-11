@@ -5,6 +5,7 @@
         "view_solutions_subtitle_long": "Selecteer een machine en zorg ervoor dat u alle oplossingen voor uw probleem hebt geprobeerd.",
         "contact_information": "Contact informatie",
         "contact_information_subtitle": "Verander alstublieft het telefoonnummer als dat nodig is.",
+        "contact_information_subtitle_long": "Controleer alstublieft.",
         "describe_issue": "Omschrijf het probleem",
         "describe_issue_subtitle": "Beschrijf zorgvuldig wat er mis gaat en wat u ziet.",
         "add_attachments": "Bijlage toevoegen",
@@ -12,7 +13,10 @@
         "review": "Controleren",
         "review_subtitle": "Controleer alstublieft of alle ingevoerde informatie klopt.",
         "select_machine": "Kies een machine",
-        "cancel_ticket": "Ticket annuleren"
+        "cancel_ticket": "Ticket annuleren",
+        "continue": "Verder gaan",
+        "back": "Terug",
+        "confirm": "Bevestigen"
 
     },
     "en": {
@@ -21,6 +25,7 @@
         "view_solutions_subtitle_long": "Please select a machine and make sure you have tried all the common solutions for your problem.",
         "contact_information": "Contact information",
         "contact_information_subtitle": "Please change the default phone number if necessary.",
+        "contact_information_subtitle_long": "Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here.",
         "describe_issue": "Describe the issue",
         "describe_issue_subtitle": "Please describe carefully what is going wrong and what you are seeing.",
         "add_attachments": "Add attachments",
@@ -28,6 +33,9 @@
         "review": "Validate",
         "review_subtitle": "Please check if all information has been entered correctly.",
         "select_machine": "Select a machine",
-        "cancel_ticket": "Cancel ticket"
+        "cancel_ticket": "Cancel ticket",
+        "continue": "Continue",
+        "back": "Back",
+        "confirm": "Confirm"
     }
 }
