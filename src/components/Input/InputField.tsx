@@ -7,13 +7,13 @@ export enum InputType {
 
 type InputFieldProps = {
     type: InputType,
-    text: string,
+    placeholder?: string,
     icon?: JSX.Element,
     disabled_value?: string,
     disabled?: boolean
 };
 
-export function InputField({ type, text, icon, disabled, disabled_value }: InputFieldProps) {
+export function InputField({ type, placeholder, icon, disabled, disabled_value }: InputFieldProps) {
     const [value, setValue] = useState<string>('')
     let iconStyling = "";
     let inputStyling = "";
@@ -34,8 +34,8 @@ export function InputField({ type, text, icon, disabled, disabled_value }: Input
                     </div>
                     <input
                         type='text'
-                        className={`${inputStyling} w-full bg-white border rounded-lg placeholder:text-gray-500 border-gray-300 outline-primary-300 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-gray-300 dark:border-dark-500`}
-                        placeholder={text}
+                        className={`${inputStyling} w-full bg-gray-50 border rounded-lg placeholder:text-gray-500 border-gray-300 outline-primary-300 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-gray-300 dark:border-dark-500`}
+                        placeholder={placeholder}
                         value={disabled_value}
                         disabled
                     >
@@ -49,7 +49,7 @@ export function InputField({ type, text, icon, disabled, disabled_value }: Input
                     <input
                         type='text'
                         className={`${inputStyling} w-full bg-white border rounded-lg placeholder:text-gray-500 border-gray-300 outline-primary-300 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-gray-300 dark:border-dark-500`}
-                        placeholder={text}
+                        placeholder={placeholder}
                         value={value}
                         onChange={x => setValue(x.target.value)}
                     >
