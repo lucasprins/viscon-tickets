@@ -31,9 +31,9 @@ export function InputField({
   let borderStyling = "";
 
   if(error) {
-    borderStyling = "border-error-500 focus:outline outline-2 outline-primary-300 dark:outline-error-600";
+    borderStyling = "border-error-500 focus:outline outline-2 outline-error-600";
   } else {
-    borderStyling = "border-gray-300 dark:border-dark-500 focus:outline outline-2 outline-primary-300 dark:outline-primary-600";
+    borderStyling = "border-gray-300 dark:border-dark-500 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";
   }
 
   switch (style) {
@@ -55,7 +55,7 @@ export function InputField({
             placeholder={placeholder}
             id={id}
             name={name}
-            className={`${inputStyling} ${borderStyling} cursor-not-allowed text-gray-500 w-full bg-gray-100 border rounded-lg placeholder:text-gray-500 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-gray-200 opacity-40`}
+            className={`${inputStyling} ${borderStyling} cursor-not-allowed text-gray-500 w-full bg-gray-100 border rounded-lg placeholder:text-gray-500 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-gray-200 opacity-50 dark:opacity-40`}
           ></Field>
         </div>
       ) : (
