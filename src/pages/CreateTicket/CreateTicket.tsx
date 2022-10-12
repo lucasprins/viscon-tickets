@@ -89,7 +89,7 @@ export function CreateTicket() {
 				{currentStep === 2 &&
 					<div className="flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:pt-36 overflow-y-scroll">
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
-							<PageHeader title="Contact information" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
+							<PageHeader title={translations[language].contact_information} subtitle={translations[language].contact_information_subtitle} />
 							<Formik
 								initialValues={ticket}
 								onSubmit={addContactInformation}>
@@ -97,20 +97,20 @@ export function CreateTicket() {
 									<Form className="flex flex-col gap-4 w-full">
 									<div className="flex gap-4 w-full">
 										<div className="flex flex-col w-full gap-1.5">
-											<InputLabel htmlFor="firstName" text="First Name" />
+											<InputLabel htmlFor="firstName" text={translations[language].First_name} />
 											<InputField style="iconless" type="text" id="firstName" name="firstName" disabled={true} />
 										</div>
 										<div className="flex flex-col w-full gap-1.5">
-											<InputLabel htmlFor="lastName" text="Last Name" />
+											<InputLabel htmlFor="lastName" text={translations[language].Last_name} />
 											<InputField style="iconless" type="text" id="lastName" name="lastName" disabled={true} />									
 										</div>
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
-										<InputLabel htmlFor="company" text="Company" />
+										<InputLabel htmlFor="company" text={translations[language].Company_name} />
 										<InputField style="icon" type="text" id="company" name="company" disabled={true} icon={<IconBuilding size='20' color='stroke-gray-500' fill='fill-primary-500' />}  />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
-										<InputLabel htmlFor="phoneNumber" text="Phone number" />
+										<InputLabel htmlFor="phoneNumber" text={translations[language].Phone_number} />
 										<InputField touched={touched.phoneNumber} error={errors.phoneNumber} validate={validatePhoneNumber} style="icon" type="tel" id="phoneNumber" name="phoneNumber" icon={<IconPhone size='20' color='stroke-gray-500' fill='stroke-gray-500' />}  />
 										<InputErrorMessage name="phoneNumber" />
 									</div>
@@ -127,30 +127,30 @@ export function CreateTicket() {
 				{currentStep === 3 &&
 					<div className="flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:pt-36 overflow-y-scroll">
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
-							<PageHeader title="Describe the issue" subtitle="Please describe carefully what is going wrong and what you are seeing. This will help us solve the issue as quickly as possible." />
+							<PageHeader title={translations[language].describe_issue} subtitle={translations[language].describe_issue_subtitle}/>
 							<Formik
 								initialValues={ticket}
 								onSubmit={addIssueInformation}>
 								{({ errors, touched, isValidating }) => (
 									<Form className="flex flex-col gap-4 w-full">
 									<div className="flex flex-col w-full gap-1.5">
-										<InputLabel htmlFor="issue" text="What do you see that is going wrong?" />
-										<InputTextArea touched={touched.issue} error={errors.issue} validate={validateTextarea} id="issue" name="issue" placeholder="Please describe carefully what is going wrong and what you are seeing. What is the issue?" />
+										<InputLabel htmlFor="issue" text={translations[language].describe_issue_specific} />
+										<InputTextArea touched={touched.issue} error={errors.issue} validate={validateTextarea} id="issue" name="issue" placeholder={translations[language].describe_placeholder_specific} />
 										<InputErrorMessage name="issue" />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
-										<InputLabel htmlFor="actionExpected" text="What do you expect to happen?" />
-										<InputTextArea touched={touched.actionExpected} error={errors.actionExpected} validate={validateTextarea} id="actionExpected" name="actionExpected" placeholder="What should happen if everything goes right?" />
+										<InputLabel htmlFor="actionExpected" text={translations[language].describe_issue_expectation} />
+										<InputTextArea touched={touched.actionExpected} error={errors.actionExpected} validate={validateTextarea} id="actionExpected" name="actionExpected" placeholder={translations[language].describe_placeholder_expectation} />
 										<InputErrorMessage name="actionExpected" />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
-										<InputLabel htmlFor="actionPerformed" text="What did you try already to fix the problem?" />
-										<InputTextArea touched={touched.actionPerformed} error={errors.actionPerformed} validate={validateTextarea} id="actionPerformed" name="actionPerformed" placeholder="Have you tried any solutions from the knowledge base yet?" />
+										<InputLabel htmlFor="actionPerformed" text={translations[language].describe_issue_tried} />
+										<InputTextArea touched={touched.actionPerformed} error={errors.actionPerformed} validate={validateTextarea} id="actionPerformed" name="actionPerformed" placeholder={translations[language].describe_placeholder_tried} />
 										<InputErrorMessage name="actionPerformed" />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
-										<InputLabel htmlFor="extraInformation" text="Extra information" />
-										<InputTextArea touched={touched.extraInformation} error={errors.extraInformation} validate={validateTextarea} id="extraInformation" name="extraInformation" placeholder="Do you have any extra information that could help us solve the issue as quickly as possible?" />
+										<InputLabel htmlFor="extraInformation" text={translations[language].describe_issue_extra_info} />
+										<InputTextArea touched={touched.extraInformation} error={errors.extraInformation} validate={validateTextarea} id="extraInformation" name="extraInformation" placeholder={translations[language].describe_placeholder_extra_info } />
 										<InputErrorMessage name="extraInformation" />
 									</div>
 
@@ -169,10 +169,10 @@ export function CreateTicket() {
 				{currentStep === 4 &&
 					<div className="flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:pt-36 overflow-y-scroll">
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
-							<PageHeader title="Add attachments" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
+							<PageHeader title={translations[language].add_attachments} subtitle={translations[language].add_attachments_subtitle} />
 							<div className="flex flex-row gap-4 pt-4">
-								<Button size="medium" width="full" type="secondary-gray" text="Back" onclick={() => setCurrentStep(3)} />
-								<Button size="medium" width="full" type="primary" text="Continue" onclick={() => setCurrentStep(5)} />
+								<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(3)} />
+								<Button size="medium" width="full" type="primary" text={translations[language].continue} onclick={() => setCurrentStep(5)} />
 							</div>
 						</div>
 					</div>}
@@ -180,9 +180,61 @@ export function CreateTicket() {
 				{currentStep === 5 &&
 					<div className="flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:pt-36 overflow-y-scroll">
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
-							<PageHeader title="Review ticket" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
+							<PageHeader title={translations[language].review} subtitle={translations[language].review_subtitle} />
 							
-							{/* FORM HIER :) Op de laatste button kan je zetten:  "Submit ticket"  ofz */}
+							<Formik
+								initialValues={ticket}
+								onSubmit={addContactInformation}>
+								{({ errors, touched, isValidating }) => (
+									<Form className="flex flex-col gap-4 w-full">
+									<div className="flex gap-4 w-full">
+										<div className="flex flex-col w-full gap-1.5">
+											<InputLabel htmlFor="firstName" text={translations[language].First_name} />
+											<InputField style="iconless" type="text" id="firstName" name="firstName" disabled={true} />
+										</div>
+										<div className="flex flex-col w-full gap-1.5">
+											<InputLabel htmlFor="lastName" text={translations[language].Last_name} />
+											<InputField style="iconless" type="text" id="lastName" name="lastName" disabled={true} />									
+										</div>
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="company" text={translations[language].Company_name} />
+										<InputField style="icon" type="text" disabled={true} id="company" name="company" icon={<IconBuilding size='20' color='stroke-gray-500' fill='fill-primary-500'  />}   />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="phoneNumber" text={translations[language].Phone_number} />
+										<InputField style="icon" type="tel" disabled={true} id="phoneNumber" name="phoneNumber" icon={<IconPhone size='20' color='stroke-gray-500' fill='stroke-gray-500' />}  />
+										<InputErrorMessage name="phoneNumber" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="issue" text={translations[language].describe_issue_specific} />
+										<InputTextArea id="issue" disabled={true} name="issue" placeholder={translations[language].describe_placeholder_specific} />
+										<InputErrorMessage name="issue" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="actionExpected" text={translations[language].describe_issue_expectation} />
+										<InputTextArea id="actionExpected" disabled={true} name="actionExpected" placeholder={translations[language].describe_placeholder_expectation} />
+										<InputErrorMessage name="actionExpected" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="actionPerformed" text={translations[language].describe_issue_tried} />
+										<InputTextArea id="actionPerformed" disabled={true} name="actionPerformed" placeholder={translations[language].describe_placeholder_tried} />
+										<InputErrorMessage name="actionPerformed" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="extraInformation" text={translations[language].describe_issue_extra_info} />
+										<InputTextArea  id="extraInformation" disabled={true} name="extraInformation" placeholder={translations[language].describe_placeholder_extra_info } />
+										<InputErrorMessage name="extraInformation" />
+									</div>
+
+									<div className="flex flex-row gap-4 pt-4">
+										<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(1)} />
+										<Button formType="submit" size="medium" width="full" type="primary" text={translations[language].confirm_create_ticket} />
+									</div>
+								</Form>
+								)}
+							</Formik>
+						
 
 						</div>
 					</div>}
