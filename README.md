@@ -1,6 +1,4 @@
-### Viscon Tickets
-
-## Available Scripts
+## Viscon Tickets
 
 In the project directory, you can run:
 
