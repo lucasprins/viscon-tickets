@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../utils/hooks';
 import { MachineType, SolutionType } from '../../../utils/types';
 import { Tag } from '../../atoms/Tag/Tag';
 
-var translations = require('../../pages/Knowledgebase/KnowledgebaseTranslations.json');
+var translations = require('../../../translations/knowledgebaseTranslations.json');
 
 type MachineSolutionProps = {
 	solution: SolutionType,

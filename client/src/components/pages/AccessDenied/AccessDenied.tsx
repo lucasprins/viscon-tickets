@@ -3,7 +3,7 @@ import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
 
-var translations = require('./AccessDeniedTranslations.json');
+var translations = require('../../../translations/accessDeniedTranslations.json');
 
 export function AccessDenied() {
 	const [language, seLanguage] = useState('nl');

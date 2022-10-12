@@ -5,7 +5,7 @@ import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
 import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { useAppSelector } from '../../../utils/hooks';
 
-var translations = require('./PageNotFoundTranslations.json');
+var translations = require('../../../translations/pageNotFoundTranslations.json');
 
 export function PageNotFound() {
 	const language = useAppSelector(getCurrentLanguage);

@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { UserType } from "../../../utils/types";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/validateInput";
 
-var translations = require("../../translations/createTicketTranslations.json");
+var translations = require("../../../translations/createTicketTranslations.json");
 
 export function CreateTicket() {
     const [currentStep, setCurrentStep] = useState(1);

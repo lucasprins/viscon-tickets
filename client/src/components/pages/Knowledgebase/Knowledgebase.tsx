@@ -9,7 +9,7 @@ import { PageHeader } from '../../atoms/PageHeader/PageHeader';
 import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { useAppSelector } from '../../../utils/hooks';
 
-var translations = require('./KnowledgebaseTranslations.json');
+var translations = require('../../../translations/knowledgebaseTranslations.json');
 
 export function Knowledgebase() {
 	const language = useAppSelector(getCurrentLanguage);

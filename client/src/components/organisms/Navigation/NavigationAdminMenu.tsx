@@ -5,7 +5,7 @@ import { useAppSelector } from '../../../utils/hooks';
 import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { IconBuilding, IconChevron, IconGear, IconLightbulb, IconUsers } from '../../atoms/Icons/Icons';
 
-var translations = require('../../translations/sidebarTranslations.json');
+var translations = require('../../../translations/sidebarTranslations.json');
 
 export function NavigationAdminMenu() {
     const language: string = useAppSelector(getCurrentLanguage);

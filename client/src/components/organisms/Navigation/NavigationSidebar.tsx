@@ -9,7 +9,7 @@ import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import { IconBell, IconBook, IconCube, IconHome, IconMoon, IconSun, IconTicket, IconUser } from "../../atoms/Icons/Icons";
 
-var translations = require("../../translations/sidebarTranslations.json");
+var translations = require("../../../translations/sidebarTranslations.json");
 
 export function NavigationSidebar() {
     const dispatch = useAppDispatch();
