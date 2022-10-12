@@ -1,18 +1,18 @@
-import { AccessDenied } from "./pages/AccessDenied/AccessDenied";
-import { Account } from "./pages/Account/Account";
-import { AdminCustomers } from "./pages/Admin/AdminCustomers";
-import { AdminMachines } from "./pages/Admin/AdminMachines";
-import { AdminSolutions } from "./pages/Admin/AdminSolutions";
-import { AdminUsers } from "./pages/Admin/AdminUsers";
-import { CreateTicket } from "./pages/CreateTicket/CreateTicket";
-import { Dashboard } from "./pages/Dashboard/Dashboard";
-import { Knowledgebase } from "./pages/Knowledgebase/Knowledgebase";
-import { Login } from "./pages/Login/Login";
-import { Notifications } from "./pages/Notifications/Notifications";
-import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
-import { Playground } from "./pages/Playground/Playground";
-import { Ticket } from "./pages/Ticket/Ticket";
-import { Tickets } from "./pages/Tickets/Tickets";
+import { AccessDenied } from "./components/pages/AccessDenied/AccessDenied";
+import { Account } from "./components/pages/Account/Account";
+import { AdminCustomers } from "./components/pages/Admin/AdminCustomers";
+import { AdminMachines } from "./components/pages/Admin/AdminMachines";
+import { AdminSolutions } from "./components/pages/Admin/AdminSolutions";
+import { AdminUsers } from "./components/pages/Admin/AdminUsers";
+import { CreateTicket } from "./components/pages/CreateTicket/CreateTicket";
+import { Dashboard } from "./components/pages/Dashboard/Dashboard";
+import { Knowledgebase } from "./components/pages/Knowledgebase/Knowledgebase";
+import { Login } from "./components/pages/Login/Login";
+import { Notifications } from "./components/pages/Notifications/Notifications";
+import { PageNotFound } from "./components/pages/PageNotFound/PageNotFound";
+import { Playground } from "./components/pages/Playground/Playground";
+import { Ticket } from "./components/pages/Ticket/Ticket";
+import { Tickets } from "./components/pages/Tickets/Tickets";
 
 export const routes = [
     { path: '/login', name: 'login', component: <Login /> },

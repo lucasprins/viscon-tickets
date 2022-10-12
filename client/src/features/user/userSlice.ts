@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { UserType } from "../../types/UserType";
+import { UserType } from "../../utils/types";
 
 // const user = JSON.parse(localStorage.getItem("user"));
 

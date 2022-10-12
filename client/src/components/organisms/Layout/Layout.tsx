@@ -1,0 +1,22 @@
+import React, { useState } from "react";
+import Backdrop from "../../atoms/Backdrop/Backdrop";
+import { NavigationMobile } from "../Navigation/NavigationMobile";
+import { NavigationSidebarDesktop } from "../Navigation/NavigationSidebarDesktop";
+import { NavigationSidebarMobile } from "../Navigation/NavigationSidebarMobile";
+
+export default function Layout() {
+	const [sidebar, setSidebar] = useState(false);
+
+	const toggleSidebar = () => {
+		setSidebar((prevState) => !prevState);
+	};
+
+	return (
+		<>
+			<NavigationMobile openSidebar={toggleSidebar} />
+			<Backdrop state={sidebar} z_index='z-20' close={toggleSidebar} />
+			<NavigationSidebarMobile state={sidebar} />
+			<NavigationSidebarDesktop />
+		</>
+	);
+}

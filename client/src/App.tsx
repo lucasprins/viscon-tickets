@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Backdrop from "./components/Backdrop/Backdrop";
-import { ModalChangeLanguage } from "./components/Modal/ModalChangeLanguage";
+import Backdrop from "./components/atoms/Backdrop/Backdrop";
+import { ModalChangeLanguage } from "./components/organisms/Modal/ModalChangeLanguage";
 import { getBackdropState } from "./features/modal/modalSlice";
-import { useAppSelector } from "./hooks/reduxHooks";
+import { useAppSelector } from "./utils/hooks";
 import { routes } from "./routes";
 
 function App() {

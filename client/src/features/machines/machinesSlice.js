@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
-import { MachineType } from "../../types/MachineType";
 
 var machinesJSON = require('./machines.json');
 

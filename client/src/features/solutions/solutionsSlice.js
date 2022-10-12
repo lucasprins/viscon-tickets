@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MachineType } from "../../types/MachineType";
 
 var solutionsJSON = require('./solutions.json');
 
