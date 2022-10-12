@@ -30,22 +30,15 @@ export function CreateTicket() {
 	const user: UserType = useAppSelector(getUser);
 
 	const [ticket, setTicket] = useState({
-		firstName: '',
-		lastName: '',
-		company: '',
-		phoneNumber: '',
+		firstName: user.firstName,
+		lastName: user.lastName,
+		company: user.company,
+		phoneNumber: user.phoneNumber,
 		issue: '',	// What do you see that is going wrong?
 		actionExpected: '', // What do you expect to happen
 		actionPerformed: '', // What did you already try to fix the problem
 		extraInformation: '', // Is there any extra information?
 	});
-
-	const contactInitialValues = {
-		firstName: user.firstName,
-		lastName: user.lastName,
-		company: user.company,
-		phoneNumber: user.phoneNumber
-	};
 
 	const addContactInformation = (values: UserType) => {
 		setTicket({ ...ticket, ...values });
@@ -98,7 +91,7 @@ export function CreateTicket() {
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
 							<PageHeader title="Contact information" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
 							<Formik
-								initialValues={ticket.lastName === "" ? contactInitialValues : ticket}
+								initialValues={ticket}
 								onSubmit={addContactInformation}>
 								{({ errors, touched, isValidating }) => (
 									<Form className="flex flex-col gap-4 w-full">
