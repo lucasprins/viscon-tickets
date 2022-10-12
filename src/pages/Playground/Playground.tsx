@@ -1,14 +1,6 @@
 import React from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
-import { Divider } from '../../components/Divider/Divider';
-import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../components/FeaturedIcon/FeaturedIcon';
-import { IconBuilding } from '../../components/Icons/IconBuilding';
-import { IconPhone } from '../../components/Icons/IconPhone';
-import { IconVideo } from '../../components/Icons/IconVideo';
-import { InputField } from '../../components/Input/InputField';
-import { InputTextArea } from '../../components/Input/InputTextArea';
 import Layout from '../../components/Layout/Layout';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
 
 
 export function Playground() {

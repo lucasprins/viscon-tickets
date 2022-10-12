@@ -3,14 +3,12 @@ import userReducer from './features/user/userSlice';
 import modalReducer from './features/modal/modalSlice';
 import machinesReducer from './features/machines/machinesSlice';
 import solutionsReducer from './features/solutions/solutionsSlice';
-import createTicketReducer from './features/create-ticket/createTicketSlice';
 
 const reducers = {
 	user: userReducer,
 	modal: modalReducer,
 	machines: machinesReducer,
-	solutions: solutionsReducer,
-	createTicket: createTicketReducer
+	solutions: solutionsReducer
   };
 
 export const store = configureStore({

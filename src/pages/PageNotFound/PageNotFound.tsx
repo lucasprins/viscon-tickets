@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/Button/Button';
-import { FeaturedIcon, FeaturedIconSize, FeaturedIconType } from '../../components/FeaturedIcon/FeaturedIcon';
+import { FeaturedIcon } from '../../components/FeaturedIcon/FeaturedIcon';
 import { IconAlert } from '../../components/Icons/IconAlert';
 import { IconTicket } from '../../components/Icons/IconTicket';
 
@@ -14,7 +14,7 @@ export function PageNotFound() {
 			<div className='flex flex-col gap-12'>
 				{/* Heading and icons */}
 				<div className='flex flex-col items-center gap-6'>
-					<FeaturedIcon type={FeaturedIconType.PRIMARY} size={FeaturedIconSize.XL} icon={<IconAlert size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
+					<FeaturedIcon type="primary" size="xl" icon={<IconAlert size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
 					<div className='flex flex-col items-center gap-6'>
 						<h1 className='text-display_md lg:text-display_xl text-gray-900 dark:text-white font-semibold text-center'>{translations[language].title}</h1>
 						<p className='text-xl text-gray-600 dark:text-dark-400 text-center'>{translations[language].subtitle}</p>

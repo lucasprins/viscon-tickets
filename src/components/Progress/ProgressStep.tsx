@@ -1,5 +1,4 @@
 import React from "react";
-import { IconCheck } from "../Icons/IconCheck";
 import { IconTick } from "../Icons/IconTick";
 import { Connector } from "./Connector";
 
