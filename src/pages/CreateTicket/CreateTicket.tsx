@@ -181,10 +181,9 @@ export function CreateTicket() {
 					<div className="flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:pt-36 overflow-y-scroll">
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
 							<PageHeader title="Review ticket" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
-							<div className="flex flex-row gap-4 pt-4">
-								<Button size="medium" width="full" type="secondary-gray" text="Back" onclick={() => setCurrentStep(4)} />
-								<Button size="medium" width="full" type="primary" text="Confirm" onclick={() => setCurrentStep(1)} />
-							</div>
+							
+							{/* FORM HIER :) Op de laatste button kan je zetten:  "Submit ticket"  ofz */}
+
 						</div>
 					</div>}
 			</div>
