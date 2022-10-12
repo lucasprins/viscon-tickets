@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders 1`] = `
+<div>
+  <button
+    class="shadow-sm bg-primary-600 border border-primary-600 text-white hover:bg-primary-700 focus:outline outline-primary-200 dark:outline-primary-500 hover:border-primary-700 w-full py-2.5 px-4 font-semibold text-sm
+                flex justify-center items-center gap-x-2.5 rounded-lg"
+  >
+    Foo
+  </button>
+</div>
+`;

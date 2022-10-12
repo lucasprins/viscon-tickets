@@ -1,0 +1,14 @@
+{
+    "nl": {
+        "field_required": "Dit veld is verplicht",
+        "invalid_phone_number": "Ongeldig telefoonnummer",
+        "ivalid_email": "Ongeldig emailadres",
+        "input_too_short": "Uw ingevoerde tekst is te kort"
+    },
+    "en": {
+        "field_required": "This field is required",
+        "invalid_phone_number": "Invalid phone number",
+        "ivalid_email": "Invalid emailadress",
+        "input_too_short": "Your input is to short"
+    }
+}

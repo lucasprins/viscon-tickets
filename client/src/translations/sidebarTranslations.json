@@ -1,0 +1,30 @@
+{
+    "nl": {
+        "dashboard": "Dashboard",
+        "tickets": "Tickets",
+        "knowledgebase": "Kennisbank",
+        "language": "Taal",
+        "notifications": "Meldingen",
+        "account": "Account", 
+        "manage_users": "Gebruikers",
+        "manage_customers": "Klanten",
+        "manage_machines": "Machines",
+        "manage_solutions": "Oplossingen",
+        "light": "Licht",
+        "dark": "Donker"
+    },
+    "en": {
+        "dashboard": "Dashboard",
+        "tickets": "Tickets",
+        "knowledgebase": "Knowledgebase",
+        "language": "Language",
+        "notifications": "Notifications",
+        "account": "Account" ,
+        "manage_users": "Users",
+        "manage_customers": "Customers",
+        "manage_machines": "Machines",
+        "manage_solutions": "Solutions",
+        "light": "Light",
+        "dark": "Dark"
+    }
+}
