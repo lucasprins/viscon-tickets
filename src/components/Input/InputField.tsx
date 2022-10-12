@@ -12,15 +12,16 @@ type InputFieldProps = {
   name: string;
   validate?: (value: string) => any;
   error?: string | undefined;
+  touched?: boolean | undefined;
 };
 
-export function InputField({ style, type, placeholder, icon, disabled, id, name, validate, error }: InputFieldProps) {
+export function InputField({ style, type, placeholder, icon, disabled, id, name, validate, error, touched }: InputFieldProps) {
   let inputFieldIconStyle = "";
   let inputFieldStyle = "";
   let inputFieldBorderStyle = "";
 
   // If we have an error we want to apply the red border and outline style
-  if(error) {
+  if(error && touched) {
     inputFieldBorderStyle = "border-error-500 focus:outline outline-2 outline-error-600"
   } else {
     inputFieldBorderStyle = "border-gray-300 dark:border-dark-500 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";

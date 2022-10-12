@@ -6,8 +6,10 @@ import { IconBuilding } from "../../components/Icons/IconBuilding";
 import { IconFlag } from "../../components/Icons/IconFlag";
 import { IconPhone } from "../../components/Icons/IconPhone";
 import { InputDropdownMachine } from "../../components/Input/InputDropdownMachine";
+import { InputErrorMessage } from "../../components/Input/InputErrorMessage";
 import { InputField } from "../../components/Input/InputField";
 import { InputLabel } from "../../components/Input/InputLabel";
+import { InputTextArea } from "../../components/Input/InputTextArea";
 import { MachineSolutionList } from "../../components/MachineSolution/MachineSolutionList";
 import { NavigationHeader } from "../../components/Navigation/NavigationHeader";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
@@ -16,7 +18,7 @@ import { toggleBackdrop, toggleLanguageModal } from "../../features/modal/modalS
 import { getCurrentLanguage, getUser } from "../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { UserType } from "../../types/UserType";
-import { validatePhoneNumber } from "../../utils/validateInput";
+import { validatePhoneNumber, validateTextarea } from "../../utils/validateInput";
 
 var translations = require("../../translations/createTicketTranslations.json");
 
@@ -32,6 +34,10 @@ export function CreateTicket() {
 		lastName: '',
 		company: '',
 		phoneNumber: '',
+		issue: '',	// What do you see that is going wrong?
+		actionExpected: '', // What do you expect to happen
+		actionPerformed: '', // What did you already try to fix the problem
+		extraInformation: '', // Is there any extra information?
 	});
 
 	const contactInitialValues = {
@@ -41,9 +47,14 @@ export function CreateTicket() {
 		phoneNumber: user.phoneNumber
 	};
 
-	const submitContactInformation = (values: UserType) => {
-		setTicket({ ...values });
+	const addContactInformation = (values: UserType) => {
+		setTicket({ ...ticket, ...values });
 		setCurrentStep(3);
+	};
+
+	const addIssueInformation = (values: UserType) => {
+		setTicket({ ...ticket, ...values });
+		setCurrentStep(4);
 	};
 
 	const openLanguageModal = () => {
@@ -88,7 +99,7 @@ export function CreateTicket() {
 							<PageHeader title="Contact information" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
 							<Formik
 								initialValues={ticket.lastName === "" ? contactInitialValues : ticket}
-								onSubmit={submitContactInformation}>
+								onSubmit={addContactInformation}>
 								{({ errors, touched, isValidating }) => (
 									<Form className="flex flex-col gap-4 w-full">
 									<div className="flex gap-4 w-full">
@@ -107,7 +118,8 @@ export function CreateTicket() {
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
 										<InputLabel htmlFor="phoneNumber" text="Phone number" />
-										<InputField error={errors.phoneNumber} validate={validatePhoneNumber} style="icon" type="tel" id="phoneNumber" name="phoneNumber" icon={<IconPhone size='20' color='stroke-gray-500' fill='stroke-gray-500' />}  />
+										<InputField touched={touched.phoneNumber} error={errors.phoneNumber} validate={validatePhoneNumber} style="icon" type="tel" id="phoneNumber" name="phoneNumber" icon={<IconPhone size='20' color='stroke-gray-500' fill='stroke-gray-500' />}  />
+										<InputErrorMessage name="phoneNumber" />
 									</div>
 									<div className="flex flex-row gap-4 pt-4">
 										<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(1)} />
@@ -122,11 +134,42 @@ export function CreateTicket() {
 				{currentStep === 3 &&
 					<div className="flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:pt-36 overflow-y-scroll">
 						<div className="lg:w-2/3 flex flex-col w-full gap-6">
-							<PageHeader title="Describe the issue" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
-							<div className="flex flex-row gap-4 pt-4">
-								<Button size="medium" width="full" type="secondary-gray" text="Back" onclick={() => setCurrentStep(2)} />
-								<Button size="medium" width="full" type="primary" text="Confirm" onclick={() => setCurrentStep(4)} />
-							</div>
+							<PageHeader title="Describe the issue" subtitle="Please describe carefully what is going wrong and what you are seeing. This will help us solve the issue as quickly as possible." />
+							<Formik
+								initialValues={ticket}
+								onSubmit={addIssueInformation}>
+								{({ errors, touched, isValidating }) => (
+									<Form className="flex flex-col gap-4 w-full">
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="issue" text="What do you see that is going wrong?" />
+										<InputTextArea touched={touched.issue} error={errors.issue} validate={validateTextarea} id="issue" name="issue" placeholder="Please describe carefully what is going wrong and what you are seeing. What is the issue?" />
+										<InputErrorMessage name="issue" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="actionExpected" text="What do you expect to happen?" />
+										<InputTextArea touched={touched.actionExpected} error={errors.actionExpected} validate={validateTextarea} id="actionExpected" name="actionExpected" placeholder="What should happen if everything goes right?" />
+										<InputErrorMessage name="actionExpected" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="actionPerformed" text="What did you try already to fix the problem?" />
+										<InputTextArea touched={touched.actionPerformed} error={errors.actionPerformed} validate={validateTextarea} id="actionPerformed" name="actionPerformed" placeholder="Have you tried any solutions from the knowledge base yet?" />
+										<InputErrorMessage name="actionPerformed" />
+									</div>
+									<div className="flex flex-col w-full gap-1.5">
+										<InputLabel htmlFor="extraInformation" text="Extra information" />
+										<InputTextArea touched={touched.extraInformation} error={errors.extraInformation} validate={validateTextarea} id="extraInformation" name="extraInformation" placeholder="Do you have any extra information that could help us solve the issue as quickly as possible?" />
+										<InputErrorMessage name="extraInformation" />
+									</div>
+
+
+									
+									<div className="flex flex-row gap-4 pt-4">
+										<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(2)} />
+										<Button formType="submit" size="medium" width="full" type="primary" text={translations[language].continue} />
+									</div>
+								</Form>
+								)}
+							</Formik>
 						</div>
 					</div>}
 
@@ -136,7 +179,7 @@ export function CreateTicket() {
 							<PageHeader title="Add attachments" subtitle="Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here." />
 							<div className="flex flex-row gap-4 pt-4">
 								<Button size="medium" width="full" type="secondary-gray" text="Back" onclick={() => setCurrentStep(3)} />
-								<Button size="medium" width="full" type="primary" text="Confirm" onclick={() => setCurrentStep(5)} />
+								<Button size="medium" width="full" type="primary" text="Continue" onclick={() => setCurrentStep(5)} />
 							</div>
 						</div>
 					</div>}
