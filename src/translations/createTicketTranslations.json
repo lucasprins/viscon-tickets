@@ -13,10 +13,10 @@
         "describe_placeholder_specific" : "Beschrijf zorgvuldig wat u ziet. Wat is het probleem? ",
         "describe_issue_expectation" : "Wat verwacht u dat er zou gebeuren?",
         "describe_placeholder_expectation" : "Wat zou moeten gebeuren als alles goed gaat?",
-        "describe_issue_tried" : "Wat heeft u zelf geprobeert?",
+        "describe_issue_tried" : "Wat heeft u zelf al geprobeerd?",
         "describe_placeholder_tried" : "Heeft u al een oplossing uit de kennisbank geprobeerd?",
         "describe_issue_extra_info" : "Extra informatie",
-        "describe_placeholder_extra_info" : "Heeft u extra informatie die kan bijdragen dat het probleem zo snel mogelijk wordt opgelost.",
+        "describe_placeholder_extra_info" : "Heeft u extra informatie die ons kan helpen om het probleem zo snel mogelijk op te lossen?",
 
 
         "add_attachments": "Bijlage toevoegen",

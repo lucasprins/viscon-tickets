@@ -111,7 +111,7 @@ export function CreateTicket() {
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
 										<InputLabel htmlFor="phoneNumber" text={translations[language].Phone_number} />
-										<InputField touched={touched.phoneNumber} error={errors.phoneNumber} validate={validatePhoneNumber} style="icon" type="tel" id="phoneNumber" name="phoneNumber" icon={<IconPhone size='20' color='stroke-gray-500' fill='stroke-gray-500' />}  />
+										<InputField touched={touched.phoneNumber} error={errors.phoneNumber} validate={(input) => validatePhoneNumber(input, language)} style="icon" type="tel" id="phoneNumber" name="phoneNumber" icon={<IconPhone size='20' color='stroke-gray-500' fill='stroke-gray-500' />}  />
 										<InputErrorMessage name="phoneNumber" />
 									</div>
 									<div className="flex flex-row gap-4 pt-4">
@@ -135,22 +135,22 @@ export function CreateTicket() {
 									<Form className="flex flex-col gap-4 w-full">
 									<div className="flex flex-col w-full gap-1.5">
 										<InputLabel htmlFor="issue" text={translations[language].describe_issue_specific} />
-										<InputTextArea touched={touched.issue} error={errors.issue} validate={validateTextarea} id="issue" name="issue" placeholder={translations[language].describe_placeholder_specific} />
+										<InputTextArea touched={touched.issue} error={errors.issue} validate={(input) => validateTextarea(input, language)} id="issue" name="issue" placeholder={translations[language].describe_placeholder_specific} />
 										<InputErrorMessage name="issue" />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
 										<InputLabel htmlFor="actionExpected" text={translations[language].describe_issue_expectation} />
-										<InputTextArea touched={touched.actionExpected} error={errors.actionExpected} validate={validateTextarea} id="actionExpected" name="actionExpected" placeholder={translations[language].describe_placeholder_expectation} />
+										<InputTextArea touched={touched.actionExpected} error={errors.actionExpected} validate={(input) => validateTextarea(input, language)} id="actionExpected" name="actionExpected" placeholder={translations[language].describe_placeholder_expectation} />
 										<InputErrorMessage name="actionExpected" />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
 										<InputLabel htmlFor="actionPerformed" text={translations[language].describe_issue_tried} />
-										<InputTextArea touched={touched.actionPerformed} error={errors.actionPerformed} validate={validateTextarea} id="actionPerformed" name="actionPerformed" placeholder={translations[language].describe_placeholder_tried} />
+										<InputTextArea touched={touched.actionPerformed} error={errors.actionPerformed} validate={(input) => validateTextarea(input, language)} id="actionPerformed" name="actionPerformed" placeholder={translations[language].describe_placeholder_tried} />
 										<InputErrorMessage name="actionPerformed" />
 									</div>
 									<div className="flex flex-col w-full gap-1.5">
 										<InputLabel htmlFor="extraInformation" text={translations[language].describe_issue_extra_info} />
-										<InputTextArea touched={touched.extraInformation} error={errors.extraInformation} validate={validateTextarea} id="extraInformation" name="extraInformation" placeholder={translations[language].describe_placeholder_extra_info } />
+										<InputTextArea touched={touched.extraInformation} error={errors.extraInformation} validate={(input) => validateTextarea(input, language)} id="extraInformation" name="extraInformation" placeholder={translations[language].describe_placeholder_extra_info } />
 										<InputErrorMessage name="extraInformation" />
 									</div>
 
@@ -228,14 +228,12 @@ export function CreateTicket() {
 									</div>
 
 									<div className="flex flex-row gap-4 pt-4">
-										<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(1)} />
+										<Button size="medium" width="full" type="secondary-gray" text={translations[language].back} onclick={() => setCurrentStep(4)} />
 										<Button formType="submit" size="medium" width="full" type="primary" text={translations[language].confirm_create_ticket} />
 									</div>
 								</Form>
 								)}
 							</Formik>
-						
-
 						</div>
 					</div>}
 			</div>
