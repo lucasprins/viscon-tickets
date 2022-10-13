@@ -12,18 +12,14 @@ import Layout from '../../organisms/Layout/Layout';
 var tickets = require("../../../features/tickets/tickets.json");
 
 export function Ticket() {
-	// Get the ticketID from the URL.
-	const { ticketID }: any = useParams();
-
 	const dispatch = useAppDispatch();
+
+	const { ticketID }: any = useParams();
 	const user = useAppSelector(getUser);
+	const ticket: TicketType = tickets.filter((ticket: TicketType) => ticket.ticketNumber === ticketID)[0];
 
 	const ticketActions = [];
-
-	const ticketsFiltered: Array<TicketType> = tickets.filter((ticket: TicketType) => ticket.ticketNumber === ticketID);
-	const ticket: TicketType = ticketsFiltered[0];
 	console.log(ticket);
-
 
 	return (
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
