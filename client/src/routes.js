@@ -7,7 +7,7 @@ import { AdminUsers } from "./components/pages/Admin/AdminUsers";
 import { CreateTicket } from "./components/pages/CreateTicket/CreateTicket";
 import { Dashboard } from "./components/pages/Dashboard/Dashboard";
 import { Knowledgebase } from "./components/pages/Knowledgebase/Knowledgebase";
-import { Login } from "./components/pages/Login/Login";
+import { Login } from "./components/pages/Authentication/Login";
 import { Notifications } from "./components/pages/Notifications/Notifications";
 import { PageNotFound } from "./components/pages/PageNotFound/PageNotFound";
 import { Playground } from "./components/pages/Playground/Playground";

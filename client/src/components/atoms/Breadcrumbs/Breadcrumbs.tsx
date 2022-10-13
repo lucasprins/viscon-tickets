@@ -7,8 +7,6 @@ type BreadcrumbsProps = {
 }
 
 export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
-    const { ticketID } = useParams();
-
     return (
         <div className='hidden w-full md:flex gap-x-2 items-center'>
             <Link to='/'>
@@ -26,13 +24,6 @@ export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
                     }
                 </div>
             ))}
-            {
-                ticketID &&
-                <>
-                    <IconChevron size='18' color='stroke-gray-300 dark:stroke-gray-500' fill='fill-gray-300' />
-                    <span className='bg-gray-50 dark:bg-dark-600 dark:font-medium dark:text-white py-1 px-2 rounded-md text-sm text-gray-700 font-semibold'>{'Ticket ' + ticketID}</span>
-                </>
-            }
         </div>
     )
 }
