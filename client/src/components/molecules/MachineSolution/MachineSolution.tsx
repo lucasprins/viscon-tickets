@@ -24,7 +24,7 @@ export function MachineSolution({ solution, machine }: MachineSolutionProps) {
 			{/* Tags */}
 			<div className='hidden gap-x-3 xl:flex'>
 				<Tag text={machine.type} />
-				<Tag text={`${translations[language].blueprint_number}: ${machine.blueprint_number}`} />
+				<Tag text={`${translations[language].blueprint_number}: ${machine.blueprintNumber}`} />
 			</div>
 		</div>
 	)

@@ -12,9 +12,18 @@ type InitialState = {
 const initialState: InitialState = {
     user: {
         firstName: "Lucas",
+        preposition: "",
         lastName: "Prins",
-        company: "Hogeschool Rotterdam",
-        phoneNumber: "+3163499770"
+        phoneNumber: "+3163499770",
+        role: "viscon-admin",
+        email: "lucas2002prins@gmail.com",
+        isActive: true,
+        company: {
+            companyId: '320923223',
+            name: 'Viscon',
+            country: 'The Netherlands',
+            isActive: true
+        } 
     },
     language: 'en',
 }

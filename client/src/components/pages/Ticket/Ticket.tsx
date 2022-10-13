@@ -1,5 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { getUser } from '../../../features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { Breadcrumbs } from '../../atoms/Breadcrumbs/Breadcrumbs';
 import { Divider } from '../../atoms/Divider/Divider';
 import { PageHeader } from '../../atoms/PageHeader/PageHeader';
@@ -8,6 +10,13 @@ import Layout from '../../organisms/Layout/Layout';
 export function Ticket() {
 	// Get the ticketID from the URL.
 	const { ticketID }: any = useParams();
+
+	const dispatch = useAppDispatch();
+	const user = useAppSelector(getUser);
+
+	const ticketActions = [];
+
+
 
 	return (
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
