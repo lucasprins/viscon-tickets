@@ -3,6 +3,7 @@ import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { IconAlert } from "../../atoms/Icons/Icons";
 import Layout from "../../organisms/Layout/Layout";
+import { BasicTable } from "../../organisms/Table/basicTable";
 
 export function Playground() {
     return (
@@ -17,6 +18,8 @@ export function Playground() {
                     text='Primary'
                     icon={<IconAlert size='14' fill='fill-error-500' color='stroke-error-500' />}
                 />
+
+                <BasicTable />
             </div>
         </div>
     );
