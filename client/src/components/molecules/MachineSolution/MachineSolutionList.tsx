@@ -17,7 +17,7 @@ export function MachineSolutionList() {
 
   const filteredSolutionsMachine = solutions.filter(
     (solution: SolutionType) =>
-      solution.machine_id === selectedMachine.machine_id
+      solution.machineId === selectedMachine.machine_id
   );
   const filteredSolutionsLanguage = filteredSolutionsMachine.filter(
     (solution: SolutionType) => solution.language === language
@@ -29,7 +29,7 @@ export function MachineSolutionList() {
         <div className="flex flex-col gap-6 w-full">
           {filteredSolutionsLanguage.map((solution: SolutionType) => (
             <MachineSolution
-              key={solution.solution_id}
+              key={solution.solutionId}
               solution={solution}
               machine={selectedMachine}
             />

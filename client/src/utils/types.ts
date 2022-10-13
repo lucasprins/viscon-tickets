@@ -1,21 +1,32 @@
 export type UserType = {
     firstName: string,
+    preposition?: string,
     lastName: string,
-    company: string,
-    phoneNumber: string
+    phoneNumber: string,
+    role: "viscon-admin" | "viscon-employee" | "customer-admin" | "customer-employee",
+    email: string,
+    isActive: boolean,
+    company: CompanyType 
 };
 
+export type CompanyType = {
+    companyId: string,
+    name: string,
+    country: string,
+    isActive: boolean
+}
+
 export type SolutionType = {
-    solution_id: string,
-    machine_id: string,
+    solutionId: string,
+    machineId: string,
     issue: string,
     solution: string,
     language: string
 };
 
 export type MachineType = {
-    machine_id: string,
+    machineId: string,
     name: string,
-    blueprint_number: string,
+    blueprintNumber: string,
     type: string
 };

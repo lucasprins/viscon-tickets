@@ -33,18 +33,21 @@ export function CreateTicket() {
         lastName: user.lastName,
         company: user.company,
         phoneNumber: user.phoneNumber,
+        role: user.role,
+        email: user.email,
+        isActive: user.isActive,
         issue: "", // What do you see that is going wrong?
         actionExpected: "", // What do you expect to happen
         actionPerformed: "", // What did you already try to fix the problem
         extraInformation: "", // Is there any extra information?
     });
 
-    const addContactInformation = (values: UserType) => {
+    const addContactInformation = (values: any) => {
         setTicket({ ...ticket, ...values });
         setCurrentStep(3);
     };
 
-    const addIssueInformation = (values: UserType) => {
+    const addIssueInformation = (values: any) => {
         setTicket({ ...ticket, ...values });
         setCurrentStep(4);
     };
