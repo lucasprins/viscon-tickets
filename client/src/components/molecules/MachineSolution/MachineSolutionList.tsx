@@ -17,7 +17,7 @@ export function MachineSolutionList() {
 
   const filteredSolutionsMachine = solutions.filter(
     (solution: SolutionType) =>
-      solution.machineId === selectedMachine.machine_id
+      solution.machineId === selectedMachine.machineId
   );
   const filteredSolutionsLanguage = filteredSolutionsMachine.filter(
     (solution: SolutionType) => solution.language === language
