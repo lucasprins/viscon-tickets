@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 import { useTable, Column } from "react-table";
 import MOCK_DATA from "./MOCK_DATA.json";
 
+
+
 export const BasicTable = () => {
     const COLUMNS: Column<{
         id: number;
@@ -32,7 +34,7 @@ export const BasicTable = () => {
             accessor: "name_Company",
         },
         {
-            Header: "name_Machine",
+            Header: "Name Machine",
             accessor: "name_Machine",
         },
     ];
@@ -43,26 +45,30 @@ export const BasicTable = () => {
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
     return (
-        <table {...getTableProps()}>
+       <div>
+        <div className="">
+            
+        </div>
+        <table className='border border-gray-200 border-solid shadow-sm rounded-lg table-auto' {...getTableProps()}>
             <thead>
                 {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps}>
+                    <tr {...headerGroup.getHeaderGroupProps} className='border border-solid border-gray-200 shadow-sm rounded-lg'>
                         {headerGroup.headers.map((column) => (
-                            <th {...column.getHeaderGroupProps}>
+                            <th {...column.getHeaderGroupProps} className='text-xs text-gray-600 pb-3 pl-3 pt-3 pr-6 align-middle rounded-lg'>
                                 {column.render("Header")}
                             </th>
                         ))}
                     </tr>
                 ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
+            <tbody {...getTableBodyProps()} className=''>
                 {rows.map((row) => {
                     prepareRow(row);
                     return (
-                        <tr {...row.getRowProps()}>
+                        <tr {...row.getRowProps()} className=''>
                             {row.cells.map((cell) => {
                                 return (
-                                    <td {...cell.getCellProps}>
+                                    <td {...cell.getCellProps} className='pb-4 pl-4 pt-4 pr-6 align-middle border-y border-gray-200 rounded-lg '>
                                         {cell.render("Cell")}
                                     </td>
                                 );
@@ -72,6 +78,7 @@ export const BasicTable = () => {
                 })}
             </tbody>
         </table>
+        </div>
     );
 };
 
