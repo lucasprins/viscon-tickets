@@ -2,10 +2,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { getUser } from '../../../features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { TicketType } from '../../../utils/types';
 import { Breadcrumbs } from '../../atoms/Breadcrumbs/Breadcrumbs';
+import { AvatarCard } from '../../atoms/Cards/AvatarCard';
 import { Divider } from '../../atoms/Divider/Divider';
 import { PageHeader } from '../../atoms/PageHeader/PageHeader';
 import Layout from '../../organisms/Layout/Layout';
+
+var tickets = require("../../../features/tickets/tickets.json");
 
 export function Ticket() {
 	// Get the ticketID from the URL.
@@ -16,6 +20,9 @@ export function Ticket() {
 
 	const ticketActions = [];
 
+	const ticketsFiltered: Array<TicketType> = tickets.filter((ticket: TicketType) => ticket.ticketNumber === ticketID);
+	const ticket: TicketType = ticketsFiltered[0];
+	console.log(ticket);
 
 
 	return (
@@ -26,6 +33,14 @@ export function Ticket() {
 					<Breadcrumbs crumbs={['Tickets', `Ticket ${ticketID}`]}/>
 					<PageHeader title={`Ticket #${ticketID}`} />
 					<Divider />
+				</div>
+				{/* Ticket assignee */}
+				<div>
+					<AvatarCard 
+						title={`${ticket.customerEmployee.firstName} ${ticket.customerEmployee.preposition} ${ticket.customerEmployee.lastName}`} 
+						subtitle={ticket.phoneNumber}
+						style="initials"
+					/>
 				</div>
 			</div>
 		</div>

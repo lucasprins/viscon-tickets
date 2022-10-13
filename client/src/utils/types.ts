@@ -30,3 +30,27 @@ export type MachineType = {
     blueprintNumber: string,
     type: string
 };
+
+export type TicketType = {
+    ticketId: string,
+    ticketNumber: string,
+    customerEmployee: UserType,
+    visconEmployee: UserType | undefined,
+    creationDate: string,
+    phoneNumber: string,
+    issue: string,
+    actionExpected: string,
+    actionPerformed: string,
+    extraInformation: string | undefined,
+    status: "open" | "in progress" | "resolved" | "cancelled",
+    priority: "critical" | "high" | "medium" | "low"
+}
+
+export type NotificationType = {
+    notificationId: string,
+    userId: UserType,
+    ticketId: string,
+    title: string,
+    creationDate: Date,
+    hasViewed: boolean
+}

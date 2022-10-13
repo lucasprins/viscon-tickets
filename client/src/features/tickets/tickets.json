@@ -1,0 +1,58 @@
+[
+    {
+        "ticketId": "74d312de-55ab-484c-9926-3ecbc4a33d55",
+        "ticketNumber": "2540",
+        "customerEmployee": {
+            "firstName": "Doe",
+            "preposition": "",
+            "lastName": "John",
+            "phoneNumber": "06349988880",
+            "role": "customer-employee",
+            "email": "",
+            "isActive": true,
+            "company": {
+                "companyId": "30775d1f-51d3-47de-9437-bfd3819835ac",
+                "name": "FakeCompany",
+                "country": "Friesland",
+                "isActive": true
+            } 
+        },
+        "visconEmployee": null,
+        "creationDate": "",
+        "phoneNumber": "06349988880",
+        "issue": "This is the issue",
+        "actionExpected": "This is the action expected",
+        "actionPerformed": "This is the action performed",
+        "extraInformation": "This is the extra information",
+        "status": "open",
+        "priority": "critical"
+    },
+    {
+        "ticketId": "a8d988f1-e4ae-4b50-a464-dd2a5d0f22fa",
+        "ticketNumber": "2541",
+        "customerEmployee": {
+            "firstName": "John",
+            "preposition": "",
+            "lastName": "Doe",
+            "phoneNumber": "06349988880",
+            "role": "customer-employee",
+            "email": "",
+            "isActive": true,
+            "company": {
+                "companyId": "70d44c77-4857-4632-a7e4-3bb465b9c742",
+                "name": "CompanyFake",
+                "country": "United Kingdom",
+                "isActive": true
+            } 
+        },
+        "visconEmployee": null,
+        "creationDate": "",
+        "phoneNumber": "06349988880",
+        "issue": "This is the issue",
+        "actionExpected": "This is the action expected",
+        "actionPerformed": "This is the action performed",
+        "extraInformation": "This is the extra information",
+        "status": "open",
+        "priority": "critical"
+    }
+]
