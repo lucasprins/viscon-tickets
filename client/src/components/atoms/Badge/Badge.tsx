@@ -25,21 +25,21 @@ export function Badge({ size, color, icon, text }: BadgeProps) {
 
     switch (color) {
         case "gray":
-            badgeColorStyle = "text-gray-700 bg-gray-100";
+            badgeColorStyle = "text-gray-700 bg-gray-100 dark:bg-gray-400 dark:bg-opacity-10 dark:text-gray-300";
             break;
         case "primary":
-            badgeColorStyle = "text-primary-500 bg-primary-50";
+            badgeColorStyle = "text-primary-500 bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10";
             break;
         case "error":
-            badgeColorStyle = "text-error-500 bg-error-50";
+            badgeColorStyle = "text-error-500 bg-error-50 dark:bg-error-400 dark:text-error-400 dark:bg-opacity-10";
             break;
         case "success":
-            badgeColorStyle = "text-success-500 bg-success-50";
+            badgeColorStyle = "text-success-500 bg-success-50 dark:bg-success-400 dark:bg-opacity-10";
             break;
     }
 
     return (
-        <div className={`${badgeSizeStyle} ${badgeColorStyle} flex w-min rounded-full font-medium items-center gap-1`}>
+        <div className={`${badgeSizeStyle} ${badgeColorStyle} flex rounded-full font-medium items-center gap-1`}>
             {icon}
             <span>{text}</span>
         </div>

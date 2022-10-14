@@ -9,3 +9,15 @@ export const getInitials = (name: string): string  => {
     }
     return initials;
 };
+
+/**
+ * Takes a string as a argument and capitalizes the first letter.
+ * 
+ * @param text - The text to capitalize
+ * @returns the string with the first letter in uppercase
+ */
+export const capitalize = (text: string): string => {
+    const firstLetter = text.charAt(0).toUpperCase();
+    const remainder = text.slice(1);
+    return firstLetter + remainder;
+}

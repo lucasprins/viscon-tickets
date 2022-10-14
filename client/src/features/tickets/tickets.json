@@ -18,14 +18,14 @@
             } 
         },
         "visconEmployee": null,
-        "creationDate": "",
+        "creationDate": "September 25, 2022 - 16:20",
         "phoneNumber": "06349988880",
         "issue": "This is the issue",
         "actionExpected": "This is the action expected",
         "actionPerformed": "This is the action performed",
         "extraInformation": "This is the extra information",
         "status": "open",
-        "priority": "critical"
+        "priority": "Critical"
     },
     {
         "ticketId": "a8d988f1-e4ae-4b50-a464-dd2a5d0f22fa",
@@ -45,14 +45,28 @@
                 "isActive": true
             } 
         },
-        "visconEmployee": null,
-        "creationDate": "",
+        "visconEmployee": {
+            "firstName": "Doe",
+            "preposition": "",
+            "lastName": "John",
+            "phoneNumber": "06349988880",
+            "role": "customer-employee",
+            "email": "",
+            "isActive": true,
+            "company": {
+                "companyId": "30775d1f-51d3-47de-9437-bfd3819835ac",
+                "name": "FakeCompany",
+                "country": "Friesland",
+                "isActive": true
+            } 
+        },
+        "creationDate": "September 25, 2022 - 16:20",
         "phoneNumber": "06349988880",
         "issue": "This is the issue",
         "actionExpected": "This is the action expected",
         "actionPerformed": "This is the action performed",
         "extraInformation": "This is the extra information",
-        "status": "open",
-        "priority": "critical"
+        "status": "in progress",
+        "priority": "Critical"
     }
 ]
