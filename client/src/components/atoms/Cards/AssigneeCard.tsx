@@ -13,7 +13,7 @@ export function AssigneeCard({ name }: AssigneeCardProps) {
             {name !== undefined ? (
                 <div className='flex gap-4 p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-300 dark:border-dark-500 rounded-xl'>
                     <div>
-                        <div className='h-14 w-14 bg-primary-100 rounded-full flex items-center justify-center text-xl text-primary-600 font-medium'>
+                        <div className='h-14 w-14 bg-primary-100 dark:bg-primary-400 dark:bg-opacity-10 rounded-full flex items-center justify-center text-xl text-primary-600 dark:text-primary-500 font-medium'>
                             {getInitials(name)}
                         </div>
                     </div>

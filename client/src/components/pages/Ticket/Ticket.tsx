@@ -99,52 +99,52 @@ export function Ticket() {
                         <PageHeader title={`Ticket #${ticketID}`} />
                     </div>
                     <Tab.Group>
-                        {/* <Tab.List className='gap-2 p-1 bg-gray-50 border border-gray-100 flex rounded-lg items-center'>
+                        <Tab.List className='gap-2 p-1 bg-gray-50 border border-gray-100 flex rounded-lg items-center'>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white w-full flex justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
+                                    <button className={selected ? "bg-white w-full flex outline-none justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
                                         Ticket
                                     </button>
                                 )}
                             </Tab>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white w-full flex justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
+                                    <button className={selected ? "bg-white w-full flex outline-none justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
                                         Solution
                                     </button>
                                 )}
                             </Tab>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white w-full flex justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
-                                        History
-                                    </button>
-                                )}
-                            </Tab>
-                        </Tab.List> */}
-                        <Tab.List className='flex gap-2 border-b border-gray-200 w-full items-center'>
-                            <Tab as={Fragment}>
-                                {({ selected }) => (
-                                    <button className={`outline-none p-3 font-semibold w-full ${selected ? "bg-primary-50 text-primary-600 border-b-2 border-primary-600" : "text-gray-500"}`}>
-                                        Ticket
-                                    </button>
-                                )}
-                            </Tab>
-                            <Tab as={Fragment}>
-                                {({ selected }) => (
-                                    <button className={`outline-none p-3 font-semibold w-full ${selected ? "bg-primary-50 text-primary-600 border-b-2 border-primary-600" : "text-gray-500"}`}>
-                                        Solution
-                                    </button>
-                                )}
-                            </Tab>
-                            <Tab as={Fragment}>
-                                {({ selected }) => (
-                                    <button className={`outline-none p-3 font-semibold w-full ${selected ? "bg-primary-50 text-primary-600 border-b-2 border-primary-600" : "text-gray-500"}`}>
+                                    <button className={selected ? "bg-white w-full outline-none flex justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
                                         History
                                     </button>
                                 )}
                             </Tab>
                         </Tab.List>
+                        {/* <Tab.List className='flex gap-2 border-b border-gray-200 dark:border-dark-500 w-full items-center'>
+                            <Tab as={Fragment}>
+                                {({ selected }) => (
+                                    <button className={`outline-none p-3 -mb-px font-semibold w-full ${selected ? "bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-600 dark:text-primary-500 border-b-2 border-primary-600" : "text-gray-500"}`}>
+                                        Ticket
+                                    </button>
+                                )}
+                            </Tab>
+                            <Tab as={Fragment}>
+                                {({ selected }) => (
+                                    <button className={`outline-none p-3 -mb-px font-semibold w-full ${selected ? "bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-600 dark:text-primary-500 border-b-2 border-primary-600" : "text-gray-500"}`}>
+                                        Solution
+                                    </button>
+                                )}
+                            </Tab>
+                            <Tab as={Fragment}>
+                                {({ selected }) => (
+                                    <button className={`outline-none p-3 -mb-px font-semibold w-full ${selected ? "bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-600 dark:text-primary-500 border-b-2 border-primary-600" : "text-gray-500"}`}>
+                                        History
+                                    </button>
+                                )}
+                            </Tab>
+                        </Tab.List> */}
                         <Tab.Panels>
                             {/* Ticket */}
                             <Tab.Panel className='flex flex-col gap-4'>
@@ -170,7 +170,7 @@ export function Ticket() {
                                 </div>
                                 <Formik initialValues={ticket} onSubmit={() => console.log("submit")}>
                                     {({ errors, touched, isValidating }) => (
-                                        <Form className='flex flex-col gap-4 w-full'>
+                                        <Form className='flex flex-col gap-5 w-full'>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel htmlFor="machine.name" text={translations[language].machine} />
                                                 <InputField

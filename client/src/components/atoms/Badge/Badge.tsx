@@ -28,7 +28,7 @@ export function Badge({ size, color, icon, text }: BadgeProps) {
             badgeColorStyle = "text-gray-700 bg-gray-100 dark:bg-gray-400 dark:bg-opacity-10 dark:text-gray-300";
             break;
         case "primary":
-            badgeColorStyle = "text-primary-500 bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10";
+            badgeColorStyle = "text-primary-600 dark:text-primary-500 bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10";
             break;
         case "error":
             badgeColorStyle = "text-error-500 bg-error-50 dark:bg-error-400 dark:text-error-400 dark:bg-opacity-10";

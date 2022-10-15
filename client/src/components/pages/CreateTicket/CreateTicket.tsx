@@ -140,7 +140,7 @@ export function CreateTicket() {
                             />
                             <Formik initialValues={ticket} onSubmit={addContactInformation}>
                                 {({ errors, touched, isValidating }) => (
-                                    <Form className='flex flex-col gap-4 w-full'>
+                                    <Form className='flex flex-col gap-5 w-full'>
                                         <div className='flex gap-4 w-full'>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel
@@ -241,7 +241,7 @@ export function CreateTicket() {
                             />
                             <Formik initialValues={ticket} onSubmit={addIssueInformation}>
                                 {({ errors, touched, isValidating }) => (
-                                    <Form className='flex flex-col gap-4 w-full'>
+                                    <Form className='flex flex-col gap-5 w-full'>
                                         <div className='flex flex-col w-full gap-1.5'>
                                             <InputLabel
                                                 htmlFor='issue'
@@ -363,7 +363,7 @@ export function CreateTicket() {
 
                             <Formik initialValues={ticket} onSubmit={addContactInformation}>
                                 {({ errors, touched, isValidating }) => (
-                                    <Form className='flex flex-col gap-4 w-full'>
+                                    <Form className='flex flex-col gap-5 w-full'>
                                         <div className='flex gap-4 w-full'>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel
