@@ -1,73 +1,29 @@
 {
-    "nl": {
-        "view_solutions": "Veelvoorkomende oplossingen",
-        "view_solutions_subtitle": "Bekijk een reeks gebruikelijke problemen en hun oplossingen.",
-        "view_solutions_subtitle_long": "Selecteer een machine en zorg ervoor dat u alle oplossingen voor uw probleem hebt geprobeerd.",
-        "contact_information": "Contact informatie",
-        "contact_information_subtitle": "Verander alstublieft het telefoonnummer als dat nodig is.",
-        "contact_information_subtitle_long": "Controleer alstublieft.",
-      
-        "describe_issue": "Omschrijf het probleem",
+    "nl": {      
         "describe_issue_subtitle": "Beschrijf zorgvuldig wat u ziet en wat er mis gaat.",
-        "describe_issue_specific" : "Wat ziet u dat er fout gaat?",
-        "describe_placeholder_specific" : "Beschrijf zorgvuldig wat u ziet. Wat is het probleem? ",
         "describe_issue_expectation" : "Wat verwacht u dat er zou gebeuren?",
-        "describe_placeholder_expectation" : "Wat zou moeten gebeuren als alles goed gaat?",
         "describe_issue_tried" : "Wat heeft u zelf al geprobeerd?",
-        "describe_placeholder_tried" : "Heeft u al een oplossing uit de kennisbank geprobeerd?",
         "describe_issue_extra_info" : "Extra informatie",
-        "describe_placeholder_extra_info" : "Heeft u extra informatie die ons kan helpen om het probleem zo snel mogelijk op te lossen?",
-
 
         "add_attachments": "Bijlage toevoegen",
-        "add_attachments_subtitle": "Voeg alstublieft zoveel mogelijk relevante bijlage toe.",
-        "review": "Controleren",
-        "review_subtitle": "Controleer alstublieft of alle ingevoerde informatie klopt.",
-        "select_machine": "Kies een machine",
+        "machine": "Machine",
         "cancel_ticket": "Ticket annuleren",
-        "continue": "Verder gaan",
-        "back": "Terug",
-        "confirm": "Bevestigen",
-        "confirm_create_ticket" : "Ticket indienen",
-        "First_name" : "Voornaam",
-        "Last_name" : "Achternaam",
-        "Company_name" : "Bedrijf",
-        "Phone_number" : "Telefoonnummer"
+
+        "company" : "Bedrijf",
+        "phone_number" : "Telefoonnummer"
 
     },
-    "en": {
-        "view_solutions": "View common solutions",
-        "view_solutions_subtitle": "View a range of problems with their common solutions.",
-        "view_solutions_subtitle_long": "Please select a machine and make sure you have tried all the common solutions for your problem.",
-        "contact_information": "Contact information",
-        "contact_information_subtitle": "Please change the default phone number if necessary.",
-        "contact_information_subtitle_long": "Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here.",
-        
-        "describe_issue": "Describe the issue",
-        "describe_issue_subtitle": "Please describe carefully what is going wrong and what you are seeing.",
+    "en": {        
         "describe_issue_specific" : "What do you see that is going wrong?",
-        "describe_placeholder_specific" : "Please describe carefully what you are seeing. What is the issue?",
         "describe_issue_expectation" : "What do you expect to happen?",
-        "describe_placeholder_expectation" : "What should happen if everything goes right?",
         "describe_issue_tried" : "What did you try already to fix the problem?",
-        "describe_placeholder_tried" : "Have you tried any solutions from the knowledge base yet?",
         "describe_issue_extra_info" : "Extra information",
-        "describe_placeholder_extra_info" : "Do you have any extra information that could help us solve the issue as quickly as possible?", 
-
 
         "add_attachments": "Add attachments",
-        "add_attachments_subtitle": "Please provide us with as many photos and videos as you can.",
-        "review": "Validate",
-        "review_subtitle": "Please check if all information has been entered correctly.",
-        "select_machine": "Select a machine",
+        "machine": "Machine",
         "cancel_ticket": "Cancel ticket",
-        "continue": "Continue",
-        "back": "Back",
-        "confirm": "Confirm",
-        "confirm_create_ticket" : "Submit ticket",
-        "First_name" : "First Name",
-        "Last_name" : "Last Name",
-        "Company_name" : "Company",
-        "Phone_number" : "Phone number"
+
+        "company" : "Company",
+        "phone_number" : "Phone number"
     }
 }

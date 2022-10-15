@@ -36,6 +36,7 @@ export type TicketType = {
     ticketNumber: string,
     customerEmployee: UserType,
     visconEmployee: UserType | undefined,
+    machine: MachineType,
     creationDate: string,
     phoneNumber: string,
     issue: string,

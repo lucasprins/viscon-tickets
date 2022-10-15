@@ -170,12 +170,12 @@ export function CreateTicket() {
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-full gap-1.5'>
-                                            <InputLabel htmlFor='company' text={translations[language].Company_name} />
+                                            <InputLabel htmlFor='company.name' text={translations[language].Company_name} />
                                             <InputField
                                                 style='icon'
                                                 type='text'
-                                                id='company'
-                                                name='company'
+                                                id='company.name'
+                                                name='company.name'
                                                 disabled={true}
                                                 icon={
                                                     <IconBuilding
@@ -393,13 +393,13 @@ export function CreateTicket() {
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-full gap-1.5'>
-                                            <InputLabel htmlFor='company' text={translations[language].Company_name} />
+                                            <InputLabel htmlFor='company.name' text={translations[language].Company_name} />
                                             <InputField
                                                 style='icon'
                                                 type='text'
                                                 disabled={true}
-                                                id='company'
-                                                name='company'
+                                                id='company.name'
+                                                name='company.name'
                                                 icon={
                                                     <IconBuilding
                                                         size='20'

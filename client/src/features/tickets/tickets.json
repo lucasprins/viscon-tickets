@@ -18,6 +18,12 @@
             } 
         },
         "visconEmployee": null,
+        "machine": {
+            "machineId": "1",
+            "name": "Shuttle 1",
+            "blueprintNumber": "5001483",
+            "type": "Satteliet shuttle"
+        },
         "creationDate": "September 25, 2022 - 16:20",
         "phoneNumber": "06349988880",
         "issue": "This is the issue",
@@ -59,6 +65,12 @@
                 "country": "Friesland",
                 "isActive": true
             } 
+        },
+        "machine": {
+            "machineId": "1",
+            "name": "Shuttle 1",
+            "blueprintNumber": "5001483",
+            "type": "Satteliet shuttle"
         },
         "creationDate": "September 25, 2022 - 16:20",
         "phoneNumber": "06349988880",
