@@ -10,7 +10,9 @@
         "cancel_ticket": "Ticket annuleren",
 
         "company" : "Bedrijf",
-        "phone_number" : "Telefoonnummer"
+        "phone_number" : "Telefoonnummer",
+
+        "solution": "Oplossing"
 
     },
     "en": {        
@@ -24,6 +26,8 @@
         "cancel_ticket": "Cancel ticket",
 
         "company" : "Company",
-        "phone_number" : "Phone number"
+        "phone_number" : "Phone number",
+
+        "solution": "Solution"
     }
 }

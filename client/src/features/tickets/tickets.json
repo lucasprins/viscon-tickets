@@ -30,6 +30,7 @@
         "actionExpected": "This is the action expected",
         "actionPerformed": "This is the action performed",
         "extraInformation": "This is the extra information",
+        "solution": "This is the solution from Viscon",
         "status": "open",
         "priority": "Critical"
     },
@@ -78,6 +79,7 @@
         "actionExpected": "This is the action expected",
         "actionPerformed": "This is the action performed",
         "extraInformation": "This is the extra information",
+        "solution": "This is the solution from Viscon",
         "status": "in progress",
         "priority": "Critical"
     }

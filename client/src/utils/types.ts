@@ -43,6 +43,7 @@ export type TicketType = {
     actionExpected: string,
     actionPerformed: string,
     extraInformation: string | undefined,
+    solution: string | undefined
     status: "open" | "in progress" | "resolved" | "cancelled",
     priority: "critical" | "high" | "medium" | "low"
 }
