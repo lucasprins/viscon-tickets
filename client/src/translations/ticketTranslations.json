@@ -1,0 +1,29 @@
+{
+    "nl": {      
+        "describe_issue_subtitle": "Beschrijf zorgvuldig wat u ziet en wat er mis gaat.",
+        "describe_issue_expectation" : "Wat verwacht u dat er zou gebeuren?",
+        "describe_issue_tried" : "Wat heeft u zelf al geprobeerd?",
+        "describe_issue_extra_info" : "Extra informatie",
+
+        "add_attachments": "Bijlage toevoegen",
+        "machine": "Machine",
+        "cancel_ticket": "Ticket annuleren",
+
+        "company" : "Bedrijf",
+        "phone_number" : "Telefoonnummer"
+
+    },
+    "en": {        
+        "describe_issue_specific" : "What do you see that is going wrong?",
+        "describe_issue_expectation" : "What do you expect to happen?",
+        "describe_issue_tried" : "What did you try already to fix the problem?",
+        "describe_issue_extra_info" : "Extra information",
+
+        "add_attachments": "Add attachments",
+        "machine": "Machine",
+        "cancel_ticket": "Cancel ticket",
+
+        "company" : "Company",
+        "phone_number" : "Phone number"
+    }
+}
