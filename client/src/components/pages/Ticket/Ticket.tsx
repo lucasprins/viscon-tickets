@@ -99,24 +99,24 @@ export function Ticket() {
                         <PageHeader title={`Ticket #${ticketID}`} />
                     </div>
                     <Tab.Group>
-                        <Tab.List className='gap-2 p-1 bg-gray-50 border border-gray-100 flex rounded-lg items-center'>
+                        <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-700 border border-gray-100 dark:border-dark-500 flex rounded-lg items-center'>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white w-full flex outline-none justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
+                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 dark:text-dark-400 font-semibold"}>
                                         Ticket
                                     </button>
                                 )}
                             </Tab>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white w-full flex outline-none justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
+                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 dark:text-dark-400 font-semibold"}>
                                         Solution
                                     </button>
                                 )}
                             </Tab>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white w-full outline-none flex justify-center text-gray-700 py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 font-semibold"}>
+                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 dark:text-dark-400 font-semibold"}>
                                         History
                                     </button>
                                 )}
@@ -246,8 +246,29 @@ export function Ticket() {
                                     )}
                                 </Formik>
                             </Tab.Panel>
+                            {/* Solution Panel */}
+                            <Tab.Panel>
+                                <Formik initialValues={ticket} onSubmit={() => console.log("submit")}>
+                                    {({ errors, touched, isValidating }) => (
+                                        <Form className='flex flex-col gap-5 w-full'>
+                                            <div className='flex flex-col w-full gap-1.5'>
+                                                <InputLabel
+                                                    htmlFor='solution'
+                                                    text={translations[language].solution}
+                                                />
+                                                <InputTextArea
+                                                    disabled={true}
+                                                    id='solution'
+                                                    name='solution'                                                />
+                                                <InputErrorMessage name='issue' />
+                                            </div>
+                                        </Form>
+                                    )}
+                                </Formik>
+                            </Tab.Panel>
 
-                            <Tab.Panel>Content 2</Tab.Panel>
+
+
                             <Tab.Panel>Content 3</Tab.Panel>
                         </Tab.Panels>
                     </Tab.Group>
