@@ -8,10 +8,11 @@ import { capitalize } from "../../../utils/stringUtil";
 import { TicketType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
+import { Button } from "../../atoms/Button/Button";
 import { AssigneeCard } from "../../atoms/Cards/AssigneeCard";
 import { AvatarCard } from "../../atoms/Cards/AvatarCard";
 import { Divider } from "../../atoms/Divider/Divider";
-import { IconAlert, IconCheck, IconGear, IconStopwatch } from "../../atoms/Icons/Icons";
+import { IconAlert, IconCheck, IconFlipBackwards, IconGear, IconStopwatch } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
@@ -30,61 +31,62 @@ export function Ticket() {
     const user = useAppSelector(getUser);
     const ticket: TicketType = tickets.filter((ticket: TicketType) => ticket.ticketNumber === ticketID)[0];
 
-    const ticketActions = [];
+    let ticketActions: JSX.Element[] = [];
+    switch(user.role) {
+        case "viscon-admin":
+            switch(ticket.status) {
+                case "open":
+                    ticketActions.push(<Button size='medium' width='content' type='primary' text="Claim ticket" />);
+                    break;
+                case "in progress":
+                    ticketActions.push(<Button size='medium' width='content' type='secondary-gray' text="Unclaim" icon={<IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' />} />);
+                    ticketActions.push(<Button size='medium' width='content' type='primary' text="Resolve" icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />} />);
+                    break;
+                case "resolved":
+                    ticketActions.push(<Button size='medium' width='content' type='primary' text="Re-open" />);
+                    break;
+            }
+            break;
+        case "viscon-employee":
+            switch(ticket.status) {
+                case "open":
+                    ticketActions.push(<Button size='medium' width='content' type='primary' text="Claim ticket" />);
+                    break;
+                case "in progress":
+                    ticketActions.push(<Button size='medium' width='content' type='secondary-gray' text="Unclaim" icon={<IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' />} />);
+                    ticketActions.push(<Button size='medium' width='content' type='primary' text="Resolve" icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />} />);
+                    break;
+                case "resolved":
+                    ticketActions.push(<Button size='medium' width='content' type='primary' text="Re-open" />);
+                    break;
+            }
+            break;
+        case "customer-admin":
+            if(ticket.status === "open" || ticket.status === "in progress") {
+                ticketActions.push(<Button size='medium' width='content' type='primary' text='Cancel ticket' />);
+            }
+            break;
+        case "customer-operator-1":
+            if(ticket.status === "open" || ticket.status === "in progress") {
+                ticketActions.push(<Button size='medium' width='content' type='primary' text='Cancel ticket' />);
+            }
+            break;
+    }
+
 
     let statusBadge;
     switch (ticket.status) {
         case "open":
-            statusBadge = (
-                <Badge
-                    size='md'
-                    color='error'
-                    text={capitalize(ticket.status)}
-                    icon={
-                        <IconAlert
-                            size='14'
-                            fill='fill-error-600 dark:fill-error-400'
-                            color='stroke-error-600 dark:stroke-error-400'
-                        />
-                    }
-                />
-            );
+            statusBadge = <Badge size='md' color='error' text={capitalize(ticket.status)} icon={ <IconAlert size='14' fill='fill-error-600 dark:fill-error-400' color='stroke-error-600 dark:stroke-error-400' /> } />;
             break;
         case "in progress":
-            statusBadge = (
-                <Badge
-                    size='md'
-                    color='gray'
-                    text={capitalize(ticket.status)}
-                    icon={
-                        <IconStopwatch
-                            size='14'
-                            fill='fill-gray-600 dark:fill-gray-300'
-                            color='stroke-gray-600 dark:stroke-gray-300'
-                        />
-                    }
-                />
-            );
+            statusBadge = <Badge size='md' color='gray' text={capitalize(ticket.status)} icon={ <IconStopwatch size='14' fill='fill-gray-600 dark:fill-gray-300' color='stroke-gray-600 dark:stroke-gray-300' /> } />;
             break;
         case "resolved":
-            statusBadge = (
-                <Badge
-                    size='md'
-                    color='success'
-                    text={capitalize(ticket.status)}
-                    icon={<IconCheck size='14' fill='fill-success-600' color='stroke-success-600' />}
-                />
-            );
+            statusBadge = <Badge size='md' color='success' text={capitalize(ticket.status)} icon={<IconCheck size='14' fill='fill-success-600' color='stroke-success-600' />} />;
             break;
         case "cancelled":
-            statusBadge = (
-                <Badge
-                    size='md'
-                    color='primary'
-                    text={capitalize(ticket.status)}
-                    icon={<IconCheck size='14' fill='fill-primary-600' color='stroke-primary-600' />}
-                />
-            );
+            statusBadge = <Badge size='md' color='primary' text={capitalize(ticket.status)} icon={<IconCheck size='14' fill='fill-primary-600' color='stroke-primary-600' />} />;
             break;
     }
 
@@ -96,7 +98,10 @@ export function Ticket() {
                 <div className='w-2/3 p-8 flex flex-col gap-6 overflow-y-scroll'>
                     <div className='flex flex-col gap-5 w-full'>
                         <Breadcrumbs crumbs={["Tickets", `Ticket ${ticketID}`]} />
-                        <PageHeader title={`Ticket #${ticketID}`} />
+                        <div className="flex justify-between items-end">
+                            <PageHeader title={`Ticket #${ticketID}`} />
+                            <div className="flex gap-3">{ticketActions}</div>
+                        </div>
                     </div>
                     <Tab.Group>
                         <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-700 border border-gray-100 dark:border-dark-500 flex rounded-lg items-center'>
@@ -122,29 +127,6 @@ export function Ticket() {
                                 )}
                             </Tab>
                         </Tab.List>
-                        {/* <Tab.List className='flex gap-2 border-b border-gray-200 dark:border-dark-500 w-full items-center'>
-                            <Tab as={Fragment}>
-                                {({ selected }) => (
-                                    <button className={`outline-none p-3 -mb-px font-semibold w-full ${selected ? "bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-600 dark:text-primary-500 border-b-2 border-primary-600" : "text-gray-500"}`}>
-                                        Ticket
-                                    </button>
-                                )}
-                            </Tab>
-                            <Tab as={Fragment}>
-                                {({ selected }) => (
-                                    <button className={`outline-none p-3 -mb-px font-semibold w-full ${selected ? "bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-600 dark:text-primary-500 border-b-2 border-primary-600" : "text-gray-500"}`}>
-                                        Solution
-                                    </button>
-                                )}
-                            </Tab>
-                            <Tab as={Fragment}>
-                                {({ selected }) => (
-                                    <button className={`outline-none p-3 -mb-px font-semibold w-full ${selected ? "bg-primary-50 dark:bg-primary-400 dark:bg-opacity-10 text-primary-600 dark:text-primary-500 border-b-2 border-primary-600" : "text-gray-500"}`}>
-                                        History
-                                    </button>
-                                )}
-                            </Tab>
-                        </Tab.List> */}
                         <Tab.Panels>
                             {/* Ticket */}
                             <Tab.Panel className='flex flex-col gap-4'>
@@ -173,20 +155,7 @@ export function Ticket() {
                                         <Form className='flex flex-col gap-5 w-full'>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel htmlFor="machine.name" text={translations[language].machine} />
-                                                <InputField
-                                                    style='icon'
-                                                    type='text'
-                                                    id="machine.name"
-                                                    name="machine.name"
-                                                    disabled={true}
-                                                    icon={
-                                                        <IconGear
-                                                            size='20'
-                                                            color='stroke-gray-500'
-                                                            fill='fill-primary-500'
-                                                        />
-                                                    }
-                                                />
+                                                <InputField style='icon' type='text' id="machine.name" name="machine.name" disabled={true} icon={ <IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' /> } />
                                             </div>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel
@@ -257,7 +226,7 @@ export function Ticket() {
                                                     text={translations[language].solution}
                                                 />
                                                 <InputTextArea
-                                                    disabled={true}
+                                                    disabled={user.role === "viscon-admin" || user.role === "viscon-employee" ? ticket.status === "in progress" ? false : true : true}
                                                     id='solution'
                                                     name='solution'                                                />
                                                 <InputErrorMessage name='issue' />
@@ -268,8 +237,8 @@ export function Ticket() {
                             </Tab.Panel>
 
 
-
-                            <Tab.Panel>Content 3</Tab.Panel>
+                            {/* History Panel */}
+                            <Tab.Panel>History...</Tab.Panel>
                         </Tab.Panels>
                     </Tab.Group>
                 </div>
@@ -284,13 +253,7 @@ export function Ticket() {
                                 <div className='w-max'>{statusBadge}</div>
                             </div>
                         </div>
-                        <AssigneeCard
-                            name={
-                                ticket.visconEmployee !== null
-                                    ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.preposition} ${ticket.visconEmployee?.lastName}`
-                                    : undefined
-                            }
-                        />
+                        <AssigneeCard name={ ticket.visconEmployee !== null ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.preposition} ${ticket.visconEmployee?.lastName}` : undefined } />
                     </div>
                     <Divider />
                 </div>

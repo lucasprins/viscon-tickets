@@ -15,12 +15,12 @@ const initialState: InitialState = {
         preposition: "",
         lastName: "Prins",
         phoneNumber: "+3163499770",
-        role: "viscon-admin",
+        role: "viscon-employee",
         email: "lucas2002prins@gmail.com",
         isActive: true,
         company: {
             companyId: '320923223',
-            name: 'Viscon',
+            name: 'Dunder Mifflin',
             country: 'The Netherlands',
             isActive: true
         } 

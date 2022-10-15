@@ -1,6 +1,6 @@
 {
     "nl": {      
-        "describe_issue_subtitle": "Beschrijf zorgvuldig wat u ziet en wat er mis gaat.",
+        "describe_issue_specific" : "Wat ziet u dat er fout gaat?",
         "describe_issue_expectation" : "Wat verwacht u dat er zou gebeuren?",
         "describe_issue_tried" : "Wat heeft u zelf al geprobeerd?",
         "describe_issue_extra_info" : "Extra informatie",
