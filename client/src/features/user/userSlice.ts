@@ -15,7 +15,7 @@ const initialState: InitialState = {
         preposition: "",
         lastName: "Prins",
         phoneNumber: "+3163499770",
-        role: "viscon-employee",
+        role: "viscon-admin",
         email: "lucas2002prins@gmail.com",
         isActive: true,
         company: {
