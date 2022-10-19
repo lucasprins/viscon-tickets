@@ -13,7 +13,7 @@ export function FileHeader({ file, onDelete }: fileHeaderProps) {
                 <p className='text-sm'>{file.size} bytes</p>
             </div>
             <div onClick={() => onDelete(file)}>
-                <IconTrash size='22' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-primary-500' />
+                <IconTrash size='22' color='stroke-gray-500 dark:stroke-gray-500' fill='' />
             </div>
         </div>
     );

@@ -18,6 +18,7 @@ import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { UserType } from "../../../utils/types";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/validateInput";
+import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
 
 var translations = require("../../../translations/createTicketTranslations.json");
 
@@ -333,6 +334,8 @@ export function CreateTicket() {
                                 title={translations[language].add_attachments}
                                 subtitle={translations[language].add_attachments_subtitle}
                             />
+                            
+                            <FileDropzone />
                             <div className='flex flex-row gap-4 pt-4'>
                                 <Button
                                     size='medium'
