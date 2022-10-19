@@ -25,15 +25,15 @@ export function FileDropzone() {
 
     return (
         <React.Fragment>
-            <div {...getRootProps({ className: "dropzone" })} className="flex bg-white flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-300 dark:border-dark-500 shadow-sm">         
+            <div {...getRootProps({ className: "dropzone" })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-300 dark:border-dark-500 shadow-sm">         
                 <div>
                     <div className="flex justify-center pb-2">
-                        <FeaturedIcon type="gray" size="sm" icon={<IconUpload size='22' color='stroke-gray-600' fill='fill-gray-50' />} />
+                        <FeaturedIcon type="gray" size="md" icon={<IconUpload size='22' color='stroke-gray-600 dark:stroke-white' fill='' />} />
                     </div>
                     <input {...getInputProps()} />
                     <div className="flex flex-col gap-1">
-                        <p className="text-md"><span className=" text-primary-700 font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className=" text-sm">{"PNG, JPG, or MP4 (max. 30MB)"}</p>
+                        <p className="text-md"><span className=" text-primary-600 dark:text-primary-500 font-semibold">Click to upload</span> or drag and drop</p>
+                        <p className=" text-sm dark:text-dark-300">{"PNG, JPG, or MP4 (max. 30MB)"}</p>
                     </div>
                 </div>
             </div>

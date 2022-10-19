@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconImage } from "../../atoms/Icons/Icons";
 import { FileHeader } from "./FileHeader";
 
@@ -19,9 +20,9 @@ export function SingleFileUpload({ file, onDelete }: SingleFileUploadProps) {
     }, []);
 
     return (
-        <div className='flex flex-row bg-white p-4 rounded-xl border border-gray-300 dark:border-dark-500 shadow-sm'>
+        <div className='flex flex-row outline-none bg-white dark:bg-dark-700 p-4 rounded-xl border border-gray-300 dark:border-dark-500 shadow-sm'>
             <div className='pr-3'>
-                <IconImage size='24' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
+              <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
             </div>
             <div className='flex flex-col w-full'>
                 <FileHeader file={file} onDelete={onDelete} />
