@@ -1,7 +1,10 @@
 import React from "react";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
+import { Divider } from "../../atoms/Divider/Divider";
 import { IconAlert } from "../../atoms/Icons/Icons";
+import { PageHeader } from "../../atoms/PageHeader/PageHeader";
+import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
 import Layout from "../../organisms/Layout/Layout";
 import { BasicTable } from "../../organisms/Table/basicTable";
 
@@ -19,7 +22,14 @@ export function Playground() {
                     icon={<IconAlert size='14' fill='fill-error-500' color='stroke-error-500' />}
                 />
 
-                <BasicTable />
+                <div className='p-8 flex w-full  flex-col gap-y-4'>
+                    <PageHeader
+                        title='Upload files'
+                        subtitle='Please provide us as many photos and videos as you can.'
+                    />
+                    <Divider />
+                    <FileDropzone />
+                </div>
             </div>
         </div>
     );
