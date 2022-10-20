@@ -500,6 +500,7 @@ export function CreateTicket() {
                                                 width='full'
                                                 type='primary'
                                                 text={translations[language].confirm_create_ticket}
+                                                url="/"
                                             />
                                         </div>
                                     </Form>
