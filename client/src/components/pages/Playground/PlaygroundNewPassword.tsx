@@ -43,7 +43,7 @@ export function Playground() {
                                         <InputField
                                             style='iconless'
                                             type='password'
-                                            placeholder="••••••••"
+                                            placeholder="Enter your new password"
                                             id='password1'
                                             name='password1'
                                             // validate={(input) => validatePhoneNumber(input, language)}
