@@ -8,8 +8,8 @@ type InputCheckboxProps = {
 export function InputCheckbox({ text }: InputCheckboxProps) {
     return (
         <div className='flex items-center gap-2'>
-            <input type='checkbox' className="-mt-0.5"/>
-            <div className='text-sm font-medium text-gray-700'>{text}</div>
+            <input id="remember" type='checkbox' className="-mt-0.5"/>
+            <label htmlFor="remember" className='text-sm font-medium text-gray-700'>{text}</label>
         </div>
     );
 }

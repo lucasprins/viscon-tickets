@@ -18,32 +18,28 @@ import Layout from "../../organisms/Layout/Layout";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { BasicTable } from "../../organisms/Table/basicTable";
 
-export function Playground() {
+export function RegisterCompleted() {
     const language = useAppSelector(getCurrentLanguage);
-    const registrationState = useState({
-        password1: "",
-        password2: "",
-    });
 
     return (
-        <div className='h-screen w-screen flex justify-center p-6 lg:py-24 dark:bg-dark-800'>
-            <div className='flex flex-col items-center gap-6'>
-                <FeaturedIcon type="success" size="xl" icon={<IconCheck size='24' color='stroke-success-600' fill='' />} />
-                <div className='flex flex-col items-center gap-3 w-96'>
-                    <h1 className='lg:text-display_sm text-gray-900 dark:text-white font-semibold text-center'>{"Registration completed!"}</h1>
-                    <p className='text-md text-gray-600 dark:text-dark-400 text-center'>{"Your password has been successfully set. Click below to continue to the login page."}</p>
-                </div>
-
-                <div className="py-2.5">
-                    <Button
-                        formType='button'
-                        size='large'
-                        width='full'
-                        type='primary'
-                        text='Continue'
-                        onclick={() => console.log("Clicked on Login")}
+        <div className='h-screen flex p-6 md:p-0 md:pt-24 justify-center dark:bg-dark-800'>
+            <div className='flex flex-col justify-centerr gap-8 w-full md:w-96'>
+                <div className='flex flex-col gap-6 items-center justify-center'>
+                    <FeaturedIcon
+                        type='success'
+                        size='xl'
+                        icon={<IconCheck size='24' color='stroke-success-600' fill='' />}
                     />
+                    <div className='flex flex-col items-center gap-3 w-full'>
+                        <h1 className='text-display_xs md:text-display_sm text-gray-900 dark:text-white font-semibold text-center'>
+                            {"Registration completed!"}
+                        </h1>
+                        <p className='text-md text-gray-600 dark:text-dark-400 text-center'>
+                            {"Your password has been successfully set. Click below to continue to the login page."}
+                        </p>
+                    </div>
                 </div>
+                <Button formType='button' size='medium' width='full' type='primary' text='Continue' url='/login' />
             </div>
         </div>
     );

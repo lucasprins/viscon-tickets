@@ -13,9 +13,17 @@ import { PageNotFound } from "./components/pages/PageNotFound/PageNotFound";
 import { Playground } from "./components/pages/Playground/Playground";
 import { Ticket } from "./components/pages/Ticket/Ticket";
 import { Tickets } from "./components/pages/Tickets/Tickets";
+import { ForgotPassword } from "./components/pages/Authentication/ForgotPassword";
+import { NewPassword } from "./components/pages/Authentication/NewPassword";
+import { Register } from "./components/pages/Authentication/Register";
+import { RegisterCompleted } from "./components/pages/Authentication/RegisterCompleted";
 
 export const routes = [
     { path: '/login', name: 'login', component: <Login /> },
+    { path: '/forgot-password', name: 'access-denied', component: <ForgotPassword /> },
+    { path: '/new-password', name: 'access-denied', component: <NewPassword /> },
+    { path: '/register', name: 'access-denied', component: <Register /> },
+    { path: '/register-completed', name: 'access-denied', component: <RegisterCompleted /> },
     { path: '/', name: 'dashboard', component: <Dashboard /> },
     { path: '/tickets', name: 'tickets', component: <Tickets /> },
     { path: '/tickets/:ticketID', name: 'ticket', component: <Ticket /> },
