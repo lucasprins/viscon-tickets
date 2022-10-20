@@ -20,9 +20,8 @@ import { BasicTable } from "../../organisms/Table/basicTable";
 
 export function Playground() {
     const language = useAppSelector(getCurrentLanguage);
-    const registrationState = useState({
-        password1: "",
-        password2: "",
+    const emailState = useState({
+        email: "",
     });
 
     return (
@@ -30,38 +29,29 @@ export function Playground() {
             <div className='flex flex-col items-center gap-6'>
                 <FeaturedIcon type="primary" size="xl" icon={<IconBell size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
                 <div className='flex flex-col items-center gap-3 w-96'>
-                    <h1 className='lg:text-display_sm text-gray-900 dark:text-white font-semibold text-center'>{"Set up your password"}</h1>
-                    <p className='text-md text-gray-600 dark:text-dark-400 text-center'>{"Before you login you will need to set up a password."}</p>
+                    <h1 className='lg:text-display_sm text-gray-900 dark:text-white font-semibold text-center'>{"Forgot password?"}</h1>
+                    <p className='text-md text-gray-600 dark:text-dark-400 text-center'>{"No worries, we’ll send you reset instructions."}</p>
                 </div>
 
-                <Formik initialValues={registrationState} onSubmit={() => console.log("Submitting login")}>
+                <Formik initialValues={emailState} onSubmit={() => console.log("Submitting login")}>
                         {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col gap-5 w-full'>
                                 <div className='flex flex-col gap-4 w-full'>
                                     <div className='flex flex-col w-full gap-1.5'>
-                                        <InputLabel htmlFor='password' text='Password' />
+                                        <InputLabel htmlFor='email' text='Email' />
                                         <InputField
-                                            style='iconless'
-                                            type='password'
-                                            placeholder="••••••••"
-                                            id='password1'
-                                            name='password1'
-                                            // validate={(input) => validatePhoneNumber(input, language)}
-                                        />
-                                        {/* <InputErrorMessage name='firstName' /> */}
-                                        <div className="font-normal text-sm text-gray-600">
-                                            <p>Must be at least 8 characters.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className='flex flex-col w-full gap-1.5'>
-                                        <InputLabel htmlFor='password' text='Password' />
-                                        <InputField
-                                            style='iconless'
-                                            type='password'
-                                            placeholder="••••••••"
-                                            id='password2'
-                                            name='password2'
+                                            style='icon'
+                                            type='email'
+                                            placeholder="Enter your email"
+                                            icon={
+                                                <IconMenu
+                                                    size='20'
+                                                    color='stroke-gray-500'
+                                                    fill='stroke-gray-500'
+                                                />
+                                            }
+                                            id='email'
+                                            name='email'
                                             // validate={(input) => validatePhoneNumber(input, language)}
                                         />
                                         {/* <InputErrorMessage name='firstName' /> */}
@@ -74,8 +64,16 @@ export function Playground() {
                                         size='large'
                                         width='full'
                                         type='primary'
-                                        text='Submit password'
+                                        text='Reset password'
                                         onclick={() => console.log("Clicked on Login")}
+                                    />
+                                </div>
+
+                                <div className="w-full flex flex-col">
+                                    <ButtonLink
+                                        size={0}
+                                        type={1}
+                                        text="Back to log in"
                                     />
                                 </div>
                             </Form>

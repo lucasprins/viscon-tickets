@@ -30,8 +30,8 @@ export function Playground() {
             <div className='flex flex-col items-center gap-6'>
                 <FeaturedIcon type="primary" size="xl" icon={<IconBell size='24' color='stroke-primary-500' fill='fill-primary-500' />} />
                 <div className='flex flex-col items-center gap-3 w-96'>
-                    <h1 className='lg:text-display_sm text-gray-900 dark:text-white font-semibold text-center'>{"Set up your password"}</h1>
-                    <p className='text-md text-gray-600 dark:text-dark-400 text-center'>{"Before you login you will need to set up a password."}</p>
+                    <h1 className='lg:text-display_sm text-gray-900 dark:text-white font-semibold text-center'>{"Set new password"}</h1>
+                    <p className='text-md text-gray-600 dark:text-dark-400 text-center'>{"Your new password must be atleast 8 characters long."}</p>
                 </div>
 
                 <Formik initialValues={registrationState} onSubmit={() => console.log("Submitting login")}>
@@ -43,7 +43,7 @@ export function Playground() {
                                         <InputField
                                             style='iconless'
                                             type='password'
-                                            placeholder="••••••••"
+                                            placeholder="Enter your new password"
                                             id='password1'
                                             name='password1'
                                             // validate={(input) => validatePhoneNumber(input, language)}
@@ -74,8 +74,16 @@ export function Playground() {
                                         size='large'
                                         width='full'
                                         type='primary'
-                                        text='Submit password'
+                                        text='Set password'
                                         onclick={() => console.log("Clicked on Login")}
+                                    />
+                                </div>
+
+                                <div className="w-full flex flex-col">
+                                    <ButtonLink
+                                        size={0}
+                                        type={1}
+                                        text="Back to log in"
                                     />
                                 </div>
                             </Form>
