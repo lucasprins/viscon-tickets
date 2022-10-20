@@ -2,20 +2,14 @@ import { Field } from "formik";
 import React, { useState } from "react";
 
 type InputCheckboxProps = {
-  text?: string
-}
+    text?: string;
+};
 
 export function InputCheckbox({ text }: InputCheckboxProps) {
-  return (
-    <div className="flex justify-content content-center">
-      <label className="flex">
-        <div>
-          <input type="checkbox" />
+    return (
+        <div className='flex items-center gap-2'>
+            <input type='checkbox' className="-mt-0.5"/>
+            <div className='text-sm font-medium text-gray-700'>{text}</div>
         </div>
-        <div className="pl-2 w-56 text-sm font-medium text-gray-700">
-          {text}
-        </div>
-      </label>
-    </div>
-  )
+    );
 }

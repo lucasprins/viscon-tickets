@@ -28,14 +28,14 @@ export function Playground() {
         <div className='flex flex-col md:flex-row w-full dark:bg-dark-800 dark:text-white'>
             <div className='p-8 flex flex-col items-center w-full pt-32 gap-y-5'>
             
-                <div className='flex flex-col items-center gap-12 px-8 '>
+                <div className='flex flex-col items-center gap-12 w-full max-w-lg'>
                     <PageHeader title='Log in' subtitle='Welcome back! Please enter your details.' />
 
                     <Formik initialValues={loginState} onSubmit={() => console.log("Submitting login")}>
                         {({ errors, touched, isValidating }) => (
-                            <Form className='flex flex-col gap-5'>
-                                <div className='flex flex-col gap-4'>
-                                    <div className='flex flex-col gap-1.5'>
+                            <Form className='flex flex-col gap-5 w-full'>
+                                <div className='flex flex-col gap-4 w-full'>
+                                    <div className='flex flex-col gap-1.5 w-full'>
                                         <InputLabel htmlFor='email' text='Email' />
                                         <InputField
                                             style='icon'
@@ -76,7 +76,7 @@ export function Playground() {
                                     </div>
                                 </div>
 
-                                <div className="flex">
+                                <div className="flex items-center justify-between">
                                     <InputCheckbox text="Remember for 30 days" />
 
                                     <ButtonLink
