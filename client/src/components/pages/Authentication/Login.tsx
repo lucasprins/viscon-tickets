@@ -9,23 +9,28 @@ import { InputCheckbox } from "../../atoms/Input/InputCheckbox";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
+import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 
 var translations = require("../../../translations/authenticationTranslations.json");
 
 export function Login() {
     const language = useAppSelector(getCurrentLanguage);
-    const logo = require("../../../assets/viscon-login.jpg")
+    const logo = require("../../../assets/viscon-login.jpg");
     const [login, setLogin] = useState({
         email: "",
         password: "",
     });
 
     return (
-        <div className='flex dark:bg-dark-800 dark:text-white w-full h-screen'>
+        <div className='flex dark:bg-dark-800 dark:text-white w-full lg:h-screen'>
+            <div className="hidden lg:flex absolute p-8">
+                <NavigationHeader />
+            </div>
+
             {/* Left Side */}
-            <div className='w-full lg:w-1/2 flex flex-col items-center justify-center'>
-                <div className='flex flex-col gap-8 w-96'>
-                    <PageHeader title='Log in' subtitle='Welcome back! Please enter your details.' />
+            <div className='w-full lg:w-1/2 p-6 lg:p-0 flex flex-col items-center justify-center'>
+                <div className='flex flex-col gap-8 w-full lg:w-96'>
+                    <PageHeader title='Log in' subtitle='Welcome back to the Viscon ticketsystem! Please enter your details.' />
 
                     <Formik initialValues={login} onSubmit={() => console.log("Submitting login")}>
                         {({ errors, touched, isValidating }) => (
@@ -84,10 +89,9 @@ export function Login() {
                 </div>
             </div>
 
-            <div className="w-full hidden lg:flex lg:w-1/2">
-                <img className=" min-w-full min-h-full object-cover" src={logo} />
+            <div className='w-full hidden lg:flex lg:w-1/2'>
+                <img className=' min-w-full min-h-full object-cover' src={logo} />
             </div>
-
         </div>
     );
 }
