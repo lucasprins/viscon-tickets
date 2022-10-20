@@ -20,7 +20,7 @@ const initialState: InitialState = {
         isActive: true,
         company: {
             companyId: '320923223',
-            name: 'Viscon',
+            name: 'Dunder Mifflin',
             country: 'The Netherlands',
             isActive: true
         } 

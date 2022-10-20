@@ -3,7 +3,7 @@ export type UserType = {
     preposition?: string,
     lastName: string,
     phoneNumber: string,
-    role: "viscon-admin" | "viscon-employee" | "customer-admin" | "customer-employee",
+    role: "viscon-admin" | "viscon-employee" | "customer-admin" | "customer-operator-1" | "customer-operator-2",
     email: string,
     isActive: boolean,
     company: CompanyType 
