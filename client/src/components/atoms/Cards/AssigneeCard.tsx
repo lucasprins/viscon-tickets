@@ -4,14 +4,15 @@ import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconAlert } from "../Icons/Icons";
 
 type AssigneeCardProps = {
-    name: string | undefined;
+    name: string | undefined,
+    subtitle?: string,
 };
 
-export function AssigneeCard({ name }: AssigneeCardProps) {
+export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
     return (
         <>
             {name !== undefined ? (
-                <div className='flex gap-4 p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-300 dark:border-dark-500 rounded-xl'>
+                <div className='flex gap-4 p-3 md:p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-300 dark:border-dark-500 rounded-xl'>
                     <div>
                         <div className='h-14 w-14 bg-primary-100 dark:bg-primary-400 dark:bg-opacity-10 rounded-full flex items-center justify-center text-xl text-primary-600 dark:text-primary-500 font-medium'>
                             {getInitials(name)}
@@ -19,7 +20,7 @@ export function AssigneeCard({ name }: AssigneeCardProps) {
                     </div>
                     <div className='flex flex-col'>
                         <h5 className='text-gray-700 text-lg font-semibold dark:text-white'>{name}</h5>
-                        <span className='text-md text-gray-600 dark:text-dark-300'>Assignee</span>
+                        <span className='text-md text-gray-600 dark:text-dark-300'>{subtitle}</span>
                     </div>
                 </div>
             ) : (
