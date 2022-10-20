@@ -1,7 +1,11 @@
 import React from "react";
+import { getCurrentLanguage } from "../../../features/user/userSlice";
+import { useAppSelector } from "../../../utils/hooks";
 import { getInitials } from "../../../utils/stringUtil";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconAlert } from "../Icons/Icons";
+
+var translations = require("../../../translations/ticketTranslations.json");
 
 type AssigneeCardProps = {
     name: string | undefined,
@@ -9,6 +13,8 @@ type AssigneeCardProps = {
 };
 
 export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
+    const language = useAppSelector(getCurrentLanguage);
+
     return (
         <>
             {name !== undefined ? (
@@ -28,7 +34,7 @@ export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
                 <span className="flex">
                     <FeaturedIcon size="md" type="gray" icon={<IconAlert size='22' fill='fill-gray-600 dark:fill-gray-300' color='stroke-gray-600 dark:stroke-gray-300' />} />
                 </span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">This ticket has not been claimed yet</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">{translations[language].not_claimed}</span>
             </div>
             )}
         </>

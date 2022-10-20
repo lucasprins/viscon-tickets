@@ -21,6 +21,7 @@
         "in_progress": "Bezig",
         "resolved": "Opgelost",
         "cancelled": "Geannuleerd",
+        "not_claimed": "Dit ticket is nog niet geclaimd",
 
         "claim_ticket": "Claim ticket",
         "unclaim": "Unclaim",
@@ -53,6 +54,7 @@
         "in_progress": "In progress",
         "resolved": "Resolved",
         "cancelled": "Cancelled",
+        "not_claimed": "This ticket has not been claimed yet",
 
         "claim_ticket": "Claim ticket",
         "unclaim": "Unclaim",

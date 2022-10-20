@@ -3,8 +3,7 @@ import { Form, Formik } from "formik";
 import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { capitalize } from "../../../utils/stringUtil";
+import { useAppSelector } from "../../../utils/hooks";
 import { TicketType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
@@ -75,12 +74,14 @@ export function Ticket() {
             if(ticket.status === "open" || ticket.status === "in progress") {
                 ticketActions.push(<Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />);
             }
+            ticketActionsMobile.push(<Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />);
             ticketActionsMobile.push(<Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />);
             break;
         case "customer-operator-1":
             if(ticket.status === "open" || ticket.status === "in progress") {
                 ticketActions.push(<Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />);
             }
+            ticketActionsMobile.push(<Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />);
             ticketActionsMobile.push(<Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />);
             break;
     }
@@ -107,7 +108,7 @@ export function Ticket() {
             <Layout />
             {/* Main Page */}
             <div className='flex flex-col xl:flex-row w-full h-full'>
-                <div className='w-full xl:w-2/3 p-6 xl:p-8 flex flex-col gap-6 xl:overflow-y-scroll'>
+                <div className='w-full xl:w-2/3 p-6 xl:p-8 flex flex-col gap-6 overflow-y-scroll'>
                     <div className='flex flex-col gap-5 w-full'>
                         <Breadcrumbs crumbs={["Tickets", `Ticket ${ticketID}`]} />
                         <div className="flex flex-col xl:flex-row xl:gap-2 xl:justify-between xl:items-end">
@@ -120,21 +121,21 @@ export function Ticket() {
                         <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-700 border border-gray-100 dark:border-dark-500 flex rounded-lg items-center'>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 dark:text-dark-400 font-semibold"}>
+                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center py-2 text-gray-500 dark:text-dark-400 font-semibold"}>
                                         {translations[language].ticket}
                                     </button>
                                 )}
                             </Tab>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 dark:text-dark-400 font-semibold"}>
+                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center py-2 text-gray-500 dark:text-dark-400 font-semibold"}>
                                         {translations[language].solution}
                                     </button>
                                 )}
                             </Tab>
                             <Tab as={Fragment}>
                                 {({ selected }) => (
-                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center text-gray-500 dark:text-dark-400 font-semibold"}>
+                                    <button className={selected ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold" : "w-full flex justify-center py-2 text-gray-500 dark:text-dark-400 font-semibold"}>
                                         {translations[language].history}
                                     </button>
                                 )}

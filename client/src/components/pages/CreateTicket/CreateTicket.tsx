@@ -61,7 +61,7 @@ export function CreateTicket() {
     return (
         <>
             <div className='flex flex-col md:flex-row md:h-screen dark:bg-dark-800 dark:text-white w-full'>
-                <div className='bg-gray-50 border-r border-gray-200 dark:border-dark-600 dark:border dark:bg-dark-700 w-1/3 hidden max-w-lg lg:flex flex-col justify-between py-12 pl-12 pr-16'>
+                <div className='bg-gray-50 border-r border-gray-200 dark:border-dark-600 dark:border dark:bg-dark-700 w-1/3 hidden lg:flex flex-col justify-between py-12 pl-12 pr-16'>
                     <div className='flex flex-col gap-20'>
                         <NavigationHeader />
                         <div>
