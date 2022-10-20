@@ -10,6 +10,8 @@ import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 
+var translations = require("../../../translations/authenticationTranslations.json");
+
 export function Login() {
     const language = useAppSelector(getCurrentLanguage);
     const logo = require("../../../assets/viscon-login.jpg")
@@ -62,7 +64,7 @@ export function Login() {
                                         url='/forgot-password'
                                         size='medium'
                                         type='color'
-                                        text='Forgot password'
+                                        text={translations[language].forgotPassword}
                                     />
                                 </div>
 
