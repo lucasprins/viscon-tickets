@@ -25,18 +25,17 @@ export function Login() {
 
     return (
         <div className='flex dark:bg-dark-800 dark:text-white w-full lg:h-screen'>
-            <div className='hidden lg:flex absolute p-8'>
+            <div className='hidden lg:flex lg:absolute p-8'>
                 <NavigationHeader />
             </div>
-
             {/* Left Side */}
             <div className='w-full lg:w-1/2 p-6 lg:p-0 flex flex-col items-center justify-center'>
                 <div className='flex flex-col gap-8 w-full lg:w-96'>
+                    <NavigationHeader />
                     <PageHeader
                         title='Log in'
                         subtitle='Welcome back to the Viscon ticketsystem! Please enter your details.'
                     />
-
                     <Formik initialValues={login} onSubmit={() => console.log("Submitting login")}>
                         {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col gap-6'>
