@@ -31,7 +31,7 @@ export function Login() {
             {/* Left Side */}
             <div className='w-full lg:w-1/2 p-6 lg:p-0 flex flex-col items-center justify-center'>
                 <div className='flex flex-col gap-8 w-full lg:w-96'>
-                    <NavigationHeader />
+                    <div className="lg:hidden"><NavigationHeader /></div>
                     <PageHeader
                         title='Log in'
                         subtitle='Welcome back to the Viscon ticketsystem! Please enter your details.'
