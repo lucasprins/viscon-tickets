@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using server.Models;
+using server.DTOS.Company;
+using server.Services.CompanyService;
 
 namespace server.Controllers
 {
@@ -11,43 +12,29 @@ namespace server.Controllers
     [Route("api/[controller]")]
     public class CompanyController : ControllerBase
     {
+        private readonly ICompanyService _companyService;
 
-        private readonly DataContext _context;
-
-        public CompanyController(DataContext context)
+        public CompanyController(ICompanyService companyService)
         {
-            _context = context;
+            _companyService = companyService;
+        }
+
+        [HttpGet("GetAllCompanies")]
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> Get()
+        {
+            return Ok(await _companyService.GetAllCompanies());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Company>> Get(Guid id)
+        public async Task<ActionResult<ServiceResponse<GetCompanyDTO>>> GetSingle(Guid id)
         {
-            var company = await _context.Companies.FindAsync(id);
-            if (company == null)
-            {
-                return NotFound();
-            }
-            return Ok(company);
-        }
-
-        // Get all superheroes
-        [HttpGet]
-        public async Task<ActionResult<List<Company>>> Get()
-        {
-            return Ok(await _context.Companies.ToListAsync());
+            return Ok(await _companyService.GetCompanyById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Company>>> AddCompany()
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> AddCompany(AddCompanyDTO newCompany)
         {
-            _context.Companies.Add(new Company
-            {
-                Name = "Microsoft",
-                Country = "USA",
-                IsActive = true
-            });
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Companies.ToListAsync());
+            return Ok(await _companyService.AddCompany(newCompany));
         }
     }
 }

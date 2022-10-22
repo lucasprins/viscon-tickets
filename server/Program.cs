@@ -1,5 +1,7 @@
 global using server.Data;
+global using server.Models;
 global using Microsoft.EntityFrameworkCore;
+using server.Services.CompanyService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddDbContext<DataContext>(optionsBuilder =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 var app = builder.Build();
 
