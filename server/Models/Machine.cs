@@ -13,5 +13,7 @@ namespace server.Models
         public string Type { get; set; } = null!;
 
         public List<CompanyMachine> CompanyMachines { get; set; } = null!;
+        public List<Solution> Solutions { get; set; } = null!;
+        public List<Ticket> Tickets { get; set; } = null!;
     }
 }

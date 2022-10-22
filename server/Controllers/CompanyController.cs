@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.DTOS.Company;
 using server.Services.CompanyService;
@@ -19,7 +20,7 @@ namespace server.Controllers
             _companyService = companyService;
         }
 
-        [HttpGet("GetAllCompanies")]
+        [HttpGet("GetAllCompanies"), Authorize(Roles = "VisconAdmin,VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> Get()
         {
             return Ok(await _companyService.GetAllCompanies());

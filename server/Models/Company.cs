@@ -13,5 +13,6 @@ namespace server.Models
         public bool IsActive { get; set; }
 
         public List<CompanyMachine> CompanyMachines { get; set; } = null!;
+        public List<User> Users { get; set; } = null!;
     }
 }
