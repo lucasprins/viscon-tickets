@@ -22,6 +22,7 @@ namespace server.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<ServiceResponse<GetAuthenticatedUserDTO>>> Login(LoginUserDTO user)
         {
+            // Task.Delay(5000).Wait();
             return Ok(await _authService.Login(user));
         }
 

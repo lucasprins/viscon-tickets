@@ -1,7 +1,8 @@
 import { Formik, Form } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getIsLoggedIn, login } from "../../../features/auth/authSlice";
+import { clearMessage } from "../../../features/auth/messageSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { validateEmail } from "../../../utils/validateInput";
@@ -13,6 +14,7 @@ import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
+import { Spinner } from "../../atoms/Spinner/Spinner";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 
 var translations = require("../../../translations/authenticationTranslations.json");
@@ -27,6 +29,10 @@ export function Login() {
     const language: string = useAppSelector(getCurrentLanguage);
     const logo = require("../../../assets/viscon-login.jpg");
 
+    useEffect(() => {
+        dispatch(clearMessage());
+    }, [dispatch]);
+
     const initialValues = {
         email: "",
         password: "",
@@ -37,9 +43,11 @@ export function Login() {
         setLoading(true);
 
         if (email && password) {
-            dispatch(login({ email, password })).catch(() => {
-                setLoading(false);
-            });
+            dispatch(login({ email, password }))
+                .unwrap()
+                .catch(() => {
+                    setLoading(false);
+                });
         }
     };
 
@@ -104,12 +112,29 @@ export function Login() {
                                         text={translations[language].forgotPassword}
                                     />
                                 </div>
-
                                 {/* Button */}
-                                <Button formType='submit' size='medium' width='full' type='primary' text='Sign in' />
+                                {loading ? (
+                                    <Button
+                                        disabled={loading}
+                                        formType='submit'
+                                        size='medium'
+                                        width='full'
+                                        type='primary'
+                                        text={translations[language].loggingIn}
+                                        icon={<Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />}
+                                    />
+                                ) : (
+                                    <Button
+                                        formType='submit'
+                                        size='medium'
+                                        width='full'
+                                        type='primary'
+                                        text='Sign in'
+                                    />
+                                )}
                                 {/* Error message */}
                                 {message && (
-                                    <div className="flex justify-center">
+                                    <div className='flex justify-center'>
                                         <span className='text-error-500'>{message}</span>
                                     </div>
                                 )}

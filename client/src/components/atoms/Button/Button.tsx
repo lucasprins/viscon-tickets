@@ -9,10 +9,11 @@ type ButtonProps = {
     icon?: JSX.Element,
     url?: string,
     onclick?: () => any,
+    disabled?: boolean,
     formType?: "submit" | "button" | "reset"
 }
 
-export function Button({ size, width, type, text, icon, url, onclick, formType }: ButtonProps) {
+export function Button({ size, width, type, text, icon, url, onclick, formType, disabled }: ButtonProps) {
     const buttonWidthStyle = width === 'full' ? "w-full" : "";
     let buttonSizeStyle = "";
     let buttonTypeStyle = "";
@@ -54,15 +55,19 @@ export function Button({ size, width, type, text, icon, url, onclick, formType }
             {url
                 ?
                 <Link to={url} className={buttonWidthStyle}>
-                    <button type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center items-center gap-x-2.5 rounded-lg`}>
+                    <button disabled={disabled} type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
+                flex justify-center items-center gap-x-2.5 rounded-lg
+                ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
+                `}>
                         {icon}
                         {text}
                     </button>
                 </Link>
                 :
-                <button type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center items-center gap-x-2.5 rounded-lg`}>
+                <button disabled={disabled} type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
+                flex justify-center items-center gap-x-2.5 rounded-lg
+                ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
+                `}>
                     {icon}
                     {text}
                 </button>

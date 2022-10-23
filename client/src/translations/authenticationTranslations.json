@@ -1,9 +1,11 @@
 {
     "nl": {
-        "forgotPassword": "Wachtwoord vergeten"
+        "forgotPassword": "Wachtwoord vergeten",
+        "loggingIn": "Inloggen..."
 
     },
     "en": {
-        "forgotPassword": "Forgot password "
+        "forgotPassword": "Forgot password ",
+        "loggingIn": "Logging in..."
     }
 }
