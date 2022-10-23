@@ -112,12 +112,12 @@ export function NavigationSidebar() {
                     <Link to='/account' className='flex ml-2 gap-3 items-center'>
                         <Avatar name='Lucas Prins' color='gray' />
                         <div className='flex flex-col'>
-                            <span className='text-gray-700 text-sm font-semibold'>
+                            <span className='text-gray-700 dark:text-white text-sm font-semibold'>
                                 {user.preposition
                                     ? `${user.firstName} ${user.preposition} ${user.lastName}`
                                     : `${user.firstName} ${user.lastName}`}
                             </span>
-                            <span className='text-gray-500 text-sm'>{user.company.name}</span>
+                            <span className='text-gray-500 dark:text-dark-300 text-sm'>{user.company.name}</span>
                         </div>
                     </Link>
                     <ButtonIcon
