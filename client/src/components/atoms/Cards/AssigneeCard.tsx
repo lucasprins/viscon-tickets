@@ -2,6 +2,7 @@ import React from "react";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
 import { getInitials } from "../../../utils/stringUtil";
+import { Avatar } from "../Avatar/Avatar";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconAlert } from "../Icons/Icons";
 
@@ -20,9 +21,7 @@ export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
             {name !== undefined ? (
                 <div className='flex gap-4 p-3 md:p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-300 dark:border-dark-500 rounded-xl'>
                     <div>
-                        <div className='h-14 w-14 bg-primary-100 dark:bg-primary-400 dark:bg-opacity-10 rounded-full flex items-center justify-center text-xl text-primary-600 dark:text-primary-500 font-medium'>
-                            {getInitials(name)}
-                        </div>
+                        <Avatar name={name} color="primary" />
                     </div>
                     <div className='flex flex-col'>
                         <h5 className='text-gray-700 text-lg font-semibold dark:text-white'>{name}</h5>

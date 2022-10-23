@@ -20,13 +20,13 @@ namespace server.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<ServiceResponse<string>>> Login(LoginUserDTO user)
+        public async Task<ActionResult<ServiceResponse<GetUserDTO>>> Login(LoginUserDTO user)
         {
             return Ok(await _authService.Login(user));
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<ServiceResponse<string>>> Register(RegisterUserDTO newUser)
+        public async Task<ActionResult<ServiceResponse<GetUserDTO>>> Register(RegisterUserDTO newUser)
         {
             return Ok(await _authService.Register(newUser));
         }
