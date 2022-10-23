@@ -122,7 +122,7 @@ export function NavigationSidebar() {
                     </Link>
                     <ButtonIcon
                         onclick={() => console.log("Add logout functionality")}
-                        icon={<IconLogout size='20' color='stroke-gray-500' fill='fill-gray-500' />}
+                        icon={<IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                     />
                 </div>
             </div>
