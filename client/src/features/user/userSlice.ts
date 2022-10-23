@@ -4,6 +4,8 @@ import { UserType } from "../../utils/types";
 
 // const user = JSON.parse(localStorage.getItem("user"));
 
+const initialLanguage = localStorage.getItem("language");
+
 type InitialState = {
     user: UserType,
     language: string
@@ -25,7 +27,7 @@ const initialState: InitialState = {
             isActive: true
         } 
     },
-    language: 'en',
+    language: initialLanguage ? initialLanguage : "en",
 }
 
 const userSlice = createSlice({
@@ -33,6 +35,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setLanguage: (state, action: PayloadAction<string>) => {
+            localStorage.setItem('language', action.payload);
             state.language = action.payload;
         },
     }
