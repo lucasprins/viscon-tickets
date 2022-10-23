@@ -12,13 +12,15 @@ export const login = createAsyncThunk(
         try {
             const response = await AuthService.login(email, password);
             console.log(response);
-            if(response.data.data == null) {
+            if (response.data.data == null) {
                 thunkAPI.dispatch(setMessage("Invalid email or password."));
                 return thunkAPI.rejectWithValue(response.data.message);
             }
             return { user: response.data.data };
         } catch (error: any) {
             console.log(error);
+            thunkAPI.dispatch(setMessage(error.message));
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
@@ -71,9 +73,8 @@ const authSlice = createSlice({
     },
 });
 
-
-export const getUser = (state: RootState) => state.auth.user
-export const getIsLoggedIn = (state: RootState) => state.auth.isLoggedIn
+export const getUser = (state: RootState) => state.auth.user;
+export const getIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
 
 const { reducer } = authSlice;
 export default reducer;
