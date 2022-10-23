@@ -4,11 +4,18 @@ import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
 import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { useAppSelector } from '../../../utils/hooks';
+import { Navigate } from 'react-router-dom';
+import { getUser } from '../../../features/auth/authSlice';
 
 var translations = require('../../../translations/pageNotFoundTranslations.json');
 
 export function PageNotFound() {
 	const language = useAppSelector(getCurrentLanguage);
+	const currentUser = useAppSelector(getUser);
+
+	if (!currentUser) {
+		return <Navigate to='/login' />;
+	}
 
 	return (
 		<div className='h-screen w-screen flex items-center justify-center p-6 lg:p-8 dark:bg-dark-800'>

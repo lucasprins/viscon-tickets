@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { getUser } from '../../../features/auth/authSlice';
+import { useAppSelector } from '../../../utils/hooks';
 import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
@@ -7,6 +10,11 @@ var translations = require('../../../translations/accessDeniedTranslations.json'
 
 export function AccessDenied() {
 	const [language, seLanguage] = useState('nl');
+	const currentUser = useAppSelector(getUser);
+	
+	if(!currentUser) {
+		return <Navigate to="/login" />
+	}
 
 	return (
 		<div className='h-screen w-screen flex items-center justify-center p-6 lg:p-8 dark:bg-dark-800'>

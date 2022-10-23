@@ -1,7 +1,7 @@
 import { Tab } from "@headlessui/react";
 import { Form, Formik } from "formik";
 import React, { Fragment } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
 import { TicketType } from "../../../utils/types";

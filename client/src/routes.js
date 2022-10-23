@@ -10,7 +10,6 @@ import { Knowledgebase } from "./components/pages/Knowledgebase/Knowledgebase";
 import { Login } from "./components/pages/Authentication/Login";
 import { Notifications } from "./components/pages/Notifications/Notifications";
 import { PageNotFound } from "./components/pages/PageNotFound/PageNotFound";
-import { Playground } from "./components/pages/Playground/Playground";
 import { Ticket } from "./components/pages/Ticket/Ticket";
 import { Tickets } from "./components/pages/Tickets/Tickets";
 import { ForgotPassword } from "./components/pages/Authentication/ForgotPassword";
@@ -29,7 +28,6 @@ export const routes = [
     { path: '/tickets/:ticketID', name: 'ticket', component: <Ticket /> },
     { path: '/knowledgebase', name: 'knowledgebase', component: <Knowledgebase /> },
     { path: '/knowledgebase/create-ticket', name: 'create-ticket', component: <CreateTicket /> },
-    { path: '/playground', name: 'playground', component: <Playground /> },
     { path: '/admin/users', name: 'notifications', component: <AdminUsers /> },
     { path: '/admin/customers', name: 'notifications', component: <AdminCustomers /> },
     { path: '/admin/machines', name: 'notifications', component: <AdminMachines /> },
