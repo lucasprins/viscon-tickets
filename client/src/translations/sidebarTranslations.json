@@ -11,7 +11,8 @@
         "manage_machines": "Machines",
         "manage_solutions": "Oplossingen",
         "light": "Licht",
-        "dark": "Donker"
+        "dark": "Donker",
+        "appearance": "Uiterlijk"
     },
     "en": {
         "dashboard": "Dashboard",
@@ -25,6 +26,7 @@
         "manage_machines": "Machines",
         "manage_solutions": "Solutions",
         "light": "Light",
-        "dark": "Dark"
+        "dark": "Dark",
+        "appearance": "Appearance"
     }
 }
