@@ -20,7 +20,7 @@ namespace server.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<ServiceResponse<GetUserDTO>>> Login(LoginUserDTO user)
+        public async Task<ActionResult<ServiceResponse<GetAuthenticatedUserDTO>>> Login(LoginUserDTO user)
         {
             return Ok(await _authService.Login(user));
         }

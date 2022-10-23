@@ -1,7 +1,9 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { getIsLoggedIn, login } from "../../../features/auth/authSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { validateEmail } from "../../../utils/validateInput";
 import { Button } from "../../atoms/Button/Button";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
@@ -16,12 +18,34 @@ import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 var translations = require("../../../translations/authenticationTranslations.json");
 
 export function Login() {
-    const language = useAppSelector(getCurrentLanguage);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [loading, setLoading] = useState(false);
+    const isLoggedIn = useAppSelector(getIsLoggedIn);
+    const { message } = useAppSelector((state) => state.message);
+
+    const language: string = useAppSelector(getCurrentLanguage);
     const logo = require("../../../assets/viscon-login.jpg");
-    const [login, setLogin] = useState({
+
+    const initialValues = {
         email: "",
         password: "",
-    });
+    };
+
+    const handleLogin = (formValue: { email: string; password: string }) => {
+        const { email, password } = formValue;
+        setLoading(true);
+
+        if (email && password) {
+            dispatch(login({ email, password })).catch(() => {
+                setLoading(false);
+            });
+        }
+    };
+
+    if (isLoggedIn) {
+        return <Navigate to='/' />;
+    }
 
     return (
         <div className='flex dark:bg-dark-800 dark:text-white w-full lg:h-screen'>
@@ -31,12 +55,14 @@ export function Login() {
             {/* Left Side */}
             <div className='w-full lg:w-1/2 p-6 lg:p-0 flex flex-col items-center justify-center'>
                 <div className='flex flex-col gap-8 w-full lg:w-96'>
-                    <div className="lg:hidden"><NavigationHeader /></div>
+                    <div className='lg:hidden'>
+                        <NavigationHeader />
+                    </div>
                     <PageHeader
                         title='Log in'
                         subtitle='Welcome back to the Viscon ticketsystem! Please enter your details.'
                     />
-                    <Formik initialValues={login} onSubmit={() => console.log("Submitting login")}>
+                    <Formik initialValues={initialValues} onSubmit={(values) => handleLogin(values)}>
                         {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col gap-6'>
                                 {/* Inputs */}
@@ -80,15 +106,13 @@ export function Login() {
                                 </div>
 
                                 {/* Button */}
-                                <Button
-                                    formType='submit'
-                                    size='medium'
-                                    width='full'
-                                    type='primary'
-                                    text='Sign in'
-                                    url='/'
-                                    onclick={() => console.log("Clicked on Login")}
-                                />
+                                <Button formType='submit' size='medium' width='full' type='primary' text='Sign in' />
+                                {/* Error message */}
+                                {message && (
+                                    <div className="flex justify-center">
+                                        <span className='text-error-500'>{message}</span>
+                                    </div>
+                                )}
                             </Form>
                         )}
                     </Formik>

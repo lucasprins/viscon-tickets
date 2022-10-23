@@ -19,9 +19,9 @@ namespace server.Services.AuthService
             _context = context;
         }
 
-        public async Task<ServiceResponse<GetUserDTO>> Login(LoginUserDTO user)
+        public async Task<ServiceResponse<GetAuthenticatedUserDTO>> Login(LoginUserDTO user)
         {
-            ServiceResponse<GetUserDTO> response = new ServiceResponse<GetUserDTO>();
+            ServiceResponse<GetAuthenticatedUserDTO> response = new ServiceResponse<GetAuthenticatedUserDTO>();
             var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower().Equals(user.Email.ToLower()));
             
             if (dbUser == null)
@@ -37,8 +37,7 @@ namespace server.Services.AuthService
             else
             {
                 string token = CreateToken(dbUser);
-                response.Message = token;
-                response.Data = new GetUserDTO
+                response.Data = new GetAuthenticatedUserDTO
                 {
                     Id = dbUser.Id,
                     FirstName = dbUser.FirstName,
@@ -48,7 +47,8 @@ namespace server.Services.AuthService
                     PhoneNumber = dbUser.PhoneNumber,
                     Role = dbUser.Role,
                     IsActive = dbUser.IsActive,
-                    CompanyId = dbUser.CompanyId
+                    CompanyId = dbUser.CompanyId,
+                    AccessToken = token
                 };
             }
 

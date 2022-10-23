@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
@@ -23,6 +23,7 @@ import { Avatar } from "../../atoms/Avatar/Avatar";
 import { Divider } from "../../atoms/Divider/Divider";
 import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
+import { logout } from "../../../features/auth/authSlice";
 
 var translations = require("../../../translations/sidebarTranslations.json");
 
@@ -46,6 +47,10 @@ export function NavigationSidebar() {
             root.classList.add("dark");
         }
     };
+
+    const logOut = useCallback(() => {
+        dispatch(logout());
+      }, [dispatch]);
 
     return (
         <>
@@ -121,7 +126,7 @@ export function NavigationSidebar() {
                         </div>
                     </Link>
                     <ButtonIcon
-                        onclick={() => console.log("Add logout functionality")}
+                        onclick={logOut}
                         icon={<IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                     />
                 </div>

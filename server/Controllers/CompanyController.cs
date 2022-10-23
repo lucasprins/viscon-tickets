@@ -20,7 +20,8 @@ namespace server.Controllers
             _companyService = companyService;
         }
 
-        [HttpGet("GetAllCompanies"), Authorize(Roles = "VisconAdmin,VisconEmployee")]
+        // [HttpGet("GetAllCompanies"), Authorize(Roles = "VisconAdmin,VisconEmployee")]
+        [HttpGet("GetAllCompanies")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> Get()
         {
             return Ok(await _companyService.GetAllCompanies());

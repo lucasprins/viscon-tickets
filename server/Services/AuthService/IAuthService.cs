@@ -13,7 +13,7 @@ namespace server.Services.AuthService
         bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt);
 
         Task<ServiceResponse<GetUserDTO>> Register(RegisterUserDTO newUser);
-        Task<ServiceResponse<GetUserDTO>> Login(LoginUserDTO user);
+        Task<ServiceResponse<GetAuthenticatedUserDTO>> Login(LoginUserDTO user);
 
     }
 }
