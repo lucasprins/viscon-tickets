@@ -18,7 +18,7 @@ type table = {
 }
 const defaultData: table[] = MOCK_DATA
 
-/*
+/* //Test for the table
 const defaultData: table[] = [
 {"id":1,"time_of_year":"10/02/2022","status_ticket":"Open","name_Customer":"Burmese black mountain tortoise","name_Company":"Ntag","name_Machine":"Dong Sung Pharm. Co., Ltd."},
 {"id":2,"time_of_year":"19/02/2022","status_ticket":"Resolved","name_Customer":"Crake, african black","name_Company":"Tagcat","name_Machine":"Physicians Total Care, Inc."},
@@ -35,58 +35,71 @@ export function Knowledgebase() {
 const columnHelper = createColumnHelper<table>()
 
 const columns = [
-  columnHelper.accessor('id', {
-    cell: info => info.getValue(),
-    header: "Ticket ID"
-  //  footer: info => info.column.id,
-  }),
-  columnHelper.accessor("time_of_year", {
-    id: 'Date',
-    cell: info => info.getValue(),
-    header: 'Date',
-  //  footer: info => info.column.id,
-  }),
-  columnHelper.accessor('status_ticket', {
-    header: 'Status',
-    cell: props => 
-    {
-        switch (props.getValue()) {
+    columnHelper.group({
+        id: "Hello!",
+        header: () => "Hello my friend!",
+        columns: [ 
             
-            case "Open":
-                return(
-                    <Badge
+            columnHelper.accessor('id', {
+            cell: info => info.getValue(),
+            header: "Ticket ID",
+            enableColumnFilter: true
+          //  footer: info => info.column.id,
+          }),
+          columnHelper.accessor("time_of_year", {
+            id: 'Date',
+            cell: info => info.getValue(),
+            header: 'Date',
+            enableColumnFilter: false,
+          //  footer: info => info.column.id,
+          }),
+        ],
+       }),
+  columnHelper.group({
+    header: 'Status',
+    columns: [
+        columnHelper.accessor('status_ticket', {
+        header: 'Status', //Could also be written as: header: info => info.column.id,
+        cell: props => 
+        {
+            switch (props.getValue()) {
+                
+                case "Open":
+                    return(
+                        <Badge
+                            size='md'
+                            color='error'
+                            text='Open'
+                            icon={<IconAlert size='14' fill='fill-error-500' color='stroke-error-500' />}
+                        />
+                    )
+                    break;
+            
+                case "Resolved":
+                    return(
+                        <Badge
                         size='md'
-                        color='error'
-                        text='Open'
-                        icon={<IconAlert size='14' fill='fill-error-500' color='stroke-error-500' />}
-                    />
-                )
-                break;
-        
-            case "Resolved":
-                return(
-                    <Badge
-                    size='md'
-                    color='success'
-                    text='Resolved'
-                    icon={<IconCheck size='14' fill='fill-error-500' color='stroke-success-500' />}
-                    />
-                )
-                break;
-            case "In progress":
-                return(
-                    <Badge
-                    size='md'
-                    color='gray'
-                    text='In progress'
-                    icon={<IconStopwatch size='14' fill='fill-error-500' color='stroke-gray-500' />}
-                    />
-                )
-                break;
-        }}
-        
-
-   // footer: info => info.column.id,
+                        color='success'
+                        text='Resolved'
+                        icon={<IconCheck size='14' fill='fill-error-500' color='stroke-success-500' />}
+                        />
+                    )
+                    break;
+                case "In progress":
+                    return(
+                        <Badge
+                        size='md'
+                        color='gray'
+                        text='In progress'
+                        icon={<IconStopwatch size='14' fill='fill-error-500' color='stroke-gray-500' />}
+                        />
+                    )
+                    break;
+            }}
+            
+    
+       // footer: info => info.column.id,
+      }),],
   }),
   columnHelper.accessor('name_Customer', {
     header: 'Customer',
@@ -107,7 +120,7 @@ const columns = [
 
 export function AppTable() {
   const [data, setData] = React.useState(() => [...defaultData])
-  const rerender = React.useReducer(() => ({}), {})[1]
+    const [selectedRows, setSelectedRows] = React.useState(() => [])
 
   const table = useReactTable({
     data,
@@ -115,15 +128,16 @@ export function AppTable() {
     getCoreRowModel: getCoreRowModel(),
   })
 
-  const firstPageRow = table.getRowModel().rows.slice(0, 10)
+  // This needs to be turned into a function to click through the table included something to click on
+  const firstPageRow = table.getRowModel().rows.slice(0, 10) // Get the first 10 rows of the first page
   return (
     <div className="p-2">
-      <table className='border border-gray-200 border-solid shadow-sm rounded-full'>
+      <table className='border border-gray-200 border-solid shadow-sm'>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}  className='border border-solid border-gray-200 shadow-sm rounded-lg'>
+            <tr key={headerGroup.id}  className='border border-solid border-gray-200 shadow-sm'>
               {headerGroup.headers.map(header => (
-                <th key={header.id} className='text-xs text-gray-600 pb-3 pl-3 pt-3 pr-6 align-middle rounded-lg text-left '>
+                <th key={header.id} colSpan={header.colSpan} className='text-xs text-gray-600 pb-4 pl-4 pt-4 pr-6 align-middle text-left'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -139,7 +153,7 @@ export function AppTable() {
           {firstPageRow.map(row => (
             <tr key={row.id}>
               {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className='pb-4 pl-4 pt-4 pr-6 align-middle border-y border-gray-200 rounded-lg '>
+                <td key={cell.id} className='pb-4 pl-4 pt-4 pr-6 align-middle border-y border-gray-200'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
