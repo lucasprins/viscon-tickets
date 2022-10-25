@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTable, Column } from "react-table";
+import { useTable, Column, useFilters, useSortBy } from "react-table";
 import MOCK_DATA from "./MOCK_DATA.json";
 
 
@@ -13,26 +13,34 @@ export const BasicTable = () => {
         name_Company: string;
         name_Machine: string;
     }>[] = [
-        {
-            Header: "Ticket ID",
-            accessor: "id",
-        },
-        {
-            Header: "Date",
-            accessor: "time_of_year",
-        },
-        {
-            Header: "Status",
-            accessor: "status_ticket",
-        },
-        {
-            Header: "Customer",
-            accessor: "name_Customer",
-        },
-        {
-            Header: "Company",
-            accessor: "name_Company",
-        },
+
+                {
+                    Header: "Ticket ID",
+                    accessor: "id",
+                },
+                {
+                    Header: "Date",
+                    accessor: "time_of_year",
+                },
+            
+                {
+                    Header: "Status",
+                    accessor: "status_ticket",
+                    
+                },
+            
+                {
+                    Header: "Customer",
+                    accessor: "name_Customer",
+                },
+                {
+                    Header: "Company",
+                    accessor: "name_Company",
+                },
+            
+        
+        
+        
         {
             Header: "Name Machine",
             accessor: "name_Machine",
@@ -42,19 +50,25 @@ export const BasicTable = () => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => MOCK_DATA, []);
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+        { columns, data },
+        useFilters,
+        useSortBy,
+        );
+
+    const firstPageRows = rows.slice(0, 10) // Slice the total value to 10 per page
 
     return (
        <div>
         <div className="">
             
         </div>
-        <table className='border border-gray-200 border-solid shadow-sm rounded-lg table-auto' {...getTableProps()}>
+        <table className='border border-gray-200 border-solid shadow-sm rounded-lg ' {...getTableProps()}>
             <thead>
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps} className='border border-solid border-gray-200 shadow-sm rounded-lg'>
                         {headerGroup.headers.map((column) => (
-                            <th {...column.getHeaderGroupProps} className='text-xs text-gray-600 pb-3 pl-3 pt-3 pr-6 align-middle rounded-lg'>
+                            <th {...column.getHeaderGroupProps} className='text-xs text-gray-600 pb-3 pl-3 pt-3 pr-6 align-middle rounded-lg text-left '>
                                 {column.render("Header")}
                             </th>
                         ))}
@@ -62,7 +76,7 @@ export const BasicTable = () => {
                 ))}
             </thead>
             <tbody {...getTableBodyProps()} className=''>
-                {rows.map((row) => {
+                {firstPageRows.map((row) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()} className=''>
@@ -76,8 +90,10 @@ export const BasicTable = () => {
                         </tr>
                     );
                 })}
+                
             </tbody>
         </table>
+        <div className="p-4">Showing the first 10 results</div> {/*Nog vertaald worden */}
         </div>
     );
 };

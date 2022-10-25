@@ -22,15 +22,11 @@ export function Playground() {
                     icon={<IconAlert size='14' fill='fill-error-500' color='stroke-error-500' />}
                 />
 
-                <div className='p-8 flex w-full  flex-col gap-y-4'>
-                    <PageHeader
-                        title='Upload files'
-                        subtitle='Please provide us as many photos and videos as you can.'
-                    />
                     <Divider />
                     <FileDropzone />
+                    <Divider />
+                    <BasicTable />
                 </div>
             </div>
-        </div>
     );
 }
