@@ -107,6 +107,29 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets()
+        {
+            ServiceResponse<List<GetTicketDTO>> serviceResponse = new ServiceResponse<List<GetTicketDTO>>();
+            try
+            {
+                var tickets = await _context.Tickets.ToListAsync();
+                serviceResponse.Data = new List<GetTicketDTO>();
+
+                foreach (var ticket in tickets)
+                {
+                    serviceResponse.Data.Add(await CreateGetTicketDTO(ticket));
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to get all tickets.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(Guid ticketId)
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
@@ -122,20 +145,25 @@ namespace server.Services.TicketService
             try
             {
                 var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId);
-                if (ticket != null && ticket.Status == Status.Open)
-                {
-                    ticket.AssigneeId = user.Id;
-                    ticket.Status = Status.InProgress;
-                    _context.Tickets.Update(ticket);
-                    await _context.SaveChangesAsync();
-
-                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
-                }
-                else
+                if (ticket == null)
                 {
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
                 }
+                if (ticket.Status != Status.Open)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has already been claimed.";
+                    return serviceResponse;
+                }
+
+                ticket.AssigneeId = user.Id;
+                ticket.Status = Status.InProgress;
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
             }
             catch (Exception ex)
             {
@@ -145,11 +173,6 @@ namespace server.Services.TicketService
             }
 
             return serviceResponse;
-        }
-
-        public async Task<ServiceResponse<GetTicketDTO>> UpdateTicket()
-        {
-            throw new NotImplementedException();
         }
     }
 }

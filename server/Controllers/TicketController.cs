@@ -26,16 +26,16 @@ namespace server.Controllers
             return Ok(await _ticketService.GetTicketById(id));
         }
 
-        [HttpPost("CreateTicket")]
+        [HttpGet("GetAllTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<List<GetTicketDTO>>>> GetAllTickets()
+        {
+            return Ok(await _ticketService.GetAllTickets());
+        }
+
+        [HttpPost("CreateTicket"), Authorize(Roles = "CustomerAdmin, CustomerEmployee")]
         public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> CreateTicket(CreateTicketDTO newTicket)
         {
             return Ok(await _ticketService.CreateTicket(newTicket));
-        }
-
-        [HttpPut("UpdateTicket")]
-        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> UpdateTicket()
-        {
-            return Ok(await _ticketService.UpdateTicket());
         }
 
         [HttpPut("ClaimTicket/"), Authorize(Roles = "VisconAdmin, VisconEmployee")]

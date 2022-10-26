@@ -20,20 +20,19 @@ namespace server.Controllers
             _companyService = companyService;
         }
 
-        // [HttpGet("GetAllCompanies"), Authorize(Roles = "VisconAdmin,VisconEmployee")]
-        [HttpGet("GetAllCompanies")]
+        [HttpGet("GetAllCompanies"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> GetAllCompanies()
         {
             return Ok(await _companyService.GetAllCompanies());
         }
 
-        [HttpGet("GetCompany/{id}")]
+        [HttpGet("GetCompany/{id}"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<GetCompanyDTO>>> GetCompany(Guid id)
         {
             return Ok(await _companyService.GetCompanyById(id));
         }
 
-        [HttpPost("AddCompany")]
+        [HttpPost("AddCompany"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> AddCompany(AddCompanyDTO newCompany)
         {
             return Ok(await _companyService.AddCompany(newCompany));
