@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using server.DTOS.Company;
+using server.DTOS;
 using server.Services.CompanyService;
 
 namespace server.Controllers
@@ -22,18 +22,18 @@ namespace server.Controllers
 
         // [HttpGet("GetAllCompanies"), Authorize(Roles = "VisconAdmin,VisconEmployee")]
         [HttpGet("GetAllCompanies")]
-        public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> GetAllCompanies()
         {
             return Ok(await _companyService.GetAllCompanies());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetCompanyDTO>>> GetSingle(Guid id)
+        [HttpGet("GetCompany/{id}")]
+        public async Task<ActionResult<ServiceResponse<GetCompanyDTO>>> GetCompany(Guid id)
         {
             return Ok(await _companyService.GetCompanyById(id));
         }
 
-        [HttpPost]
+        [HttpPost("AddCompany")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> AddCompany(AddCompanyDTO newCompany)
         {
             return Ok(await _companyService.AddCompany(newCompany));

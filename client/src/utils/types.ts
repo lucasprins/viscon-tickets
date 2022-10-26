@@ -1,16 +1,18 @@
-export type UserType = {
-    firstName: string,
-    preposition?: string,
-    lastName: string,
-    phoneNumber: string,
-    role: "viscon-admin" | "viscon-employee" | "customer-admin" | "customer-operator-1" | "customer-operator-2",
-    email: string,
-    isActive: boolean,
-    company: CompanyType 
+export type userType = {
+    id: string;
+    firstName: string;
+    prefix: string | undefined;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    role: string;
+    isActive: boolean;
+    company: companyType;
+    accessToken: string;
 };
 
-export type CompanyType = {
-    companyId: string,
+export type companyType = {
+    id: string,
     name: string,
     country: string,
     isActive: boolean
@@ -34,8 +36,8 @@ export type MachineType = {
 export type TicketType = {
     ticketId: string,
     ticketNumber: string,
-    customerEmployee: UserType,
-    visconEmployee: UserType | undefined,
+    customerEmployee: userType,
+    visconEmployee: userType | undefined,
     machine: MachineType,
     creationDate: string,
     phoneNumber: string,
@@ -50,7 +52,7 @@ export type TicketType = {
 
 export type NotificationType = {
     notificationId: string,
-    userId: UserType,
+    userId: userType,
     ticketId: string,
     title: string,
     creationDate: Date,

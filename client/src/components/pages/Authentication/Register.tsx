@@ -1,16 +1,19 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
+import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { Button } from "../../atoms/Button/Button";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconKey, IconMail, IconArrow } from "../../atoms/Icons/Icons";
+import { IconFlag } from "../../atoms/Icons/IconsFlags";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 
 export function Register() {
     const language = useAppSelector(getCurrentLanguage);
+    const dispatch = useAppDispatch();
     const [newPassword, setNewPassword] = useState({
         passwordOne: "",
         passwordTwo: "",

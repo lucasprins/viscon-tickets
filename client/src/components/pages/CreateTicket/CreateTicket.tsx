@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "../../atoms/Button/Button";
 import { Divider } from "../../atoms/Divider/Divider";
 import { IconFlag } from "../../atoms/Icons/IconsFlags";
-import { IconBuilding, IconPhone } from "../../atoms/Icons/Icons";
+import { IconArrow, IconBuilding, IconPhone } from "../../atoms/Icons/Icons";
 import { InputDropdownMachine } from "../../atoms/InputDropdown/InputDropdownMachine";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
@@ -14,11 +14,13 @@ import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
+import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { UserType } from "../../../utils/types";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/validateInput";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
+import { userType } from "../../../utils/types";
+import { getUser } from "../../../features/auth/authSlice";
+import { ButtonLink } from "../../atoms/Button/ButtonLink";
 
 var translations = require("../../../translations/createTicketTranslations.json");
 
@@ -27,16 +29,16 @@ export function CreateTicket() {
     const language = useAppSelector(getCurrentLanguage);
     const dispatch = useAppDispatch();
 
-    const user: UserType = useAppSelector(getUser);
+    const user: userType | null = useAppSelector(getUser);
 
     const [ticket, setTicket] = useState({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        company: user.company,
-        phoneNumber: user.phoneNumber,
-        role: user.role,
-        email: user.email,
-        isActive: user.isActive,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        company: user?.company,
+        phoneNumber: user?.phoneNumber,
+        role: user?.role,
+        email: user?.email,
+        isActive: user?.isActive,
         issue: "", // What do you see that is going wrong?
         actionExpected: "", // What do you expect to happen
         actionPerformed: "", // What did you already try to fix the problem
@@ -112,7 +114,7 @@ export function CreateTicket() {
                             <InputDropdownMachine label={translations[language].select_machine} />
                             <Divider />
                             <MachineSolutionList />
-                            <div className='flex flex-row gap-4 pt-4'>
+                            <div className='flex flex-col-reverse sm:flex-row gap-4 pt-4'>
                                 <Button
                                     size='medium'
                                     width='full'
@@ -135,13 +137,27 @@ export function CreateTicket() {
                 {currentStep === 2 && (
                     <div className='flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:py-36 overflow-y-scroll'>
                         <div className='lg:w-2/3 flex flex-col w-full gap-6'>
+                            <ButtonLink
+                                size='medium'
+                                type='gray'
+                                url='/'
+                                icon={
+                                    <IconArrow
+                                        size='20'
+                                        color='stroke-gray-500'
+                                        fill='stroke-gray-500'
+                                        direction='left'
+                                    />
+                                }
+                                text={translations[language].backToDashboard}
+                            />
                             <PageHeader
                                 title={translations[language].contact_information}
                                 subtitle={translations[language].contact_information_subtitle}
                             />
                             <Formik initialValues={ticket} onSubmit={addContactInformation}>
                                 {({ errors, touched, isValidating }) => (
-                                    <Form className='flex flex-col gap-5 w-full'>
+                                    <Form className='flex flex-col gap-5 w-full items-center'>
                                         <div className='flex gap-4 w-full'>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel
@@ -171,7 +187,10 @@ export function CreateTicket() {
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-full gap-1.5'>
-                                            <InputLabel htmlFor='company.name' text={translations[language].Company_name} />
+                                            <InputLabel
+                                                htmlFor='company.name'
+                                                text={translations[language].Company_name}
+                                            />
                                             <InputField
                                                 style='icon'
                                                 type='text'
@@ -210,7 +229,7 @@ export function CreateTicket() {
                                             />
                                             <InputErrorMessage name='phoneNumber' />
                                         </div>
-                                        <div className='flex flex-row gap-4 pt-4'>
+                                        <div className='flex flex-row w-full gap-4 pt-4'>
                                             <Button
                                                 size='medium'
                                                 width='full'
@@ -236,6 +255,20 @@ export function CreateTicket() {
                 {currentStep === 3 && (
                     <div className='flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:py-36 overflow-y-scroll'>
                         <div className='lg:w-2/3 flex flex-col w-full gap-6'>
+                            <ButtonLink
+                                size='medium'
+                                type='gray'
+                                url='/'
+                                icon={
+                                    <IconArrow
+                                        size='20'
+                                        color='stroke-gray-500'
+                                        fill='stroke-gray-500'
+                                        direction='left'
+                                    />
+                                }
+                                text={translations[language].backToDashboard}
+                            />
                             <PageHeader
                                 title={translations[language].describe_issue}
                                 subtitle={translations[language].describe_issue_subtitle}
@@ -330,11 +363,25 @@ export function CreateTicket() {
                 {currentStep === 4 && (
                     <div className='flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:py-36 overflow-y-scroll'>
                         <div className='lg:w-2/3 flex flex-col w-full gap-6'>
+                            <ButtonLink
+                                size='medium'
+                                type='gray'
+                                url='/'
+                                icon={
+                                    <IconArrow
+                                        size='20'
+                                        color='stroke-gray-500'
+                                        fill='stroke-gray-500'
+                                        direction='left'
+                                    />
+                                }
+                                text={translations[language].backToDashboard}
+                            />
                             <PageHeader
                                 title={translations[language].add_attachments}
                                 subtitle={translations[language].add_attachments_subtitle}
                             />
-                            
+
                             <FileDropzone />
                             <div className='flex flex-row gap-4 pt-4'>
                                 <Button
@@ -359,6 +406,20 @@ export function CreateTicket() {
                 {currentStep === 5 && (
                     <div className='flex flex-col w-full items-center lg:w-2/3 py-6 px-6 lg:py-36 overflow-y-scroll'>
                         <div className='lg:w-2/3 flex flex-col w-full gap-6'>
+                            <ButtonLink
+                                size='medium'
+                                type='gray'
+                                url='/'
+                                icon={
+                                    <IconArrow
+                                        size='20'
+                                        color='stroke-gray-500'
+                                        fill='stroke-gray-500'
+                                        direction='left'
+                                    />
+                                }
+                                text={translations[language].backToDashboard}
+                            />
                             <PageHeader
                                 title={translations[language].review}
                                 subtitle={translations[language].review_subtitle}
@@ -396,7 +457,10 @@ export function CreateTicket() {
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-full gap-1.5'>
-                                            <InputLabel htmlFor='company.name' text={translations[language].Company_name} />
+                                            <InputLabel
+                                                htmlFor='company.name'
+                                                text={translations[language].Company_name}
+                                            />
                                             <InputField
                                                 style='icon'
                                                 type='text'
@@ -500,7 +564,7 @@ export function CreateTicket() {
                                                 width='full'
                                                 type='primary'
                                                 text={translations[language].confirm_create_ticket}
-                                                url="/"
+                                                url='/'
                                             />
                                         </div>
                                     </Form>

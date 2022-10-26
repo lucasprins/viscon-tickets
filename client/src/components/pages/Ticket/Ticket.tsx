@@ -2,7 +2,8 @@ import { Tab } from "@headlessui/react";
 import { Form, Formik } from "formik";
 import React, { Fragment } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
+import { getUser } from "../../../features/auth/authSlice";
+import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
 import { TicketType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";
@@ -29,9 +30,13 @@ export function Ticket() {
     const user = useAppSelector(getUser);
     const ticket: TicketType = tickets.filter((ticket: TicketType) => ticket.ticketNumber === ticketID)[0];
 
+	if (!user) {
+		return <Navigate to='/login' />;
+	}
+
     let ticketActions: JSX.Element[] = [];
     let ticketActionsMobile: JSX.Element[] = [];
-    switch(user.role) {
+    switch(user?.role) {
         case "viscon-admin":
             switch(ticket.status) {
                 case "open":
@@ -153,14 +158,14 @@ export function Ticket() {
                                                 <div className='w-max'>{statusBadge}</div>
                                             </div>
                                         </div>
-                                        <AssigneeCard subtitle={translations[language].assignee} name={ ticket.visconEmployee !== null ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.preposition} ${ticket.visconEmployee?.lastName}` : undefined } />
+                                        <AssigneeCard subtitle={translations[language].assignee} name={ ticket.visconEmployee !== null ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.prefix} ${ticket.visconEmployee?.lastName}` : undefined } />
                                     </div>
                                     <div className='flex flex-col gap-2 w-full'>
                                         <span className='text-md text-gray-700 font-medium dark:text-white'>
                                         {translations[language].creator}
                                         </span>
                                         <AvatarCard
-                                            name={`${ticket.customerEmployee.firstName} ${ticket.customerEmployee.preposition} ${ticket.customerEmployee.lastName}`}
+                                            name={`${ticket.customerEmployee.firstName} ${ticket.customerEmployee.prefix} ${ticket.customerEmployee.lastName}`}
                                             subtitle={ticket.phoneNumber}
                                         />
                                     </div>
@@ -250,7 +255,7 @@ export function Ticket() {
                                                     text={translations[language].solution}
                                                 />
                                                 <InputTextArea
-                                                    disabled={user.role === "viscon-admin" || user.role === "viscon-employee" ? ticket.status === "in progress" ? false : true : true}
+                                                    disabled={user?.role === "viscon-admin" || user?.role === "viscon-employee" ? ticket.status === "in progress" ? false : true : true}
                                                     id='solution'
                                                     name='solution'                                                />
                                                 <InputErrorMessage name='issue' />
@@ -277,7 +282,7 @@ export function Ticket() {
                                 <div className='w-max'>{statusBadge}</div>
                             </div>
                         </div>
-                        <AssigneeCard subtitle={translations[language].assignee} name={ ticket.visconEmployee !== null ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.preposition} ${ticket.visconEmployee?.lastName}` : undefined } />
+                        <AssigneeCard subtitle={translations[language].assignee} name={ ticket.visconEmployee !== null ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.prefix} ${ticket.visconEmployee?.lastName}` : undefined } />
                     </div>
                     <Divider />
                 </div>

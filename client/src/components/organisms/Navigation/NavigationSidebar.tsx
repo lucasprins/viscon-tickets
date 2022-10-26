@@ -1,9 +1,8 @@
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage, getUser } from "../../../features/user/userSlice";
+import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { IconFlag } from "../../atoms/Icons/IconsFlags";
 import { NavigationAdminMenu } from "./NavigationAdminMenu";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
@@ -17,13 +16,12 @@ import {
     IconSun,
     IconTicket,
     IconTranslate,
-    IconUser,
 } from "../../atoms/Icons/Icons";
 import { Avatar } from "../../atoms/Avatar/Avatar";
 import { Divider } from "../../atoms/Divider/Divider";
 import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
-import { logout } from "../../../features/auth/authSlice";
+import { getUser, logout } from "../../../features/auth/authSlice";
 
 var translations = require("../../../translations/sidebarTranslations.json");
 
@@ -50,7 +48,7 @@ export function NavigationSidebar() {
 
     const logOut = useCallback(() => {
         dispatch(logout());
-      }, [dispatch]);
+    }, [dispatch]);
 
     return (
         <>
@@ -118,16 +116,18 @@ export function NavigationSidebar() {
                         <Avatar name='Lucas Prins' color='gray' />
                         <div className='flex flex-col'>
                             <span className='text-gray-700 dark:text-white text-sm font-semibold'>
-                                {user.preposition
-                                    ? `${user.firstName} ${user.preposition} ${user.lastName}`
-                                    : `${user.firstName} ${user.lastName}`}
+                                {user?.prefix
+                                    ? `${user?.firstName} ${user?.prefix} ${user?.lastName}`
+                                    : `${user?.firstName} ${user?.lastName}`}
                             </span>
-                            <span className='text-gray-500 dark:text-dark-300 text-sm'>{user.company.name}</span>
+                            <span className='text-gray-500 dark:text-dark-300 text-sm'>{user?.company.name}</span>
                         </div>
                     </Link>
                     <ButtonIcon
                         onclick={logOut}
-                        icon={<IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+                        icon={
+                            <IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />
+                        }
                     />
                 </div>
             </div>

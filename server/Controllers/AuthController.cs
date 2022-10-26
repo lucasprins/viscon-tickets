@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using server.DTOS.User;
+using server.DTOS;
 using server.Services.AuthService;
 
 namespace server.Controllers

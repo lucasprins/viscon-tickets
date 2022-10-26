@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using server.DTOS.Company;
+using server.DTOS;
 
 namespace server.Services.CompanyService
 {

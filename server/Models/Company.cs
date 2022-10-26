@@ -14,5 +14,6 @@ namespace server.Models
 
         public List<CompanyMachine> CompanyMachines { get; set; } = null!;
         public List<User> Users { get; set; } = null!;
+        public List<Ticket> Tickets { get; set; } = null!;
     }
 }

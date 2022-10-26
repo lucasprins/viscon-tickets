@@ -4,21 +4,21 @@ import { NavigationItem } from './NavigationItem';
 import { useAppSelector } from '../../../utils/hooks';
 import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { IconBuilding, IconChevron, IconGear, IconLightbulb, IconUsers } from '../../atoms/Icons/Icons';
+import { getUserRole } from '../../../features/auth/authSlice';
 
 var translations = require('../../../translations/sidebarTranslations.json');
 
 export function NavigationAdminMenu() {
     const language: string = useAppSelector(getCurrentLanguage);
-    const [userType, setUserType] = useState('viscon');
-    const [userIsAdmin, setUserIsAdmin] = useState(true);
+    const userRole: string | undefined = useAppSelector(getUserRole);
 
     let navigationItems: JSX.Element[] = [];
 
-    if (userType === 'customer') {
+    if (userRole === 'CustomerAdmin') {
         navigationItems = [
             <NavigationItem name={translations[language].manage_users} url='admin/users' icon={<IconUsers size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
         ]
-    } else if (userType === 'viscon') {
+    } else if (userRole === 'VisconAdmin') {
         navigationItems = [
             <NavigationItem name={translations[language].manage_users} url='admin/users' icon={<IconUsers size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />,
             <NavigationItem name={translations[language].manage_customers} url='admin/customers' icon={<IconBuilding size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />,

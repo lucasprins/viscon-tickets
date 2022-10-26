@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
 import { Breadcrumbs } from '../../atoms/Breadcrumbs/Breadcrumbs';
 import Layout from '../../organisms/Layout/Layout';
-import { getLanguageModal, toggleLanguageModal } from '../../../features/modal/modalSlice';
-import { getCurrentLanguage, setLanguage } from '../../../features/user/userSlice';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useAppSelector } from '../../../utils/hooks';
+import { Navigate } from 'react-router-dom';
+import { getUser } from '../../../features/auth/authSlice';
 
 export function Account() {
+	const currentUser = useAppSelector(getUser);
+	
+	if (!currentUser) {
+		return <Navigate to='/login' />;
+	}
+
 	return (
 		<div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white'>
 			<Layout />

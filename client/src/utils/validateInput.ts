@@ -10,9 +10,9 @@ var translations = require('../translations/validateInputTranslations.json');
 export const validatePhoneNumber = (phoneNumber: string, language: string): string | undefined => {
     let error;
     if(!phoneNumber) {
-        error = translations[language].field_required;
+        error = translations[language].fieldRequired;
     } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/i.test(phoneNumber.split(" ").join(""))) {
-        error = 'Invalid phone number';
+        error = translations[language].invalidPhoneNumber;
     }
     return error;
 }
@@ -27,9 +27,9 @@ export const validatePhoneNumber = (phoneNumber: string, language: string): stri
  export const validateTextarea = (text: string, language: string): string | undefined => {
     let error;
     if(!text) {
-        error = translations[language].field_required;
+        error = translations[language].fieldRequired;
     } else if (text.length < 25) {
-        error = "Your input is too short";
+        error = translations[language].inputTooShort;
     }
     return error;
 }
@@ -44,9 +44,9 @@ export const validatePhoneNumber = (phoneNumber: string, language: string): stri
 export const validateEmail = (email: string, language: string): string | undefined => {
     let error;
     if(!email) {
-        error = translations[language].field_required;
+        error = translations[language].fieldRequired;
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-        error = 'Invalid email address';
+        error = translations[language].invalidEmail;
     }
     return error;
 }
@@ -61,9 +61,9 @@ export const validateEmail = (email: string, language: string): string | undefin
 export const validatePassword = (password: string, language: string): string | undefined => {
     let error;
     if(!password) {
-        error = translations[language].field_required;
-    } else if (password.length < 8) {
-        error = "Your password is too short";
+        error = translations[language].fieldRequired;
+    } else if (password.length < 5) {
+        error = translations[language].passwordTooShort;
     }
     return error;
 }
@@ -78,9 +78,9 @@ export const validatePassword = (password: string, language: string): string | u
 export const validateName = (name: string, language: string): string | undefined => {
     let error;
     if(!name) {
-        error = translations[language].field_required;
+        error = translations[language].fieldRequired;
     } else if (name.length < 2) {
-        error = "Your name is too short";
+        error = translations[language].inputTooShort;
     }
     return error;
 }
@@ -95,9 +95,9 @@ export const validateName = (name: string, language: string): string | undefined
 export const validateCompany = (companyName: string, language: string): string | undefined => {
     let error;
     if(!companyName) {
-        error = translations[language].field_required;
+        error = translations[language].fieldRequired;
     } else if (companyName.length < 2) {
-        error = "Your company name is too short";
+        error = translations[language].inputTooShort;
     }
     return error;
 }

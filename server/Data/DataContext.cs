@@ -60,6 +60,10 @@ namespace server.Data
                 .HasOne(t => t.Machine)
                 .WithMany(m => m.Tickets)
                 .HasForeignKey(t => t.MachineId);
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.Company)
+                .WithMany(c => c.Tickets)
+                .HasForeignKey(t => t.CompanyId);
         }
     }
 }

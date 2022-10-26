@@ -1,0 +1,11 @@
+{
+    "nl": {
+        "noSolutions": "Geen oplossingen gevonden...",
+        "noSolutionsSubtitle": "Het lijkt er op dat er nog geen oplossingen zijn voor deze machine. Probeer de pagina te verversen als u denkt dat dit een fout is."
+
+    },
+    "en": {
+        "noSolutions": "No solutions found...",
+        "noSolutionsSubtitle": "It looks like there aren't any solutions for this machine yet. Try refreshing the page if you think this is an error."
+    }
+}

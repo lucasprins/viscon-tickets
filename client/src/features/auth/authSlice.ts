@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { userType } from "../../utils/types";
 import AuthService from "./authService";
 import { setMessage } from "./messageSlice";
 
@@ -28,19 +29,6 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
     await AuthService.logout();
 });
-
-type userType = {
-    id: string;
-    firstName: string;
-    prefix: string | null;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    role: string;
-    isActive: boolean;
-    companyId: string;
-    accessToken: string;
-};
 
 type payload = {
     user: userType | null;
@@ -74,6 +62,7 @@ const authSlice = createSlice({
 });
 
 export const getUser = (state: RootState) => state.auth.user;
+export const getUserRole = (state: RootState) => state.auth.user?.role;
 export const getIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
 
 const { reducer } = authSlice;

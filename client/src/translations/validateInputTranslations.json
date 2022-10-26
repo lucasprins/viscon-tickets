@@ -1,14 +1,16 @@
 {
     "nl": {
-        "field_required": "Dit veld is verplicht",
-        "invalid_phone_number": "Ongeldig telefoonnummer",
-        "ivalid_email": "Ongeldig emailadres",
-        "input_too_short": "Uw ingevoerde tekst is te kort"
+        "fieldRequired": "Dit veld is verplicht",
+        "invalidPhoneNumber": "Ongeldig telefoonnummer",
+        "invalidEmail": "Ongeldig emailadres",
+        "inputTooShort": "Uw ingevoerde tekst is te kort",
+        "passwordTooShort": "Uw wachtwoord is te kort"
     },
     "en": {
-        "field_required": "This field is required",
-        "invalid_phone_number": "Invalid phone number",
-        "ivalid_email": "Invalid emailadress",
-        "input_too_short": "Your input is to short"
+        "fieldRequired": "This field is required",
+        "invalidPhoneNumber": "Invalid phone number",
+        "invalidEmail": "Invalid email address",
+        "inputTooShort": "Your input is to short",
+        "passwordTooShort": "Your password is too short"
     }
 }
