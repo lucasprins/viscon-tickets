@@ -120,7 +120,7 @@ const columns = [
 
 export function AppTable() {
   const [data, setData] = React.useState(() => [...defaultData])
-    const [selectedRows, setSelectedRows] = React.useState(() => [])
+  //const [selectedRows, setSelectedRows] = React.useState(() => [])
 
   const table = useReactTable({
     data,
@@ -135,9 +135,11 @@ export function AppTable() {
       <table className='border border-gray-200 border-solid shadow-sm'>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
+            //CSS border around the header
             <tr key={headerGroup.id}  className='border border-solid border-gray-200 shadow-sm'>
               {headerGroup.headers.map(header => (
-                <th key={header.id} colSpan={header.colSpan} className='text-xs text-gray-600 pb-4 pl-4 pt-4 pr-6 align-middle text-left'>
+                // CSS for the header
+                <th key={header.id} colSpan={header.colSpan} className='text-xs text-gray-600 pb-4 pl-4 pt-4 pr-6 align-middle text-left dark:text-gray-400'> 
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -153,7 +155,8 @@ export function AppTable() {
           {firstPageRow.map(row => (
             <tr key={row.id}>
               {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className='pb-4 pl-4 pt-4 pr-6 align-middle border-y border-gray-200'>
+                //CSS for the individual cells
+                <td key={cell.id} className='pb-4 pl-4 pt-4 pr-6 align-middle border-y border-gray-200 dark:text-gray-300'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
