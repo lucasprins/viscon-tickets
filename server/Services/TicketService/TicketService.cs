@@ -111,19 +111,11 @@ namespace server.Services.TicketService
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
-            var role = _authService.GetUserRole();
 
             if (user == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "User not found.";
-                return serviceResponse;
-            }
-
-            if (!(role == Role.VisconEmployee.ToString() || role == Role.VisconAdmin.ToString()))
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = "You are not authorized to claim tickets.";
                 return serviceResponse;
             }
 
