@@ -7,6 +7,15 @@ import { setMessage } from "./messageSlice";
 const existingUser = localStorage.getItem("user");
 const user = existingUser ? JSON.parse(existingUser) : null;
 
+type payload = {
+    user: userType | null;
+};
+
+type initialStateType = {
+    user: userType | null;
+    isLoggedIn: boolean;
+};
+
 export const login = createAsyncThunk(
     "auth/login",
     async ({ email, password }: { email: string; password: string }, thunkAPI) => {
@@ -29,15 +38,6 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
     await AuthService.logout();
 });
-
-type payload = {
-    user: userType | null;
-};
-
-type initialStateType = {
-    user: userType | null;
-    isLoggedIn: boolean;
-};
 
 const initialState: initialStateType = user != null ? { isLoggedIn: true, user } : { isLoggedIn: false, user: null };
 
