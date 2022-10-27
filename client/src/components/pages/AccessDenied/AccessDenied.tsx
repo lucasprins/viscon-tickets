@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { getUser } from '../../../features/auth/authSlice';
+import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { useAppSelector } from '../../../utils/hooks';
 import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
@@ -9,7 +10,7 @@ import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
 var translations = require('../../../translations/accessDeniedTranslations.json');
 
 export function AccessDenied() {
-	const [language, seLanguage] = useState('nl');
+	const language = useAppSelector(getCurrentLanguage);
 	const currentUser = useAppSelector(getUser);
 	
 	if(!currentUser) {

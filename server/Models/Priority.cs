@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace server.Models
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Priority
     {
         Critical = 1,

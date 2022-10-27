@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using server.DTOS.Company;
+using server.DTOS;
 
 namespace server.Services.CompanyService
 {
@@ -25,6 +25,7 @@ namespace server.Services.CompanyService
             {
                 Company company = _mapper.Map<Company>(newCompany);
                 company.Id = Guid.NewGuid();
+                company.IsActive = true;
                 await _context.Companies.AddAsync(company);
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = await (_context.Companies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();

@@ -1,10 +1,12 @@
 {
     "nl": {
+        "language": "Taal",
         "forgotPassword": "Wachtwoord vergeten",
         "loggingIn": "Inloggen..."
 
     },
     "en": {
+        "language": "Language",
         "forgotPassword": "Forgot password ",
         "loggingIn": "Logging in..."
     }

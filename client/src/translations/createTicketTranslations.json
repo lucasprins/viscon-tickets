@@ -1,5 +1,7 @@
 {
     "nl": {
+        "backToDashboard": "Terug naar dashboard",
+
         "view_solutions": "Veelvoorkomende oplossingen",
         "view_solutions_subtitle": "Bekijk een reeks gebruikelijke problemen en hun oplossingen.",
         "view_solutions_subtitle_long": "Selecteer een machine en zorg ervoor dat u alle oplossingen voor uw probleem hebt geprobeerd.",
@@ -36,6 +38,8 @@
 
     },
     "en": {
+        "backToDashboard": "Back to dashboard",
+        
         "view_solutions": "View common solutions",
         "view_solutions_subtitle": "View a range of problems with their common solutions.",
         "view_solutions_subtitle_long": "Please select a machine and make sure you have tried all the common solutions for your problem.",

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using server.DTOS;
-using server.DTOS.Company;
 
 namespace server
 {
@@ -15,6 +14,12 @@ namespace server
             CreateMap<Company, GetCompanyDTO>();
             CreateMap<AddCompanyDTO, Company>();
             CreateMap<UpdateCompanyDTO, Company>();
+            
+            CreateMap<User, GetUserDTO>();
+            CreateMap<User, GetTicketUserDTO>();
+
+            CreateMap<CreateTicketDTO, Ticket>();
+            CreateMap<Ticket, GetTicketDTO>();
         }
     }
 }

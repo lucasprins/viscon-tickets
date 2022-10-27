@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using server.DTOS;
 
-namespace server.Models
+namespace server.DTOS
 {
-    public class Ticket
+    public class GetTicketDTO
     {
         public Guid Id { get; set; }
         public int TicketNumber { get; set; }
@@ -18,18 +19,11 @@ namespace server.Models
         public string ActionExpected { get; set; } = null!;
         public string ActionPerformed { get; set; } = null!;
         public string ExtraInfo { get; set; } = null!;
-        public string? Solution { get; set; }
+        public string Solution { get; set; } = null!;
 
-        public Guid MachineId { get; set; }
-        public Guid CreatorId { get; set; }     // Is een customer employee/admin
-        public Guid? AssigneeId { get; set; }    // Is een viscon employee/admin
-        public Guid CompanyId { get; set; }
-
-        public Machine Machine { get; set; } = null!;
-        public User Creator { get; set; } = null!;
-        public User? Assignee { get; set; } = null!;
-        public Company Company { get; set; } = null!;
-
-
+        public GetCompanyDTO Company { get; set; } = null!;
+        public GetTicketUserDTO Creator { get; set; } = null!;
+        public GetTicketUserDTO? Assignee { get; set; }
+        public string? MachineName { get; set; }
     }
 }

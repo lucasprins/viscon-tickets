@@ -1,5 +1,6 @@
 global using server.Data;
 global using server.Models;
+global using server.DTOS;
 global using Microsoft.EntityFrameworkCore;
 using server.Services.CompanyService;
 using Microsoft.OpenApi.Models;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using server.Services.AuthService;
+using server.Services.TicketService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddDbContext<DataContext>(optionsBuilder =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -49,8 +53,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 var app = builder.Build();
 

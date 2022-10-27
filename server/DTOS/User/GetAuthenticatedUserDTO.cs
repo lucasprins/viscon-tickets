@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using server.DTOS;
 
-namespace server.DTOS.User
+namespace server.DTOS
 {
     public class GetAuthenticatedUserDTO
     {
@@ -15,7 +16,7 @@ namespace server.DTOS.User
         public string PhoneNumber { get; set; } = null!;
         public Role Role { get; set; }
         public bool IsActive { get; set; }
-        public Guid CompanyId { get; set; }
+        public GetCompanyDTO Company { get; set; } = null!;
         public string AccessToken { get; set; } = null!;
     }
 }

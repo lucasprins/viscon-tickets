@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getIsLoggedIn, login } from "../../../features/auth/authSlice";
 import { clearMessage } from "../../../features/auth/messageSlice";
+import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { validateEmail } from "../../../utils/validateInput";
+import { validateEmail, validatePassword } from "../../../utils/validateInput";
 import { Button } from "../../atoms/Button/Button";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
-import { IconBell, IconKey, IconMail } from "../../atoms/Icons/Icons";
+import { IconKey, IconMail, IconTranslate } from "../../atoms/Icons/Icons";
+import { IconFlag } from "../../atoms/Icons/IconsFlags";
 import { InputCheckbox } from "../../atoms/Input/InputCheckbox";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
@@ -16,11 +18,11 @@ import { InputLabel } from "../../atoms/Input/InputLabel";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
+import { NavigationItem } from "../../organisms/Navigation/NavigationItem";
 
 var translations = require("../../../translations/authenticationTranslations.json");
 
 export function Login() {
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(false);
     const isLoggedIn = useAppSelector(getIsLoggedIn);
@@ -95,10 +97,12 @@ export function Login() {
                                             style='icon'
                                             type='password'
                                             placeholder='Enter your password'
+                                            validate={(input) => validatePassword(input, language)}
                                             icon={<IconKey size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                                             id='password'
                                             name='password'
                                         />
+                                        <InputErrorMessage name='password' />
                                     </div>
                                 </div>
 

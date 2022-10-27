@@ -4,7 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using server.DTOS.User;
+using server.DTOS;
+using AutoMapper;
 
 namespace server.Services.AuthService
 {
@@ -12,18 +13,49 @@ namespace server.Services.AuthService
     {
         private readonly IConfiguration _configuration;
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthService(IConfiguration configuration, DataContext context)
+        public AuthService(IConfiguration configuration, DataContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _context = context;
+            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public string GetUserRole()
+        {
+            var result = string.Empty;
+            if(_httpContextAccessor.HttpContext != null)
+            {
+                var user = _httpContextAccessor.HttpContext.User;
+                if(user != null)
+                {
+                    result = user.FindFirstValue(ClaimTypes.Role);
+                }
+            }
+            return result;
+        }
+
+        public string GetUserEmail()
+        {
+            var result = string.Empty;
+            if(_httpContextAccessor.HttpContext != null)
+            {
+                var user = _httpContextAccessor.HttpContext.User;
+                if(user != null)
+                {
+                    result = user.FindFirstValue(ClaimTypes.Name);
+                }
+            }
+            return result;
         }
 
         public async Task<ServiceResponse<GetAuthenticatedUserDTO>> Login(LoginUserDTO user)
         {
             ServiceResponse<GetAuthenticatedUserDTO> response = new ServiceResponse<GetAuthenticatedUserDTO>();
             var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower().Equals(user.Email.ToLower()));
-            
             if (dbUser == null)
             {
                 response.Success = false;
@@ -36,22 +68,29 @@ namespace server.Services.AuthService
             }
             else
             {
-                string token = CreateToken(dbUser);
-                response.Data = new GetAuthenticatedUserDTO
+                var userCompany = await _context.Companies.Where(c => c.Id == dbUser.CompanyId).Select(c => _mapper.Map<GetCompanyDTO>(c)).FirstOrDefaultAsync();
+                if (userCompany == null)
                 {
-                    Id = dbUser.Id,
-                    FirstName = dbUser.FirstName,
-                    Prefix = dbUser.Prefix,
-                    LastName = dbUser.LastName,
-                    Email = dbUser.Email,
-                    PhoneNumber = dbUser.PhoneNumber,
-                    Role = dbUser.Role,
-                    IsActive = dbUser.IsActive,
-                    CompanyId = dbUser.CompanyId,
-                    AccessToken = token
+                    response.Success = false;
+                    response.Message = "UserCompany not found.";
+                } else
+                {
+                    string userJWTToken = CreateToken(dbUser);
+                    response.Data = new GetAuthenticatedUserDTO
+                    {
+                        Id = dbUser.Id,
+                        FirstName = dbUser.FirstName,
+                        Prefix = dbUser.Prefix,
+                        LastName = dbUser.LastName,
+                        Email = dbUser.Email,
+                        PhoneNumber = dbUser.PhoneNumber,
+                        Role = dbUser.Role,
+                        IsActive = dbUser.IsActive,
+                        Company = userCompany,
+                        AccessToken = userJWTToken
+                    };
                 };
             }
-
             return response;
         }
 
