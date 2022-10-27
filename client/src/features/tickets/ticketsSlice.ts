@@ -12,6 +12,8 @@ type initialState = {
     creatingTicket: boolean;
     createdTicketSuccess: boolean | null;
     fetchingTicket: boolean;
+    claimingTicket: boolean;
+    claimedTicketSuccess: boolean | null;
 };
 
 const initialState: initialState = {
@@ -20,6 +22,8 @@ const initialState: initialState = {
     creatingTicket: false,
     createdTicketSuccess: null,
     fetchingTicket: false,
+    claimingTicket: false,
+    claimedTicketSuccess: null
 };
 
 export const createTicket = createAsyncThunk(
@@ -27,6 +31,21 @@ export const createTicket = createAsyncThunk(
     async ({ ticket, user }: { ticket: createTicketType; user: userType }, thunkAPI) => {
         try {
             const response = await TicketService.createTicket(ticket, user);
+            console.log(response);
+            return { ticket: response.data.data };
+        } catch (error: any) {
+            console.log(error);
+            thunkAPI.dispatch(setMessage(error.message));
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const claimTicketAsync = createAsyncThunk(
+    "tickets/claimTicketAsync",
+    async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
+        try {
+            const response = await TicketService.claimTicket(ticketId, accessToken);
             console.log(response);
             return { ticket: response.data.data };
         } catch (error: any) {
@@ -92,6 +111,20 @@ const ticketsSlice = createSlice({
         [fetchTicketAsync.rejected.toString()]: (state) => {
             state.fetchingTicket = false;
             console.log('Failed to fetch ticket.');
+        },
+        [claimTicketAsync.pending.toString()]: (state) => {
+            state.claimingTicket = true;
+            console.log('Claiming ticket...')
+        },
+        [claimTicketAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
+            state.claimingTicket = false;
+            state.claimedTicketSuccess = action.payload.ticket === null ? false : true;
+            state.ticket = action.payload.ticket === null ? state.ticket : action.payload.ticket;
+        },
+        [claimTicketAsync.rejected.toString()]: (state) => {
+            state.claimingTicket = false;
+            state.claimedTicketSuccess = false;
+            console.log('Failed to claim ticket.');
         }
     },
 });
@@ -100,6 +133,8 @@ export const getCreatingTicket = (state: RootState) => state.tickets.creatingTic
 export const getTicket = (state: RootState) => state.tickets.ticket;
 export const getCreatedTicketSuccess = (state: RootState) => state.tickets.createdTicketSuccess;
 export const getFetchingTicket = (state: RootState) => state.tickets.fetchingTicket;
+export const getClaimingTicket = (state: RootState) => state.tickets.claimingTicket;
+export const getClaimedTicketSuccess = (state: RootState) => state.tickets.claimedTicketSuccess;
 
 export const { resetCreateTicket, resetTicket } = ticketsSlice.actions;
 

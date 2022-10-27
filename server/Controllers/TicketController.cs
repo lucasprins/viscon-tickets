@@ -29,7 +29,6 @@ namespace server.Controllers
         [HttpGet("GetAllTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<List<GetTicketDTO>>>> GetAllTickets()
         {
-            await Task.Delay(50000 * 1000);
             return Ok(await _ticketService.GetAllTickets());
         }
 
@@ -39,10 +38,10 @@ namespace server.Controllers
             return Ok(await _ticketService.CreateTicket(newTicket));
         }
 
-        [HttpPut("ClaimTicket/"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
-        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ClaimTicket(Guid ticketId)
+        [HttpPut("ClaimTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ClaimTicket(ClaimTicketDTO ticketToClaim)
         {
-            return Ok(await _ticketService.ClaimTicket(ticketId));
+            return Ok(await _ticketService.ClaimTicket(ticketToClaim));
         }
     }
 }

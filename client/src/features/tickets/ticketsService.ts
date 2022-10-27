@@ -34,9 +34,25 @@ const getTicket = async (ticketId: string, accessToken: string) => {
     return response;
 };
 
+const claimTicket = async (ticketId: string, accessToken: string) => {
+    const response = await axios.put(
+        API_URL + "ClaimTicket",
+        {
+            ticketId: ticketId,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
+    return response;
+};
+
 const TicketService = {
     getTicket,
     createTicket,
+    claimTicket,
 };
 
 export default TicketService;

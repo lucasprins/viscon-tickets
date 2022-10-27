@@ -47,9 +47,6 @@ namespace server.Services.TicketService
                 ticket.Status = Status.Open;
                 ticket.Priority = Priority.Medium;
 
-                _context.Tickets.Add(ticket);
-                await _context.SaveChangesAsync();
-
                 try
                 {
                     serviceResponse.Data = await CreateGetTicketDTO(ticket);
@@ -59,7 +56,11 @@ namespace server.Services.TicketService
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Unable to return the ticket that was just created.";
                     System.Console.WriteLine(ex.Message);
+                    return serviceResponse;
                 }
+
+                _context.Tickets.Add(ticket);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -136,10 +137,12 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(Guid ticketId)
+        public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(ClaimTicketDTO ticketToClaim)
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Claiming ticket with id: " + ticketToClaim.TicketId);
 
             if (user == null)
             {
@@ -150,7 +153,7 @@ namespace server.Services.TicketService
 
             try
             {
-                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId);
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToClaim.TicketId);
                 if (ticket == null)
                 {
                     serviceResponse.Success = false;

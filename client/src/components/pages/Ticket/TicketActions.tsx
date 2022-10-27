@@ -1,6 +1,7 @@
 import React from "react";
+import { claimTicketAsync, getClaimingTicket } from "../../../features/tickets/ticketsSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { ticketType, userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { IconFlipBackwards, IconCheck, IconFileSearch } from "../../atoms/Icons/Icons";
@@ -9,6 +10,15 @@ var translations = require("../../../translations/ticketTranslations.json");
 
 export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketType}) => {
     const language = useAppSelector(getCurrentLanguage);
+    const dispatch = useAppDispatch();
+    
+    const claimingTicket = useAppSelector(getClaimingTicket);
+
+    const claimTicket = () => {
+        console.log(ticket.id);
+        dispatch(claimTicketAsync({ ticketId: ticket.id, accessToken: user.accessToken }));
+        console.log("Claiming ticket");
+    }
 
     let ticketActions: JSX.Element[] = [];
     let ticketActionsMobile: JSX.Element[] = [];
@@ -16,8 +26,8 @@ export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketT
         case "VisconAdmin":
             switch (ticket.status) {
                 case "Open":
-                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].claim_ticket} /> );
-                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].claim_ticket} /> );
+                    ticketActions.push( <Button size='medium' width='content' type='primary' disabled={claimingTicket} onclick={claimTicket} text={translations[language].claim_ticket} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' disabled={claimingTicket} onclick={claimTicket} text={translations[language].claim_ticket} /> );
                     break;
                 case "InProgress":
                     ticketActions.push( <Button size='medium' width='content' type='secondary-gray' text={translations[language].unclaim} icon={ <IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' /> } /> );
@@ -36,8 +46,8 @@ export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketT
         case "VisconEmployee":
             switch (ticket.status) {
                 case "Open":
-                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].claim_ticket} /> );
-                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].claim_ticket} /> );
+                    ticketActions.push( <Button size='medium' width='content' type='primary' disabled={claimingTicket} onclick={claimTicket} text={translations[language].claim_ticket} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' disabled={claimingTicket} onclick={claimTicket} text={translations[language].claim_ticket} /> );
                     break;
                 case "InProgress":
                     ticketActions.push( <Button size='medium' width='content' type='secondary-gray' text={translations[language].unclaim} icon={ <IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' /> } /> );
@@ -84,8 +94,8 @@ export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketT
 
     return (
         <>
-            <div className='gap-3 hidden xl:flex'>{ticketActions}</div>
-            <div className='gap-3 flex xl:hidden flex-col mt-3'>{ticketActionsMobile}</div>
+            <div className='gap-3 hidden lg:flex'>{ticketActions}</div>
+            <div className='gap-3 flex lg:hidden flex-col mt-3'>{ticketActionsMobile}</div>
         </>
     )
 };

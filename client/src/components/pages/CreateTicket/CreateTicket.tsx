@@ -407,12 +407,10 @@ export function CreateTicket() {
                                             <InputTextArea
                                                 touched={touched.extraInfo}
                                                 error={errors.extraInfo}
-                                                validate={(input) => validateTextarea(input, language)}
                                                 id='extraInformation'
                                                 name='extraInformation'
                                                 placeholder={translations[language].describe_placeholder_extra_info}
                                             />
-                                            <InputErrorMessage name='extraInformation' />
                                         </div>
 
                                         <div className='flex flex-row gap-4 pt-4'>
