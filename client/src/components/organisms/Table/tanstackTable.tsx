@@ -5,20 +5,14 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
   Table as ReactTable,
-  ColumnFiltersState,
-  FilterFn,
-  getFacetedUniqueValues,
-  getFacetedMinMaxValues,
 } from "@tanstack/react-table";
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert, IconCheck, IconStopwatch } from "../../atoms/Icons/Icons";
 import { useAppSelector } from "../../../utils/hooks";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { rankItem } from "@tanstack/match-sorter-utils";
 
 type table = {
   id: number;
@@ -58,40 +52,20 @@ const testDate: table[] = [
   },
 ];
 
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-  // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value);
-
-  // Store the itemRank info
-  addMeta({
-    itemRank,
-  });
-
-  // Return if the item should be filtered in/out
-  return itemRank.passed;
-};
 
 //{translations[language].}
 var translations = require("../../../translations/ticketsTable.json");
 
-export function Knowledgebase() {
-  const language = useAppSelector(getCurrentLanguage);
-}
-
 export function AppTable() {
+  const language = useAppSelector(getCurrentLanguage);
   // createColumnHelper is a function from Tanstack that helps creating collection of headers
   const columnHelper = createColumnHelper<table>();
 
   const columnsNonMemo = [
-    columnHelper.group({
-      id: "Hello!",
-      header: () => "Hello my friend!",
-      enableColumnFilter: true,
-      columns: [
         columnHelper.accessor("id", {
           cell: (info) => info.getValue(),
           header: "Ticket ID",
-          enableColumnFilter: true,
+          enableColumnFilter: false,
           //  footer: info => info.column.id,
         }),
         columnHelper.accessor("time_of_year", {
@@ -101,11 +75,6 @@ export function AppTable() {
           enableColumnFilter: false,
           //  footer: info => info.column.id,
         }),
-      ],
-    }),
-    columnHelper.group({
-      header: "Status",
-      columns: [
         columnHelper.accessor("status_ticket", {
           header: "Status", //Could also be written as: header: info => info.column.id,
           enableColumnFilter: false,
@@ -113,58 +82,62 @@ export function AppTable() {
             switch (props.getValue()) {
               case "Open":
                 return (
-                  <Badge
-                    size="md"
-                    color="error"
-                    text="Open"
-                    icon={
-                      <IconAlert
-                        size="14"
-                        fill="fill-error-500"
-                        color="stroke-error-500"
-                      />
-                    }
-                  />
+                  <div className="flex">
+                    <Badge
+                      size="md"
+                      color="error"
+                      text="Open"
+                      icon={
+                        <IconAlert
+                          size="14"
+                          fill="fill-error-500"
+                          color="stroke-error-500"
+                        />
+                      }
+                    />
+                  </div>
                 );
 
               case "Resolved":
                 return (
-                  <Badge
-                    size="md"
-                    color="success"
-                    text="Resolved"
-                    icon={
-                      <IconCheck
-                        size="14"
-                        fill="fill-error-500"
-                        color="stroke-success-500"
-                      />
-                    }
-                  />
+                  <div className="flex">
+                    <Badge
+                      size="md"
+                      color="success"
+                      text="Resolved"
+                      icon={
+                        <IconCheck
+                          size="14"
+                          fill="fill-succes-500"
+                          color="stroke-success-500"
+                        />
+                      }
+                    />
+                  </div>
                 );
 
               case "In progress":
                 return (
-                  <Badge
-                    size="md"
-                    color="gray"
-                    text="In progress"
-                    icon={
-                      <IconStopwatch
-                        size="14"
-                        fill="fill-error-500"
-                        color="stroke-gray-500"
-                      />
-                    }
-                  />
+                  <div className="flex">
+                    <Badge
+                      size="md"
+                      color="gray"
+                      text="In progress"
+                      icon={
+                        <IconStopwatch
+                          size="14"
+                          fill="fill-gray-500"
+                          color="stroke-gray-500"
+                        />
+                      }
+                    />
+                  </div>
                 );
             }
           },
 
           // footer: info => info.column.id,
         }),
-      ],
-    }),
     columnHelper.accessor("name_Customer", {
       header: "Customer",
       cell: (info) => info.getValue(),
@@ -197,16 +170,14 @@ export function AppTable() {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    //getPaginationRowModel: getPaginationRowModel(),
-    filterFns:{fuzzy:fuzzyFilter},
+   // getPaginationRowModel: getPaginationRowModel(),
   });
 
   // This needs to be turned into a function to click through the table included something to click on
   //const firstPageRow = table.getRowModel().rows.slice(0, 10); // Get the first 10 rows of the first page
   return (
-    <div className="p-2">
-      <table className="border border-gray-200 border-solid shadow-sm">
+    <div className="p-2 w-full">
+      <table className="border border-gray-200 border-solid shadow-sm w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             //CSS border around the header
@@ -223,16 +194,12 @@ export function AppTable() {
                 >
                   {header.isPlaceholder ? null : (
                     <>
-                      {header.column.getCanFilter() ? (
-                        <div>
-                          <Filter column={header.column} table={table} />
-                        </div>
-                      ) : (
+                  {
                         flexRender(
                           header.column.columnDef.header,
                           header.getContext()
-                        )
-                      )}
+                        )}
+                      
                     </>
                   )}
                 </th>
@@ -276,82 +243,4 @@ export function AppTable() {
       <div className="h-4" />
     </div>
   );
-
-  // https://codesandbox.io/s/github/tanstack/table/tree/main/examples/react/pagination?from-embed=&file=/src/main.tsx:7393-7398
-  // Code copied from the above link. This is example from Tanstack itself.
-  function Filter({
-    column,
-    table,
-  }: {
-    column: Column<any, any>;
-    table: ReactTable<any>;
-  }) {
-    const firstValue = table
-      .getPreFilteredRowModel()
-      .flatRows[0]?.getValue(column.id);
-
-    const columnFilterValue = column.getFilterValue();
-
-    const sortedUniqueValues = React.useMemo(
-      () =>
-        typeof firstValue === "number"
-          ? []
-          : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-      [column.getFacetedUniqueValues()]
-    );
-
-    return (
-     
-      <>
-      <datalist id={column.id + "list"}>
-          {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-            <option value={value} key={value} />
-          ))}
-        </datalist>
-        <DebouncedInput
-          type="text"
-          value={(columnFilterValue ?? "") as string}
-          onChange={(value) => column.setFilterValue(value)}
-          placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-          className="w-36 border shadow rounded"
-          list={column.id + "list"}
-        />
-        <div className="h-1" />
-      </>
-    );
-  }
-
-  // A debounced input react component
-  function DebouncedInput({
-    value: initialValue,
-    onChange,
-    debounce = 500,
-    ...props
-  }: {
-    value: string | number;
-    onChange: (value: string | number) => void;
-    debounce?: number;
-  } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
-    const [value, setValue] = React.useState(initialValue);
-
-    React.useEffect(() => {
-      setValue(initialValue);
-    }, [initialValue]);
-
-    React.useEffect(() => {
-      const timeout = setTimeout(() => {
-        onChange(value);
-      }, debounce);
-
-      return () => clearTimeout(timeout);
-    }, [value]);
-
-    return (
-      <input
-        {...props}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-    );
-  }
 }
