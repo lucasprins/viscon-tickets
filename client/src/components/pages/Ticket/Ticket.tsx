@@ -26,6 +26,7 @@ import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
+import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
 import { TicketActions } from "./TicketActions";
 import { TicketStatusBadge } from "./TicketStatusBadge";
@@ -57,7 +58,12 @@ export function Ticket() {
     return (
         <>
             {loading ? (
-                <div>Loading ticket...</div>
+                <div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white h-screen'>
+                    <Layout />
+                    <div className="flex w-full h-full items-center justify-center">
+                        <Spinner size="w-16 h-16" color="text-dark-600" fill="fill-primary-600"  />
+                    </div>
+                </div>
             ) : ticket != null ? (
                 <div className='flex flex-col md:flex-row dark:bg-dark-800 dark:text-white h-screen'>
                     <Layout />

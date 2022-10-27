@@ -30,7 +30,7 @@ export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketT
                     ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].re_open} /> );
                     break;
             }
-            ticketActionsMobile.push( <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} /> );
+            ticketActionsMobile.push( <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-gray-700' />} /> );
             break;
 
         case "VisconEmployee":
@@ -51,7 +51,7 @@ export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketT
                     break;
             }
             ticketActionsMobile.push(
-                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />
+                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-gray-700' />} />
             );
             break;
 
@@ -60,24 +60,24 @@ export const TicketActions = ({ user, ticket}: { user: userType, ticket: ticketT
                 ticketActions.push(
                     <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
                 );
+                ticketActionsMobile.push(
+                    <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
+                );
             }
             ticketActionsMobile.push(
-                <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
-            );
-            ticketActionsMobile.push(
-                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />
+                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files } icon={<IconFileSearch size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-gray-700' />} />
             );
             break;
 
         case "CustomerEmployee":
             if (ticket.status === "Open" || ticket.status === "InProgress") {
                 ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} /> );
+                ticketActionsMobile.push(
+                    <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
+                );
             }
             ticketActionsMobile.push(
-                <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
-            );
-            ticketActionsMobile.push(
-                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />
+                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-gray-700' />} />
             );
             break;
     }
