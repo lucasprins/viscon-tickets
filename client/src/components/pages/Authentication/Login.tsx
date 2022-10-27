@@ -105,43 +105,26 @@ export function Login() {
                                         <InputErrorMessage name='password' />
                                     </div>
                                 </div>
-
-                                {/* Row
-                                <div className='flex items-center justify-between'>
-                                    <InputCheckbox text='Remember for 30 days' />
-                                    <ButtonLink
-                                        url='/forgot-password'
-                                        size='medium'
-                                        type='color'
-                                        text={translations[language].forgotPassword}
-                                    />
-                                </div> */}
-                                <div className="flex flex-col gap-3">
+                                <div className='flex flex-col gap-3'>
                                     {/* Button */}
-                                    {loading ? (
-                                        <Button
-                                            disabled={loading}
-                                            formType='submit'
-                                            size='medium'
-                                            width='full'
-                                            type='primary'
-                                            text={translations[language].loggingIn}
-                                            icon={<Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />}
-                                        />
-                                    ) : (
-                                        <Button
-                                            formType='submit'
-                                            size='medium'
-                                            width='full'
-                                            type='primary'
-                                            text='Sign in'
-                                        />
-                                    )}
+                                    <Button
+                                        disabled={loading}
+                                        formType='submit'
+                                        size='medium'
+                                        width='full'
+                                        type='primary'
+                                        text={loading ? translations[language].loggingIn : translations[language].login}
+                                        icon={
+                                            loading ? (
+                                                <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                                            ) : undefined
+                                        }
+                                    />
                                     <Button
                                         disabled={loading}
                                         formType='button'
                                         size='medium'
-                                        url="/forgot-password"
+                                        url='/forgot-password'
                                         width='full'
                                         type='secondary-gray'
                                         text={translations[language].forgotPassword}

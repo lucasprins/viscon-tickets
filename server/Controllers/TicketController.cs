@@ -20,7 +20,7 @@ namespace server.Controllers
             _ticketService = ticketService;
         }
 
-        [HttpGet("GetTicket/{id}"), Authorize]
+        [HttpGet("GetTicket/{id}")]
         public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> GetTicket(Guid id)
         {
             return Ok(await _ticketService.GetTicketById(id));

@@ -52,7 +52,6 @@ namespace server.Services.TicketService
 
                 try
                 {
-
                     serviceResponse.Data = await CreateGetTicketDTO(ticket);
                 }
                 catch (Exception ex)
@@ -75,27 +74,34 @@ namespace server.Services.TicketService
         public async Task<ServiceResponse<GetTicketDTO>> GetTicketById(Guid id)
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
             try
             {
                 var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
 
-                if (ticket != null)
-                {
-                    try
-                    {
-                        serviceResponse.Data = await CreateGetTicketDTO(ticket);
-                    }
-                    catch
-                    {
-                        serviceResponse.Success = false;
-                        serviceResponse.Message = "Unable to get ticket with given id";
-                    }
-                }
-                else
+                if (ticket == null)
                 {
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
                 }
+
+                if (requestUser == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Requesting user not found.";
+                    return serviceResponse;
+                }
+
+                if (!(requestUser.CompanyId == ticket.CompanyId || (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)))
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "You are not authorized to view this ticket.";
+                    return serviceResponse;
+                }
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
             }
             catch (Exception ex)
             {
