@@ -243,7 +243,7 @@ export function Ticket() {
                                             </span>
                                             <div className='flex flex-col 2xl:flex-row gap-1 justify-between'>
                                                 <span className='text-gray-700 dark:text-dark-300'>
-                                                    {`${ticketDate.getDate()}-${ticketDate.getMonth()}-${ticketDate.getFullYear()} ${ticketDate.toLocaleTimeString()} `}
+                                                    {ticketDate.toLocaleString()}
                                                 </span>
                                                 <div className='w-max'>{statusBadge}</div>
                                             </div>
@@ -403,7 +403,7 @@ export function Ticket() {
                                 {translations[language].creation_date}
                             </span>
                             <div className='flex flex-col 2xl:flex-row  gap-1 justify-between'>
-                                <span className='text-gray-700 dark:text-dark-300'>{ticket.creationDate}</span>
+                                <span className='text-gray-700 dark:text-dark-300'>{ticketDate.toLocaleString()}</span>
                                 <div className='w-max'>{statusBadge}</div>
                             </div>
                         </div>
