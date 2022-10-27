@@ -80,7 +80,7 @@ export function NavigationSidebar() {
                         url='playground'
                         icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                     />
-                    <NavigationAdminMenu />
+                    {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationAdminMenu /> : null}
                 </ul>
             </div>
 

@@ -106,7 +106,7 @@ export function Login() {
                                     </div>
                                 </div>
 
-                                {/* Row */}
+                                {/* Row
                                 <div className='flex items-center justify-between'>
                                     <InputCheckbox text='Remember for 30 days' />
                                     <ButtonLink
@@ -115,27 +115,38 @@ export function Login() {
                                         type='color'
                                         text={translations[language].forgotPassword}
                                     />
-                                </div>
-                                {/* Button */}
-                                {loading ? (
+                                </div> */}
+                                <div className="flex flex-col gap-3">
+                                    {/* Button */}
+                                    {loading ? (
+                                        <Button
+                                            disabled={loading}
+                                            formType='submit'
+                                            size='medium'
+                                            width='full'
+                                            type='primary'
+                                            text={translations[language].loggingIn}
+                                            icon={<Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />}
+                                        />
+                                    ) : (
+                                        <Button
+                                            formType='submit'
+                                            size='medium'
+                                            width='full'
+                                            type='primary'
+                                            text='Sign in'
+                                        />
+                                    )}
                                     <Button
                                         disabled={loading}
-                                        formType='submit'
+                                        formType='button'
                                         size='medium'
+                                        url="/forgot-password"
                                         width='full'
-                                        type='primary'
-                                        text={translations[language].loggingIn}
-                                        icon={<Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />}
+                                        type='secondary-gray'
+                                        text={translations[language].forgotPassword}
                                     />
-                                ) : (
-                                    <Button
-                                        formType='submit'
-                                        size='medium'
-                                        width='full'
-                                        type='primary'
-                                        text='Sign in'
-                                    />
-                                )}
+                                </div>
                                 {/* Error message */}
                                 {message && (
                                     <div className='flex justify-center'>

@@ -16,20 +16,18 @@ var translations = require("../../../translations/knowledgebaseTranslations.json
 export function Knowledgebase() {
     const language = useAppSelector(getCurrentLanguage);
     const user = useAppSelector(getUser);
-	const userRole = user?.role;
+    const userRole = user?.role;
 
-	if(!user) {
-		return <Navigate to="/login" />
-	}
-
-
+    if (!user) {
+        return <Navigate to='/login' />;
+    }
 
     return (
         <>
             <div className='flex flex-col md:flex-row md:h-screen dark:bg-dark-800 dark:text-white overflow-x-hidden'>
                 <Layout />
                 {/* Sidebar */}
-                <div className='flex flex-col w-full lg:w-[60rem] gap-4 lg:gap-6 px-6 pt-6 lg:p-8 md:border-r border-gray-300 dark:border-dark-500'>
+                <div className='flex flex-col gap-4 lg:gap-6 px-6 pt-6 lg:p-8 md:border-r border-gray-300 dark:border-dark-500'>
                     <PageHeader
                         title={translations[language].knowledgebase}
                         subtitle={translations[language].knowledgebase_subtitle}
