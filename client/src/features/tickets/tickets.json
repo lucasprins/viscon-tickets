@@ -1,184 +1,66 @@
 [
-    {
-        "ticketId": "74d312de-55ab-484c-9926-3ecbc4a33d55",
-        "ticketNumber": "2541",
-        "customerEmployee": {
-            "firstName": "Doe",
-            "preposition": "",
-            "lastName": "John",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "30775d1f-51d3-47de-9437-bfd3819835ac",
-                "name": "FakeCompany",
-                "country": "Friesland",
-                "isActive": true
-            } 
-        },
-        "visconEmployee": null,
-        "machine": {
-            "machineId": "1",
-            "name": "Shuttle 1",
-            "blueprintNumber": "5001483",
-            "type": "Satteliet shuttle"
-        },
-        "creationDate": "September 25, 2022 - 16:20",
-        "phoneNumber": "06349988880",
-        "issue": "This is the issue",
-        "actionExpected": "This is the action expected",
-        "actionPerformed": "This is the action performed",
-        "extraInformation": "This is the extra information",
-        "solution": "This is the solution from Viscon",
-        "status": "open",
-        "priority": "Critical"
+  {
+    "id": "6e98c379-a967-4890-aa04-14eed62b9dbe",
+    "ticketNumber": 1,
+    "phoneNumber": "0634998880",
+    "creationDate": "2022-10-26T15:59:56.681441Z",
+    "status": "InProgress",
+    "priority": "Medium",
+    "issue": "Dit gaat fout",
+    "actionExpected": "Dit verwacht ik",
+    "actionPerformed": "Dit heb ik al gedaan",
+    "extraInfo": "Dit is extra informatie",
+    "solution": "",
+    "company": {
+      "id": "37e7da3c-ad11-4bd8-bb50-1f0ead225b2f",
+      "name": "Dunder Mifflin",
+      "country": "United States",
+      "isActive": true
     },
-    {
-        "ticketId": "a8d988f1-e4ae-4b50-a464-dd2a5d0f22fa",
-        "ticketNumber": "2542",
-        "customerEmployee": {
-            "firstName": "John",
-            "preposition": "",
-            "lastName": "Doe",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "70d44c77-4857-4632-a7e4-3bb465b9c742",
-                "name": "CompanyFake",
-                "country": "United Kingdom",
-                "isActive": true
-            } 
-        },
-        "visconEmployee": {
-            "firstName": "Doe",
-            "preposition": "",
-            "lastName": "John",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "30775d1f-51d3-47de-9437-bfd3819835ac",
-                "name": "FakeCompany",
-                "country": "Friesland",
-                "isActive": true
-            } 
-        },
-        "machine": {
-            "machineId": "1",
-            "name": "Shuttle 1",
-            "blueprintNumber": "5001483",
-            "type": "Satteliet shuttle"
-        },
-        "creationDate": "September 25, 2022 - 16:20",
-        "phoneNumber": "06349988880",
-        "issue": "This is the issue",
-        "actionExpected": "This is the action expected",
-        "actionPerformed": "This is the action performed",
-        "extraInformation": "This is the extra information",
-        "solution": "This is the solution from Viscon",
-        "status": "in progress",
-        "priority": "Critical"
+    "creator": {
+      "id": "f2c5f120-9ef0-4e15-8889-0612e801c36e",
+      "firstName": "Lucas",
+      "prefix": null,
+      "lastName": "Prins"
     },
-    {
-        "ticketId": "a8d988f1-e4ae-4b50-a464-dd2a5d0f22fa",
-        "ticketNumber": "2543",
-        "customerEmployee": {
-            "firstName": "John",
-            "preposition": "",
-            "lastName": "Doe",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "70d44c77-4857-4632-a7e4-3bb465b9c742",
-                "name": "CompanyFake",
-                "country": "United Kingdom",
-                "isActive": true
-            } 
-        },
-        "visconEmployee": {
-            "firstName": "Doe",
-            "preposition": "",
-            "lastName": "John",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "30775d1f-51d3-47de-9437-bfd3819835ac",
-                "name": "FakeCompany",
-                "country": "Friesland",
-                "isActive": true
-            } 
-        },
-        "machine": {
-            "machineId": "1",
-            "name": "Shuttle 1",
-            "blueprintNumber": "5001483",
-            "type": "Satteliet shuttle"
-        },
-        "creationDate": "September 25, 2022 - 16:20",
-        "phoneNumber": "06349988880",
-        "issue": "This is the issue",
-        "actionExpected": "This is the action expected",
-        "actionPerformed": "This is the action performed",
-        "extraInformation": "This is the extra information",
-        "solution": "This is the solution from Viscon",
-        "status": "resolved",
-        "priority": "Critical"
+    "assignee": {
+      "id": "8f1dbfdc-7ee1-4c1c-a56a-f610a07a8e1d",
+      "firstName": "admin",
+      "prefix": null,
+      "lastName": "admin"
     },
-    {
-        "ticketId": "a8d988f1-e4ae-4b50-a464-dd2a5d0f22fa",
-        "ticketNumber": "2544",
-        "customerEmployee": {
-            "firstName": "John",
-            "preposition": "",
-            "lastName": "Doe",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "70d44c77-4857-4632-a7e4-3bb465b9c742",
-                "name": "CompanyFake",
-                "country": "United Kingdom",
-                "isActive": true
-            } 
-        },
-        "visconEmployee": {
-            "firstName": "Doe",
-            "preposition": "",
-            "lastName": "John",
-            "phoneNumber": "06349988880",
-            "role": "customer-employee",
-            "email": "",
-            "isActive": true,
-            "company": {
-                "companyId": "30775d1f-51d3-47de-9437-bfd3819835ac",
-                "name": "FakeCompany",
-                "country": "Friesland",
-                "isActive": true
-            } 
-        },
-        "machine": {
-            "machineId": "1",
-            "name": "Shuttle 1",
-            "blueprintNumber": "5001483",
-            "type": "Satteliet shuttle"
-        },
-        "creationDate": "September 25, 2022 - 16:20",
-        "phoneNumber": "06349988880",
-        "issue": "This is the issue",
-        "actionExpected": "This is the action expected",
-        "actionPerformed": "This is the action performed",
-        "extraInformation": "This is the extra information",
-        "solution": "This is the solution from Viscon",
-        "status": "cancelled",
-        "priority": "Critical"
-    }
+    "machineName": "Satteliet shuttle 1"
+  },
+  {
+    "id": "eb64af63-33f9-4d0b-a3e9-fe3f1e726a4f",
+    "ticketNumber": 2,
+    "phoneNumber": "0634998880",
+    "creationDate": "2022-10-26T16:06:02.955625Z",
+    "status": "InProgress",
+    "priority": "Medium",
+    "issue": "Dit gaat fout",
+    "actionExpected": "Dit verwacht ik",
+    "actionPerformed": "Dit heb ik al gedaan",
+    "extraInfo": "Dit is extra informatie",
+    "solution": "",
+    "company": {
+      "id": "37e7da3c-ad11-4bd8-bb50-1f0ead225b2f",
+      "name": "Dunder Mifflin",
+      "country": "United States",
+      "isActive": true
+    },
+    "creator": {
+      "id": "f2c5f120-9ef0-4e15-8889-0612e801c36e",
+      "firstName": "Lucas",
+      "prefix": null,
+      "lastName": "Prins"
+    },
+    "assignee": {
+      "id": "1f23b265-ea47-4d6c-8f85-108bc3922fd4",
+      "firstName": "Viscon",
+      "prefix": null,
+      "lastName": "Employee"
+    },
+    "machineName": "Satteliet shuttle 1"
+  }
 ]

@@ -1,5 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
+import { ticketType, userType } from './types';
 
 // Use throughout the app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();

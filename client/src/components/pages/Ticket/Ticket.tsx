@@ -5,7 +5,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { getUser } from "../../../features/auth/authSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
-import { TicketType } from "../../../utils/types";
+import { ticketType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
@@ -35,185 +35,66 @@ export function Ticket() {
 
     const { ticketID }: any = useParams();
     const user = useAppSelector(getUser);
-    const ticket: TicketType = tickets.filter((ticket: TicketType) => ticket.ticketNumber === ticketID)[0];
+    const ticket: ticketType = tickets.filter((ticket: ticketType) => ticket.ticketNumber === Number(ticketID))[0];
 
     if (!user) {
         return <Navigate to='/login' />;
     }
 
+    if (!ticket) {
+        return <Navigate to='/PageNotFound' />;
+    }
+
+    const ticketDate = new Date(ticket.creationDate);
+    console.log(ticketDate);
+
     let ticketActions: JSX.Element[] = [];
     let ticketActionsMobile: JSX.Element[] = [];
     switch (user?.role) {
-        case "viscon-admin":
+        case "VisconAdmin":
             switch (ticket.status) {
-                case "open":
-                    ticketActions.push(
-                        <Button
-                            size='medium'
-                            width='content'
-                            type='primary'
-                            text={translations[language].claim_ticket}
-                        />
-                    );
-                    ticketActionsMobile.push(
-                        <Button size='medium' width='full' type='primary' text={translations[language].claim_ticket} />
-                    );
+                case "Open":
+                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].claim_ticket} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].claim_ticket} /> );
                     break;
-                case "in progress":
-                    ticketActions.push(
-                        <Button
-                            size='medium'
-                            width='content'
-                            type='secondary-gray'
-                            text={translations[language].unclaim}
-                            icon={
-                                <IconFlipBackwards
-                                    size='20'
-                                    color='stroke-gray-700 dark:stroke-white'
-                                    fill='fill-primary-700'
-                                />
-                            }
-                        />
-                    );
-                    ticketActions.push(
-                        <Button
-                            size='medium'
-                            width='content'
-                            type='primary'
-                            text={translations[language].resolve}
-                            icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />}
-                        />
-                    );
-                    ticketActionsMobile.push(
-                        <Button
-                            size='medium'
-                            width='full'
-                            type='primary'
-                            text={translations[language].resolve}
-                            icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />}
-                        />
-                    );
-                    ticketActionsMobile.push(
-                        <Button
-                            size='medium'
-                            width='full'
-                            type='secondary-gray'
-                            text={translations[language].unclaim}
-                            icon={
-                                <IconFlipBackwards
-                                    size='20'
-                                    color='stroke-gray-700 dark:stroke-white'
-                                    fill='fill-primary-700'
-                                />
-                            }
-                        />
-                    );
+                case "InProgress":
+                    ticketActions.push( <Button size='medium' width='content' type='secondary-gray' text={translations[language].unclaim} icon={ <IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' /> } /> );
+                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].resolve} icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].resolve} icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='secondary-gray' text={translations[language].unclaim} icon={ <IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' /> } /> );
                     break;
-                case "resolved":
-                    ticketActions.push(
-                        <Button size='medium' width='content' type='primary' text={translations[language].re_open} />
-                    );
-                    ticketActionsMobile.push(
-                        <Button size='medium' width='full' type='primary' text={translations[language].re_open} />
-                    );
+                case "Resolved":
+                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].re_open} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].re_open} /> );
+                    break;
+            }
+            ticketActionsMobile.push( <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} /> );
+            break;
+
+        case "VisconEmployee":
+            switch (ticket.status) {
+                case "Open":
+                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].claim_ticket} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].claim_ticket} /> );
+                    break;
+                case "InProgress":
+                    ticketActions.push( <Button size='medium' width='content' type='secondary-gray' text={translations[language].unclaim} icon={ <IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' /> } /> );
+                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].resolve} icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].resolve} icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='secondary-gray' text={translations[language].unclaim} icon={ <IconFlipBackwards size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-primary-700' /> } /> );
+                    break;
+                case "Resolved":
+                    ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].re_open} /> );
+                    ticketActionsMobile.push( <Button size='medium' width='full' type='primary' text={translations[language].re_open} /> );
                     break;
             }
             ticketActionsMobile.push(
-                <Button
-                    size='medium'
-                    width='full'
-                    type='secondary-gray'
-                    text={translations[language].view_files}
-                    icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />}
-                />
+                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />
             );
             break;
-        case "viscon-employee":
-            switch (ticket.status) {
-                case "open":
-                    ticketActions.push(
-                        <Button
-                            size='medium'
-                            width='content'
-                            type='primary'
-                            text={translations[language].claim_ticket}
-                        />
-                    );
-                    ticketActionsMobile.push(
-                        <Button size='medium' width='full' type='primary' text={translations[language].claim_ticket} />
-                    );
-                    break;
-                case "in progress":
-                    ticketActions.push(
-                        <Button
-                            size='medium'
-                            width='content'
-                            type='secondary-gray'
-                            text={translations[language].unclaim}
-                            icon={
-                                <IconFlipBackwards
-                                    size='20'
-                                    color='stroke-gray-700 dark:stroke-white'
-                                    fill='fill-primary-700'
-                                />
-                            }
-                        />
-                    );
-                    ticketActions.push(
-                        <Button
-                            size='medium'
-                            width='content'
-                            type='primary'
-                            text={translations[language].resolve}
-                            icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />}
-                        />
-                    );
-                    ticketActionsMobile.push(
-                        <Button
-                            size='medium'
-                            width='full'
-                            type='primary'
-                            text={translations[language].resolve}
-                            icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />}
-                        />
-                    );
-                    ticketActionsMobile.push(
-                        <Button
-                            size='medium'
-                            width='full'
-                            type='secondary-gray'
-                            text={translations[language].unclaim}
-                            icon={
-                                <IconFlipBackwards
-                                    size='20'
-                                    color='stroke-gray-700 dark:stroke-white'
-                                    fill='fill-primary-700'
-                                />
-                            }
-                        />
-                    );
-                    break;
-                case "resolved":
-                    ticketActions.push(
-                        <Button size='medium' width='content' type='primary' text={translations[language].re_open} />
-                    );
-                    ticketActionsMobile.push(
-                        <Button size='medium' width='full' type='primary' text={translations[language].re_open} />
-                    );
-                    break;
-            }
-            ticketActionsMobile.push(
-                <Button
-                    size='medium'
-                    width='full'
-                    type='secondary-gray'
-                    text={translations[language].view_files}
-                    icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />}
-                />
-            );
-            break;
-        case "customer-admin":
-            if (ticket.status === "open" || ticket.status === "in progress") {
+
+        case "CustomerAdmin":
+            if (ticket.status === "Open" || ticket.status === "InProgress") {
                 ticketActions.push(
                     <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
                 );
@@ -222,32 +103,19 @@ export function Ticket() {
                 <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
             );
             ticketActionsMobile.push(
-                <Button
-                    size='medium'
-                    width='full'
-                    type='secondary-gray'
-                    text={translations[language].view_files}
-                    icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />}
-                />
+                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />
             );
             break;
-        case "customer-operator-1":
-            if (ticket.status === "open" || ticket.status === "in progress") {
-                ticketActions.push(
-                    <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
-                );
+
+        case "CustomerEmployee":
+            if (ticket.status === "Open" || ticket.status === "InProgress") {
+                ticketActions.push( <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} /> );
             }
             ticketActionsMobile.push(
                 <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
             );
             ticketActionsMobile.push(
-                <Button
-                    size='medium'
-                    width='full'
-                    type='secondary-gray'
-                    text={translations[language].view_files}
-                    icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />}
-                />
+                <Button size='medium' width='full' type='secondary-gray' text={translations[language].view_files} icon={<IconFileSearch size='20' color='stroke-gray-700' fill='fill-gray-700' />} />
             );
             break;
     }
@@ -375,7 +243,7 @@ export function Ticket() {
                                             </span>
                                             <div className='flex flex-col 2xl:flex-row gap-1 justify-between'>
                                                 <span className='text-gray-700 dark:text-dark-300'>
-                                                    {ticket.creationDate}
+                                                    {`${ticketDate.getDate()}-${ticketDate.getMonth()}-${ticketDate.getFullYear()} ${ticketDate.toLocaleTimeString()} `}
                                                 </span>
                                                 <div className='w-max'>{statusBadge}</div>
                                             </div>
@@ -383,10 +251,10 @@ export function Ticket() {
                                         <AssigneeCard
                                             subtitle={translations[language].assignee}
                                             name={
-                                                ticket.visconEmployee !== null
-                                                    ? ticket.visconEmployee?.prefix == null
-                                                        ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.lastName}`
-                                                        : `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.prefix} ${ticket.visconEmployee?.lastName}`
+                                                ticket.assignee !== null
+                                                    ? ticket.assignee?.prefix == null
+                                                        ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                                        : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket.assignee?.lastName}`
                                                     : undefined
                                             }
                                         />
@@ -395,14 +263,14 @@ export function Ticket() {
                                         <span className='text-md text-gray-700 font-medium dark:text-white'>
                                             {translations[language].creator}
                                         </span>
-                                        {ticket.customerEmployee.prefix == null ? (
+                                        {ticket.creator.prefix == null ? (
                                             <AvatarCard
-                                                name={`${ticket.customerEmployee.firstName} ${ticket.customerEmployee.lastName}`}
+                                                name={`${ticket.creator.firstName} ${ticket.creator.lastName}`}
                                                 subtitle={ticket.phoneNumber}
                                             />
                                         ) : (
                                             <AvatarCard
-                                                name={`${ticket.customerEmployee.firstName} ${ticket.customerEmployee?.prefix} ${ticket.customerEmployee.lastName}`}
+                                                name={`${ticket.creator.firstName} ${ticket.creator?.prefix} ${ticket.creator.lastName}`}
                                                 subtitle={ticket.phoneNumber}
                                             />
                                         )}
@@ -411,10 +279,7 @@ export function Ticket() {
                                         <span className='text-md text-gray-700 font-medium dark:text-white'>
                                             {translations[language].company}
                                         </span>
-                                        <AvatarCard
-                                            name={ticket.customerEmployee.company.name}
-                                            subtitle={ticket.customerEmployee.company.country}
-                                        />
+                                        <AvatarCard name={ticket.company.name} subtitle={ticket.company.country} />
                                     </div>
                                 </div>
                                 <Formik initialValues={ticket} onSubmit={() => console.log("submit")}>
@@ -422,14 +287,14 @@ export function Ticket() {
                                         <Form className='flex flex-col gap-5 w-full'>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel
-                                                    htmlFor='machine.name'
+                                                    htmlFor='machineName'
                                                     text={translations[language].machine}
                                                 />
                                                 <InputField
                                                     style='icon'
                                                     type='text'
-                                                    id='machine.name'
-                                                    name='machine.name'
+                                                    id='machineName'
+                                                    name='machineName'
                                                     disabled={true}
                                                     icon={
                                                         <IconGear
@@ -483,13 +348,13 @@ export function Ticket() {
                                             </div>
                                             <div className='flex flex-col w-full gap-1.5'>
                                                 <InputLabel
-                                                    htmlFor='extraInformation'
+                                                    htmlFor='extraInfo'
                                                     text={translations[language].describe_issue_extra_info}
                                                 />
                                                 <InputTextArea
                                                     disabled={true}
-                                                    id='extraInformation'
-                                                    name='extraInformation'
+                                                    id='extraInfo'
+                                                    name='extraInfo'
                                                     placeholder={translations[language].describe_placeholder_extra_info}
                                                 />
                                                 <InputErrorMessage name='extraInformation' />
@@ -545,9 +410,9 @@ export function Ticket() {
                         <AssigneeCard
                             subtitle={translations[language].assignee}
                             name={
-                                ticket.visconEmployee !== null
-                                    ? `${ticket.visconEmployee?.firstName} ${ticket.visconEmployee?.prefix} ${ticket.visconEmployee?.lastName}`
-                                    : undefined
+                                ticket.assignee.prefix != null
+                                    ? `${ticket.assignee.firstName} ${ticket.assignee.prefix} ${ticket.assignee.lastName}`
+                                    : `${ticket.assignee.firstName} ${ticket.assignee.lastName}`
                             }
                         />
                     </div>

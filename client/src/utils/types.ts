@@ -1,3 +1,7 @@
+import { ChildProcessWithoutNullStreams } from "child_process";
+import internal from "stream";
+import { StringMappingType } from "typescript";
+
 export type userType = {
     id: string;
     firstName: string;
@@ -33,28 +37,27 @@ export type MachineType = {
     type: string
 };
 
-export type TicketType = {
-    ticketId: string,
-    ticketNumber: string,
-    customerEmployee: userType,
-    visconEmployee: userType | undefined,
-    machine: MachineType,
-    creationDate: string,
+export type ticketType = {
+    id: string,
+    ticketNumber: Number,
     phoneNumber: string,
+    creationDate: string,
+    status: string,
+    priority: string,
     issue: string,
     actionExpected: string,
     actionPerformed: string,
-    extraInformation: string | undefined,
-    solution: string | undefined
-    status: "open" | "in progress" | "resolved" | "cancelled",
-    priority: "critical" | "high" | "medium" | "low"
+    extraInfo: string,
+    solution: string,
+    company: companyType,
+    creator: ticketUserType,
+    assignee: ticketUserType,
+    machineName: string
 }
 
-export type NotificationType = {
-    notificationId: string,
-    userId: userType,
-    ticketId: string,
-    title: string,
-    creationDate: Date,
-    hasViewed: boolean
+export type ticketUserType = {
+    id: string,
+    firstName: string,
+    prefix: string | null,
+    lastName: string,
 }

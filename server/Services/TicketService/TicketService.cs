@@ -174,5 +174,15 @@ namespace server.Services.TicketService
 
             return serviceResponse;
         }
+
+        public Task<ServiceResponse<GetTicketDTO>> ResolveTicket(Guid ticketId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ServiceResponse<GetTicketDTO>> CancelTicket(Guid ticketId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
