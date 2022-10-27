@@ -13,6 +13,7 @@ import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert, IconCheck, IconStopwatch } from "../../atoms/Icons/Icons";
 import { useAppSelector } from "../../../utils/hooks";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
+import { Button } from "../../atoms/Button/Button";
 
 type table = {
   id: number;
@@ -62,82 +63,111 @@ export function AppTable() {
   const columnHelper = createColumnHelper<table>();
 
   const columnsNonMemo = [
-        columnHelper.accessor("id", {
-          cell: (info) => info.getValue(),
-          header: "Ticket ID",
-          enableColumnFilter: false,
-          //  footer: info => info.column.id,
-        }),
-        columnHelper.accessor("time_of_year", {
-          id: "Date",
-          cell: (info) => info.getValue(),
-          header: "Date",
-          enableColumnFilter: false,
-          //  footer: info => info.column.id,
-        }),
-        columnHelper.accessor("status_ticket", {
-          header: "Status", //Could also be written as: header: info => info.column.id,
-          enableColumnFilter: false,
-          cell: (props: { getValue: () => any }) => {
-            switch (props.getValue()) {
-              case "Open":
-                return (
-                  <div className="flex">
-                    <Badge
-                      size="md"
-                      color="error"
-                      text="Open"
-                      icon={
-                        <IconAlert
-                          size="14"
-                          fill="fill-error-500"
-                          color="stroke-error-500"
-                        />
-                      }
+    columnHelper.accessor("id", {
+      cell: (info) => info.getValue(),
+      header: "Ticket ID",
+      enableColumnFilter: false,
+      footer: () => {
+        return (
+          <div className="flex p-3 dark:bg-dark-800 font-medium">
+            <div>Page</div>
+            <p>
+              {table.getState().pagination.pageIndex + 1} of{' '}
+              {table.getPageCount()}
+            </p>
+          </div>
+        )
+      }
+    }),
+    columnHelper.accessor("time_of_year", {
+      id: "Date",
+      cell: (info) => info.getValue(),
+      header: "Date",
+      enableColumnFilter: false,
+      footer: () => {
+        return (
+          <div className="flex pl-3 dark:text-gray-200  font-medium">
+            <select
+              className=" bg-white dark:bg-dark-800 "
+              value={table.getState().pagination.pageSize}
+              onChange={e => {
+                table.setPageSize(Number(e.target.value))
+              }}
+            >
+              {[5, 10, 20, 25].map(pageSize => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      //  footer: info => info.column.id,
+    }),
+    columnHelper.accessor("status_ticket", {
+      header: "Status", //Could also be written as: header: info => info.column.id,
+      enableColumnFilter: false,
+      cell: (props: { getValue: () => any }) => {
+        switch (props.getValue()) {
+          case "Open":
+            return (
+              <div className="flex">
+                <Badge
+                  size="md"
+                  color="error"
+                  text="Open"
+                  icon={
+                    <IconAlert
+                      size="14"
+                      fill="fill-error-500"
+                      color="stroke-error-500"
                     />
-                  </div>
-                );
+                  }
+                />
+              </div>
+            );
 
-              case "Resolved":
-                return (
-                  <div className="flex">
-                    <Badge
-                      size="md"
-                      color="success"
-                      text="Resolved"
-                      icon={
-                        <IconCheck
-                          size="14"
-                          fill="fill-succes-500"
-                          color="stroke-success-500"
-                        />
-                      }
+          case "Resolved":
+            return (
+              <div className="flex">
+                <Badge
+                  size="md"
+                  color="success"
+                  text="Resolved"
+                  icon={
+                    <IconCheck
+                      size="14"
+                      fill="fill-succes-500"
+                      color="stroke-success-500"
                     />
-                  </div>
-                );
+                  }
+                />
+              </div>
+            );
 
-              case "In progress":
-                return (
-                  <div className="flex">
-                    <Badge
-                      size="md"
-                      color="gray"
-                      text="In progress"
-                      icon={
-                        <IconStopwatch
-                          size="14"
-                          fill="fill-gray-500"
-                          color="stroke-gray-500"
-                        />
-                      }
+          case "In progress":
+            return (
+              <div className="flex">
+                <Badge
+                  size="md"
+                  color="gray"
+                  text="In progress"
+                  icon={
+                    <IconStopwatch
+                      size="14"
+                      fill="fill-gray-500"
+                      color="stroke-gray-500"
                     />
-                  </div>
-                );
-            }
-          },
+                  }
+                />
+              </div>
+            );
+        }
+      },
 
-          // footer: info => info.column.id,
-        }),
+      // footer: info => info.column.id,
+    }),
     columnHelper.accessor("name_Customer", {
       header: "Customer",
       cell: (info) => info.getValue(),
@@ -155,7 +185,28 @@ export function AppTable() {
       cell: (info) => info.getValue(),
       // footer: info => info.column.id,
       enableColumnFilter: false,
-    }),
+      footer: () => {
+        return (
+          <div className="flex flex-row-reverse gap-2 p-3">
+            <Button
+              size="small"
+              width="content"
+              type="secondary-gray"
+              text="Previous"
+              onclick={() => table.previousPage()}
+            />
+
+            <Button
+              size="small"
+              width="content"
+              type="secondary-gray"
+              text="Next"
+              onclick={() => table.nextPage()}
+            />
+          </div>
+        )
+      }
+    },),
   ];
 
   const columns = useMemo(() => columnsNonMemo, []);
@@ -170,20 +221,20 @@ export function AppTable() {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-   // getPaginationRowModel: getPaginationRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   // This needs to be turned into a function to click through the table included something to click on
   //const firstPageRow = table.getRowModel().rows.slice(0, 10); // Get the first 10 rows of the first page
   return (
-    <div className="p-2 w-full">
-      <table className="border border-gray-200 border-solid shadow-sm w-full">
+    <div className="p-2">
+      <table className="border-l border-r border-gray-200 border-solid shadow-sm w-full rounded-md">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             //CSS border around the header
             <tr
               key={headerGroup.id}
-              className="border border-solid border-gray-200 shadow-sm"
+              className="border border-solid border-gray-200 shadow-sm rounded-md"
             >
               {headerGroup.headers.map((header) => (
                 // CSS for the header
@@ -194,12 +245,12 @@ export function AppTable() {
                 >
                   {header.isPlaceholder ? null : (
                     <>
-                  {
+                      {
                         flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                      
+
                     </>
                   )}
                 </th>
@@ -207,9 +258,9 @@ export function AppTable() {
             </tr>
           ))}
         </thead>
-        <tbody>
+        <tbody className="">
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className="even:bg-gray-50 dark:even:bg-dark-700">
               {row.getVisibleCells().map((cell) => (
                 //CSS for the individual cells
                 <td
@@ -222,25 +273,43 @@ export function AppTable() {
             </tr>
           ))}
         </tbody>
-
         <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
+          {table.getFooterGroups().map(footerGroup => (
             <tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <th key={header.id}>
+              {footerGroup.headers.map(header => (
+                <th key={header.id} colSpan={header.colSpan}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext()
-                      )}
+                      header.column.columnDef.footer,
+                      header.getContext()
+                    )}
                 </th>
               ))}
             </tr>
           ))}
         </tfoot>
+
       </table>
-      <div className="h-4" />
+
+      <div className="flex p-2 justify-between border-l border-b border-r border-solid border-gray-200">
+        <div className="flex items-center gap-1 ">
+
+
+        </div>
+      </div>
+
+
     </div>
   );
+}
+
+function buttonsPrevNext() {
+  return (
+    <div className="flex gap-2 place-self-end">
+
+
+
+    </div>
+  )
 }
