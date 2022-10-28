@@ -24,7 +24,7 @@ export function InputField({ style, type, placeholder, icon, disabled, id, name,
   if(error && touched) {
     inputFieldBorderStyle = "border-error-500 focus:outline outline-2 outline-error-600"
   } else {
-    inputFieldBorderStyle = "border-gray-300 dark:border-dark-500 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";
+    inputFieldBorderStyle = "border-gray-200 dark:border-dark-600 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";
   }
   
   // If there is an icon given we want to enable some extra padding

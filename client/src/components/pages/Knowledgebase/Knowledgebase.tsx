@@ -27,7 +27,7 @@ export function Knowledgebase() {
             <div className='flex flex-col md:flex-row md:h-screen dark:bg-dark-800 dark:text-white overflow-x-hidden'>
                 <Layout />
                 {/* Sidebar */}
-                <div className='flex flex-col gap-4 lg:gap-6 px-6 pt-6 lg:p-8 md:border-r border-gray-300 dark:border-dark-500'>
+                <div className='flex flex-col gap-4 lg:gap-6 px-6 pt-6 lg:p-8 md:border-r border-gray-200 dark:border-dark-600'>
                     <PageHeader
                         title={translations[language].knowledgebase}
                         subtitle={translations[language].knowledgebase_subtitle}

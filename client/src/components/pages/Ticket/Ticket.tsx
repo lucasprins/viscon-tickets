@@ -95,7 +95,7 @@ export function Ticket() {
                                         </div>
                                     </div>
                                     <Tab.Group>
-                                        <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-700 border border-gray-100 dark:border-dark-500 flex rounded-lg items-center'>
+                                        <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-700 border border-gray-100 dark:border-dark-600 flex rounded-lg items-center'>
                                             <Tab as={Fragment}>
                                                 {({ selected }) => (
                                                     <button
@@ -328,7 +328,7 @@ export function Ticket() {
                                 </div>
 
                                 {/* Sidebar */}
-                                <div className='hidden xl:flex flex-col w-1/3 p-8 border-l border-gray-300 dark:border-dark-500 h-full gap-8'>
+                                <div className='hidden xl:flex flex-col w-1/3 p-8 border-l border-gray-200 dark:border-dark-600 h-full gap-8'>
                                     <div className='flex flex-col gap-4'>
                                         <div className='flex flex-col'>
                                             <span className='text-md text-gray-700 dark:text-white font-medium'>

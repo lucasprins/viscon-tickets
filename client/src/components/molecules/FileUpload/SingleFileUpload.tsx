@@ -20,7 +20,7 @@ export function SingleFileUpload({ file, onDelete }: SingleFileUploadProps) {
     }, []);
 
     return (
-        <div className='flex flex-row outline-none bg-white dark:bg-dark-700 p-4 rounded-xl border border-gray-300 dark:border-dark-500 shadow-sm'>
+        <div className='flex flex-row outline-none bg-white dark:bg-dark-700 p-4 rounded-xl border border-gray-200 dark:border-dark-500 shadow-sm'>
             <div className='pr-3'>
               <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
             </div>

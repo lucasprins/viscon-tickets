@@ -25,7 +25,7 @@ export function FileDropzone() {
 
     return (
         <React.Fragment>
-            <div {...getRootProps({ className: "dropzone" })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-300 dark:border-dark-500 shadow-sm">         
+            <div {...getRootProps({ className: "dropzone" })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-200 dark:border-dark-500 shadow-sm">         
                 <div>
                     <div className="flex justify-center pb-2">
                         <FeaturedIcon type="gray" size="md" icon={<IconUpload size='22' color='stroke-gray-600 dark:stroke-white' fill='' />} />

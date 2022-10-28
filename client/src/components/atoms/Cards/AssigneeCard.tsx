@@ -19,7 +19,7 @@ export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
     return (
         <>
             {name !== undefined ? (
-                <div className='flex gap-4 p-3 md:p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-300 dark:border-dark-500 rounded-xl'>
+                <div className='flex gap-4 p-3 md:p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-200 dark:border-dark-600 rounded-xl'>
                     <div>
                         <Avatar name={name} color="primary" />
                     </div>
@@ -27,7 +27,7 @@ export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
 
                 </div>
             ) : (
-            <div className='flex flex-col gap-2 p-4 w-full drop-shadow-sm bg-white dark:bg-dark-800 border items-center text-center border-gray-300 dark:border-dark-500 rounded-xl'>
+            <div className='flex flex-col gap-2 p-4 w-full drop-shadow-sm bg-white dark:bg-dark-800 border items-center text-center border-gray-200 dark:border-dark-600 rounded-xl'>
                 <span className="flex">
                     <FeaturedIcon size="md" type="gray" icon={<IconAlert size='22' fill='fill-gray-600 dark:fill-gray-300' color='stroke-gray-600 dark:stroke-gray-300' />} />
                 </span>

@@ -31,7 +31,7 @@ export function NavigationAdminMenu() {
         <Disclosure>
             {({ open }) => (
                 <>
-                    <div className='flex hover:bg-gray-100 dark:hover:bg-dark-600 rounded-md'>
+                    <div className='flex hover:bg-gray-100 dark:hover:bg-dark-700 rounded-md'>
                         <Disclosure.Button className='flex items-center px-3 py-2 w-full justify-between'>
                             <h1 className='font-semibold text-gray-700 dark:text-white'>Admin</h1>
                             <IconChevron size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' direction={open ? 'down' : 'up'} />
@@ -46,7 +46,7 @@ export function NavigationAdminMenu() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
                         <Disclosure.Panel>
-                            <div className='absolute backdrop-blur-lg md:bg-white dark:bg-dark-600 md:dark:bg-dark-700 rounded-md py-1.5 w-64 flex flex-col gap-y-3'>
+                            <div className='absolute backdrop-blur-lg md:bg-white dark:bg-dark-700 md:dark:bg-dark-800 rounded-md py-1.5 w-64 flex flex-col gap-y-3'>
                                 <div className='flex flex-col gap-y-2'>
                                     {navigationItems.map((item) => (
                                         <div key={item.props.name}>{item}</div>

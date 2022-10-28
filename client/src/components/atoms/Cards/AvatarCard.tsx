@@ -9,7 +9,7 @@ type AvatarCardsProps = {
 
 export function AvatarCard({ name, subtitle }: AvatarCardsProps) {
     return (
-        <div className='flex gap-4 p-3 md:p-4 drop-shadow-sm bg-white dark:bg-dark-700 dark:border-dark-500 w-full border items-centers border-gray-300 rounded-xl'>
+        <div className='flex gap-4 p-3 md:p-4 drop-shadow-sm bg-white dark:bg-dark-700 dark:border-dark-600 w-full border items-centers border-gray-200 rounded-xl'>
             <div>
                 <Avatar name={name} color='gray' />
             </div>
