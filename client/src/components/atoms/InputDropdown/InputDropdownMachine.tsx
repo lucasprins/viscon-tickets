@@ -53,7 +53,7 @@ export function InputDropdownMachine({ label }: DropdownSelectProps) {
                         leaveFrom='opacity-100'
                         leaveTo='opacity-0'
                     >
-                        <Listbox.Options className='w-full absolute bg-white z-40 focus:outline-4 outline-primary-200 dark:outline-0 cursor-pointer overflow-y-scroll p-1.5 max-h-72 rounded-lg drop-shadow-sm dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-200 dark:text-white dark:font-normal dark:border-dark-600'>
+                        <Listbox.Options className='w-full absolute bg-white z-40 focus:outline-4 outline-primary-200 dark:outline-0 cursor-pointer overflow-y-scroll no-scrollbar p-1.5 max-h-72 rounded-lg drop-shadow-sm dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-200 dark:text-white dark:font-normal dark:border-dark-600'>
                             {machines.map((machine: MachineType) => (
                                 <Listbox.Option key={machine.machineId} value={machine}>
                                     {({ active, selected }) => (

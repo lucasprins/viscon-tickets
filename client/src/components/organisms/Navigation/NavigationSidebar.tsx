@@ -40,9 +40,11 @@ export function NavigationSidebar() {
         if (localStorage.getItem("theme") === "dark") {
             localStorage.setItem("theme", "light");
             root.classList.remove("dark");
+            root.classList.remove("dark-scrollbar");
         } else {
             localStorage.setItem("theme", "dark");
             root.classList.add("dark");
+            root.classList.add("dark-scrollbar");
         }
     };
 

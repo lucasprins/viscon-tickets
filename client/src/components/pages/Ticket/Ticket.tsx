@@ -43,6 +43,7 @@ import { Modal } from "../../organisms/Modal/Modal";
 import { TicketActions } from "./TicketActions";
 import { TicketModals } from "./TicketModals";
 import { TicketStatusBadge } from "./TicketStatusBadge";
+
 var translations = require("../../../translations/ticketTranslations.json");
 
 export function Ticket() {
@@ -86,7 +87,7 @@ export function Ticket() {
                         <div className='flex flex-col w-full md:flex-row dark:bg-dark-800 dark:text-white h-screen'>
                             {/* Main Page */}
                             <div className='flex flex-col xl:flex-row w-full h-full'>
-                                <div className='w-full xl:w-2/3 p-6 xl:p-8 flex flex-col gap-6 overflow-y-scroll'>
+                                <div className='w-full xl:w-2/3 p-6 xl:p-8 flex flex-col gap-6 overflow-y-scroll no-scrollbar'>
                                     <div className='flex flex-col gap-5 w-full'>
                                         <Breadcrumbs crumbs={["Tickets", `Ticket ${ticket.ticketNumber}`]} />
                                         <div className='flex flex-col lg:flex-row lg:gap-2 lg:justify-between lg:items-end'>
@@ -95,13 +96,13 @@ export function Ticket() {
                                         </div>
                                     </div>
                                     <Tab.Group>
-                                        <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-700 border border-gray-100 dark:border-dark-600 flex rounded-lg items-center'>
+                                        <Tab.List className='gap-2 p-1 bg-gray-50 dark:bg-dark-800 border border-gray-100 dark:border-dark-600 flex rounded-lg items-center'>
                                             <Tab as={Fragment}>
                                                 {({ selected }) => (
                                                     <button
                                                         className={
                                                             selected
-                                                                ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold"
+                                                                ? "bg-white dark:bg-dark-600 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold"
                                                                 : "w-full flex justify-center py-2 text-gray-500 dark:text-dark-400 font-semibold"
                                                         }
                                                     >
@@ -114,7 +115,7 @@ export function Ticket() {
                                                     <button
                                                         className={
                                                             selected
-                                                                ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold"
+                                                                ? "bg-white dark:bg-dark-600 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold"
                                                                 : "w-full flex justify-center py-2 text-gray-500 dark:text-dark-400 font-semibold"
                                                         }
                                                     >
@@ -127,7 +128,7 @@ export function Ticket() {
                                                     <button
                                                         className={
                                                             selected
-                                                                ? "bg-white dark:bg-dark-500 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold"
+                                                                ? "bg-white dark:bg-dark-600 w-full flex outline-none justify-center text-gray-700 dark:text-white py-2 rounded-md drop-shadow font-semibold"
                                                                 : "w-full flex justify-center py-2 text-gray-500 dark:text-dark-400 font-semibold"
                                                         }
                                                     >
@@ -145,7 +146,7 @@ export function Ticket() {
                                                             <span className='text-md text-gray-700 dark:text-white font-medium'>
                                                                 {translations[language].creation_date}
                                                             </span>
-                                                            <div className='flex flex-col 2xl:flex-row gap-1 justify-between'>
+                                                            <div className='flex flex-row flex-wrap gap-1 justify-between'>
                                                                 <span className='text-gray-700 dark:text-dark-300'>
                                                                     {new Date(ticket.creationDate).toLocaleString()}
                                                                 </span>
@@ -334,7 +335,7 @@ export function Ticket() {
                                             <span className='text-md text-gray-700 dark:text-white font-medium'>
                                                 {translations[language].creation_date}
                                             </span>
-                                            <div className='flex flex-col 2xl:flex-row gap-1 justify-between'>
+                                            <div className='flex flex-row flex-wrap gap-1 justify-between'>
                                                 <span className='text-gray-700 dark:text-dark-300'>
                                                     {new Date(ticket.creationDate).toLocaleString()}
                                                 </span>

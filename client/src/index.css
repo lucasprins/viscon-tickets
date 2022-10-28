@@ -22,24 +22,15 @@ code {
     monospace;
 }
 
-::-webkit-scrollbar {
-  width: 0.5rem;
+.dark-scrollbar {
+  color-scheme: dark;
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0);
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #eaecf0;
-  border-radius: 2rem;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #d0d5dd;
-}
-
-.scrollbar {
-  scrollbar-color: #eaecf0 rgba(0, 0, 0, 0) !important;
-  scrollbar-width: thin;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
