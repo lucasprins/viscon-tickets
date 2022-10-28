@@ -23,6 +23,7 @@ namespace server.Controllers
         [HttpGet("GetTicket/{id}")]
         public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> GetTicket(Guid id)
         {
+            Thread.Sleep(5000);
             return Ok(await _ticketService.GetTicketById(id));
         }
 
@@ -50,6 +51,27 @@ namespace server.Controllers
         {
             Thread.Sleep(5000);
             return Ok(await _ticketService.UnclaimTicket(ticketToUnclaim));
+        }
+
+        [HttpPut("ResolveTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ResolveTicket(TicketIdDTO ticketToResolve)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.ResolveTicket(ticketToResolve));
+        }
+
+        [HttpPut("OpenTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> OpenTicket(TicketIdDTO ticketToOpen)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.OpenTicket(ticketToOpen));
+        }
+
+        [HttpPut("CancelTicket"), Authorize(Roles = "CustomerAdmin, CustomerEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> CancelTicket(TicketIdDTO ticketToCancel)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.CancelTicket(ticketToCancel));
         }
     }
 }

@@ -53,7 +53,7 @@ export const TicketStatusBadge = ({ status }: { status: string}) => {
                 />
             );
             break;
-        case "cancelled":
+        case "Cancelled":
             statusBadge = (
                 <Badge
                     size='md'

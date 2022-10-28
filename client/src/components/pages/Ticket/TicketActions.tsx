@@ -1,8 +1,14 @@
 import React from "react";
 import {
+    cancelTicketAsync,
     claimTicketAsync,
+    getCancellingTicket,
     getClaimingTicket,
+    getOpeningTicket,
+    getResolvingTicket,
     getUnclaimingTicket,
+    openTicketAsync,
+    resolveTicketAsync,
     unclaimTicketAsync,
 } from "../../../features/tickets/ticketsSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
@@ -20,16 +26,28 @@ export const TicketActions = ({ user, ticket }: { user: userType; ticket: ticket
 
     const claimingTicket = useAppSelector(getClaimingTicket);
     const unclaimingTicket = useAppSelector(getUnclaimingTicket);
-    const resolvingTicket = false;
+    const resolvingTicket = useAppSelector(getResolvingTicket);
+    const openingTicket = useAppSelector(getOpeningTicket);
+    const cancellingTicket = useAppSelector(getCancellingTicket);
 
     const claimTicket = () => {
-        console.log(ticket.id);
         dispatch(claimTicketAsync({ ticketId: ticket.id, accessToken: user.accessToken }));
-        console.log("Claiming ticket");
     };
 
     const unclaimTicket = () => {
         dispatch(unclaimTicketAsync({ ticketId: ticket.id, accessToken: user.accessToken }));
+    };
+
+    const resolveTicket = () => {
+        dispatch(resolveTicketAsync({ ticketId: ticket.id, accessToken: user.accessToken }));
+    };
+
+    const openTicket = () => {
+        dispatch(openTicketAsync({ ticketId: ticket.id, accessToken: user.accessToken }));
+    };
+
+    const cancelTicket = () => {
+        dispatch(cancelTicketAsync({ ticketId: ticket.id, accessToken: user.accessToken }));
     };
 
     let ticketActions: JSX.Element[] = [];
@@ -45,7 +63,7 @@ export const TicketActions = ({ user, ticket }: { user: userType; ticket: ticket
         />
     );
 
-    if (user.role === "VisconAdmin" || "VisconEmployee") {
+    if (user.role === "VisconAdmin" || user.role === "VisconEmployee") {
         switch (ticket.status) {
             case "Open":
                 ticketActions.push(
@@ -91,14 +109,19 @@ export const TicketActions = ({ user, ticket }: { user: userType; ticket: ticket
                             text={translations[language].unclaim}
                             icon={
                                 unclaimingTicket ? (
-                                    <Spinner size='w-4 h-4' color='text-gray-200 dark:text-dark-600' fill='fill-gray-700 dark:fill-white' />
-                                ) : <IconFlipBackwards
-                                size='20'
-                                color='stroke-gray-700 dark:stroke-white'
-                                fill='fill-primary-700'
-                            />
+                                    <Spinner
+                                        size='w-4 h-4'
+                                        color='text-gray-200 dark:text-dark-600'
+                                        fill='fill-gray-700 dark:fill-white'
+                                    />
+                                ) : (
+                                    <IconFlipBackwards
+                                        size='20'
+                                        color='stroke-gray-700 dark:stroke-white'
+                                        fill='fill-primary-700'
+                                    />
+                                )
                             }
-                            
                         />
                     );
                     ticketActionsMobile.push(
@@ -111,12 +134,18 @@ export const TicketActions = ({ user, ticket }: { user: userType; ticket: ticket
                             text={translations[language].unclaim}
                             icon={
                                 unclaimingTicket ? (
-                                    <Spinner size='w-4 h-4' color='text-gray-200 dark:text-dark-600' fill='fill-gray-700 dark:fill-white' />
-                                ) : <IconFlipBackwards
-                                size='20'
-                                color='stroke-gray-700 dark:stroke-white'
-                                fill='fill-primary-700'
-                            />
+                                    <Spinner
+                                        size='w-4 h-4'
+                                        color='text-gray-200 dark:text-dark-600'
+                                        fill='fill-gray-700 dark:fill-white'
+                                    />
+                                ) : (
+                                    <IconFlipBackwards
+                                        size='20'
+                                        color='stroke-gray-700 dark:stroke-white'
+                                        fill='fill-primary-700'
+                                    />
+                                )
                             }
                         />
                     );
@@ -128,7 +157,14 @@ export const TicketActions = ({ user, ticket }: { user: userType; ticket: ticket
                         type='primary'
                         text={translations[language].resolve}
                         disabled={unclaimingTicket || resolvingTicket}
-                        icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />}
+                        onclick={resolveTicket}
+                        icon={
+                            resolvingTicket ? (
+                                <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                            ) : (
+                                <IconCheck size='20' color='stroke-white' fill='fill-white' />
+                            )
+                        }
                     />
                 );
                 ticketActionsMobile.push(
@@ -138,39 +174,83 @@ export const TicketActions = ({ user, ticket }: { user: userType; ticket: ticket
                         type='primary'
                         text={translations[language].resolve}
                         disabled={unclaimingTicket || resolvingTicket}
-                        icon={<IconCheck size='20' color='stroke-white' fill='fill-white' />}
+                        onclick={resolveTicket}
+                        icon={
+                            resolvingTicket ? (
+                                <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                            ) : (
+                                <IconCheck size='20' color='stroke-white' fill='fill-white' />
+                            )
+                        }
                     />
                 );
                 break;
             case "Resolved":
                 ticketActions.push(
-                    <Button size='medium' width='content' type='primary' text={translations[language].re_open} />
+                    <Button
+                        size='medium'
+                        width='content'
+                        type='primary'
+                        disabled={openingTicket}
+                        onclick={openTicket}
+                        text={translations[language].re_open}
+                        icon={
+                            openingTicket ? (
+                                <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                            ) : undefined
+                        }
+                    />
                 );
                 ticketActionsMobile.push(
-                    <Button size='medium' width='full' type='primary' text={translations[language].re_open} />
+                    <Button
+                        size='medium'
+                        width='full'
+                        type='primary'
+                        disabled={openingTicket}
+                        onclick={openTicket}
+                        text={translations[language].re_open}
+                        icon={
+                            openingTicket ? (
+                                <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                            ) : undefined
+                        }
+                    />
                 );
                 break;
         }
     }
 
-    if (user.role === "CustomerAdmin") {
+    if (user.role === "CustomerAdmin" || user.role === "CustomerEmployee") {
         if (ticket.status === "Open" || ticket.status === "InProgress") {
             ticketActions.push(
-                <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
+                <Button
+                    size='medium'
+                    width='content'
+                    type='primary'
+                    disabled={cancellingTicket}
+                    onclick={cancelTicket}
+                    text={translations[language].cancel_ticket}
+                    icon={
+                        cancellingTicket ? (
+                            <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                        ) : undefined
+                    }
+                />
             );
             ticketActionsMobile.push(
-                <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
-            );
-        }
-    }
-
-    if (user.role === "CustomerEmployee") {
-        if (ticket.status === "Open" || ticket.status === "InProgress") {
-            ticketActions.push(
-                <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
-            );
-            ticketActionsMobile.push(
-                <Button size='medium' width='content' type='primary' text={translations[language].cancel_ticket} />
+                <Button
+                    size='medium'
+                    width='content'
+                    type='primary'
+                    disabled={cancellingTicket}
+                    onclick={cancelTicket}
+                    text={translations[language].cancel_ticket}
+                    icon={
+                        cancellingTicket ? (
+                            <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                        ) : undefined
+                    }
+                />
             );
         }
     }

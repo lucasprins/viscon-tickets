@@ -64,11 +64,59 @@ const unclaimTicket = async (ticketId: string, accessToken: string) => {
     return response;
 };
 
+const resolveTicket = async (ticketId: string, accessToken: string) => {
+    const response = await axios.put(
+        API_URL + "ResolveTicket",
+        {
+            ticketId: ticketId,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
+    return response;
+};
+
+const openTicket = async (ticketId: string, accessToken: string) => {
+    const response = await axios.put(
+        API_URL + "OpenTicket",
+        {
+            ticketId: ticketId,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
+    return response;
+};
+
+const cancelTicket = async (ticketId: string, accessToken: string) => {
+    const response = await axios.put(
+        API_URL + "CancelTicket",
+        {
+            ticketId: ticketId,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
+    return response;
+};
+
 const TicketService = {
     getTicket,
     createTicket,
     claimTicket,
     unclaimTicket,
+    resolveTicket,
+    openTicket,
+    cancelTicket,
 };
 
 export default TicketService;

@@ -3,7 +3,18 @@ import { Form, Formik } from "formik";
 import React, { Fragment, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../../features/auth/authSlice";
-import { fetchTicketAsync, getClaimedTicketSuccess, getFetchingTicket, getTicket, getUnclaimedTicketSuccess, resetTicket, resetTicketActions } from "../../../features/tickets/ticketsSlice";
+import {
+    fetchTicketAsync,
+    getCancelledTicketSuccess,
+    getClaimedTicketSuccess,
+    getFetchingTicket,
+    getOpenedTicketSuccess,
+    getResolvedTicketSuccess,
+    getTicket,
+    getUnclaimedTicketSuccess,
+    resetTicket,
+    resetTicketActions,
+} from "../../../features/tickets/ticketsSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
@@ -45,6 +56,10 @@ export function Ticket() {
     const ticket: ticketType | any = useAppSelector(getTicket);
 
     const claimedTicketSuccess = useAppSelector(getClaimedTicketSuccess);
+    const unclaimedTicketSuccess = useAppSelector(getUnclaimedTicketSuccess);
+    const resolvedTicketSuccess = useAppSelector(getResolvedTicketSuccess);
+    const openedTicketSuccess = useAppSelector(getOpenedTicketSuccess);
+    const cancelledTicketSuccess = useAppSelector(getCancelledTicketSuccess);
 
     useEffect(() => {
         dispatch(fetchTicketAsync({ ticketId: ticketID || "", accessToken: user?.accessToken || "" }));
@@ -60,7 +75,7 @@ export function Ticket() {
 
     return (
         <>
-        {claimedTicketSuccess == false && (
+            {claimedTicketSuccess == false && (
                 <>
                     <Modal
                         type='error'
@@ -68,12 +83,12 @@ export function Ticket() {
                         subtitle='This ticket has already been claimed.'
                         is_open={true}
                         close_modal={() => {
-                            dispatch(resetTicketActions())
+                            dispatch(resetTicketActions());
                         }}
                         button_primary_text='Close'
                         button_secondary_text='Tickets'
                         button_primary_onclick={() => {
-                            dispatch(resetTicketActions())
+                            dispatch(resetTicketActions());
                         }}
                         button_secondary_onclick={() => {
                             navigate("/tickets");
@@ -81,7 +96,95 @@ export function Ticket() {
                     />
                 </>
             )}
-        
+
+            {unclaimedTicketSuccess == false && (
+                <>
+                    <Modal
+                        type='error'
+                        title='Oops, something went wrong.'
+                        subtitle='We could not unclaim this ticket.'
+                        is_open={true}
+                        close_modal={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_primary_text='Close'
+                        button_secondary_text='Tickets'
+                        button_primary_onclick={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_secondary_onclick={() => {
+                            navigate("/tickets");
+                        }}
+                    />
+                </>
+            )}
+
+            {resolvedTicketSuccess == false && (
+                <>
+                    <Modal
+                        type='error'
+                        title='Oops, something went wrong.'
+                        subtitle='We could not resolve this ticket.'
+                        is_open={true}
+                        close_modal={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_primary_text='Close'
+                        button_secondary_text='Tickets'
+                        button_primary_onclick={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_secondary_onclick={() => {
+                            navigate("/tickets");
+                        }}
+                    />
+                </>
+            )}
+
+            {openedTicketSuccess == false && (
+                <>
+                    <Modal
+                        type='error'
+                        title='Oops, something went wrong.'
+                        subtitle='This ticket has not been resolved yet.'
+                        is_open={true}
+                        close_modal={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_primary_text='Close'
+                        button_secondary_text='Tickets'
+                        button_primary_onclick={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_secondary_onclick={() => {
+                            navigate("/tickets");
+                        }}
+                    />
+                </>
+            )}
+
+            {cancelledTicketSuccess == false && (
+                <>
+                    <Modal
+                        type='error'
+                        title='Oops, something went wrong.'
+                        subtitle='We could not cancel this ticket'
+                        is_open={true}
+                        close_modal={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_primary_text='Close'
+                        button_secondary_text='Tickets'
+                        button_primary_onclick={() => {
+                            dispatch(resetTicketActions());
+                        }}
+                        button_secondary_onclick={() => {
+                            navigate("/tickets");
+                        }}
+                    />
+                </>
+            )}
+
             <div className='flex flex-col w-full md:flex-row dark:bg-dark-800 dark:text-white h-screen'>
                 <Layout />
                 <>
