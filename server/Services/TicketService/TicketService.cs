@@ -47,12 +47,8 @@ namespace server.Services.TicketService
                 ticket.Status = Status.Open;
                 ticket.Priority = Priority.Medium;
 
-                _context.Tickets.Add(ticket);
-                await _context.SaveChangesAsync();
-
                 try
                 {
-
                     serviceResponse.Data = await CreateGetTicketDTO(ticket);
                 }
                 catch (Exception ex)
@@ -60,7 +56,11 @@ namespace server.Services.TicketService
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Unable to return the ticket that was just created.";
                     System.Console.WriteLine(ex.Message);
+                    return serviceResponse;
                 }
+
+                _context.Tickets.Add(ticket);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -75,27 +75,34 @@ namespace server.Services.TicketService
         public async Task<ServiceResponse<GetTicketDTO>> GetTicketById(Guid id)
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
             try
             {
                 var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
 
-                if (ticket != null)
-                {
-                    try
-                    {
-                        serviceResponse.Data = await CreateGetTicketDTO(ticket);
-                    }
-                    catch
-                    {
-                        serviceResponse.Success = false;
-                        serviceResponse.Message = "Unable to get ticket with given id";
-                    }
-                }
-                else
+                if (ticket == null)
                 {
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
                 }
+
+                if (requestUser == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Requesting user not found.";
+                    return serviceResponse;
+                }
+
+                if (!(requestUser.CompanyId == ticket.CompanyId || (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)))
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "You are not authorized to view this ticket.";
+                    return serviceResponse;
+                }
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
             }
             catch (Exception ex)
             {
@@ -130,10 +137,12 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(Guid ticketId)
+        public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(TicketIdDTO ticketToClaim)
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Claiming ticket with id: " + ticketToClaim.TicketId);
 
             if (user == null)
             {
@@ -144,17 +153,25 @@ namespace server.Services.TicketService
 
             try
             {
-                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId);
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToClaim.TicketId);
                 if (ticket == null)
                 {
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Ticket not found.";
                     return serviceResponse;
                 }
-                if (ticket.Status != Status.Open)
+                if (ticket.AssigneeId != null)
                 {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
                     serviceResponse.Success = false;
-                    serviceResponse.Message = "Ticket has already been claimed.";
+                    serviceResponse.Message = "Ticket already claimed.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Cancelled)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket is cancelled.";
                     return serviceResponse;
                 }
 
@@ -174,5 +191,251 @@ namespace server.Services.TicketService
 
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<GetTicketDTO>> UnclaimTicket(TicketIdDTO ticketToUnclaim)
+        {
+            ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Unclaiming ticket with id: " + ticketToUnclaim.TicketId);
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToUnclaim.TicketId);
+                if (ticket == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
+                }
+                if (ticket.AssigneeId == null)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has not been claimed yet.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Resolved)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has already been resolved.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Cancelled)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has been cancelled.";
+                    return serviceResponse;
+                }
+
+                ticket.AssigneeId = null;
+                ticket.Status = Status.Open;
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to unclaim ticket with given id.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetTicketDTO>> ResolveTicket(TicketIdDTO ticketToResolve)
+        {
+            ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Resolving ticket with id: " + ticketToResolve.TicketId);
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToResolve.TicketId);
+                if (ticket == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
+                }
+                if (ticket.AssigneeId == null)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has not been claimed yet.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Resolved)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has already been resolved.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Cancelled)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has been cancelled.";
+                    return serviceResponse;
+                }
+
+                ticket.Status = Status.Resolved;
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to resolve ticket with given id.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetTicketDTO>> OpenTicket(TicketIdDTO ticketToOpen)
+        {
+
+            ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Resolving ticket with id: " + ticketToOpen.TicketId);
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToOpen.TicketId);
+                if (ticket == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Cancelled)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has been cancelled.";
+                    return serviceResponse;
+                }
+                if (ticket.AssigneeId == null)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has not been claimed yet.";
+                    return serviceResponse;
+                }
+                if (ticket.Status != Status.Resolved)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has not been resolved yet.";
+                    return serviceResponse;
+                }
+
+                ticket.Status = Status.InProgress;
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to re-open ticket with given id.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetTicketDTO>> CancelTicket(TicketIdDTO ticketToCancel)
+        {
+            ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Resolving ticket with id: " + ticketToCancel.TicketId);
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToCancel.TicketId);
+                if (ticket == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
+                }
+                if (ticket.CompanyId != user.CompanyId)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket does not belong to your company.";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Cancelled)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has already been cancelled";
+                    return serviceResponse;
+                }
+                if (ticket.Status == Status.Resolved)
+                {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has already been resolved.";
+                    return serviceResponse;
+                }
+
+                ticket.Status = Status.Cancelled;
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to cancel ticket with given id.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
     }
 }

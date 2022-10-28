@@ -14,6 +14,10 @@ namespace server.Services.TicketService
         Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets();
         Task<ServiceResponse<GetTicketDTO>> CreateTicket(CreateTicketDTO newTicket);
 
-        Task<ServiceResponse<GetTicketDTO>> ClaimTicket(Guid ticketId);
+        Task<ServiceResponse<GetTicketDTO>> ClaimTicket(TicketIdDTO ticketToClaim);
+        Task<ServiceResponse<GetTicketDTO>> UnclaimTicket(TicketIdDTO ticketToUnclaim);
+        Task<ServiceResponse<GetTicketDTO>> ResolveTicket(TicketIdDTO ticketToResolve);
+        Task<ServiceResponse<GetTicketDTO>> OpenTicket(TicketIdDTO ticketToOpen);
+        Task<ServiceResponse<GetTicketDTO>> CancelTicket(TicketIdDTO ticketToCancel);
     }
 }

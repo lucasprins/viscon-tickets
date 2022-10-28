@@ -5,6 +5,7 @@ import machinesReducer from './features/machines/machinesSlice';
 import solutionsReducer from './features/solutions/solutionsSlice';
 import authReducer from "./features/auth/authSlice";
 import messageReducer from "./features/auth/messageSlice";
+import ticketsReducer from "./features/tickets/ticketsSlice";
 
 const reducers = {
 	user: userReducer,
@@ -13,6 +14,7 @@ const reducers = {
 	solutions: solutionsReducer,
 	auth: authReducer,
 	message: messageReducer,
+	tickets: ticketsReducer
   };
 
 export const store = configureStore({

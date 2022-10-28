@@ -23,10 +23,8 @@ export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
                     <div>
                         <Avatar name={name} color="primary" />
                     </div>
-                    <div className='flex flex-col'>
-                        <h5 className='text-gray-700 text-lg font-semibold dark:text-white'>{name}</h5>
-                        <span className='text-md text-gray-600 dark:text-dark-300'>{subtitle}</span>
-                    </div>
+                    <h5 className='text-gray-700 text-lg font-semibold dark:text-white'>{name}</h5>
+
                 </div>
             ) : (
             <div className='flex flex-col gap-2 p-4 w-full drop-shadow-sm bg-white dark:bg-dark-800 border items-center text-center border-gray-300 dark:border-dark-500 rounded-xl'>

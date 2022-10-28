@@ -20,9 +20,10 @@ namespace server.Controllers
             _ticketService = ticketService;
         }
 
-        [HttpGet("GetTicket/{id}"), Authorize]
+        [HttpGet("GetTicket/{id}")]
         public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> GetTicket(Guid id)
         {
+            Thread.Sleep(5000);
             return Ok(await _ticketService.GetTicketById(id));
         }
 
@@ -38,10 +39,39 @@ namespace server.Controllers
             return Ok(await _ticketService.CreateTicket(newTicket));
         }
 
-        [HttpPut("ClaimTicket/"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
-        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ClaimTicket(Guid ticketId)
+        [HttpPut("ClaimTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ClaimTicket(TicketIdDTO ticketToClaim)
         {
-            return Ok(await _ticketService.ClaimTicket(ticketId));
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.ClaimTicket(ticketToClaim));
+        }
+
+        [HttpPut("UnclaimTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> UnclaimTicket(TicketIdDTO ticketToUnclaim)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.UnclaimTicket(ticketToUnclaim));
+        }
+
+        [HttpPut("ResolveTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ResolveTicket(TicketIdDTO ticketToResolve)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.ResolveTicket(ticketToResolve));
+        }
+
+        [HttpPut("OpenTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> OpenTicket(TicketIdDTO ticketToOpen)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.OpenTicket(ticketToOpen));
+        }
+
+        [HttpPut("CancelTicket"), Authorize(Roles = "CustomerAdmin, CustomerEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> CancelTicket(TicketIdDTO ticketToCancel)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.CancelTicket(ticketToCancel));
         }
     }
 }

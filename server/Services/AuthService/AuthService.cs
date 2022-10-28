@@ -27,10 +27,10 @@ namespace server.Services.AuthService
         public string GetUserRole()
         {
             var result = string.Empty;
-            if(_httpContextAccessor.HttpContext != null)
+            if (_httpContextAccessor.HttpContext != null)
             {
                 var user = _httpContextAccessor.HttpContext.User;
-                if(user != null)
+                if (user != null)
                 {
                     result = user.FindFirstValue(ClaimTypes.Role);
                 }
@@ -41,10 +41,10 @@ namespace server.Services.AuthService
         public string GetUserEmail()
         {
             var result = string.Empty;
-            if(_httpContextAccessor.HttpContext != null)
+            if (_httpContextAccessor.HttpContext != null)
             {
                 var user = _httpContextAccessor.HttpContext.User;
-                if(user != null)
+                if (user != null)
                 {
                     result = user.FindFirstValue(ClaimTypes.Name);
                 }
@@ -73,7 +73,8 @@ namespace server.Services.AuthService
                 {
                     response.Success = false;
                     response.Message = "UserCompany not found.";
-                } else
+                }
+                else
                 {
                     string userJWTToken = CreateToken(dbUser);
                     response.Data = new GetAuthenticatedUserDTO

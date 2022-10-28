@@ -1,5 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
+import { toggleBackdrop } from '../../../features/modal/modalSlice';
+import { useAppDispatch } from '../../../utils/hooks';
 import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconCheck } from '../../atoms/Icons/Icons';
@@ -20,6 +22,15 @@ export function Modal({ type, title, subtitle, is_open, close_modal, button_prim
 	let modalIconType: "primary" | "gray" | "error" | "success";
 	let modalIcon;
 	let modalButtonColor: 'primary' | 'secondary-gray' | 'secondary-color' | 'tertiary-gray' | 'tertiary-color' | 'error';
+
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(toggleBackdrop());
+		return () => {
+			dispatch(toggleBackdrop());
+		}
+	}, [dispatch]);
 
 	switch (type) {
 		//PRIMARY asks the user if they are sure about choice

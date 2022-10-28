@@ -14,7 +14,7 @@ export function ModalChangeLanguage() {
     const dispatch = useAppDispatch();
     const language = useAppSelector(getCurrentLanguage);
     let isOpen = useAppSelector(getLanguageModal);
-
+    
     const closeModal = () => {
         dispatch(toggleBackdrop());
         dispatch(toggleLanguageModal());

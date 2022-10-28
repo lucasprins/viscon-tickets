@@ -12,7 +12,7 @@
         "solution": "Oplossing",
         "add_attachments": "Bijlage toevoegen",
 
-        "history": "Geschiedenis",
+        "history": "Historie",
 
 
         "creation_date": "Aanmaakdatum",
@@ -28,7 +28,12 @@
         "resolve": "Oplossen",
         "re_open": "Heropenen",
         "cancel_ticket": "Ticket annuleren",
-        "view_files": "Bestanden"
+        "view_files": "Bestanden",
+
+        "ticketNotFound": "Ticket niet gevonden",
+        "ticketNotFoundText": "Oops. Deze ticket bestaat niet of is verwijderd",
+        "tickets": "Tickets",
+        "dashboard": "Dashboard"
     },
     "en": {        
         "ticket": "Ticket",
@@ -61,6 +66,11 @@
         "resolve": "Resolve",
         "re_open": "Re-open",
         "cancel_ticket": "Cancel ticket",
-        "view_files": "View files"
+        "view_files": "View files",
+
+        "ticketNotFound": "Ticket not found",
+        "ticketNotFoundText": "Oops. This ticket does not exist or has been deleted",
+        "tickets": "Tickets",
+        "dashboard": "Dashboard"
     }
 }

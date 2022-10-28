@@ -16,6 +16,7 @@ import { ForgotPassword } from "./components/pages/Authentication/ForgotPassword
 import { NewPassword } from "./components/pages/Authentication/NewPassword";
 import { Register } from "./components/pages/Authentication/Register";
 import { RegisterCompleted } from "./components/pages/Authentication/RegisterCompleted";
+import { TicketNotFound } from "./components/pages/TicketNotFound/TicketNotFound";
 
 export const routes = [
     { path: '/login', name: 'login', component: <Login /> },
@@ -35,5 +36,6 @@ export const routes = [
     { path: '/notifications', name: 'notifications', component: <Notifications /> },
     { path: '/account', name: 'account', component: <Account /> },
     { path: '/access-denied', name: 'access-denied', component: <AccessDenied /> },
+    { path: '/ticket-not-found', name: 'ticket-not-found', component: <TicketNotFound /> },
     { path: '*', name: 'page-not-found', component: <PageNotFound /> }
 ];

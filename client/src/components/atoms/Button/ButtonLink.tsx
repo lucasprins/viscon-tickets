@@ -21,7 +21,7 @@ type ButtonLinkProps = {
 }
 
 export function ButtonLink({ size, type, text, icon, url, onclick }: ButtonLinkProps) {
-    const buttonTypeStyle = type === "color" ? "text-primary-600 hover:text-primary-500" : "text-gray-600 hover:text-gray-400";
+    const buttonTypeStyle = type === "color" ? "text-primary-600 hover:text-primary-500" : "text-gray-600 hover:text-gray-400 dark:text-dark-300 dark:hover:text-gray-200";
     const buttonSizeStyle = size === "medium" ? "text-sm" : "";
 
     return (

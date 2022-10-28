@@ -1,9 +1,9 @@
 [
     {
-        "machineId": "1",
-        "name": "Shuttle 1",
+        "machineId": "5404a05a-2862-4368-9251-f53198c3052e",
+        "name": "Satteliet shuttle 1",
         "blueprintNumber": "5001483",
-        "type": "Satteliet shuttle"
+        "type": "Satteliet shuttle 1"
     },
     {
         "machineId": "2",
