@@ -41,6 +41,7 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
 import { Modal } from "../../organisms/Modal/Modal";
 import { TicketActions } from "./TicketActions";
+import { TicketModals } from "./TicketModals";
 import { TicketStatusBadge } from "./TicketStatusBadge";
 var translations = require("../../../translations/ticketTranslations.json");
 
@@ -54,12 +55,6 @@ export function Ticket() {
 
     const user = useAppSelector(getUser);
     const ticket: ticketType | any = useAppSelector(getTicket);
-
-    const claimedTicketSuccess = useAppSelector(getClaimedTicketSuccess);
-    const unclaimedTicketSuccess = useAppSelector(getUnclaimedTicketSuccess);
-    const resolvedTicketSuccess = useAppSelector(getResolvedTicketSuccess);
-    const openedTicketSuccess = useAppSelector(getOpenedTicketSuccess);
-    const cancelledTicketSuccess = useAppSelector(getCancelledTicketSuccess);
 
     useEffect(() => {
         dispatch(fetchTicketAsync({ ticketId: ticketID || "", accessToken: user?.accessToken || "" }));
@@ -75,116 +70,7 @@ export function Ticket() {
 
     return (
         <>
-            {claimedTicketSuccess == false && (
-                <>
-                    <Modal
-                        type='error'
-                        title='Oops, something went wrong.'
-                        subtitle='This ticket has already been claimed.'
-                        is_open={true}
-                        close_modal={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_primary_text='Close'
-                        button_secondary_text='Tickets'
-                        button_primary_onclick={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_secondary_onclick={() => {
-                            navigate("/tickets");
-                        }}
-                    />
-                </>
-            )}
-
-            {unclaimedTicketSuccess == false && (
-                <>
-                    <Modal
-                        type='error'
-                        title='Oops, something went wrong.'
-                        subtitle='We could not unclaim this ticket.'
-                        is_open={true}
-                        close_modal={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_primary_text='Close'
-                        button_secondary_text='Tickets'
-                        button_primary_onclick={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_secondary_onclick={() => {
-                            navigate("/tickets");
-                        }}
-                    />
-                </>
-            )}
-
-            {resolvedTicketSuccess == false && (
-                <>
-                    <Modal
-                        type='error'
-                        title='Oops, something went wrong.'
-                        subtitle='We could not resolve this ticket.'
-                        is_open={true}
-                        close_modal={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_primary_text='Close'
-                        button_secondary_text='Tickets'
-                        button_primary_onclick={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_secondary_onclick={() => {
-                            navigate("/tickets");
-                        }}
-                    />
-                </>
-            )}
-
-            {openedTicketSuccess == false && (
-                <>
-                    <Modal
-                        type='error'
-                        title='Oops, something went wrong.'
-                        subtitle='This ticket has not been resolved yet.'
-                        is_open={true}
-                        close_modal={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_primary_text='Close'
-                        button_secondary_text='Tickets'
-                        button_primary_onclick={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_secondary_onclick={() => {
-                            navigate("/tickets");
-                        }}
-                    />
-                </>
-            )}
-
-            {cancelledTicketSuccess == false && (
-                <>
-                    <Modal
-                        type='error'
-                        title='Oops, something went wrong.'
-                        subtitle='We could not cancel this ticket'
-                        is_open={true}
-                        close_modal={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_primary_text='Close'
-                        button_secondary_text='Tickets'
-                        button_primary_onclick={() => {
-                            dispatch(resetTicketActions());
-                        }}
-                        button_secondary_onclick={() => {
-                            navigate("/tickets");
-                        }}
-                    />
-                </>
-            )}
-
+            <TicketModals />
             <div className='flex flex-col w-full md:flex-row dark:bg-dark-800 dark:text-white h-screen'>
                 <Layout />
                 <>
@@ -266,16 +152,21 @@ export function Ticket() {
                                                                 <TicketStatusBadge status={ticket.status} />
                                                             </div>
                                                         </div>
-                                                        <AssigneeCard
-                                                            subtitle={translations[language].assignee}
-                                                            name={
-                                                                ticket.assignee !== null
-                                                                    ? ticket.assignee?.prefix == null
-                                                                        ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                                                        : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket?.assignee?.lastName}`
-                                                                    : undefined
-                                                            }
-                                                        />
+                                                        <div className='flex flex-col gap-2 w-full'>
+                                                            <span className='text-md text-gray-700 font-medium dark:text-white'>
+                                                                {translations[language].assignee}
+                                                            </span>
+                                                            <AssigneeCard
+                                                                subtitle={translations[language].assignee}
+                                                                name={
+                                                                    ticket.assignee !== null
+                                                                        ? ticket.assignee?.prefix == null
+                                                                            ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                                                            : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket?.assignee?.lastName}`
+                                                                        : undefined
+                                                                }
+                                                            />
+                                                        </div>
                                                     </div>
                                                     <div className='flex flex-col gap-2 w-full'>
                                                         <span className='text-md text-gray-700 font-medium dark:text-white'>
@@ -450,16 +341,21 @@ export function Ticket() {
                                                 <TicketStatusBadge status={ticket.status} />
                                             </div>
                                         </div>
-                                        <AssigneeCard
-                                            subtitle={translations[language].assignee}
-                                            name={
-                                                ticket.assignee !== null
-                                                    ? ticket.assignee?.prefix == null
-                                                        ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                                        : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket?.assignee?.lastName}`
-                                                    : undefined
-                                            }
-                                        />
+                                        <div className='flex flex-col gap-2 w-full'>
+                                            <span className='text-md text-gray-700 font-medium dark:text-white'>
+                                                {translations[language].assignee}
+                                            </span>
+                                            <AssigneeCard
+                                                subtitle={translations[language].assignee}
+                                                name={
+                                                    ticket.assignee !== null
+                                                        ? ticket.assignee?.prefix == null
+                                                            ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                                            : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket?.assignee?.lastName}`
+                                                        : undefined
+                                                }
+                                            />
+                                        </div>
                                     </div>
                                     <Divider />
                                 </div>
