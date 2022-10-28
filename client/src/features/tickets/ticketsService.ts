@@ -49,10 +49,26 @@ const claimTicket = async (ticketId: string, accessToken: string) => {
     return response;
 };
 
+const unclaimTicket = async (ticketId: string, accessToken: string) => {
+    const response = await axios.put(
+        API_URL + "UnclaimTicket",
+        {
+            ticketId: ticketId,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
+    return response;
+};
+
 const TicketService = {
     getTicket,
     createTicket,
     claimTicket,
+    unclaimTicket,
 };
 
 export default TicketService;

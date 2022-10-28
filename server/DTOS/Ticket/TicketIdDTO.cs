@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace server.DTOS
 {
-    public class ClaimTicketDTO
+    public class TicketIdDTO
     {
         public Guid TicketId { get; set; }
     }

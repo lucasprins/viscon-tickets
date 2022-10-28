@@ -137,7 +137,7 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(ClaimTicketDTO ticketToClaim)
+        public async Task<ServiceResponse<GetTicketDTO>> ClaimTicket(TicketIdDTO ticketToClaim)
         {
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
@@ -162,6 +162,7 @@ namespace server.Services.TicketService
                 }
                 if (ticket.Status != Status.Open)
                 {
+                    serviceResponse.Data = await CreateGetTicketDTO(ticket);
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Ticket has already been claimed.";
                     return serviceResponse;
@@ -192,6 +193,53 @@ namespace server.Services.TicketService
         public Task<ServiceResponse<GetTicketDTO>> CancelTicket(Guid ticketId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<GetTicketDTO>> UnclaimTicket(TicketIdDTO ticketToUnclaim)
+        {
+            ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            System.Console.WriteLine("Unclaiming ticket with id: " + ticketToUnclaim.TicketId);
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketToUnclaim.TicketId);
+                if (ticket == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket not found.";
+                    return serviceResponse;
+                }
+                if (ticket.AssigneeId == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Ticket has not been claimed yet.";
+                    return serviceResponse;
+                }
+
+                ticket.AssigneeId = null;
+                ticket.Status = Status.Open;
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await CreateGetTicketDTO(ticket);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to unclaim ticket with given id.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
         }
     }
 }

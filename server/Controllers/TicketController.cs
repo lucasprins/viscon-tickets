@@ -39,9 +39,17 @@ namespace server.Controllers
         }
 
         [HttpPut("ClaimTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
-        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ClaimTicket(ClaimTicketDTO ticketToClaim)
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ClaimTicket(TicketIdDTO ticketToClaim)
         {
+            Thread.Sleep(5000);
             return Ok(await _ticketService.ClaimTicket(ticketToClaim));
+        }
+
+        [HttpPut("UnclaimTicket"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> UnclaimTicket(TicketIdDTO ticketToUnclaim)
+        {
+            Thread.Sleep(5000);
+            return Ok(await _ticketService.UnclaimTicket(ticketToUnclaim));
         }
     }
 }

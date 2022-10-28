@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import React, { Fragment, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../../features/auth/authSlice";
-import { fetchTicketAsync, getFetchingTicket, getTicket, resetTicket } from "../../../features/tickets/ticketsSlice";
+import { fetchTicketAsync, getClaimedTicketSuccess, getFetchingTicket, getTicket, getUnclaimedTicketSuccess, resetTicket, resetTicketActions } from "../../../features/tickets/ticketsSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
@@ -28,6 +28,7 @@ import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
+import { Modal } from "../../organisms/Modal/Modal";
 import { TicketActions } from "./TicketActions";
 import { TicketStatusBadge } from "./TicketStatusBadge";
 var translations = require("../../../translations/ticketTranslations.json");
@@ -43,6 +44,8 @@ export function Ticket() {
     const user = useAppSelector(getUser);
     const ticket: ticketType | any = useAppSelector(getTicket);
 
+    const claimedTicketSuccess = useAppSelector(getClaimedTicketSuccess);
+
     useEffect(() => {
         dispatch(fetchTicketAsync({ ticketId: ticketID || "", accessToken: user?.accessToken || "" }));
 
@@ -57,6 +60,28 @@ export function Ticket() {
 
     return (
         <>
+        {claimedTicketSuccess == false && (
+                <>
+                    <Modal
+                        type='error'
+                        title='Oops, something went wrong.'
+                        subtitle='This ticket has already been claimed.'
+                        is_open={true}
+                        close_modal={() => {
+                            dispatch(resetTicketActions())
+                        }}
+                        button_primary_text='Close'
+                        button_secondary_text='Tickets'
+                        button_primary_onclick={() => {
+                            dispatch(resetTicketActions())
+                        }}
+                        button_secondary_onclick={() => {
+                            navigate("/tickets");
+                        }}
+                    />
+                </>
+            )}
+        
             <div className='flex flex-col w-full md:flex-row dark:bg-dark-800 dark:text-white h-screen'>
                 <Layout />
                 <>
