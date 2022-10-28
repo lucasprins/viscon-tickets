@@ -17,6 +17,7 @@ import { NewPassword } from "./components/pages/Authentication/NewPassword";
 import { Register } from "./components/pages/Authentication/Register";
 import { RegisterCompleted } from "./components/pages/Authentication/RegisterCompleted";
 import { TicketNotFound } from "./components/pages/TicketNotFound/TicketNotFound";
+import { Playground } from "./components/pages/Playground/Playground";
 
 export const routes = [
     { path: '/login', name: 'login', component: <Login /> },
@@ -29,6 +30,7 @@ export const routes = [
     { path: '/tickets/:ticketID', name: 'ticket', component: <Ticket /> },
     { path: '/knowledgebase', name: 'knowledgebase', component: <Knowledgebase /> },
     { path: '/knowledgebase/create-ticket', name: 'create-ticket', component: <CreateTicket /> },
+    { path: '/playground', name: 'account', component: <Playground /> },
     { path: '/admin/users', name: 'notifications', component: <AdminUsers /> },
     { path: '/admin/customers', name: 'notifications', component: <AdminCustomers /> },
     { path: '/admin/machines', name: 'notifications', component: <AdminMachines /> },
