@@ -35,8 +35,8 @@ const getTicket = async (ticketId: string, accessToken: string, cancelToken: Can
     return response;
 };
 
-const getTickets = async (page: Number, accessToken: string, cancelToken: CancelToken) => {
-    const response = await axios.get(API_URL + `GetAllTickets?page=${page}`, {
+const getTickets = async (page: Number, status: string, accessToken: string, cancelToken: CancelToken) => {
+    const response = await axios.get(API_URL + `GetAllTickets?page=${page}&status=${status}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
@@ -45,8 +45,8 @@ const getTickets = async (page: Number, accessToken: string, cancelToken: Cancel
     return response;
 };
 
-const getTotalTickets = async (accessToken: string, cancelToken: CancelToken) => {
-    const response = await axios.get(API_URL + "GetTotalTickets", {
+const getTotalTickets = async (status: string, accessToken: string, cancelToken: CancelToken) => {
+    const response = await axios.get(API_URL + `GetTotalTickets?status=${status}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },

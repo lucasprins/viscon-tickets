@@ -160,9 +160,9 @@ export const fetchTicketAsync = createAsyncThunk(
 
 export const fetchTicketsAsync = createAsyncThunk(
     "tickets/fetchTicketsAsync",
-    async ({ page, accessToken, cancelToken }: { page: Number, accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
+    async ({ page, status, accessToken, cancelToken }: { page: Number, status: string, accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
         try {
-            const response = await TicketService.getTickets(page, accessToken, cancelToken);
+            const response = await TicketService.getTickets(page, status, accessToken, cancelToken);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
@@ -173,9 +173,9 @@ export const fetchTicketsAsync = createAsyncThunk(
 
 export const fetchTotalTicketsAsync = createAsyncThunk(
     "tickets/fetchTotalTicketsAsync",
-    async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
+    async ({ status, accessToken, cancelToken }: { status: string, accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
         try {
-            const response = await TicketService.getTotalTickets(accessToken, cancelToken);
+            const response = await TicketService.getTotalTickets(status, accessToken, cancelToken);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
@@ -215,7 +215,6 @@ export const fetchTotalTicketsThisWeek = createAsyncThunk(
     async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
         try {
             const response = await TicketsMetricsService.getTotalTicketsThisWeek(accessToken, cancelToken);
-            console.log(response);
             return { response: response.data };
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);

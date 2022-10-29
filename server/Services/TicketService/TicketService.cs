@@ -114,7 +114,7 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<int>> GetTotalTickets()
+        public async Task<ServiceResponse<int>> GetTotalTickets(Status? status)
         {
             ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
             var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
@@ -128,13 +128,27 @@ namespace server.Services.TicketService
                     return serviceResponse;
                 }
 
-                if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                if (status != null)
                 {
-                    serviceResponse.Data = _context.Tickets.Count();
+                    if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                    {
+                        serviceResponse.Data = _context.Tickets.Where(t => t.Status == status).Count();
+                    }
+                    else
+                    {
+                        serviceResponse.Data = _context.Tickets.Where(t => t.Status == status && t.CompanyId == requestUser.CompanyId).Count();
+                    }
                 }
                 else
                 {
-                    serviceResponse.Data = _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId).Count();
+                    if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                    {
+                        serviceResponse.Data = _context.Tickets.Count();
+                    }
+                    else
+                    {
+                        serviceResponse.Data = _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId).Count();
+                    }
                 }
             }
             catch (Exception ex)
@@ -147,7 +161,7 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets(int page, string status)
+        public async Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets(int page, Status? status)
         {
             ServiceResponse<List<GetTicketDTO>> serviceResponse = new ServiceResponse<List<GetTicketDTO>>();
             var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
@@ -166,28 +180,27 @@ namespace server.Services.TicketService
                     return serviceResponse;
                 }
 
-                if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                if (status != null)
                 {
-                    tickets = await _context.Tickets
-                        .OrderBy(t => t.Status)
-                        .ThenBy(t => t.Priority)
-                        .ThenBy(t => t.CreationDate)
-                        .Skip(skip)
-                        .Take(pageSize)
-                        .Select(t => t)
-                        .ToListAsync();
+                    if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                    {
+                        tickets = await _context.Tickets.Where(t => t.Status == status).OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
+                    }
+                    else
+                    {
+                        tickets = await _context.Tickets.Where(t => t.Status == status && t.CompanyId == requestUser.CompanyId).OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
+                    }
                 }
                 else
                 {
-                    tickets = await _context.Tickets
-                        .Where(t => t.CompanyId == requestUser.CompanyId)
-                        .OrderBy(t => t.Status)
-                        .ThenBy(t => t.Priority)
-                        .ThenBy(t => t.CreationDate)
-                        .Skip(skip)
-                        .Take(pageSize)
-                        .Select(t => t)
-                        .ToListAsync();
+                    if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                    {
+                        tickets = await _context.Tickets.OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
+                    }
+                    else
+                    {
+                        tickets = await _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId).OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
+                    }
                 }
 
                 serviceResponse.Data = new List<GetTicketDTO>();
@@ -574,7 +587,7 @@ namespace server.Services.TicketService
                 serviceResponse.Message = "Unable to get total tickets this week.";
                 System.Console.WriteLine(ex.Message);
             }
-            
+
             return serviceResponse;
         }
     }

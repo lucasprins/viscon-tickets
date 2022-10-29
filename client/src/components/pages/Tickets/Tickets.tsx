@@ -51,11 +51,12 @@ export function Tickets() {
     ];
 
     const [searchFilter, setSearchFilter] = useState("");
-    const [statusFilter, setStatusFilter] = useState(statusOptions[0]);
+    const [statusFilter, setStatusFilter] = useState({ value: "", label: "All" });
     const [company, setCompany] = useState("");
 
     const handleChangeStatusFilter = (payload: any) => {
         setStatusFilter(payload);
+        setPage(1);
     };
 
     let CancelTokenTickets = axios.CancelToken;
@@ -68,20 +69,24 @@ export function Tickets() {
     let sourceTotalTicketsThisWeek = CancelTokenTotalTicketsThisWeek.source();
 
     useEffect(() => {
-        dispatch(fetchTicketsAsync({ page: page, accessToken: accessToken, cancelToken: sourceTickets.token }));
+        dispatch(fetchTicketsAsync({ page: page, status: statusFilter.value, accessToken: accessToken, cancelToken: sourceTickets.token }));
         return () => {
-            dispatch(resetTickets());
             sourceTickets.cancel();
         };
-    }, [page]);
+    }, [page, statusFilter]);
 
     useEffect(() => {
-        dispatch(fetchTotalTicketsAsync({ accessToken: accessToken, cancelToken: sourceTotalTickets.token }));
+        dispatch(fetchTotalTicketsAsync({ status: statusFilter.value, accessToken: accessToken, cancelToken: sourceTotalTickets.token }));
+        return () => {
+            sourceTotalTickets.cancel();
+        };
+    }, [statusFilter]);
+
+    useEffect(() => {
         dispatch(fetchTotalTicketsByUser({ accessToken: accessToken, cancelToken: sourceTotalTicketsByUser.token }));
         dispatch(fetchTotalTicketsThisWeek({ accessToken: accessToken, cancelToken: sourceTotalTicketsThisWeek.token }));
         return () => {
             dispatch(resetTicketsMetrics());
-            sourceTotalTickets.cancel();
             sourceTotalTicketsByUser.cancel();
             sourceTotalTickets.cancel();
             sourceTotalTicketsByUser.cancel();
