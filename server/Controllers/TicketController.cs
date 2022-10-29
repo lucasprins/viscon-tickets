@@ -23,14 +23,31 @@ namespace server.Controllers
         [HttpGet("GetTicket/{id}")]
         public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> GetTicket(Guid id)
         {
-            Thread.Sleep(5000);
             return Ok(await _ticketService.GetTicketById(id));
         }
 
-        [HttpGet("GetAllTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
-        public async Task<ActionResult<ServiceResponse<List<GetTicketDTO>>>> GetAllTickets()
+        [HttpGet("GetAllTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
+        public async Task<ActionResult<ServiceResponse<List<GetTicketDTO>>>> GetAllTickets(int page, string status = "")
         {
-            return Ok(await _ticketService.GetAllTickets());
+            return Ok(await _ticketService.GetAllTickets(page, status));
+        }
+
+        [HttpGet("GetTotalTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
+        public async Task<ActionResult<ServiceResponse<int>>> GetTotalTickets()
+        {
+            return Ok(await _ticketService.GetTotalTickets());
+        }
+
+        [HttpGet("GetTotalTicketsByUser"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
+        public async Task<ActionResult<ServiceResponse<int>>> GetTotalTicketsByUser()
+        {
+            return Ok(await _ticketService.GetTotalTicketsByUser());
+        }
+
+        [HttpGet("GetTotalTicketsThisWeek"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
+        public async Task<ActionResult<ServiceResponse<int>>> GetTotalTicketsThisWeek()
+        {
+            return Ok(await _ticketService.GetTotalTicketsThisWeek());
         }
 
         [HttpPost("CreateTicket"), Authorize(Roles = "CustomerAdmin, CustomerEmployee")]

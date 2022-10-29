@@ -1,4 +1,5 @@
 import { Tab } from "@headlessui/react";
+import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { Fragment, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -7,12 +8,13 @@ import {
     fetchTicketAsync,
     getCancelledTicketSuccess,
     getClaimedTicketSuccess,
+    getFetchedTicketSuccess,
     getFetchingTicket,
     getOpenedTicketSuccess,
     getResolvedTicketSuccess,
     getTicket,
     getUnclaimedTicketSuccess,
-    resetTicket,
+    resetTickets,
     resetTicketActions,
 } from "../../../features/tickets/ticketsSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
@@ -51,6 +53,7 @@ export function Ticket() {
     const dispatch = useAppDispatch();
     const loading = useAppSelector(getFetchingTicket);
     const navigate = useNavigate();
+    const fetchedTicketSuccess = useAppSelector(getFetchedTicketSuccess);
 
     let { ticketID } = useParams();
 
@@ -58,15 +61,22 @@ export function Ticket() {
     const ticket: ticketType | any = useAppSelector(getTicket);
 
     useEffect(() => {
-        dispatch(fetchTicketAsync({ ticketId: ticketID || "", accessToken: user?.accessToken || "" }));
+        let CancelToken = axios.CancelToken;
+        let source = CancelToken.source();
+        dispatch(fetchTicketAsync({ ticketId: ticketID || "", accessToken: user?.accessToken || "", cancelToken: source.token }));
 
         return () => {
-            dispatch(resetTicket());
+            source.cancel();
+            dispatch(resetTickets());
         };
     }, [dispatch, ticketID]);
 
     if (!user) {
         return <Navigate to='/login' />;
+    }
+
+    if(fetchedTicketSuccess == false) {
+        return <Navigate to='/ticket-not-found' />
     }
 
     return (
@@ -363,7 +373,7 @@ export function Ticket() {
                             </div>
                         </div>
                     ) : (
-                        navigate("/ticket-not-found")
+                        undefined
                     )}
                 </>
             </div>

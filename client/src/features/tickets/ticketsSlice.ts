@@ -1,18 +1,34 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { CancelToken } from "axios";
 import { RootState } from "../../store";
 import { createTicketType, ticketType, userType } from "../../utils/types";
 import { setMessage } from "../auth/messageSlice";
 import { toggleBackdrop } from "../modal/modalSlice";
+import TicketsMetricsService from "./ticketsMetricsService";
 
 import TicketService from "./ticketsService";
 
 type initialState = {
     tickets: any[];
     ticket: ticketType | any;
+    totalTickets: number;
+
+    totalTicketsByUser: number;
+    fetchingTotalTicketsByUser: boolean;
+    fetchedTotalTicketsByUserSuccess: boolean;
+
+    fetchingTotalTicketsThisWeek: boolean;
+    fetchedTotalTicketsThisWeekSuccess: boolean;
+    totalTicketsThisWeek: number;
 
     creatingTicket: boolean;
     createdTicketSuccess: boolean | null;
     fetchingTicket: boolean;
+    fetchedTicketSuccess: boolean | null;
+    fetchingTickets: boolean;
+    fetchedTicketsSuccess: boolean | null;
+    fetchingTotalTickets: boolean;
+    fetchedTotalTicketsSuccess: boolean | null;
     claimingTicket: boolean;
     claimedTicketSuccess: boolean | null;
     unclaimingTicket: boolean;
@@ -28,10 +44,24 @@ type initialState = {
 const initialState: initialState = {
     tickets: [],
     ticket: null,
+    totalTickets: 0,
+
+    totalTicketsByUser: 0,
+    fetchingTotalTicketsByUser: false,
+    fetchedTotalTicketsByUserSuccess: false,
+
+    fetchingTotalTicketsThisWeek: false,
+    fetchedTotalTicketsThisWeekSuccess: false,
+    totalTicketsThisWeek: 0,
 
     creatingTicket: false,
     createdTicketSuccess: null,
     fetchingTicket: false,
+    fetchedTicketSuccess: null,
+    fetchingTickets: false,
+    fetchedTicketsSuccess: null,
+    fetchingTotalTickets: false,
+    fetchedTotalTicketsSuccess: null,
     claimingTicket: false,
     claimedTicketSuccess: null,
     unclaimingTicket: false,
@@ -49,7 +79,6 @@ export const createTicket = createAsyncThunk(
     async ({ ticket, user }: { ticket: createTicketType; user: userType }, thunkAPI) => {
         try {
             const response = await TicketService.createTicket(ticket, user);
-            console.log(response);
             return { ticket: response.data.data };
         } catch (error: any) {
             console.log(error);
@@ -64,7 +93,6 @@ export const claimTicketAsync = createAsyncThunk(
     async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
         try {
             const response = await TicketService.claimTicket(ticketId, accessToken);
-            console.log(response);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
@@ -79,7 +107,6 @@ export const unclaimTicketAsync = createAsyncThunk(
     async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
         try {
             const response = await TicketService.unclaimTicket(ticketId, accessToken);
-            console.log(response);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
@@ -94,7 +121,6 @@ export const resolveTicketAsync = createAsyncThunk(
     async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
         try {
             const response = await TicketService.resolveTicket(ticketId, accessToken);
-            console.log(response);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
@@ -109,7 +135,6 @@ export const openTicketAsync = createAsyncThunk(
     async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
         try {
             const response = await TicketService.openTicket(ticketId, accessToken);
-            console.log(response);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
@@ -121,14 +146,51 @@ export const openTicketAsync = createAsyncThunk(
 
 export const fetchTicketAsync = createAsyncThunk(
     "tickets/fetchTicketAsync",
-    async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
+    async ({ ticketId, accessToken, cancelToken }: { ticketId: string; accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
         try {
-            const response = await TicketService.getTicket(ticketId, accessToken);
-            console.log(response);
-            return { ticket: response.data.data };
+            const response = await TicketService.getTicket(ticketId, accessToken, cancelToken);
+            return { response: response.data };
         } catch (error: any) {
             console.log(error);
             thunkAPI.dispatch(setMessage(error.message));
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const fetchTicketsAsync = createAsyncThunk(
+    "tickets/fetchTicketsAsync",
+    async ({ page, accessToken, cancelToken }: { page: Number, accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
+        try {
+            const response = await TicketService.getTickets(page, accessToken, cancelToken);
+            return { response: response.data };
+        } catch (error: any) {
+            console.log(error);
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const fetchTotalTicketsAsync = createAsyncThunk(
+    "tickets/fetchTotalTicketsAsync",
+    async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
+        try {
+            const response = await TicketService.getTotalTickets(accessToken, cancelToken);
+            return { response: response.data };
+        } catch (error: any) {
+            console.log(error);
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const fetchTotalTicketsByUser = createAsyncThunk(
+    "tickets/fetchTotalTicketsByUser",
+    async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
+        try {
+            const response = await TicketsMetricsService.getTotalTicketsByUser(accessToken, cancelToken);
+            return { response: response.data };
+        } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
         }
     }
@@ -139,11 +201,23 @@ export const cancelTicketAsync = createAsyncThunk(
     async ({ ticketId, accessToken }: { ticketId: string; accessToken: string }, thunkAPI) => {
         try {
             const response = await TicketService.cancelTicket(ticketId, accessToken);
-            console.log(response);
             return { response: response.data };
         } catch (error: any) {
             console.log(error);
             thunkAPI.dispatch(setMessage(error.message));
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const fetchTotalTicketsThisWeek = createAsyncThunk(
+    "tickets/fetchTotalTicketsThisWeek",
+    async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
+        try {
+            const response = await TicketsMetricsService.getTotalTicketsThisWeek(accessToken, cancelToken);
+            console.log(response);
+            return { response: response.data };
+        } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
         }
     }
@@ -158,14 +232,26 @@ const ticketsSlice = createSlice({
             state.creatingTicket = false;
             state.ticket = null;
         },
-        resetTicket: (state) => {
+        resetTickets: (state) => {
+            state.tickets = [];
             state.ticket = null;
+            state.fetchedTicketsSuccess = null;
+            state.fetchingTickets = false;
+            state.fetchingTotalTickets = false;
+            state.fetchedTotalTicketsSuccess = null;
             state.fetchingTicket = false;
             state.claimedTicketSuccess = null;
             state.unclaimedTicketSuccess = null;
             state.resolvedTicketSuccess = null;
             state.openedTicketSuccess = null;
             state.cancelledTicketSuccess = null;
+            state.fetchingTickets = false;
+            state.fetchedTicketSuccess = null;
+        },
+        resetTicketsMetrics: (state) => {
+            state.totalTickets = 0;
+            state.totalTicketsByUser = 0;
+            state.totalTicketsThisWeek = 0;
         },
         resetTicketActions: (state) => {
             state.claimedTicketSuccess = null;
@@ -178,7 +264,6 @@ const ticketsSlice = createSlice({
     extraReducers: {
         [createTicket.pending.toString()]: (state) => {
             state.creatingTicket = true;
-            console.log("Creating ticket...");
         },
         [createTicket.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
             state.creatingTicket = false;
@@ -194,30 +279,81 @@ const ticketsSlice = createSlice({
         },
         [fetchTicketAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
             state.fetchingTicket = false;
-            state.ticket = action.payload.ticket;
+            state.fetchedTicketSuccess = action.payload.response.success ? true : false;
+            state.ticket = action.payload.response.data;
         },
         [fetchTicketAsync.rejected.toString()]: (state) => {
             state.fetchingTicket = false;
+            state.fetchedTicketSuccess = false;
         },
 
+        [fetchTicketsAsync.pending.toString()]: (state) => {
+            state.fetchingTickets = true;
+        },
+        [fetchTicketsAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
+            state.fetchingTickets = false;
+            state.fetchedTicketsSuccess = action.payload.response.success ? true : false;
+            state.tickets = action.payload.response.data;
+        },
+        [fetchTicketsAsync.rejected.toString()]: (state) => {
+            state.fetchingTickets = false;
+            state.fetchedTicketsSuccess = false;
+        },
+
+        [fetchTotalTicketsAsync.pending.toString()]: (state) => {
+            state.fetchingTotalTickets = true;
+        },
+        [fetchTotalTicketsAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
+            state.fetchingTotalTickets = false;
+            state.fetchedTotalTicketsSuccess = action.payload.response.success ? true : false;
+            state.totalTickets = action.payload.response.data;
+        },
+        [fetchTotalTicketsAsync.rejected.toString()]: (state) => {
+            state.fetchingTotalTickets = false;
+            state.fetchedTotalTicketsSuccess = false;
+        },
+
+        [fetchTotalTicketsByUser.pending.toString()]: (state) => {
+            state.fetchingTotalTicketsByUser = true;
+        },
+        [fetchTotalTicketsByUser.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
+            state.fetchingTotalTicketsByUser = false;
+            state.fetchedTotalTicketsByUserSuccess = action.payload.response.success ? true : false;
+            state.totalTicketsByUser = action.payload.response.data;
+        },
+        [fetchTotalTicketsByUser.rejected.toString()]: (state) => {
+            state.fetchingTotalTicketsByUser = false;
+            state.fetchedTotalTicketsByUserSuccess = false;
+        },
+
+        [fetchTotalTicketsThisWeek.pending.toString()]: (state) => {
+            state.fetchingTotalTicketsThisWeek = true;
+        },
+        [fetchTotalTicketsThisWeek.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
+            state.fetchingTotalTicketsThisWeek = false;
+            state.fetchedTotalTicketsThisWeekSuccess = action.payload.response.success ? true : false;
+            state.totalTicketsThisWeek = action.payload.response.data;
+        },
+        [fetchTotalTicketsThisWeek.rejected.toString()]: (state) => {
+            state.fetchingTotalTicketsThisWeek = false;
+            state.fetchedTotalTicketsThisWeekSuccess = false;
+        },
+        
         [claimTicketAsync.pending.toString()]: (state) => {
             state.claimingTicket = true;
         },
         [claimTicketAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
             state.claimingTicket = false;
-            console.log(action.payload.response);
             state.claimedTicketSuccess = action.payload.response.success ? true : false;
             state.ticket = action.payload.response.data;
         },
         [claimTicketAsync.rejected.toString()]: (state) => {
             state.claimingTicket = false;
             state.claimedTicketSuccess = false;
-            console.log("Failed to claim ticket.");
         },
 
         [unclaimTicketAsync.pending.toString()]: (state) => {
             state.unclaimingTicket = true;
-            console.log("Unclaiming ticket...");
         },
         [unclaimTicketAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
             state.unclaimingTicket = false;
@@ -272,6 +408,7 @@ const ticketsSlice = createSlice({
 
 export const getCreatingTicket = (state: RootState) => state.tickets.creatingTicket;
 export const getTicket = (state: RootState) => state.tickets.ticket;
+export const getTickets = (state: RootState) => state.tickets.tickets;
 export const getCreatedTicketSuccess = (state: RootState) => state.tickets.createdTicketSuccess;
 export const getFetchingTicket = (state: RootState) => state.tickets.fetchingTicket;
 export const getClaimingTicket = (state: RootState) => state.tickets.claimingTicket;
@@ -284,8 +421,20 @@ export const getOpeningTicket = (state: RootState) => state.tickets.openingTicke
 export const getOpenedTicketSuccess = (state: RootState) => state.tickets.openedTicketSuccess;
 export const getCancellingTicket = (state: RootState) => state.tickets.cancellingTicket;
 export const getCancelledTicketSuccess = (state: RootState) => state.tickets.cancelledTicketSuccess;
+export const getFetchingTickets = (state: RootState) => state.tickets.fetchingTickets;
+export const getFetchedTicketsSuccess = (state: RootState) => state.tickets.fetchedTicketsSuccess;
+export const getFetchedTicketSuccess = (state: RootState) => state.tickets.fetchedTicketSuccess;
+export const getFetchingTotalTickets = (state: RootState) => state.tickets.fetchingTotalTickets;
+export const getFetchedTotalTicketsSuccess = (state: RootState) => state.tickets.fetchedTotalTicketsSuccess;
+export const getTotalTickets = (state: RootState) => state.tickets.totalTickets;
+export const getTotalTicketsByUser = (state: RootState) => state.tickets.totalTicketsByUser;
+export const getFetchingTotalTicketsByUser = (state: RootState) => state.tickets.fetchingTotalTicketsByUser;
+export const getFetchedTotalTicketsByUserSuccess = (state: RootState) => state.tickets.fetchedTotalTicketsByUserSuccess;
+export const getFetchingTotalTicketsThisWeek = (state: RootState) => state.tickets.fetchingTotalTicketsThisWeek;
+export const getFetchedTotalTicketsThisWeekSuccess = (state: RootState) => state.tickets.fetchedTotalTicketsThisWeekSuccess;
+export const getTotalTicketsThisWeek = (state: RootState) => state.tickets.totalTicketsThisWeek;
 
-export const { resetCreateTicket, resetTicket, resetTicketActions } = ticketsSlice.actions;
+export const { resetCreateTicket, resetTickets, resetTicketActions, resetTicketsMetrics } = ticketsSlice.actions;
 
 const { reducer } = ticketsSlice;
 export default reducer;

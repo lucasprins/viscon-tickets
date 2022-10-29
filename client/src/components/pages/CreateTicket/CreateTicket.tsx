@@ -4,7 +4,6 @@ import { Button } from "../../atoms/Button/Button";
 import { Divider } from "../../atoms/Divider/Divider";
 import { IconFlag } from "../../atoms/Icons/IconsFlags";
 import { IconArrow, IconBuilding, IconPhone } from "../../atoms/Icons/Icons";
-import { InputDropdownMachine } from "../../atoms/InputDropdown/InputDropdownMachine";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
@@ -18,10 +17,10 @@ import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/validateInput";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
-import { createTicketType, userType } from "../../../utils/types";
+import { createTicketType, MachineType, userType } from "../../../utils/types";
 import { getUser } from "../../../features/auth/authSlice";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
-import { getSelectedMachine } from "../../../features/machines/machinesSlice";
+import { getMachines, getSelectedMachine, setSelectedMachine } from "../../../features/machines/machinesSlice";
 import {
     createTicket,
     getCreatedTicketSuccess,
@@ -31,6 +30,7 @@ import {
 import { Navigate, useNavigate } from "react-router-dom";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { Modal } from "../../organisms/Modal/Modal";
+import { InputDropdown } from "../../atoms/Input/InputDropdown";
 
 var translations = require("../../../translations/createTicketTranslations.json");
 
@@ -45,6 +45,8 @@ export function CreateTicket() {
 
     const user: userType | null = useAppSelector(getUser);
     const selectedMachine = useAppSelector(getSelectedMachine);
+    
+    const machines = useAppSelector(getMachines);
 
     const [openErrorModal, setOpenErrorModal] = useState(true);
 
@@ -60,9 +62,16 @@ export function CreateTicket() {
         machine: selectedMachine,
     });
 
+    const handleChange = (payload: MachineType) => {
+        dispatch(setSelectedMachine(payload));
+    };
+
     useEffect(() => {
-        dispatch(resetCreateTicket());
-    }, [dispatch]);
+        return () => {
+            dispatch(setSelectedMachine(machines[0]));
+            dispatch(resetCreateTicket());
+        }
+    }, []);
 
     const addContactInformation = (values: any) => {
         setTicket({ ...ticket, ...values });
@@ -186,7 +195,13 @@ export function CreateTicket() {
                                 title={translations[language].view_solutions}
                                 subtitle={translations[language].view_solutions_subtitle_long}
                             />
-                            <InputDropdownMachine label={translations[language].select_machine} />
+                            <InputDropdown
+                                label={translations[language].select_machine}
+                                options={machines}
+                                selectedOption={selectedMachine}
+                                selectedKey={"name"}
+                                onchange={handleChange}
+                            />
                             <Divider />
                             <MachineSolutionList />
                             <div className='flex flex-col-reverse sm:flex-row gap-4 pt-4'>

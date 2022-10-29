@@ -1,22 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { InlineCTA } from "../../molecules/CTA/InlineCTA";
 import { Divider } from "../../atoms/Divider/Divider";
-import { InputDropdownMachine } from "../../atoms/InputDropdown/InputDropdownMachine";
 import Layout from "../../organisms/Layout/Layout";
 import { MachineSolutionList } from "../../molecules/MachineSolution/MachineSolutionList";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getUser } from "../../../features/auth/authSlice";
 import { Navigate } from "react-router-dom";
+import { getMachines, getSelectedMachine, setSelectedMachine } from "../../../features/machines/machinesSlice";
+import { MachineType } from "../../../utils/types";
+import { InputDropdown } from "../../atoms/Input/InputDropdown";
 
 var translations = require("../../../translations/knowledgebaseTranslations.json");
 
 export function Knowledgebase() {
     const language = useAppSelector(getCurrentLanguage);
     const user = useAppSelector(getUser);
+    const dispatch = useAppDispatch();
     const userRole = user?.role;
+
+    const machines = useAppSelector(getMachines);
+    const selectedMachine = useAppSelector(getSelectedMachine);
+
+    useEffect(() => {
+        return () => {
+            dispatch(setSelectedMachine(machines[0]));
+        }
+    }, []);
+
+    const handleChange = (payload: MachineType) => {
+        dispatch(setSelectedMachine(payload));
+    };
 
     if (!user) {
         return <Navigate to='/login' />;
@@ -33,7 +49,13 @@ export function Knowledgebase() {
                         subtitle={translations[language].knowledgebase_subtitle}
                     />
                     <Divider />
-                    <InputDropdownMachine label={translations[language].search_machine} />
+                    <InputDropdown
+                        label={translations[language].search_machine}
+                        options={machines}
+                        selectedOption={selectedMachine}
+                        selectedKey={"name"}
+                        onchange={handleChange}
+                    />
                     {userRole !== "VisconAdmin" && userRole !== "VisconEmployee" ? (
                         <InlineCTA
                             title={translations[language].cant_find_solution_title}

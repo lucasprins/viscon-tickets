@@ -114,12 +114,82 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets()
+        public async Task<ServiceResponse<int>> GetTotalTickets()
         {
-            ServiceResponse<List<GetTicketDTO>> serviceResponse = new ServiceResponse<List<GetTicketDTO>>();
+            ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
+            var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
             try
             {
-                var tickets = await _context.Tickets.ToListAsync();
+                if (requestUser == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Requesting user not found.";
+                    return serviceResponse;
+                }
+
+                if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                {
+                    serviceResponse.Data = _context.Tickets.Count();
+                }
+                else
+                {
+                    serviceResponse.Data = _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId).Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to get total tickets.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets(int page, string status)
+        {
+            ServiceResponse<List<GetTicketDTO>> serviceResponse = new ServiceResponse<List<GetTicketDTO>>();
+            var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            int pageSize = 10;
+            int skip = (page - 1) * pageSize;
+
+            try
+            {
+                List<Ticket> tickets;
+
+                if (requestUser == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Requesting user not found.";
+                    return serviceResponse;
+                }
+
+                if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+                {
+                    tickets = await _context.Tickets
+                        .OrderBy(t => t.Status)
+                        .ThenBy(t => t.Priority)
+                        .ThenBy(t => t.CreationDate)
+                        .Skip(skip)
+                        .Take(pageSize)
+                        .Select(t => t)
+                        .ToListAsync();
+                }
+                else
+                {
+                    tickets = await _context.Tickets
+                        .Where(t => t.CompanyId == requestUser.CompanyId)
+                        .OrderBy(t => t.Status)
+                        .ThenBy(t => t.Priority)
+                        .ThenBy(t => t.CreationDate)
+                        .Skip(skip)
+                        .Take(pageSize)
+                        .Select(t => t)
+                        .ToListAsync();
+                }
+
                 serviceResponse.Data = new List<GetTicketDTO>();
 
                 foreach (var ticket in tickets)
@@ -437,5 +507,75 @@ namespace server.Services.TicketService
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<int>> GetTotalTicketsByUser()
+
+        {
+            ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                if (user.Role == Role.VisconAdmin || user.Role == Role.VisconEmployee)
+                {
+                    serviceResponse.Data = await _context.Tickets.Where(t => t.AssigneeId == user.Id).CountAsync();
+                }
+                else
+                {
+                    serviceResponse.Data = await _context.Tickets.Where(t => t.CreatorId == user.Id).CountAsync();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to get total tickets by user.";
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<int>> GetTotalTicketsThisWeek()
+        {
+            ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+            if (user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+
+            try
+            {
+                var compareDate = DateTime.UtcNow.AddDays(-7);
+
+                if (user.Role == Role.VisconAdmin || user.Role == Role.VisconEmployee)
+                {
+                    serviceResponse.Data = await _context.Tickets.Where(t => t.CreationDate > compareDate).CountAsync();
+                }
+                else
+                {
+                    serviceResponse.Data = await _context.Tickets.Where(t => t.CreatorId == user.Id && t.CreationDate > compareDate).CountAsync();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Unable to get total tickets this week.";
+                System.Console.WriteLine(ex.Message);
+            }
+            
+            return serviceResponse;
+        }
     }
 }

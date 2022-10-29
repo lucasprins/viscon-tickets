@@ -21,7 +21,6 @@ export const login = createAsyncThunk(
     async ({ email, password }: { email: string; password: string }, thunkAPI) => {
         try {
             const response = await AuthService.login(email, password);
-            console.log(response);
             if (response.data.data == null) {
                 thunkAPI.dispatch(setMessage("Invalid email or password."));
                 return thunkAPI.rejectWithValue(response.data.message);
@@ -64,6 +63,7 @@ const authSlice = createSlice({
 export const getUser = (state: RootState) => state.auth.user;
 export const getUserRole = (state: RootState) => state.auth.user?.role;
 export const getIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
+export const getAccessToken = (state: RootState) => state.auth.user?.accessToken;
 
 const { reducer } = authSlice;
 export default reducer;

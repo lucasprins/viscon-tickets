@@ -39,7 +39,7 @@ export function Badge({ size, color, icon, text }: BadgeProps) {
     }
 
     return (
-        <div className={`${badgeSizeStyle} ${badgeColorStyle} flex rounded-full font-medium items-center gap-1`}>
+        <div className={`${badgeSizeStyle} ${badgeColorStyle} flex w-max rounded-full font-medium items-center gap-1`}>
             {icon}
             <span>{text}</span>
         </div>
