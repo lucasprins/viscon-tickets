@@ -1,7 +1,3 @@
-import { ChildProcessWithoutNullStreams } from "child_process";
-import internal from "stream";
-import { StringMappingType } from "typescript";
-
 export type userType = {
     id: string;
     firstName: string;

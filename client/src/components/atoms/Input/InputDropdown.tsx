@@ -18,7 +18,7 @@ export const InputDropdown = <T extends unknown>({
     onchange,
 }: Props<T>) => {
     return (
-        <div className="w-full">
+        <div className='w-full'>
             <Listbox value={selectedOption} onChange={onchange}>
                 <div className='relative'>
                     <div className='mb-1.5'>

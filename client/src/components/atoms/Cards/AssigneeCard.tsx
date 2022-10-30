@@ -1,7 +1,7 @@
 import React from "react";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
-import { getInitials } from "../../../utils/stringUtil";
+import { getInitials } from "../../../utils/textManipulation";
 import { Avatar } from "../Avatar/Avatar";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconAlert } from "../Icons/Icons";

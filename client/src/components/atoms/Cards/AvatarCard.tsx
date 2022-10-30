@@ -1,5 +1,5 @@
 import React from "react";
-import { getInitials } from "../../../utils/stringUtil";
+import { getInitials } from "../../../utils/textManipulation";
 import { Avatar } from "../Avatar/Avatar";
 
 type AvatarCardsProps = {

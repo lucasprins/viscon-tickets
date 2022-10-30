@@ -1,5 +1,5 @@
 import React from "react";
-import { getInitials } from "../../../utils/stringUtil";
+import { getInitials } from "../../../utils/textManipulation";
 
 export const Avatar = ({ name, color }: { name: string; color: "primary" | "gray" }) => {
     return (
