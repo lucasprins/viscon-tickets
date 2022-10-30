@@ -67,8 +67,8 @@ export function CreateTicket() {
     };
 
     useEffect(() => {
+        dispatch(setSelectedMachine(machines[0]));
         return () => {
-            dispatch(setSelectedMachine(machines[0]));
             dispatch(resetCreateTicket());
         }
     }, []);

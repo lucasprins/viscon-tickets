@@ -25,9 +25,7 @@ export function Knowledgebase() {
     const selectedMachine = useAppSelector(getSelectedMachine);
 
     useEffect(() => {
-        return () => {
-            dispatch(setSelectedMachine(machines[0]));
-        }
+        dispatch(setSelectedMachine(machines[0]));
     }, []);
 
     const handleChange = (payload: MachineType) => {

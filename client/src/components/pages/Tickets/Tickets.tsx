@@ -17,6 +17,7 @@ import {
     resetTickets,
     resetTicketsMetrics,
 } from "../../../features/tickets/ticketsSlice";
+import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { MetricCard } from "../../atoms/Cards/MetricCard";
