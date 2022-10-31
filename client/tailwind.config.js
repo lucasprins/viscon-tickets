@@ -4,6 +4,7 @@ module.exports = {
 	content: [
 		"./src/**/*.{js,jsx,ts,tsx}",
 	],
+	plugins: [],
 	darkMode: 'class',
 	theme: {
 		fontSize: {
@@ -86,5 +87,4 @@ module.exports = {
 		},
 		extend: {},
 	},
-	plugins: [],
 }

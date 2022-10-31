@@ -1,21 +1,71 @@
-export type UserType = {
-    firstName: string,
-    lastName: string,
-    company: string,
-    phoneNumber: string
+export type userType = {
+    id: string;
+    firstName: string;
+    prefix: string | undefined;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    role: string;
+    isActive: boolean;
+    company: companyType;
+    accessToken: string;
+};
+
+export type companyType = {
+    id: string;
+    name: string;
+    country: string;
+    isActive: boolean;
 };
 
 export type SolutionType = {
-    solution_id: string,
-    machine_id: string,
-    issue: string,
-    solution: string,
-    language: string
+    solutionId: string;
+    machineId: string;
+    issue: string;
+    solution: string;
+    language: string;
 };
 
 export type MachineType = {
-    machine_id: string,
-    name: string,
-    blueprint_number: string,
-    type: string
+    machineId: string;
+    name: string;
+    blueprintNumber: string;
+    type: string;
+};
+
+export type ticketType = {
+    id: string;
+    ticketNumber: Number;
+    phoneNumber: string;
+    creationDate: string;
+    status: string;
+    priority: string;
+    issue: string;
+    actionExpected: string;
+    actionPerformed: string;
+    extraInfo: string;
+    solution: string;
+    company: companyType;
+    creator: ticketUserType;
+    assignee: ticketUserType;
+    machineName: string;
+};
+
+export type createTicketType = {
+    firstName: string;
+    lastName: string;
+    company: companyType;
+    phoneNumber: string;
+    issue: string;
+    actionExpected: string;
+    actionPerformed: string;
+    extraInfo: string;
+    machine: MachineType;
+};
+
+export type ticketUserType = {
+    id: string;
+    firstName: string;
+    prefix: string | null;
+    lastName: string;
 };

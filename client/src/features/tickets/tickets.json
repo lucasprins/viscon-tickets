@@ -1,0 +1,66 @@
+[
+  {
+    "id": "6e98c379-a967-4890-aa04-14eed62b9dbe",
+    "ticketNumber": 1,
+    "phoneNumber": "0634998880",
+    "creationDate": "2022-10-26T15:59:56.681441Z",
+    "status": "InProgress",
+    "priority": "Medium",
+    "issue": "Dit gaat fout",
+    "actionExpected": "Dit verwacht ik",
+    "actionPerformed": "Dit heb ik al gedaan",
+    "extraInfo": "Dit is extra informatie",
+    "solution": "",
+    "company": {
+      "id": "37e7da3c-ad11-4bd8-bb50-1f0ead225b2f",
+      "name": "Dunder Mifflin",
+      "country": "United States",
+      "isActive": true
+    },
+    "creator": {
+      "id": "f2c5f120-9ef0-4e15-8889-0612e801c36e",
+      "firstName": "Lucas",
+      "prefix": null,
+      "lastName": "Prins"
+    },
+    "assignee": {
+      "id": "8f1dbfdc-7ee1-4c1c-a56a-f610a07a8e1d",
+      "firstName": "admin",
+      "prefix": null,
+      "lastName": "admin"
+    },
+    "machineName": "Satteliet shuttle 1"
+  },
+  {
+    "id": "eb64af63-33f9-4d0b-a3e9-fe3f1e726a4f",
+    "ticketNumber": 2,
+    "phoneNumber": "0634998880",
+    "creationDate": "2022-10-26T16:06:02.955625Z",
+    "status": "InProgress",
+    "priority": "Medium",
+    "issue": "Dit gaat fout",
+    "actionExpected": "Dit verwacht ik",
+    "actionPerformed": "Dit heb ik al gedaan",
+    "extraInfo": "Dit is extra informatie",
+    "solution": "",
+    "company": {
+      "id": "37e7da3c-ad11-4bd8-bb50-1f0ead225b2f",
+      "name": "Dunder Mifflin",
+      "country": "United States",
+      "isActive": true
+    },
+    "creator": {
+      "id": "f2c5f120-9ef0-4e15-8889-0612e801c36e",
+      "firstName": "Lucas",
+      "prefix": null,
+      "lastName": "Prins"
+    },
+    "assignee": {
+      "id": "1f23b265-ea47-4d6c-8f85-108bc3922fd4",
+      "firstName": "Viscon",
+      "prefix": null,
+      "lastName": "Employee"
+    },
+    "machineName": "Satteliet shuttle 1"
+  }
+]

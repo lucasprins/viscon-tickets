@@ -9,10 +9,11 @@ type ButtonProps = {
     icon?: JSX.Element,
     url?: string,
     onclick?: () => any,
+    disabled?: boolean,
     formType?: "submit" | "button" | "reset"
 }
 
-export function Button({ size, width, type, text, icon, url, onclick, formType }: ButtonProps) {
+export function Button({ size, width, type, text, icon, url, onclick, formType, disabled }: ButtonProps) {
     const buttonWidthStyle = width === 'full' ? "w-full" : "";
     let buttonSizeStyle = "";
     let buttonTypeStyle = "";
@@ -34,7 +35,7 @@ export function Button({ size, width, type, text, icon, url, onclick, formType }
             buttonTypeStyle = "shadow-sm bg-primary-600 border border-primary-600 text-white hover:bg-primary-700 focus:outline outline-primary-200 dark:outline-primary-500 hover:border-primary-700";
             break;
         case 'secondary-gray':
-            buttonTypeStyle = "shadow-sm text-gray-800 border border-gray-300 dark:border-dark-500 dark:text-white hover:bg-gray-50 dark:hover:bg-dark-700 focus:outline outline-gray-100 dark:outline-dark-600";
+            buttonTypeStyle = "shadow-sm text-gray-800 border border-gray-200 dark:border-dark-600 dark:text-white hover:bg-gray-50 dark:hover:bg-dark-700 focus:outline outline-gray-100 dark:outline-dark-600";
             break;
         case 'secondary-color':
             buttonTypeStyle = "text-primary-600 dark:text-white border border-primary-50 dark:border-dark-600 bg-primary-50 dark:bg-dark-600 hover:bg-primary-100";
@@ -54,15 +55,19 @@ export function Button({ size, width, type, text, icon, url, onclick, formType }
             {url
                 ?
                 <Link to={url} className={buttonWidthStyle}>
-                    <button type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center items-center gap-x-2.5 rounded-lg`}>
+                    <button disabled={disabled} type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
+                flex justify-center items-center gap-x-2.5 rounded-lg
+                ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
+                `}>
                         {icon}
                         {text}
                     </button>
                 </Link>
                 :
-                <button type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center items-center gap-x-2.5 rounded-lg`}>
+                <button disabled={disabled} type={formType} onClick={onclick} className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
+                flex justify-center items-center gap-x-2.5 rounded-lg
+                ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
+                `}>
                     {icon}
                     {text}
                 </button>

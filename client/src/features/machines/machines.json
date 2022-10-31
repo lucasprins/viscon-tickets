@@ -1,38 +1,38 @@
 [
     {
-        "machine_id": "1",
-        "name": "Shuttle 1",
-        "blueprint_number": "5001483",
-        "type": "Satteliet shuttle"
+        "machineId": "5404a05a-2862-4368-9251-f53198c3052e",
+        "name": "Satteliet shuttle 1",
+        "blueprintNumber": "5001483",
+        "type": "Satteliet shuttle 1"
     },
     {
-        "machine_id": "2",
+        "machineId": "2",
         "name": "Shuttle 2",
-        "blueprint_number": "5001483",
+        "blueprintNumber": "5001483",
         "type": "Satteliet shuttle"
     },
     {
-        "machine_id": "3",
+        "machineId": "3",
         "name": "Shuttle 3",
-        "blueprint_number": "5001483",
+        "blueprintNumber": "5001483",
         "type": "Satteliet shuttle"
     },
     {
-        "machine_id": "4",
+        "machineId": "4",
         "name": "Shuttle T1",
-        "blueprint_number": "5008716",
+        "blueprintNumber": "5008716",
         "type": "Transfer shuttle"
     },
     {
-        "machine_id": "5",
+        "machineId": "5",
         "name": "Shuttle T2",
-        "blueprint_number": "5008716",
+        "blueprintNumber": "5008716",
         "type": "Transfer shuttle"
     },
     {
-        "machine_id": "6",
+        "machineId": "6",
         "name": "Shuttle T3",
-        "blueprint_number": "5008716",
+        "blueprintNumber": "5008716",
         "type": "Transfer shuttle"
     }
 ]

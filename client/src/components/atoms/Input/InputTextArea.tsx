@@ -20,7 +20,7 @@ export function InputTextArea({ placeholder, disabled, id, name, validate, error
   if(error && touched) {
     inputFieldBorderStyle = "border-error-500 focus:outline outline-2 outline-error-600"
   } else {
-    inputFieldBorderStyle = "border-gray-300 dark:border-dark-500 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";
+    inputFieldBorderStyle = "border-gray-200 dark:border-dark-600 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";
   }
   
 
@@ -36,7 +36,7 @@ export function InputTextArea({ placeholder, disabled, id, name, validate, error
             name={name}
             as="textarea"
 			rows={5}
-            className={`${inputFieldStyle} ${inputFieldBorderStyle} cursor-not-allowed text-gray-500 w-full bg-gray-100 border rounded-lg placeholder:text-gray-500 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-gray-200 opacity-50 dark:opacity-40`}
+            className={`${inputFieldStyle} ${inputFieldBorderStyle} cursor-not-allowed text-gray-500 dark:placeholder:text-gray-300 w-full bg-gray-50 border rounded-lg placeholder:text-gray-500 px-3.5 py-2.5 text-md font-normal dark:bg-dark-800 dark:text-gray-200`}
           ></Field>
         </div>
       ) : (
@@ -48,7 +48,7 @@ export function InputTextArea({ placeholder, disabled, id, name, validate, error
             name={name}
             as="textarea"
 			rows={5}
-            className={`${inputFieldStyle} ${inputFieldBorderStyle} w-full bg-white border rounded-lg placeholder:text-gray-500 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-white`}
+            className={`${inputFieldStyle} ${inputFieldBorderStyle} w-full bg-white border rounded-lg dark:placeholder:text-gray-300 placeholder:text-gray-500 px-3.5 py-2.5 text-md font-normal dark:bg-dark-700 dark:text-white`}
           ></Field>
         </div>
       )}

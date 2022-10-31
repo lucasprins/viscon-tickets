@@ -8,11 +8,13 @@ import { ButtonIcon } from '../../atoms/Button/ButtonIcon';
 import { IconFlag } from '../../atoms/Icons/IconsFlags';
 import { IconCheck, IconClose } from '../../atoms/Icons/Icons';
 
+var translations = require('../../../translations/modalTranslations.json');
+
 export function ModalChangeLanguage() {
     const dispatch = useAppDispatch();
     const language = useAppSelector(getCurrentLanguage);
     let isOpen = useAppSelector(getLanguageModal);
-
+    
     const closeModal = () => {
         dispatch(toggleBackdrop());
         dispatch(toggleLanguageModal());
@@ -36,7 +38,7 @@ export function ModalChangeLanguage() {
             <Dialog className='z-50 absolute inset-0 flex items-center p-6 lg:p-0 justify-center' open={isOpen} onClose={closeModal}>
                 <Dialog.Panel className='bg-white dark:bg-dark-800 w-full lg:w-96 flex flex-col items-center gap-6 p-6 rounded-xl drop-shadow'>
                     <div className='flex justify-between items-center w-full'>
-                        <Dialog.Title className='text-gray-900 dark:text-white text-xl font-semibold'>Select a language</Dialog.Title>
+                        <Dialog.Title className='text-gray-900 dark:text-white text-xl font-semibold'>{translations[language].selectLanguage}</Dialog.Title>
                         <ButtonIcon icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} onclick={closeModal} />
                     </div>
                     <div className='flex flex-col w-full gap-4'>

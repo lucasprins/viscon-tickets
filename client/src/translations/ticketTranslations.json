@@ -1,0 +1,76 @@
+{
+    "nl": {      
+        "ticket": "Ticket",
+        "machine": "Machine",
+        "describe_issue_specific" : "Wat ziet u dat er fout gaat?",
+        "describe_issue_expectation" : "Wat verwacht u dat er zou gebeuren?",
+        "describe_issue_tried" : "Wat heeft u zelf al geprobeerd?",
+        "describe_issue_extra_info" : "Extra informatie",
+        "creator" : "Maker",
+        "company" : "Bedrijf",
+
+        "solution": "Oplossing",
+        "add_attachments": "Bijlage toevoegen",
+
+        "history": "Historie",
+
+
+        "creation_date": "Aanmaakdatum",
+        "assignee": "Servicemedewerker",
+        "open": "Open",
+        "in_progress": "Bezig",
+        "resolved": "Opgelost",
+        "cancelled": "Geannuleerd",
+        "not_claimed": "Dit ticket is nog niet geclaimd",
+
+        "claim_ticket": "Claim ticket",
+        "unclaim": "Unclaim",
+        "resolve": "Oplossen",
+        "re_open": "Heropenen",
+        "cancel_ticket": "Ticket annuleren",
+        "view_files": "Bestanden",
+
+        "ticketNotFound": "Ticket niet gevonden",
+        "ticketNotFoundText": "Oops. Deze ticket bestaat niet of is verwijderd",
+        "tickets": "Tickets",
+        "dashboard": "Dashboard"
+    },
+    "en": {        
+        "ticket": "Ticket",
+        "machine": "Machine",
+        "describe_issue_specific" : "What do you see that is going wrong?",
+        "describe_issue_expectation" : "What do you expect to happen?",
+        "describe_issue_tried" : "What did you try already to fix the problem?",
+        "describe_issue_extra_info" : "Extra information",
+        "creator" : "Creator",
+        "company" : "Company",
+
+
+
+        "solution": "Solution",
+        "add_attachments": "Add attachments",
+
+        "history": "History",
+
+
+        "creation_date": "Creation Date",
+        "assignee": "Assignee",
+        "open": "Open",
+        "in_progress": "In progress",
+        "resolved": "Resolved",
+        "cancelled": "Cancelled",
+        "not_claimed": "This ticket has not been claimed yet",
+
+        "claim_ticket": "Claim ticket",
+        "unclaim": "Unclaim",
+        "resolve": "Resolve",
+        "re_open": "Re-open",
+        "cancel_ticket": "Cancel ticket",
+        "view_files": "View files",
+
+        "ticketNotFound": "Ticket not found",
+        "ticketNotFoundText": "Oops. This ticket does not exist or has been deleted",
+        "tickets": "Tickets",
+        "dashboard": "Dashboard"
+    }
+}

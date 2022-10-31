@@ -1,57 +1,57 @@
 [
     {
-        "solution_id": "1",
-        "machine_id": "1",
+        "solutionId": "1",
+        "machineId": "1",
         "issue": "Product verkeerd op machine",
         "solution": "Fotocellen controleren. Eventueel product handmatig op juiste positie plaatsen.",
         "language": "nl"
     },
     {
-        "solution_id": "2",
-        "machine_id": "1",
+        "solutionId": "2",
+        "machineId": "1",
         "issue": "Product verkeerd op machine",
         "solution": "Fotocellen controleren. Eventueel product handmatig op juiste positie plaatsen.",
         "language": "nl"
     },
     {
-        "solution_id": "3",
-        "machine_id": "1",
+        "solutionId": "3",
+        "machineId": "1",
         "issue": "Product placed wrong on machine",
         "solution": "Check photocells. Manually place the product in the correct position if necessary.",
         "language": "en"
     },
     {
-        "solution_id": "4",
-        "machine_id": "1",
+        "solutionId": "4",
+        "machineId": "1",
         "issue": "Product placed wrong on machine",
         "solution": "Check photocells. Manually place the product in the correct position if necessary.",
         "language": "en"
     },
 
     {
-        "solution_id": "5",
-        "machine_id": "2",
+        "solutionId": "5",
+        "machineId": "2",
         "issue": "Lorem ipsum dolor sit amet",
         "solution": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis ipsum a lorem commodo suscipit.",
         "language": "nl"
     },
     {
-        "solution_id": "6",
-        "machine_id": "2",
+        "solutionId": "6",
+        "machineId": "2",
         "issue": "Consectetur adipiscing elit",
         "solution": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis ipsum a lorem commodo suscipit.",
         "language": "nl"
     },
     {
-        "solution_id": "7",
-        "machine_id": "2",
+        "solutionId": "7",
+        "machineId": "2",
         "issue": "Lorem ipsum dolor sit amet",
         "solution": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis ipsum a lorem commodo suscipit.",
         "language": "en"
     },
     {
-        "solution_id": "8",
-        "machine_id": "2",
+        "solutionId": "8",
+        "machineId": "2",
         "issue": "Consectetur adipiscing elit",
         "solution": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis ipsum a lorem commodo suscipit.",
         "language": "en"

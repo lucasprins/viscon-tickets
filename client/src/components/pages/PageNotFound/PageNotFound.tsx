@@ -4,11 +4,18 @@ import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
 import { getCurrentLanguage } from '../../../features/user/userSlice';
 import { useAppSelector } from '../../../utils/hooks';
+import { Navigate } from 'react-router-dom';
+import { getUser } from '../../../features/auth/authSlice';
 
 var translations = require('../../../translations/pageNotFoundTranslations.json');
 
 export function PageNotFound() {
 	const language = useAppSelector(getCurrentLanguage);
+	const currentUser = useAppSelector(getUser);
+
+	if (!currentUser) {
+		return <Navigate to='/login' />;
+	}
 
 	return (
 		<div className='h-screen w-screen flex items-center justify-center p-6 lg:p-8 dark:bg-dark-800'>
@@ -28,8 +35,8 @@ export function PageNotFound() {
 				</div>
 				{/* Actions Mobile */}
 				<div className='flex lg:hidden flex-col justify-center gap-3'>
-					<Button size='large' width='content' type='primary' text={translations[language].button_primary} url="/" />
-					<Button size='large' width='content' type='secondary-gray' text={translations[language].button_secondary} url="/tickets" icon={<IconTicket size='20' color='stroke-gray-800 dark:stroke-white' fill='' />} />
+					<Button size='large' width='full' type='primary' text={translations[language].button_primary} url="/" />
+					<Button size='large' width='full' type='secondary-gray' text={translations[language].button_secondary} url="/tickets" icon={<IconTicket size='20' color='stroke-gray-800 dark:stroke-white' fill='' />} />
 				</div>
 			</div>
 		</div>
