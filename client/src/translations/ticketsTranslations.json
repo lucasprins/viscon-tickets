@@ -3,7 +3,7 @@
         "ticketID":"Ticket ID",
 
         "noTickets": "Geen tickets gevonden...",
-        "noTicketsText": "Het lijkt erop dat je nog geen tickets hebt aangemaakt. Klik op de knop hieronder om een ticket aan te maken.",
+        "noTicketsText": "We hebben geen tickets kunnen vinden die voldoen aan uw filters. Klik op de knop hieronder om de filters te resetten of om een nieuw ticket aan te maken.",
 
         "cancelled": "Geannuleerd"
     },
@@ -12,7 +12,7 @@
         "ticketID":"Ticket ID",
 
         "noTickets": "No tickets found...",
-        "noTicketsText": "It looks like you haven't created any tickets yet. Click on the button below to create a ticket.",
+        "noTicketsText": "We couldn't find any tickets that match your filters. Click the button below to reset your filters or to create a new ticket.",
 
         "cancelled": "Cancelled"
 
