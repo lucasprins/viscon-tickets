@@ -189,7 +189,7 @@ namespace server.Services.TicketService
                 tickets = tickets
                     .OrderBy(ticket => ticket.Status)
                     .ThenBy(ticket => ticket.Priority)
-                    .ThenBy(ticket => ticket.CreationDate)
+                    .ThenByDescending(ticket => ticket.CreationDate)
                     .Skip(skip)
                     .Take(pageSize)
                     .Select(ticket => ticket);
