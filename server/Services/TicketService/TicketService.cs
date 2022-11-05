@@ -171,8 +171,6 @@ namespace server.Services.TicketService
 
             try
             {
-                List<Ticket> tickets;
-
                 if (requestUser == null)
                 {
                     serviceResponse.Success = false;
@@ -180,35 +178,39 @@ namespace server.Services.TicketService
                     return serviceResponse;
                 }
 
+                IQueryable<Ticket> tickets = _context.Tickets.Select(ticket => ticket);
+
                 if (status != null)
+                    tickets = tickets.Where(ticket => ticket.Status == status);
+
+                if (requestUser.Role != Role.VisconAdmin && requestUser.Role != Role.VisconEmployee)
+                    tickets = tickets.Where(ticket => ticket.CompanyId == requestUser.CompanyId);
+
+                tickets = tickets
+                    .OrderBy(ticket => ticket.Status)
+                    .ThenBy(ticket => ticket.Priority)
+                    .ThenBy(ticket => ticket.CreationDate)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .Select(ticket => ticket);
+
+
+                List<Ticket> ticketsList = await tickets.ToListAsync();
+                List<GetTicketDTO> ticketsListConverted = new List<GetTicketDTO>();
+                try
                 {
-                    if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
-                    {
-                        tickets = await _context.Tickets.Where(t => t.Status == status).OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
-                    }
-                    else
-                    {
-                        tickets = await _context.Tickets.Where(t => t.Status == status && t.CompanyId == requestUser.CompanyId).OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
-                    }
+                    foreach (Ticket ticket in ticketsList)
+                        ticketsListConverted.Add(await CreateGetTicketDTO(ticket));
                 }
-                else
+                catch (Exception ex)
                 {
-                    if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
-                    {
-                        tickets = await _context.Tickets.OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
-                    }
-                    else
-                    {
-                        tickets = await _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId).OrderBy(t => t.Status).ThenBy(t => t.Priority).ThenBy(t => t.CreationDate).Skip(skip).Take(pageSize).Select(t => t).ToListAsync();
-                    }
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Unable to return the tickets.";
+                    System.Console.WriteLine(ex.Message);
+                    return serviceResponse;
                 }
 
-                serviceResponse.Data = new List<GetTicketDTO>();
-
-                foreach (var ticket in tickets)
-                {
-                    serviceResponse.Data.Add(await CreateGetTicketDTO(ticket));
-                }
+                serviceResponse.Data = ticketsListConverted;
             }
             catch (Exception ex)
             {
