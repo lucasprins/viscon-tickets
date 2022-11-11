@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import React, { useState } from "react";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
-import { validatePhoneNumber } from "../../../utils/validateInput";
+import { validatePhoneNumber } from "../../../utils/input-validation";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";

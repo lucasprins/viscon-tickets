@@ -6,7 +6,7 @@ import { clearMessage } from "../../../features/auth/messageSlice";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { validateEmail, validatePassword } from "../../../utils/validateInput";
+import { validateEmail, validatePassword } from "../../../utils/input-validation";
 import { Button } from "../../atoms/Button/Button";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { IconKey, IconMail, IconTranslate } from "../../atoms/Icons/Icons";

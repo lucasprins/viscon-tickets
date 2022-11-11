@@ -15,7 +15,7 @@ import { ProgressStep } from "../../atoms/Progress/ProgressStep";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { validatePhoneNumber, validateTextarea } from "../../../utils/validateInput";
+import { validatePhoneNumber, validateTextarea } from "../../../utils/input-validation";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
 import { createTicketType, MachineType, userType } from "../../../utils/types";
 import { getUser } from "../../../features/auth/authSlice";

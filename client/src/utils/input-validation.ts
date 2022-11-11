@@ -92,7 +92,7 @@ export const validateName = (name: string, language: string): string | undefined
  * @param language - The language which the user has chosen, taken from Redux state
  * @returns The error which occured, if any
  */
-export const validateCompany = (companyName: string, language: string): string | undefined => {
+export const validateCompanyName = (companyName: string, language: string): string | undefined => {
     let error;
     if(!companyName) {
         error = translations[language].fieldRequired;
