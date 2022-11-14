@@ -19,8 +19,6 @@ namespace server.Data
         public DbSet<Notification> Notifications { get; set; } = null!;
         public DbSet<Solution> Solutions { get; set; } = null!;
 
-
-        // Ticket
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<CompanyMachine>()
                 .HasKey(cm => new { cm.CompanyId, cm.MachineId });

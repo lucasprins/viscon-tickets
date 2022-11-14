@@ -63,7 +63,7 @@ export function Tickets() {
     setSearchFilter("");
     setStatusFilter({ value: "", label: "All" });
     setCompany("");
-  }
+  };
 
   let CancelTokenTickets = axios.CancelToken;
   let sourceTickets = CancelTokenTickets.source();
@@ -143,17 +143,19 @@ export function Tickets() {
             <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
           </div>
         ) : (
-          <TableTickets
-            tickets={tickets}
-            nextPage={handleNextPage}
-            previousPage={handlePreviousPage}
-            page={page}
-            pages={maxPages}
-            statusFilter={statusFilter}
-            statusFilterOptions={statusOptions}
-            handleChangeStatusFilter={handleChangeStatusFilter}
-            resetFilters={resetFilters}
-          />
+          <div className='hidden lg:flex'>
+            <TableTickets
+              tickets={tickets}
+              nextPage={handleNextPage}
+              previousPage={handlePreviousPage}
+              page={page}
+              pages={maxPages}
+              statusFilter={statusFilter}
+              statusFilterOptions={statusOptions}
+              handleChangeStatusFilter={handleChangeStatusFilter}
+              resetFilters={resetFilters}
+            />
+          </div>
         )}
       </div>
     </div>
