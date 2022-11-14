@@ -26,9 +26,15 @@ namespace server.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<ServiceResponse<GetUserDTO>>> Register(RegisterUserDTO newUser)
+        public async Task<ActionResult<ServiceResponse<GetUserDTO>>> Register(RegisterDTO newUser)
         {
             return Ok(await _authService.Register(newUser));
+        }
+
+        [HttpPost("RegisterUser")]
+        public async Task<ActionResult<ServiceResponse<GetUserDTO>>> RegisterUser(RegisterUserDTO newUser, Guid registrationToken)
+        {
+            return Ok(await _authService.RegisterUser(newUser, registrationToken));
         }
         
     }

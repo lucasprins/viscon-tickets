@@ -18,6 +18,7 @@ namespace server.Data
         public DbSet<Ticket> Tickets { get; set; } = null!;
         public DbSet<Notification> Notifications { get; set; } = null!;
         public DbSet<Solution> Solutions { get; set; } = null!;
+        public DbSet<Token> Tokens { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<CompanyMachine>()
@@ -62,6 +63,13 @@ namespace server.Data
                 .HasOne(t => t.Company)
                 .WithMany(c => c.Tickets)
                 .HasForeignKey(t => t.CompanyId);
+
+            modelBuilder.Entity<Token>()
+                .HasKey(t => new { t.TokenValue, t.UserId });
+            modelBuilder.Entity<Token>()
+                .HasOne(t => t.User)
+                .WithMany(u => u.Tokens)
+                .HasForeignKey(t => t.UserId);
         }
     }
 }

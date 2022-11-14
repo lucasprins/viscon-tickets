@@ -202,6 +202,27 @@ namespace server.Migrations
                     b.ToTable("Tickets");
                 });
 
+            modelBuilder.Entity("server.Models.Token", b =>
+                {
+                    b.Property<Guid>("TokenValue")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TokenType")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TokenValue", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tokens");
+                });
+
             modelBuilder.Entity("server.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -227,15 +248,12 @@ namespace server.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Prefix")
@@ -325,6 +343,17 @@ namespace server.Migrations
                     b.Navigation("Machine");
                 });
 
+            modelBuilder.Entity("server.Models.Token", b =>
+                {
+                    b.HasOne("server.Models.User", "User")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("server.Models.User", b =>
                 {
                     b.HasOne("server.Models.Company", "Company")
@@ -361,6 +390,8 @@ namespace server.Migrations
                     b.Navigation("CreatedTickets");
 
                     b.Navigation("Notifications");
+
+                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }

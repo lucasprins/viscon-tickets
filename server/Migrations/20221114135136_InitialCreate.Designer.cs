@@ -12,8 +12,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221022183022_AddedTablesAndRelations")]
-    partial class AddedTablesAndRelations
+    [Migration("20221114135136_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,6 +155,9 @@ namespace server.Migrations
                     b.Property<Guid?>("AssigneeId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -180,7 +183,6 @@ namespace server.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Solution")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Status")
@@ -193,11 +195,34 @@ namespace server.Migrations
 
                     b.HasIndex("AssigneeId");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("CreatorId");
 
                     b.HasIndex("MachineId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("server.Models.Token", b =>
+                {
+                    b.Property<Guid>("TokenValue")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TokenType")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TokenValue", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("server.Models.User", b =>
@@ -225,19 +250,15 @@ namespace server.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Prefix")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Role")
@@ -297,6 +318,12 @@ namespace server.Migrations
                         .WithMany("AssignedTickets")
                         .HasForeignKey("AssigneeId");
 
+                    b.HasOne("server.Models.Company", "Company")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("server.Models.User", "Creator")
                         .WithMany("CreatedTickets")
                         .HasForeignKey("CreatorId")
@@ -311,9 +338,22 @@ namespace server.Migrations
 
                     b.Navigation("Assignee");
 
+                    b.Navigation("Company");
+
                     b.Navigation("Creator");
 
                     b.Navigation("Machine");
+                });
+
+            modelBuilder.Entity("server.Models.Token", b =>
+                {
+                    b.HasOne("server.Models.User", "User")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("server.Models.User", b =>
@@ -330,6 +370,8 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.Company", b =>
                 {
                     b.Navigation("CompanyMachines");
+
+                    b.Navigation("Tickets");
 
                     b.Navigation("Users");
                 });
@@ -350,6 +392,8 @@ namespace server.Migrations
                     b.Navigation("CreatedTickets");
 
                     b.Navigation("Notifications");
+
+                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }
