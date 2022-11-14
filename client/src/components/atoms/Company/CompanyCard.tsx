@@ -3,7 +3,6 @@ import { companyType } from "../../../utils/types";
 import { Button } from "../Button/Button";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconBuilding } from "../Icons/Icons";
-import CompanyLogo from "./CompanyLogo";
 
 const CompanyCard = ({ company }: { company: companyType }) => {
   return (
@@ -13,7 +12,13 @@ const CompanyCard = ({ company }: { company: companyType }) => {
           <FeaturedIcon
             size='lg'
             type='primary'
-            icon={<IconBuilding size='24' fill='fill-primary-500 dark:fill-white' color='stroke-primary-500 dark:stroke-white' />}
+            icon={
+              <IconBuilding
+                size='24'
+                fill='fill-primary-500 dark:fill-white'
+                color='stroke-primary-500'
+              />
+            }
           />
         </span>
         <div className='flex flex-col'>
@@ -22,8 +27,8 @@ const CompanyCard = ({ company }: { company: companyType }) => {
         </div>
       </div>
       <div className='border-t border-gray-200 dark:border-dark-600 px-5 py-4 flex gap-3'>
-        <Button size='medium' width='full' type='secondary-gray' text='Edit company' />
-        <Button size='medium' width='full' type='tertiary-gray' text='Deactivate' />
+        <Button size='medium' width='full' type='secondary-color' text='Edit company' />
+        <Button size='medium' width='full' type='secondary-gray' text='Deactivate' />
       </div>
     </div>
   );
