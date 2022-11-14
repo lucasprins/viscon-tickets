@@ -172,7 +172,7 @@ export function TableTickets({
                 <tr
                   onClick={() => navigate(`/tickets/${row.original.id}`)}
                   key={row.id}
-                  className='odd:bg-gray-50 hover:odd:bg-gray-100 hover:even:bg-gray-100 cursor-pointer even:bg-white dark:odd:bg-dark-700 dark:even:bg-dark-800 dark:hover:odd:bg-dark-600 dark:hover:even:bg-dark-700 border-b border-gray-200 dark:border-dark-600'
+                  className='odd:bg-gray-50 hover:odd:bg-gray-100 hover:even:bg-gray-100 cursor-pointer even:bg-white dark:odd:bg-dark-700 dark:even:bg-dark-800 dark:hover:odd:bg-dark-600 dark:hover:even:bg-dark-600 border-b border-gray-200 dark:border-dark-600'
                 >
                   {row.getVisibleCells().map((cell) => (
                     //CSS for the individual cells
