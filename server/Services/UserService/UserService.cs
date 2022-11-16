@@ -22,14 +22,6 @@ namespace server.Services.UserService
     public async Task<ServiceResponse<AddUserDTO>> AddUser(AddUserDTO newUser)
     {
       ServiceResponse<AddUserDTO> response = new ServiceResponse<AddUserDTO>();
-      var requestingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
-
-      if (requestingUser == null)
-      {
-        response.Success = false;
-        response.Message = "Requesting user not found.";
-        return response;
-      }
 
       if (await _context.Users.AnyAsync(u => u.Email.ToLower() == newUser.Email.ToLower()))
       {
@@ -39,19 +31,19 @@ namespace server.Services.UserService
       }
 
       User addingUser = new User();
-        addingUser.Id = Guid.NewGuid();
-        addingUser.FirstName = newUser.FirstName;
-        addingUser.Prefix = newUser.Prefix;
-        addingUser.LastName = newUser.LastName;
-        addingUser.Email = newUser.Email;
-        addingUser.Role = newUser.Role;
-        addingUser.CompanyId = requestingUser.CompanyId;
+      addingUser.Id = Guid.NewGuid();
+      addingUser.FirstName = newUser.FirstName;
+      addingUser.Prefix = newUser.Prefix;
+      addingUser.LastName = newUser.LastName;
+      addingUser.Email = newUser.Email;
+      addingUser.Role = newUser.Role;
+      addingUser.CompanyId = newUser.CompanyId;
 
       Token registrationToken = new Token();
-        registrationToken.UserId = addingUser.Id;
-        registrationToken.TokenType = TokenType.REGISTER;
-        registrationToken.TokenValue = Guid.NewGuid();
-        registrationToken.ExpirationDate = DateTime.UtcNow.AddDays(3);
+      registrationToken.UserId = addingUser.Id;
+      registrationToken.TokenType = TokenType.REGISTER;
+      registrationToken.TokenValue = Guid.NewGuid();
+      registrationToken.ExpirationDate = DateTime.UtcNow.AddDays(3);
 
       try
       {
@@ -64,6 +56,23 @@ namespace server.Services.UserService
         response.Success = false;
         response.Message = "Something went wrong while adding the user.";
         return response;
+      }
+
+      return response;
+    }
+
+    public async Task<ServiceResponse<bool>> EmailExists(string email)
+    {
+      ServiceResponse<bool> response = new ServiceResponse<bool>();
+      try
+      {
+        response.Data = await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+        response.Message = "Email exists.";
+      }
+      catch
+      {
+        response.Success = false;
+        response.Message = "Something went wrong while checking if the email exists.";
       }
 
       return response;

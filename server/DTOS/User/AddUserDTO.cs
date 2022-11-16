@@ -12,5 +12,6 @@ namespace server.DTOS
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public Role Role { get; set; }
+        public Guid CompanyId { get; set; }
     }
 }

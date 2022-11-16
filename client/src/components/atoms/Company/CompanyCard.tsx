@@ -6,7 +6,7 @@ import { IconBuilding } from "../Icons/Icons";
 
 const CompanyCard = ({ company }: { company: companyType }) => {
   return (
-    <div className='flex overflow-clip flex-col drop-shadow-sm dark:drop-shadow-md border bg-white dark:bg-dark-800 dark:border-dark-600 border-gray-200 rounded-md w-full'>
+    <div className='flex overflow-clip flex-col drop-shadow-sm dark:drop-shadow-md border bg-white dark:bg-dark-800 dark:border-dark-600 border-gray-200 rounded-lg w-full'>
       <div className='flex p-5 gap-4 items-center'>
         <span>
           <FeaturedIcon
@@ -27,8 +27,8 @@ const CompanyCard = ({ company }: { company: companyType }) => {
         </div>
       </div>
       <div className='border-t border-gray-200 dark:border-dark-600 px-5 py-4 flex gap-3'>
-        <Button size='medium' width='full' type='secondary-color' text='Edit company' />
-        <Button size='medium' width='full' type='secondary-gray' text='Deactivate' />
+        <Button size='medium' width='full' type='secondary-gray' text='Edit company' />
+        <Button size='medium' width='full' type='tertiary-gray' text='Deactivate' />
       </div>
     </div>
   );

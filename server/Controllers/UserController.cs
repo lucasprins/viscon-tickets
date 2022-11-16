@@ -24,5 +24,11 @@ namespace server.Controllers
         {
             return Ok(await _userService.AddUser(newUser));
         }
+
+        [HttpGet("EmailExists/{email}")]
+        public async Task<IActionResult> EmailExists(string email)
+        {
+            return Ok(await _userService.EmailExists(email));
+        }
     }
 }

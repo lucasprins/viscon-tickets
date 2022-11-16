@@ -10,11 +10,9 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
-import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import CompanyCard from "../../atoms/Company/CompanyCard";
 import { Divider } from "../../atoms/Divider/Divider";
-import { IconCheck, IconClose, IconPlus } from "../../atoms/Icons/Icons";
-import { IconFlag } from "../../atoms/Icons/IconsFlags";
+import { IconPlus } from "../../atoms/Icons/Icons";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import Layout from "../../organisms/Layout/Layout";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
@@ -90,7 +88,7 @@ export function AdminCompanies() {
             </div>
             <Divider />
             <div className='grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5'>
-              {loading ? <p>Loading...</p> : companies.map((company) => <CompanyCard company={company} />)}
+              {loading ? <p>Loading...</p> : companies.map((company) => <CompanyCard key={company.id} company={company} />)}
             </div>
           </div>
         </div>
