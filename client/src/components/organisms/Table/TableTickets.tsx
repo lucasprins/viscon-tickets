@@ -16,6 +16,7 @@ import { ticketType } from "../../../utils/types";
 import { EmptyState } from "../../molecules/EmptyState/EmptyState";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";
+import { getUser } from "../../../features/auth/authSlice";
 
 interface TicketsTableType {
   id: string;
@@ -55,6 +56,7 @@ export function TableTickets({
 }: TableTicketsProps) {
   const language = useAppSelector(getCurrentLanguage);
   const navigate = useNavigate();
+  const user = useAppSelector(getUser);
   let tableTickets: TicketsTableType[] = [];
 
   tickets.forEach((ticket) => {
@@ -69,17 +71,13 @@ export function TableTickets({
     });
   });
 
-  
-    
-  
   // createColumnHelper is a function from Tanstack that helps creating collection of headers
   const columnHelper = createColumnHelper<TicketsTableType>();
-
 
   const columnsNonMemoBig = [
     columnHelper.accessor("ticketNumber", {
       cell: (props) => {
-        return <span className='text-gray-900 dark:text-white font-medium'>#{props.getValue()}</span>;
+        return <span className='font-medium text-gray-900 dark:text-white'>#{props.getValue()}</span>;
       },
       header: "Ticket ID",
     }),
@@ -129,7 +127,7 @@ export function TableTickets({
   const columnsNonMemoSmall = [
     columnHelper.accessor("ticketNumber", {
       cell: (props) => {
-        return <span className='text-gray-900 dark:text-white font-medium'>#{props.getValue()}</span>;
+        return <span className='font-medium text-gray-900 dark:text-white'>#{props.getValue()}</span>;
       },
       header: "Ticket ID",
     }),
@@ -163,20 +161,22 @@ export function TableTickets({
 
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {window.addEventListener("resize", handleReizeTable)});
+  useEffect(() => {
+    window.addEventListener("resize", handleReizeTable);
+  });
   const columnsNonMemo = isMobile ? columnsNonMemoSmall : columnsNonMemoBig;
-  
+
   const handleReizeTable = () => {
-    if (window.innerWidth <= 1024 ) {
+    if (window.innerWidth <= 1024) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
     }
   };
-  
+
   //const columns =columnsNonMemo;
   const columns = columnsNonMemo;
- // const data = tableTickets;
+  // const data = tableTickets;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const data = useMemo(() => tableTickets, []);
 
@@ -188,7 +188,7 @@ export function TableTickets({
   });
 
   return (
-    <div className='w-full rounded-xl border border-gray-200 bg-white dark:bg-dark-800 dark:border-dark-600 drop-shadow-sm'>
+    <div className='w-full bg-white border border-gray-200 rounded-xl dark:bg-dark-800 dark:border-dark-600 drop-shadow-sm'>
       {tickets.length > 0 ? (
         <>
           {/* Filters */}
@@ -203,7 +203,7 @@ export function TableTickets({
               />
             </div>
           </div>
-          <table className='min-w-full border-t border-gray-200 dark:border-dark-600 w-full divide-y divide-gray-200 dark:divide-dark-600'>
+          <table className='w-full min-w-full border-t border-gray-200 divide-y divide-gray-200 dark:border-dark-600 dark:divide-dark-600'>
             <thead className=''>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className='text-left'>
@@ -211,7 +211,7 @@ export function TableTickets({
                     <th
                       key={header.id}
                       colSpan={header.colSpan}
-                      className='text-xs font-semibold text-gray-600 px-6 py-3 dark:text-white'
+                      className='px-6 py-3 text-xs font-semibold text-gray-600 dark:text-white'
                     >
                       {header.isPlaceholder ? null : (
                         <>{flexRender(header.column.columnDef.header, header.getContext())}</>
@@ -226,7 +226,7 @@ export function TableTickets({
                 <tr
                   onClick={() => navigate(`/tickets/${row.original.id}`)}
                   key={row.id}
-                  className='odd:bg-gray-50 hover:odd:bg-gray-100 hover:even:bg-gray-100 cursor-pointer even:bg-white dark:odd:bg-dark-700 dark:even:bg-dark-800 dark:hover:odd:bg-dark-600 dark:hover:even:bg-dark-600 border-b border-gray-200 dark:border-dark-600'
+                  className='border-b border-gray-200 cursor-pointer odd:bg-gray-50 hover:odd:bg-gray-100 hover:even:bg-gray-100 even:bg-white dark:odd:bg-dark-700 dark:even:bg-dark-800 dark:hover:odd:bg-dark-600 dark:hover:even:bg-dark-600 dark:border-dark-600'
                 >
                   {row.getVisibleCells().map((cell) => (
                     //CSS for the individual cells
@@ -239,14 +239,14 @@ export function TableTickets({
             </tbody>
           </table>
 
-          <div className='w-full min-w-full flex items-center justify-between py-3 px-4'>
+          <div className='flex items-center justify-between w-full min-w-full px-4 py-3'>
             <Button size='small' width='content' type='secondary-gray' text='Previous' onclick={() => previousPage()} />
-            <span className='text-sm text-gray-700 font-medium dark:text-dark-300'>{`${page} of ${pages}`}</span>
+            <span className='text-sm font-medium text-gray-700 dark:text-dark-300'>{`${page} of ${pages}`}</span>
             <Button size='small' width='content' type='secondary-gray' text='Next' onclick={() => nextPage()} />
           </div>
         </>
       ) : (
-        <div className='flex flex-col gap-6 w-full items-center justify-center p-8 lg:py-16'>
+        <div className='flex flex-col items-center justify-center w-full gap-6 p-8 lg:py-16'>
           <EmptyState
             color='primary'
             title={translations[language].noTickets}
@@ -260,20 +260,16 @@ export function TableTickets({
             }
           />
           <div className='flex gap-4'>
-            <Button
-              size='small'
-              width='content'
-              type='secondary-gray'
-              text='Reset filters'
-              onclick={resetFilters}
-            />
-            <Button
-              size='small'
-              width='content'
-              type='primary'
-              text='Create a ticket'
-              onclick={() => navigate("/knowledgebase/create-ticket")}
-            />
+            <Button size='small' width='content' type='secondary-gray' text='Reset filters' onclick={resetFilters} />
+            {(user?.role !== "VisconAdmin" && user?.role !== "VisconEmployee") && (
+              <Button
+                size='small'
+                width='content'
+                type='primary'
+                text='Create a ticket'
+                onclick={() => navigate("/knowledgebase/create-ticket")}
+              />
+            )}
           </div>
         </div>
       )}

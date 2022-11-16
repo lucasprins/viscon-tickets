@@ -35,7 +35,6 @@ namespace server.Controllers
         [HttpPost("AddCompany"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> AddCompany(AddCompanyDTO newCompany)
         {
-            Thread.Sleep(5000);
             return Ok(await _companyService.AddCompany(newCompany));
         }
 

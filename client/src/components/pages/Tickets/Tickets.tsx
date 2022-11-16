@@ -25,6 +25,8 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
 import { TableTickets } from "../../organisms/Table/TableTickets";
 
+const translations = require("../../../translations/ticketsTranslations.json");
+
 export function Tickets() {
   const user = localStorage.getItem("user");
   const language = useAppSelector(getCurrentLanguage);
@@ -44,10 +46,10 @@ export function Tickets() {
 
   const statusOptions = [
     { value: "", label: "All" },
-    { value: "Open", label: "Open" },
-    { value: "InProgress", label: "In progress" },
-    { value: "Resolved", label: "Resolved" },
-    { value: "Cancelled", label: "Cancelled" },
+    { value: translations[language].open, label: translations[language].open },
+    { value: translations[language].inProgress, label: translations[language].inProgress },
+    { value: translations[language].resolved, label: translations[language].resolved },
+    { value: translations[language].cancelled, label: translations[language].cancelled },
   ];
 
   const [searchFilter, setSearchFilter] = useState("");
