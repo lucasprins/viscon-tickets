@@ -1,11 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Backdrop from "./components/atoms/Backdrop/Backdrop";
 import { ModalChangeLanguage } from "./components/organisms/Modal/ModalChangeLanguage";
 import { getBackdropState } from "./features/modal/modalSlice";
 import { useAppSelector } from "./utils/hooks";
 import { routes } from "./routes";
-import { getUser } from "./features/auth/authSlice";
 
 function App() {
 	const backdropState = useAppSelector(getBackdropState);

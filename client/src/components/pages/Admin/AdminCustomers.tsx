@@ -1,6 +1,5 @@
-import { Transition, Dialog } from "@headlessui/react";
 import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { getUser } from "../../../features/auth/authSlice";
 import CompanyService from "../../../features/customers/companyService";
@@ -16,6 +15,8 @@ import { IconPlus } from "../../atoms/Icons/Icons";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import Layout from "../../organisms/Layout/Layout";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
+
+const translations = require("../../../translations/adminTranslations.json");
 
 export function AdminCompanies() {
   const dispatch = useAppDispatch();
@@ -72,10 +73,10 @@ export function AdminCompanies() {
 
       <div className='flex flex-col h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
         <Layout />
-        <div className='p-6 w-full flex flex-col gap-8 overflow-y-scroll'>
+        <div className='flex flex-col w-full gap-8 p-6 overflow-y-scroll'>
           <Breadcrumbs crumbs={["Companies"]} />
-          <div className='flex flex-col gap-6 w-full'>
-            <div className='flex flex-col sm:flex-row gap-4 justify-between'>
+          <div className='flex flex-col w-full gap-6'>
+            <div className='flex flex-col justify-between gap-4 sm:flex-row'>
               <PageHeader title='Companies' />
               <Button
                 size='medium'
@@ -87,7 +88,7 @@ export function AdminCompanies() {
               />
             </div>
             <Divider />
-            <div className='grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5'>
+            <div className='grid gap-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
               {loading ? <p>Loading...</p> : companies.map((company) => <CompanyCard key={company.id} company={company} />)}
             </div>
           </div>

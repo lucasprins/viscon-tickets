@@ -127,19 +127,19 @@ export function Tickets() {
   return (
     <div className='flex flex-col h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
       <Layout />
-      <div className='p-8 w-full flex flex-col gap-8 overflow-y-scroll'>
+      <div className='flex flex-col w-full gap-8 p-8 overflow-y-scroll'>
         <Breadcrumbs crumbs={["Tickets"]} />
-        <div className='flex flex-col gap-6 w-full'>
+        <div className='flex flex-col w-full gap-6'>
           <PageHeader title='Tickets' />
           <Divider />
         </div>
-        <div className='flex gap-6 w-full'>
+        <div className='flex w-full gap-6'>
           <MetricCard number={totalTickets.toString()} title='Total tickets' />
           <MetricCard number={totalTicketsThisWeek.toString()} title="This week's tickets" />
           <MetricCard number={totalTicketsByUser.toString()} title='Your tickets' />
         </div>
         {loadingTickets || loadingTotalTickets ? (
-          <div className='flex w-full justify-center items-center h-96'>
+          <div className='flex items-center justify-center w-full h-96'>
             <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
           </div>
         ) : (
