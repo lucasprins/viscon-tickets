@@ -4,11 +4,7 @@
  * @param name - The name to generate the initials for
  * @returns the initials as a string
  */
-export const getInitials = (name: string): string => {
-  if (/\d/.test(name)) {
-    throw new Error('Name cannot contain a number');
-  }
-  
+export const getInitials = (name: string): string => {  
   const parts: string[] = name.split(" ");
   let initials: string = "";
 

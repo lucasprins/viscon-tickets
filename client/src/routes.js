@@ -1,6 +1,6 @@
 import { AccessDenied } from "./components/pages/AccessDenied/AccessDenied";
 import { Account } from "./components/pages/Account/Account";
-import { AdminCustomers } from "./components/pages/Admin/AdminCustomers";
+import { AdminCompanies } from "./components/pages/Admin/AdminCustomers";
 import { AdminMachines } from "./components/pages/Admin/AdminMachines";
 import { AdminSolutions } from "./components/pages/Admin/AdminSolutions";
 import { AdminUsers } from "./components/pages/Admin/AdminUsers";
@@ -32,7 +32,7 @@ export const routes = [
     { path: '/knowledgebase/create-ticket', name: 'create-ticket', component: <CreateTicket /> },
     { path: '/playground', name: 'account', component: <Playground /> },
     { path: '/admin/users', name: 'notifications', component: <AdminUsers /> },
-    { path: '/admin/customers', name: 'notifications', component: <AdminCustomers /> },
+    { path: '/admin/companies', name: 'notifications', component: <AdminCompanies /> },
     { path: '/admin/machines', name: 'notifications', component: <AdminMachines /> },
     { path: '/admin/solutions', name: 'notifications', component: <AdminSolutions /> },
     { path: '/notifications', name: 'notifications', component: <Notifications /> },

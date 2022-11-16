@@ -41,7 +41,7 @@ export function Button({ size, width, type, text, icon, url, onclick, formType, 
             buttonTypeStyle = "text-primary-600 dark:text-white border border-primary-50 dark:border-dark-600 bg-primary-50 dark:bg-dark-600 hover:bg-primary-100";
             break;
         case 'tertiary-gray':
-            buttonTypeStyle = "text-gray-800 border border-primary-600 border-opacity-0 hover:bg-gray-50 dark:text-white dark:hover:bg-dark-600";
+            buttonTypeStyle = "text-gray-800 border border-primary-600 border-opacity-0 hover:bg-gray-50 dark:text-white dark:hover:bg-dark-700";
             break;
         case 'tertiary-color':
             buttonTypeStyle = "text-primary-600 dark:text-gray-300 border border-primary-600 border-opacity-0 hover:bg-primary-50 dark:hover:bg-dark-600";

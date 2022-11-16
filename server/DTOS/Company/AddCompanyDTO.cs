@@ -9,5 +9,6 @@ namespace server.DTOS
     {
         public string Name { get; set; } = null!;
         public string Country { get; set; } = null!;
+        public AddUserDTO AdminUser { get; set; } = null!;
     }
 }

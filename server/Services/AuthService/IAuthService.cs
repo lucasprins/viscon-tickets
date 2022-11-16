@@ -14,8 +14,10 @@ namespace server.Services.AuthService
         void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
         bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt);
 
-        Task<ServiceResponse<GetUserDTO>> Register(RegisterUserDTO newUser);
+        Task<ServiceResponse<GetUserDTO>> Register(RegisterDTO newUser);
         Task<ServiceResponse<GetAuthenticatedUserDTO>> Login(LoginUserDTO user);
+
+        Task<ServiceResponse<GetUserDTO>> RegisterUser(RegisterUserDTO newUser, Guid registrationToken);
 
     }
 }

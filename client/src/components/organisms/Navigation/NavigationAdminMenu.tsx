@@ -21,7 +21,7 @@ export function NavigationAdminMenu() {
     } else if (userRole === 'VisconAdmin') {
         navigationItems = [
             <NavigationItem name={translations[language].manage_users} url='admin/users' icon={<IconUsers size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />,
-            <NavigationItem name={translations[language].manage_customers} url='admin/customers' icon={<IconBuilding size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />,
+            <NavigationItem name={translations[language].manage_companies} url='admin/companies' icon={<IconBuilding size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />,
             <NavigationItem name={translations[language].manage_machines} url='admin/machines' icon={<IconGear size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />,
             <NavigationItem name={translations[language].manage_solutions} url='admin/solutions' icon={<IconLightbulb size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} />
         ]

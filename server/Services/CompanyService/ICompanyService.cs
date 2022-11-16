@@ -10,6 +10,7 @@ namespace server.Services.CompanyService
     {
         Task<ServiceResponse<List<GetCompanyDTO>>> GetAllCompanies();
         Task<ServiceResponse<GetCompanyDTO>> GetCompanyById(Guid id);
+        Task<ServiceResponse<bool>> CompanyExists(string name);
         Task<ServiceResponse<List<GetCompanyDTO>>> AddCompany(AddCompanyDTO newCompany);
     }
 }
