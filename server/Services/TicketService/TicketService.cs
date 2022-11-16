@@ -69,6 +69,8 @@ namespace server.Services.TicketService
                 System.Console.WriteLine(ex.Message);
             }
 
+            // TODO: Stuur een browser notificatie naar alle viscon medewerkers
+            
             return serviceResponse;
         }
 

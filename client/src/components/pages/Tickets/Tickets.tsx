@@ -133,7 +133,7 @@ export function Tickets() {
           <PageHeader title='Tickets' />
           <Divider />
         </div>
-        <div className='hidden gap-6 w-full md:flex '>
+        <div className='hidden w-full gap-6 lg:flex '>
           <MetricCard number={totalTickets.toString()} title='Total tickets' />
           <MetricCard number={totalTicketsThisWeek.toString()} title="This week's tickets" />
           <MetricCard number={totalTicketsByUser.toString()} title='Your tickets' />
