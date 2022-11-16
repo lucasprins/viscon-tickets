@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-  Table as ReactTable,
 } from "@tanstack/react-table";
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert } from "../../atoms/Icons/Icons";
@@ -70,10 +69,14 @@ export function TableTickets({
     });
   });
 
+  
+    
+  
   // createColumnHelper is a function from Tanstack that helps creating collection of headers
   const columnHelper = createColumnHelper<TicketsTableType>();
 
-  const columnsNonMemo = [
+
+  const columnsNonMemoBig = [
     columnHelper.accessor("ticketNumber", {
       cell: (props) => {
         return <span className='text-gray-900 dark:text-white font-medium'>#{props.getValue()}</span>;
@@ -123,7 +126,58 @@ export function TableTickets({
     }),
   ];
 
-  const columns = useMemo(() => columnsNonMemo, []);
+  const columnsNonMemoSmall = [
+    columnHelper.accessor("ticketNumber", {
+      cell: (props) => {
+        return <span className='text-gray-900 dark:text-white font-medium'>#{props.getValue()}</span>;
+      },
+      header: "Ticket ID",
+    }),
+    columnHelper.accessor("creator", {
+      header: "Customer",
+      cell: (props) => {
+        return (
+          <div className='flex flex-col'>
+            <span className='text-gray-900 dark:text-white'>{props.getValue()}</span>
+            <span className='text-gray-600 dark:text-dark-300'>{props.row.original.company}</span>
+          </div>
+        );
+      },
+    }),
+    columnHelper.accessor("status", {
+      header: "Status", //Could also be written as: header: info => info.column.id,
+      cell: (props: { getValue: () => any }) => {
+        switch (props.getValue()) {
+          case "Open":
+            return <Badge size='md' color='error' text='Open' />;
+          case "Resolved":
+            return <Badge size='md' color='gray' text='Resolved' />;
+          case "InProgress":
+            return <Badge size='md' color='primary' text='In progress' />;
+          case "Cancelled":
+            return <Badge size='md' color='gray' text={translations[language].cancelled} />;
+        }
+      },
+    }),
+  ];
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {window.addEventListener("resize", handleReizeTable)});
+  const columnsNonMemo = isMobile ? columnsNonMemoSmall : columnsNonMemoBig;
+  
+  const handleReizeTable = () => {
+    if (window.innerWidth <= 1024 ) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+  
+  //const columns =columnsNonMemo;
+  const columns = columnsNonMemo;
+ // const data = tableTickets;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const data = useMemo(() => tableTickets, []);
 
   const table = useReactTable({

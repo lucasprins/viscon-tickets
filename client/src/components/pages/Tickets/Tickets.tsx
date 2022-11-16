@@ -133,7 +133,7 @@ export function Tickets() {
           <PageHeader title='Tickets' />
           <Divider />
         </div>
-        <div className='flex gap-6 w-full'>
+        <div className='hidden gap-6 w-full md:flex '>
           <MetricCard number={totalTickets.toString()} title='Total tickets' />
           <MetricCard number={totalTicketsThisWeek.toString()} title="This week's tickets" />
           <MetricCard number={totalTicketsByUser.toString()} title='Your tickets' />
@@ -143,7 +143,7 @@ export function Tickets() {
             <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
           </div>
         ) : (
-          <div className='hidden lg:flex'>
+          <div className='lg:flex'>
             <TableTickets
               tickets={tickets}
               nextPage={handleNextPage}
