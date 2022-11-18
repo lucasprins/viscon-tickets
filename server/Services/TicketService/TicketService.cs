@@ -27,7 +27,7 @@ namespace server.Services.TicketService
             ticketDTO.Assignee = _mapper.Map<GetTicketUserDTO>(await _context.Users.FirstOrDefaultAsync(u => u.Id == ticket.AssigneeId));
             ticketDTO.Company = _mapper.Map<GetCompanyDTO>(await _context.Companies.FirstOrDefaultAsync(c => c.Id == ticket.CompanyId));
 
-            var ticketMachine = await _context.Machines.FirstOrDefaultAsync(m => m.Id == ticket.MachineId);
+            var ticketMachine = await _context.CompanyMachines.FirstOrDefaultAsync(cm => cm.CompanyId == ticket.CompanyId && cm.Id == ticket.CompanyMachineId);
             ticketDTO.MachineName = ticketMachine != null ? ticketMachine.Name : null;
 
             return ticketDTO;

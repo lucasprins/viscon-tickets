@@ -49,22 +49,6 @@ namespace server.Services.CompanyService
           CompanyId = company.Id
         });
 
-        await _context.Machines.AddAsync(new Machine
-        {
-          Id = Guid.NewGuid(),
-          Name = "Software",
-          BlueprintNumber = company.Id.ToString(),
-          Type = "Software"
-        });
-
-        await _context.Machines.AddAsync(new Machine
-        {
-          Id = Guid.NewGuid(),
-          Name = "Other",
-          BlueprintNumber = company.Id.ToString(),
-          Type = "Other"
-        });
-
         await _context.SaveChangesAsync();
 
         var machines = await _context.Machines.Where(m => m.BlueprintNumber == company.Id.ToString()).ToListAsync();

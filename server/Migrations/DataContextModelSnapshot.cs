@@ -46,13 +46,23 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Models.CompanyMachine", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("MachineId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("CompanyId", "MachineId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("MachineId");
 
@@ -66,10 +76,6 @@ namespace server.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("BlueprintNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -156,6 +162,9 @@ namespace server.Migrations
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CompanyMachineId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -170,7 +179,7 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("MachineId")
+                    b.Property<Guid?>("MachineId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("PhoneNumber")
@@ -194,6 +203,8 @@ namespace server.Migrations
                     b.HasIndex("AssigneeId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("CompanyMachineId");
 
                     b.HasIndex("CreatorId");
 
@@ -322,25 +333,29 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("server.Models.CompanyMachine", "CompanyMachine")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CompanyMachineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("server.Models.User", "Creator")
                         .WithMany("CreatedTickets")
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Models.Machine", "Machine")
+                    b.HasOne("server.Models.Machine", null)
                         .WithMany("Tickets")
-                        .HasForeignKey("MachineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MachineId");
 
                     b.Navigation("Assignee");
 
                     b.Navigation("Company");
 
-                    b.Navigation("Creator");
+                    b.Navigation("CompanyMachine");
 
-                    b.Navigation("Machine");
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("server.Models.Token", b =>
@@ -372,6 +387,11 @@ namespace server.Migrations
                     b.Navigation("Tickets");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("server.Models.CompanyMachine", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("server.Models.Machine", b =>
