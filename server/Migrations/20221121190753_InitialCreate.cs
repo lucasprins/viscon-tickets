@@ -166,6 +166,7 @@ namespace server.Migrations
                     ActionPerformed = table.Column<string>(type: "text", nullable: false),
                     ExtraInfo = table.Column<string>(type: "text", nullable: false),
                     Solution = table.Column<string>(type: "text", nullable: true),
+                    CancelReason = table.Column<string>(type: "text", nullable: true),
                     CompanyMachineId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: false),
                     AssigneeId = table.Column<Guid>(type: "uuid", nullable: true),

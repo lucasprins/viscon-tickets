@@ -20,6 +20,8 @@ namespace server.Models
         public string ExtraInfo { get; set; } = null!;
         public string? Solution { get; set; }
 
+        public string? CancelReason { get; set; }
+
         public Guid CompanyMachineId { get; set; }
         public Guid CreatorId { get; set; }     // Is een customer employee/admin
         public Guid? AssigneeId { get; set; }    // Is een viscon employee/admin

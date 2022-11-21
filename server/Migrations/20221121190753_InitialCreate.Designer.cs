@@ -12,7 +12,7 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221118095453_InitialCreate")]
+    [Migration("20221121190753_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,6 +160,9 @@ namespace server.Migrations
 
                     b.Property<Guid?>("AssigneeId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("CancelReason")
+                        .HasColumnType("text");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");

@@ -159,6 +159,9 @@ namespace server.Migrations
                     b.Property<Guid?>("AssigneeId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("CancelReason")
+                        .HasColumnType("text");
+
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
