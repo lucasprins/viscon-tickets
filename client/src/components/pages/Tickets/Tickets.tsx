@@ -48,10 +48,10 @@ export function Tickets() {
 
   const statusOptions = [
     { value: "", label: "All" },
-    { value: translations[language].open, label: translations[language].open },
-    { value: translations[language].inProgress, label: translations[language].inProgress },
-    { value: translations[language].resolved, label: translations[language].resolved },
-    { value: translations[language].cancelled, label: translations[language].cancelled },
+    { value: "Open", label: translations[language].open },
+    { value: "InProgress", label: translations[language].inProgress },
+    { value: "Resolved", label: translations[language].resolved },
+    { value: "Cancelled", label: translations[language].cancelled },
   ];
 
   const [searchFilter, setSearchFilter] = useState("");
