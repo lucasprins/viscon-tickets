@@ -7,15 +7,15 @@ import { NavigationAdminMenu } from "./NavigationAdminMenu";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import {
-    IconBell,
-    IconBook,
-    IconCube,
-    IconHome,
-    IconLogout,
-    IconMoon,
-    IconSun,
-    IconTicket,
-    IconTranslate,
+  IconBell,
+  IconBook,
+  IconCube,
+  IconHome,
+  IconLogout,
+  IconMoon,
+  IconSun,
+  IconTicket,
+  IconTranslate,
 } from "../../atoms/Icons/Icons";
 import { Avatar } from "../../atoms/Avatar/Avatar";
 import { Divider } from "../../atoms/Divider/Divider";
@@ -26,113 +26,103 @@ import { getUser, logout } from "../../../features/auth/authSlice";
 var translations = require("../../../translations/sidebarTranslations.json");
 
 export function NavigationSidebar() {
-    const dispatch = useAppDispatch();
-    const language: string = useSelector(getCurrentLanguage);
-    const root = document.getElementsByTagName("html")[0];
-    const user = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
+  const language: string = useSelector(getCurrentLanguage);
+  const root = document.getElementsByTagName("html")[0];
+  const user = useAppSelector(getUser);
 
-    const openLanguageModal = () => {
-        dispatch(toggleBackdrop());
-        dispatch(toggleLanguageModal());
-    };
+  const openLanguageModal = () => {
+    dispatch(toggleBackdrop());
+    dispatch(toggleLanguageModal());
+  };
 
-    const toggleAppearance = () => {
-        if (localStorage.getItem("theme") === "dark") {
-            localStorage.setItem("theme", "light");
-            root.classList.remove("dark");
-            root.classList.remove("dark-scrollbar");
-        } else {
-            localStorage.setItem("theme", "dark");
-            root.classList.add("dark");
-            root.classList.add("dark-scrollbar");
-        }
-    };
+  const toggleAppearance = () => {
+    if (localStorage.getItem("theme") === "dark") {
+      localStorage.setItem("theme", "light");
+      root.classList.remove("dark");
+      root.classList.remove("dark-scrollbar");
+    } else {
+      localStorage.setItem("theme", "dark");
+      root.classList.add("dark");
+      root.classList.add("dark-scrollbar");
+    }
+  };
 
-    const logOut = useCallback(() => {
-        dispatch(logout());
-    }, [dispatch]);
+  const logOut = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
 
-    return (
-        <>
-            {/* Navigation Header */}
-            <div className='flex flex-col gap-y-6'>
-                <div className='pl-6 pr-4'>
-                    <NavigationHeader />
-                </div>
-                <ul className='flex flex-col gap-y-2 px-4'>
-                    <NavigationItem
-                        name={translations[language].dashboard}
-                        url='dashboard'
-                        icon={<IconHome size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-                    />
-                    <NavigationItem
-                        name={translations[language].tickets}
-                        url='tickets'
-                        icon={
-                            <IconTicket size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />
-                        }
-                    />
-                    <NavigationItem
-                        name={translations[language].knowledgebase}
-                        url='knowledgebase'
-                        icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-                    />
-                    <NavigationItem
-                        name='Playground'
-                        url='playground'
-                        icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-                    />
-                    {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationAdminMenu /> : null}
-                </ul>
+  return (
+    <>
+      {/* Navigation Header */}
+      <div className='flex flex-col gap-y-6'>
+        <div className='pl-6 pr-4'>
+          <NavigationHeader />
+        </div>
+        <ul className='flex flex-col px-4 gap-y-2'>
+          <NavigationItem
+            name={translations[language].dashboard}
+            url='dashboard'
+            icon={<IconHome size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+          <NavigationItem
+            name={translations[language].tickets}
+            url='tickets'
+            icon={<IconTicket size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+          <NavigationItem
+            name={translations[language].knowledgebase}
+            url='knowledgebase'
+            icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+          <NavigationItem
+            name='Playground'
+            url='playground'
+            icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+          {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationAdminMenu /> : null}
+        </ul>
+      </div>
+
+      {/* Navigation Footer */}
+      <div className='flex flex-col px-4 gap-y-6'>
+        <ul className='flex flex-col gap-y-2'>
+          <NavigationItem
+            name={translations[language].appearance}
+            onclick={toggleAppearance}
+            icon={<IconSun size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+          <NavigationItem
+            name={translations[language].language}
+            onclick={openLanguageModal}
+            icon={<IconTranslate size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+          <NavigationItem
+            name={translations[language].notifications}
+            url='notifications'
+            icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+        </ul>
+
+        <Divider />
+        <div className='flex justify-between'>
+          <Link to='/account' className='flex items-center gap-3 ml-2'>
+            <Avatar name='Lucas Prins' color='gray' />
+            <div className='flex flex-col'>
+              <span className='text-sm font-semibold text-gray-700 dark:text-white'>
+                {user?.prefix
+                  ? `${user?.firstName} ${user?.prefix} ${user?.lastName}`
+                  : `${user?.firstName} ${user?.lastName}`}
+              </span>
+              <span className='text-sm text-gray-500 dark:text-dark-300'>{user?.company.name}</span>
             </div>
-
-            {/* Navigation Footer */}
-            <div className='flex flex-col gap-y-6 px-4'>
-                <ul className='flex flex-col gap-y-2'>
-                    <NavigationItem
-                        name={translations[language].appearance}
-                        onclick={toggleAppearance}
-                        icon={<IconSun size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-                    />
-                    <NavigationItem
-                        name={translations[language].language}
-                        onclick={openLanguageModal}
-                        icon={
-                            <IconTranslate
-                                size='24'
-                                color='stroke-gray-500 dark:stroke-gray-300'
-                                fill='fill-gray-500'
-                            />
-                        }
-                    />
-                    <NavigationItem
-                        name={translations[language].notifications}
-                        url='notifications'
-                        icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-                    />
-                </ul>
-
-                <Divider />
-                <div className='flex justify-between'>
-                    <Link to='/account' className='flex ml-2 gap-3 items-center'>
-                        <Avatar name='Lucas Prins' color='gray' />
-                        <div className='flex flex-col'>
-                            <span className='text-gray-700 dark:text-white text-sm font-semibold'>
-                                {user?.prefix
-                                    ? `${user?.firstName} ${user?.prefix} ${user?.lastName}`
-                                    : `${user?.firstName} ${user?.lastName}`}
-                            </span>
-                            <span className='text-gray-500 dark:text-dark-300 text-sm'>{user?.company.name}</span>
-                        </div>
-                    </Link>
-                    <ButtonIcon
-                        onclick={logOut}
-                        icon={
-                            <IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />
-                        }
-                    />
-                </div>
-            </div>
-        </>
-    );
+          </Link>
+          <ButtonIcon
+            onclick={logOut}
+            icon={<IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+        </div>
+      </div>
+    </>
+  );
 }

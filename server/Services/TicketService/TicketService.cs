@@ -38,6 +38,7 @@ namespace server.Services.TicketService
             ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
             try
             {
+                System.Console.WriteLine("TICKET MACHINE: " + newTicket.CompanyMachineId);
                 var ticket = _mapper.Map<Ticket>(newTicket);
                 bool noExistingTickets = _context.Tickets.Count() == 0;
 
@@ -69,8 +70,7 @@ namespace server.Services.TicketService
                 System.Console.WriteLine(ex.Message);
             }
 
-            // TODO: Stuur een browser notificatie naar alle viscon medewerkers
-            
+            // TODO: Stuur een notificatie naar alle viscon medewerkers
             return serviceResponse;
         }
 

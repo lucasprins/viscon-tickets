@@ -1,14 +1,14 @@
 [
     {
         "solutionId": "1",
-        "machineId": "1",
+        "machineId": "abbe9133-f8f3-4e21-8377-beada10a39ce",
         "issue": "Product verkeerd op machine",
         "solution": "Fotocellen controleren. Eventueel product handmatig op juiste positie plaatsen.",
         "language": "nl"
     },
     {
         "solutionId": "2",
-        "machineId": "1",
+        "machineId": "abbe9133-f8f3-4e21-8377-beada10a39ce",
         "issue": "Product verkeerd op machine",
         "solution": "Fotocellen controleren. Eventueel product handmatig op juiste positie plaatsen.",
         "language": "nl"

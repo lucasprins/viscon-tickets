@@ -4,6 +4,7 @@ import { createTicketType, userType } from "../../utils/types";
 const API_URL = "https://localhost:7295/api/ticket/";
 
 const createTicket = async (ticket: createTicketType, user: userType) => {
+    console.log(ticket);
     const response = await axios.post(
         API_URL + "CreateTicket",
         {
@@ -12,7 +13,7 @@ const createTicket = async (ticket: createTicketType, user: userType) => {
             actionExpected: ticket.actionExpected,
             actionPerformed: ticket.actionPerformed,
             extraInfo: ticket.extraInfo,
-            machineId: ticket.machine.machineId,
+            companyMachineId: ticket.machine?.id,
             creatorId: user.id,
             companyId: user.company.id,
         },

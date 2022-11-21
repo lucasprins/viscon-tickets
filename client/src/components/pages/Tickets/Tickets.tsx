@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getAccessToken } from "../../../features/auth/authSlice";
+import { getAccessToken, getUser } from "../../../features/auth/authSlice";
 import {
   fetchTicketsAsync,
   fetchTotalTicketsAsync,
@@ -18,8 +18,10 @@ import {
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
+import { Button } from "../../atoms/Button/Button";
 import { MetricCard } from "../../atoms/Cards/MetricCard";
 import { Divider } from "../../atoms/Divider/Divider";
+import { IconPlus } from "../../atoms/Icons/Icons";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
@@ -28,7 +30,7 @@ import { TableTickets } from "../../organisms/Table/TableTickets";
 const translations = require("../../../translations/ticketsTranslations.json");
 
 export function Tickets() {
-  const user = localStorage.getItem("user");
+  const user = useAppSelector(getUser);
   const language = useAppSelector(getCurrentLanguage);
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(getAccessToken) || "";
@@ -132,7 +134,19 @@ export function Tickets() {
       <div className='flex flex-col w-full gap-8 p-8 overflow-y-scroll'>
         <Breadcrumbs crumbs={["Tickets"]} />
         <div className='flex flex-col w-full gap-6'>
-          <PageHeader title='Tickets' />
+          <div className='flex flex-col justify-between gap-4 sm:flex-row'>
+            <PageHeader title={translations[language].tickets} />
+            {user.role !== "VisconAdmin" && user.role !== "VisconEmployee" && (
+              <Button
+                size='medium'
+                width='content'
+                type='secondary-gray'
+                text={translations[language].create_ticket}
+                url="/knowledgebase/create-ticket"
+                icon={<IconPlus size='20' color='stroke-gray-700 dark:stroke-white' fill='' />}
+              />
+            )}
+          </div>
           <Divider />
         </div>
         <div className='hidden w-full gap-6 lg:flex '>

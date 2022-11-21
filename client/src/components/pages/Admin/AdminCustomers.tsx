@@ -73,7 +73,7 @@ export function AdminCompanies() {
 
       <div className='flex flex-col h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
         <Layout />
-        <div className='flex flex-col w-full gap-8 p-6 overflow-y-scroll'>
+        <div className='flex flex-col w-full gap-8 p-6 overflow-y-scroll lg:p-8'>
           <Breadcrumbs crumbs={["Companies"]} />
           <div className='flex flex-col w-full gap-6'>
             <div className='flex flex-col justify-between gap-4 sm:flex-row'>

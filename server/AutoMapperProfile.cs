@@ -20,6 +20,9 @@ namespace server
 
             CreateMap<CreateTicketDTO, Ticket>();
             CreateMap<Ticket, GetTicketDTO>();
+
+            CreateMap<Machine, GetMachineDTO>();
+            CreateMap<CompanyMachine, GetCompanyMachineDTO>();
         }
     }
 }

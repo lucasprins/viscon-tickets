@@ -1,5 +1,7 @@
 {
     "nl":{
+        "tickets": "Tickets",
+        "create_ticket": "Ticket aanmaken",
         "ticketID":"Ticket ID",
 
         "noTickets": "Geen tickets gevonden...",
@@ -12,6 +14,8 @@
     },
 
     "en":{
+        "tickets": "Tickets",
+        "create_ticket": "Create ticket",
         "ticketID":"Ticket ID",
 
         "noTickets": "No tickets found...",

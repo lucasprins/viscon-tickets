@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace server.Models
+namespace server.DTOS
 {
-  public class Machine
+  public class GetMachineDTO
   {
     public Guid Id { get; set; }
     public string BlueprintNumber { get; set; } = null!;
     public string Type { get; set; } = null!;
-
-    public List<CompanyMachine> CompanyMachines { get; set; } = null!;
-    public List<Solution> Solutions { get; set; } = null!;
-    public List<Ticket> Tickets { get; set; } = null!;
   }
 }
