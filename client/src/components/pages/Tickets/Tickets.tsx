@@ -129,7 +129,7 @@ export function Tickets() {
   }
 
   return (
-    <div className='flex flex-col h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
+    <div className='flex flex-col h-screen bg-gray-50 md:flex-row dark:bg-dark-800 dark:text-white'>
       <Layout />
       <div className='flex flex-col w-full gap-8 p-8 overflow-y-scroll'>
         <Breadcrumbs crumbs={["Tickets"]} />

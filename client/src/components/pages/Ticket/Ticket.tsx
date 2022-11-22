@@ -97,7 +97,7 @@ export function Ticket() {
               <div className='flex flex-col w-full h-full xl:flex-row'>
                 <div className='flex flex-col w-full gap-6 p-6 overflow-y-scroll xl:w-2/3 xl:p-8 no-scrollbar'>
                   <div className='flex flex-col w-full gap-5'>
-                    <Breadcrumbs crumbs={["Tickets", `Ticket ${ticket.ticketNumber}`]} />
+                    <Breadcrumbs crumbs={["Tickets"]} />
                     <div className='flex flex-col lg:flex-row lg:gap-2 lg:justify-between lg:items-end'>
                       <PageHeader title={`Ticket #${ticket.ticketNumber}`} />
                       <TicketActions user={user} ticket={ticket} />
