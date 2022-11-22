@@ -564,9 +564,21 @@ export const IconTranslate = ({ size, fill, color, strokeWidth = 2 }: IconProps)
 export const IconPlus = ({ size, fill, color, strokeWidth = 2 }: IconProps) => {
   return (
     <svg className={color} width={size} height={size} viewBox='0 0 24 24' fill='none'>
+      <path d='M12 5V19M5 12H19' strokeWidth={strokeWidth} strokeLinecap='round' strokeLinejoin='round' />
+    </svg>
+  );
+};
+
+export const IconSearch = ({ size, fill, color, strokeWidth = 2 }: IconProps) => {
+  return (
+    <svg className={color} width={size} height={size} viewBox='0 0 24 24' fill='none'>
       <path
-        d='M12 5V19M5 12H19'
-        strokeWidth={strokeWidth}
+        opacity='0.12'
+        d='M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z'
+      />
+      <path
+        d='M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z'
+        strokeWidth='2'
         strokeLinecap='round'
         strokeLinejoin='round'
       />

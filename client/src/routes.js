@@ -1,6 +1,5 @@
 import { AccessDenied } from "./components/pages/AccessDenied/AccessDenied";
 import { Account } from "./components/pages/Account/Account";
-import { AdminCompanies } from "./components/pages/Admin/AdminCustomers";
 import { AdminMachines } from "./components/pages/Admin/AdminMachines";
 import { AdminSolutions } from "./components/pages/Admin/AdminSolutions";
 import { AdminUsers } from "./components/pages/Admin/AdminUsers";
@@ -18,6 +17,7 @@ import { Register } from "./components/pages/Authentication/Register";
 import { RegisterCompleted } from "./components/pages/Authentication/RegisterCompleted";
 import { TicketNotFound } from "./components/pages/TicketNotFound/TicketNotFound";
 import { Playground } from "./components/pages/Playground/Playground";
+import Admin from "./components/pages/Admin/Admin";
 
 export const routes = [
     { path: '/login', name: 'login', component: <Login /> },
@@ -31,8 +31,8 @@ export const routes = [
     { path: '/knowledgebase', name: 'knowledgebase', component: <Knowledgebase /> },
     { path: '/knowledgebase/create-ticket', name: 'create-ticket', component: <CreateTicket /> },
     { path: '/playground', name: 'account', component: <Playground /> },
+    { path: '/admin', name: 'admin', component: <Admin /> },
     { path: '/admin/users', name: 'notifications', component: <AdminUsers /> },
-    { path: '/admin/companies', name: 'notifications', component: <AdminCompanies /> },
     { path: '/admin/machines', name: 'notifications', component: <AdminMachines /> },
     { path: '/admin/solutions', name: 'notifications', component: <AdminSolutions /> },
     { path: '/notifications', name: 'notifications', component: <Notifications /> },
