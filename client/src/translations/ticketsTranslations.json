@@ -5,7 +5,7 @@
         "ticketID":"Ticket ID",
 
         "noTickets": "Geen tickets gevonden...",
-        "noTicketsText": "We hebben geen tickets kunnen vinden die voldoen aan uw filters. Klik op de knop hieronder om de filters te resetten of om een nieuw ticket aan te maken.",
+        "noTicketsText": "We hebben geen tickets kunnen vinden die voldoen aan uw filters. Klik op de knop hieronder om de filters te resetten.",
 
         "open": "Open",
         "inProgress": "In behandeling",
@@ -19,7 +19,7 @@
         "ticketID":"Ticket ID",
 
         "noTickets": "No tickets found...",
-        "noTicketsText": "We couldn't find any tickets that match your filters. Click the button below to reset your filters or to create a new ticket.",
+        "noTicketsText": "We couldn't find any tickets that match your filters. Click the button below to reset your filters.",
 
         "open": "Open",
         "inProgress": "In progress",
