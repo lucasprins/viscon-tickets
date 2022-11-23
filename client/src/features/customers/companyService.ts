@@ -23,7 +23,6 @@ const toggleCompanyStatus = async (companyId: string, accessToken: string) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  console.log(response);
   return response;
 }
 

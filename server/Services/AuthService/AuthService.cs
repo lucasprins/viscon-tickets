@@ -63,6 +63,21 @@ namespace server.Services.AuthService
         return response;
       }
 
+      var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == dbUser.CompanyId);
+      if (company == null)
+      {
+        response.Success = false;
+        response.Message = "Your company is not registered.";
+        return response;
+      }
+
+      if (!company.IsActive)
+      {
+        response.Success = false;
+        response.Message = "Your company has been deactivated";
+        return response;
+      }
+
       if (dbUser.PasswordHash != null && dbUser.PasswordSalt != null)
       {
         if (!VerifyPasswordHash(user.Password, dbUser.PasswordHash, dbUser.PasswordSalt))

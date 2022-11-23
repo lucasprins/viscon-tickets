@@ -65,6 +65,7 @@ const AdminCompanies = () => {
       if (response.data.success) {
         setCompanies(response.data.data);
         setFilteredCompanies(response.data.data);
+        setSelectedCompany(response.data.data.find((company: companyType) => company.id === selectedCompany.id));
       }
       setDeactivatingCompany(false);
     }
