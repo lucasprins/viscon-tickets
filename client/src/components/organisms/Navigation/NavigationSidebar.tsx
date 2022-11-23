@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { NavigationAdminMenu } from "./NavigationAdminMenu";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import {
@@ -11,6 +10,7 @@ import {
   IconBook,
   IconCube,
   IconHome,
+  IconKey,
   IconLogout,
   IconMoon,
   IconSun,
@@ -75,12 +75,11 @@ export function NavigationSidebar() {
             url='knowledgebase'
             icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
           />
-          <NavigationItem
-            name='Playground'
-            url='playground'
-            icon={<IconCube size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-          />
-          {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationAdminMenu /> : null}
+          {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationItem
+            name='Admin'
+            url='admin'
+            icon={<IconKey size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          /> : null}
         </ul>
       </div>
 

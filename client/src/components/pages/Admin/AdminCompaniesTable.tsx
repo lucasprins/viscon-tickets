@@ -7,6 +7,8 @@ import {
   Table,
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
+import { getCurrentLanguage } from "../../../features/user/userSlice";
+import { useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Button } from "../../atoms/Button/Button";
@@ -19,7 +21,10 @@ interface Props {
   handleRowClick: (id: string) => void;
 }
 
+var translations = require("../../../translations/adminTranslations.json");
+
 export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
+  const language = useAppSelector(getCurrentLanguage);
   const columnHelper = createColumnHelper<companyType>();
 
   const columnNonMemo = [
@@ -27,20 +32,20 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "Name",
+      header: translations[language].name,
     }),
     columnHelper.accessor("isActive", {
-      header: "Status",
+      header: translations[language].status,
       cell: (props) => {
         if(props.getValue()) {
-          return <Badge size='md' color='primary' text='Active' />;
+          return <Badge size='md' color='primary' text={translations[language].active} />;
         } else {
-          return <Badge size='md' color='gray' text='Inactive' />;
+          return <Badge size='md' color='gray' text={translations[language].inactive} />;
         }
       },
     }),
     columnHelper.accessor("country", {
-      header: "Country", //Could also be written as: header: info => info.column.id,
+      header: translations[language].country, //Could also be written as: header: info => info.column.id,
       cell: (props: { getValue: () => any }) => {
         return <span className='flex'>{props.getValue()}</span>;
       },
@@ -52,10 +57,10 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "Name",
+      header: translations[language].name,
     }),
     columnHelper.accessor("isActive", {
-      header: "Status",
+      header: translations[language].status,
       cell: (props) => {
         if(props.getValue()) {
           return <Badge size='md' color='primary' text='Active' />;
@@ -148,17 +153,17 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
               size='small'
               width='content'
               type='secondary-gray'
-              text='Previous'
+              text={translations[language].previous}
               onclick={() => table.previousPage()}
             />
             <span className='text-sm font-medium text-gray-700 dark:text-dark-300'>{`${
               table.getState().pagination.pageIndex + 1
-            } of ${table.getPageCount()}`}</span>
+            } ${translations[language].of} ${table.getPageCount()}`}</span>
             <Button
               size='small'
               width='content'
               type='secondary-gray'
-              text='Next'
+              text={translations[language].next}
               onclick={() => handleNextPage(table)}
             />
           </div>

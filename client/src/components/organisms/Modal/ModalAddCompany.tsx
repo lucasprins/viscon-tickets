@@ -33,14 +33,9 @@ type formValues = {
 const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => void }) => {
   const language = useAppSelector(getCurrentLanguage);
   const accessToken = useAppSelector(getAccessToken) || "";
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [selectedCountry, setSelectedCountry] = React.useState(countries[0]);
   const [addingCompany, setAddingCompany] = React.useState(false);
-  const [addedCompanySuccess, setAddedCompanySuccess] = React.useState();
-
-  const [companyExists, setCompanyExists] = React.useState(false);
 
   let cancelToken = axios.CancelToken;
   let source = cancelToken.source();
@@ -70,11 +65,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
       source.token
     );
 
-    if (response.data.message == "companyExists") {
-      setCompanyExists(true);
-    }
 
-    setAddedCompanySuccess(response.data.success);
     setAddingCompany(false);
 
     if(response.data.success) {

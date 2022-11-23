@@ -78,7 +78,7 @@ namespace server.Services.CompanyService
       ServiceResponse<List<GetCompanyDTO>> response = new ServiceResponse<List<GetCompanyDTO>>();
       try
       {
-        List<Company> dbCompanies = await _context.Companies.ToListAsync();
+        List<Company> dbCompanies = await _context.Companies.OrderByDescending(c => c.IsActive).ToListAsync();
         response.Data = (dbCompanies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToList();
       }
       catch (Exception ex)

@@ -1,8 +1,48 @@
 {
   "nl": {
-    "translation": "value"
+    "admin": "Admin",
+    "search": "Zoeken",
+
+    "companies": "Bedrijven",
+    "machines": "Machines",
+    "solutions": "Oplossingen",
+    "users": "Gebruikers",
+
+    "addCompany": "Bedrijf toevoegen",
+    "name": "Naam",
+    "status": "Status",
+    "country": "Land",
+    "active": "Actief",
+    "inactive": "Inactief",
+
+    "previous": "Vorige",
+    "of": "van de",
+    "next": "Volgende",
+
+    "addMachine": "Machine toevoegen",
+    "deactivate": "Deactiveren"
   },
   "en": {
-    "translation": "value"
+    "admin": "Admin",
+    "search": "Search",
+
+    "companies": "Companies",
+    "machines": "Machines",
+    "solutions": "Solutions",
+    "users": "Users",
+
+    "addCompany": "Add company",
+    "name": "Name",
+    "status": "Status",
+    "country": "Country",
+    "active": "Active",
+    "inactive": "Inactive",
+
+    "previous": "Previous",
+    "of": "of",
+    "next": "Next",
+
+    "addMachine": "Add machine",
+    "deactivate": "Deactivate"
   }
 }
