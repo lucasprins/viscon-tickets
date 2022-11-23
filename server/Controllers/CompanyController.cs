@@ -44,10 +44,10 @@ namespace server.Controllers
             return Ok(await _companyService.CompanyExists(name));
         }
 
-        [HttpPut("DeactivateCompany/{id}")]
+        [HttpGet("ToggleCompanyStatus/{id}"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
         public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> DeactivateCompany(Guid id)
         {
-            return Ok(await _companyService.DeactivateCompany(id));
+            return Ok(await _companyService.ToggleCompanyStatus(id));
         }
     }
 }

@@ -130,7 +130,7 @@ namespace server.Services.CompanyService
       return response;
     }
 
-    public async Task<ServiceResponse<List<GetCompanyDTO>>> DeactivateCompany(Guid id)
+    public async Task<ServiceResponse<List<GetCompanyDTO>>> ToggleCompanyStatus(Guid id)
     {
       ServiceResponse<List<GetCompanyDTO>> response = new ServiceResponse<List<GetCompanyDTO>>();
       try
@@ -143,7 +143,7 @@ namespace server.Services.CompanyService
         }
         else
         {
-          dbCompany.IsActive = false;
+          dbCompany.IsActive = !dbCompany.IsActive;
           await _context.SaveChangesAsync();
           response.Data = await (_context.Companies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
         }

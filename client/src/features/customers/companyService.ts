@@ -17,6 +17,16 @@ const companyExists = async (name: string) => {
   return response;
 };
 
+const toggleCompanyStatus = async (companyId: string, accessToken: string) => {
+  const response = await axios.get(API_URL + "ToggleCompanyStatus/" + companyId, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  console.log(response);
+  return response;
+}
+
 const addCompany = async (
   accessToken: string,
   companyName: string,
@@ -54,6 +64,7 @@ const CompanyService = {
   getAllCompanies,
   addCompany,
   companyExists,
+  toggleCompanyStatus,
 };
 
 export default CompanyService;

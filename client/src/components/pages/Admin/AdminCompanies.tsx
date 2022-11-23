@@ -56,6 +56,20 @@ const AdminCompanies = () => {
     }
   };
 
+  const [deactivatingCompany, setDeactivatingCompany] = useState<boolean>(false);
+
+  const handleToggleCompanyStatus = async () => {
+    if (selectedCompany) {
+      setDeactivatingCompany(true);
+      const response = await CompanyService.toggleCompanyStatus(selectedCompany.id, accessToken);
+      if (response.data.success) {
+        setCompanies(response.data.data);
+        setFilteredCompanies(response.data.data);
+      }
+      setDeactivatingCompany(false);
+    }
+  };
+
   const handleRowClick = (id: string) => {
     const selectedCompany = companies?.find((company) => company.id === id);
     setSelectedCompany(selectedCompany);
@@ -127,6 +141,7 @@ const AdminCompanies = () => {
                     text={
                       selectedCompany.isActive ? translations[language].deactivate : translations[language].activate
                     }
+                    onclick={handleToggleCompanyStatus}
                   />
                 </div>
               </div>
