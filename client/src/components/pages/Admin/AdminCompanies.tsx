@@ -8,6 +8,8 @@ import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
+import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
+import { IconClose, IconLogout } from "../../atoms/Icons/Icons";
 import { InputSearch } from "../../atoms/Input/InputSearch";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
@@ -85,19 +87,23 @@ const AdminCompanies = () => {
         {/* Left Side */}
         <div className='box-border flex flex-col w-full gap-6 py-8 border-gray-200 dark:border-dark-600 lg:pr-8 lg:border-r '>
           {/* Search */}
-          <div className='flex flex-col justify-between gap-4 2xl:items-center 2xl:flex-row'>
-            <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{translations[language].companies}</h4>
-            <div className='flex gap-4 2xl:flex-row-reverse'>
-              <Button
-                size='small'
-                width='content'
-                type='secondary-gray'
-                text={translations[language].addCompany}
-                onclick={toggleAddCompanyModal}
+          <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{translations[language].companies}</h4>
+          <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
+            <div className='w-full'>
+              <InputSearch
+                value={queryCompany}
+                placeholder={translations[language].search}
+                onChange={(e) => setQueryCompany(e.target.value)}
               />
             </div>
+            <Button
+              size='medium'
+              width='content'
+              type='secondary-gray'
+              text={translations[language].addCompany}
+              onclick={toggleAddCompanyModal}
+            />
           </div>
-          <InputSearch value={queryCompany} placeholder={translations[language].search} onChange={(e) => setQueryCompany(e.target.value)} />
           {filteredCompanies !== undefined ? (
             <AdminCompaniesTable companies={filteredCompanies} handleRowClick={handleRowClick} />
           ) : (
@@ -111,11 +117,17 @@ const AdminCompanies = () => {
         <div className='box-border flex flex-col w-full gap-6 py-8 lg:pl-8'>
           {selectedCompany !== undefined ? (
             <>
-              <div className='flex flex-col justify-between gap-4 2xl:items-center 2xl:flex-row'>
+              <div className='flex flex-col justify-between gap-4 md:items-center md:flex-row'>
                 <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{selectedCompany.name}</h4>
-                <div className='flex gap-4 2xl:flex-row-reverse'>
-                  <Button size='small' width='content' type='secondary-gray' text={translations[language].addMachine} />
-                  <Button size='small' width='content' type='tertiary-gray' text={translations[language].deactivate} />
+                <div className='flex gap-4 md:flex-row-reverse'>
+                  <Button
+                    size='small'
+                    width='content'
+                    type='tertiary-gray'
+                    text={
+                      selectedCompany.isActive ? translations[language].deactivate : translations[language].activate
+                    }
+                  />
                 </div>
               </div>
 
@@ -135,29 +147,53 @@ const AdminCompanies = () => {
                     )}
                   </Tab>
                   <Tab as={Fragment}>
-                  {({ selected }) => (
-                    <button
-                      className={
-                        selected
-                          ? "text-primary-600 text-sm border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
-                          : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                      }
-                    >
-                      {translations[language].users}
-                    </button>
-                  )}
-                </Tab>
+                    {({ selected }) => (
+                      <button
+                        className={
+                          selected
+                            ? "text-primary-600 text-sm border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
+                            : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
+                        }
+                      >
+                        {translations[language].users}
+                      </button>
+                    )}
+                  </Tab>
+                  <Tab as={Fragment}>
+                    {({ selected }) => (
+                      <button
+                        className={
+                          selected
+                            ? "text-primary-600 text-sm border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
+                            : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
+                        }
+                      >
+                        {translations[language].tickets}
+                      </button>
+                    )}
+                  </Tab>
                 </Tab.List>
 
                 <Tab.Panels>
                   {/* Machines Tab */}
                   <Tab.Panel>
-                    <div className='flex flex-col gap-6'>
-                      <InputSearch
-                        value={queryMachine}
-                        placeholder={translations[language].search}
-                        onChange={(e) => setQueryMachine(e.target.value)}
-                      />
+                    <div className='flex flex-col items-end gap-6'>
+                      <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
+                        <div className='w-full'>
+                          <InputSearch
+                            value={queryCompany}
+                            placeholder={translations[language].search}
+                            onChange={(e) => setQueryCompany(e.target.value)}
+                          />
+                        </div>
+                        <Button
+                          size='medium'
+                          width='content'
+                          type='secondary-gray'
+                          text={translations[language].addMachine}
+                          onclick={() => {}}
+                        />
+                      </div>
                     </div>
                   </Tab.Panel>
 
@@ -170,6 +206,11 @@ const AdminCompanies = () => {
                         onChange={(e) => setQueryUser(e.target.value)}
                       />
                     </div>
+                  </Tab.Panel>
+
+                  {/* Tickets Tab */}
+                  <Tab.Panel>
+                    <div className='flex flex-col gap-6'></div>
                   </Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>

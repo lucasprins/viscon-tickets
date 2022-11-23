@@ -43,5 +43,11 @@ namespace server.Controllers
         {
             return Ok(await _companyService.CompanyExists(name));
         }
+
+        [HttpPut("DeactivateCompany/{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> DeactivateCompany(Guid id)
+        {
+            return Ok(await _companyService.DeactivateCompany(id));
+        }
     }
 }

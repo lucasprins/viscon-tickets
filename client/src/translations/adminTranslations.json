@@ -7,6 +7,7 @@
     "machines": "Machines",
     "solutions": "Oplossingen",
     "users": "Gebruikers",
+    "tickets": "Tickets",
 
     "addCompany": "Bedrijf toevoegen",
     "name": "Naam",
@@ -20,7 +21,9 @@
     "next": "Volgende",
 
     "addMachine": "Machine toevoegen",
-    "deactivate": "Deactiveren"
+    "editCompany": "Bedrijf bewerken",
+    "deactivate": "Deactiveren",
+    "activate": "Activeren"
   },
   "en": {
     "admin": "Admin",
@@ -30,6 +33,7 @@
     "machines": "Machines",
     "solutions": "Solutions",
     "users": "Users",
+    "tickets": "Tickets",
 
     "addCompany": "Add company",
     "name": "Name",
@@ -43,6 +47,8 @@
     "next": "Next",
 
     "addMachine": "Add machine",
-    "deactivate": "Deactivate"
+    "editCompany": "Edit company",
+    "deactivate": "Deactivate",
+    "activate": "Activate"
   }
 }

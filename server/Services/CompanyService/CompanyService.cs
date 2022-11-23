@@ -129,5 +129,32 @@ namespace server.Services.CompanyService
 
       return response;
     }
+
+    public async Task<ServiceResponse<List<GetCompanyDTO>>> DeactivateCompany(Guid id)
+    {
+      ServiceResponse<List<GetCompanyDTO>> response = new ServiceResponse<List<GetCompanyDTO>>();
+      try
+      {
+        var dbCompany = await _context.Companies.FirstOrDefaultAsync(c => c.Id == id);
+        if (dbCompany == null)
+        {
+          response.Success = false;
+          response.Message = "Company not found.";
+        }
+        else
+        {
+          dbCompany.IsActive = false;
+          await _context.SaveChangesAsync();
+          response.Data = await (_context.Companies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
+        }
+      }
+      catch
+      {
+        response.Success = false;
+        response.Message = "Unable to deactivate company";
+      }
+
+      return response;
+    }
   }
 }

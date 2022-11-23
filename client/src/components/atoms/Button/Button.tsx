@@ -65,7 +65,7 @@ export function Button({ size, width, type, text, icon, url, onclick, formType, 
             type={formType}
             onClick={onclick}
             className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center items-center gap-x-2.5 rounded-lg
+                flex justify-center items-center gap-x-2.5 rounded-lg whitespace-nowrap	
                 ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
                 `}
           >
@@ -79,7 +79,7 @@ export function Button({ size, width, type, text, icon, url, onclick, formType, 
           type={formType}
           onClick={onclick}
           className={`${buttonTypeStyle} ${buttonWidthStyle} ${buttonSizeStyle}
-                flex justify-center items-center gap-x-2.5 rounded-lg
+                flex justify-center items-center gap-x-2.5 rounded-lg whitespace-nowrap
                 ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
                 `}
         >

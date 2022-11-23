@@ -12,5 +12,7 @@ namespace server.Services.CompanyService
         Task<ServiceResponse<GetCompanyDTO>> GetCompanyById(Guid id);
         Task<ServiceResponse<bool>> CompanyExists(string name);
         Task<ServiceResponse<List<GetCompanyDTO>>> AddCompany(AddCompanyDTO newCompany);
+
+        Task<ServiceResponse<List<GetCompanyDTO>>> DeactivateCompany(Guid id);
     }
 }
