@@ -77,6 +77,10 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
     window.addEventListener("resize", handleReizeTable);
   });
 
+  useEffect(() => {
+    handleReizeTable();
+  }, [])
+
   const handleReizeTable = () => {
     if (window.innerWidth <= 1280) {
       setIsMobile(true);

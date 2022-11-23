@@ -164,6 +164,11 @@ export function TableTickets({
   useEffect(() => {
     window.addEventListener("resize", handleReizeTable);
   });
+
+  useEffect(() => {
+    handleReizeTable();
+  }, [])
+
   const columnsNonMemo = isMobile ? columnsNonMemoSmall : columnsNonMemoBig;
 
   const handleReizeTable = () => {
