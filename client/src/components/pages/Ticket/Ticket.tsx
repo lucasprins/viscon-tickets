@@ -76,7 +76,7 @@ export function Ticket() {
       setTicket(response.data.data);
     }
     setAddingSolution(false);
-  }
+  };
 
   useEffect(() => {
     fetchTicket();
@@ -294,33 +294,28 @@ export function Ticket() {
                               <div className='flex flex-col w-full gap-1.5'>
                                 <InputLabel htmlFor='solution' text={translations[language].solution} />
                                 <InputTextArea
-                                  disabled={
-                                    user?.role === "VisconAdmin" || user?.role === "VisconEmployee"
-                                      ? ticket.status === "InProgress" || ticket.status === "Resolved"
-                                        ? false
-                                        : true
-                                      : true
-                                  }
+                                  disabled={user?.role === "CustomerAdmin" || user?.role === "CustomerEmployee"}
                                   id='solution'
                                   name='solution'
                                 />
-                                <InputErrorMessage name='solution' />
                               </div>
-                              <div>
-                                <Button
-                                  formType='submit'
-                                  size='medium'
-                                  width='content'
-                                  type='primary'
-                                  disabled={addingSolution}
-                                  icon={
-                                    addingSolution ? (
-                                      <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
-                                    ) : undefined
-                                  }
-                                  text='Save solution'
-                                />
-                              </div>
+                              {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
+                                <div>
+                                  <Button
+                                    formType='submit'
+                                    size='medium'
+                                    width='content'
+                                    type='primary'
+                                    disabled={addingSolution}
+                                    icon={
+                                      addingSolution ? (
+                                        <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                                      ) : undefined
+                                    }
+                                    text='Save solution'
+                                  />
+                                </div>
+                              )}
                             </Form>
                           )}
                         </Formik>

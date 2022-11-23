@@ -86,6 +86,7 @@ export const TicketActions = ({
 
   ticketActionsMobile.push(
     <Button
+      key="view_files_mobile"
       size='medium'
       width='full'
       type='secondary-gray'
@@ -99,6 +100,7 @@ export const TicketActions = ({
       case "Open":
         ticketActions.push(
           <Button
+            key="claim"
             size='medium'
             width='content'
             type='primary'
@@ -110,6 +112,7 @@ export const TicketActions = ({
         );
         ticketActionsMobile.push(
           <Button
+            key="claim_mobile"
             size='medium'
             width='full'
             type='primary'
@@ -124,6 +127,7 @@ export const TicketActions = ({
         if (ticket.assignee.id == user.id) {
           ticketActions.push(
             <Button
+              key="unclaim"
               size='medium'
               width='content'
               type='secondary-gray'
@@ -145,6 +149,7 @@ export const TicketActions = ({
           );
           ticketActionsMobile.push(
             <Button
+              key="unclaim_mobile"
               size='medium'
               width='full'
               type='secondary-gray'
@@ -167,6 +172,7 @@ export const TicketActions = ({
         }
         ticketActions.push(
           <Button
+            key="resolve"
             size='medium'
             width='content'
             type='primary'
@@ -184,6 +190,7 @@ export const TicketActions = ({
         );
         ticketActionsMobile.push(
           <Button
+            key="resolve_mobile"
             size='medium'
             width='full'
             type='primary'
@@ -203,6 +210,7 @@ export const TicketActions = ({
       case "Resolved":
         ticketActions.push(
           <Button
+            key="reopen"
             size='medium'
             width='content'
             type='primary'
@@ -214,6 +222,7 @@ export const TicketActions = ({
         );
         ticketActionsMobile.push(
           <Button
+            key="reopen_mobile"
             size='medium'
             width='full'
             type='primary'
@@ -231,6 +240,7 @@ export const TicketActions = ({
     if (ticket.status === "Open" || ticket.status === "InProgress") {
       ticketActions.push(
         <Button
+          key="cancel"
           size='medium'
           width='content'
           type='primary'
@@ -242,6 +252,7 @@ export const TicketActions = ({
       );
       ticketActionsMobile.push(
         <Button
+          key="cancel_mobile"
           size='medium'
           width='content'
           type='primary'
