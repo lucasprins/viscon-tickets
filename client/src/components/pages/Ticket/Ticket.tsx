@@ -12,9 +12,7 @@ import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { AssigneeCard } from "../../atoms/Cards/AssigneeCard";
 import { AvatarCard } from "../../atoms/Cards/AvatarCard";
 import { Divider } from "../../atoms/Divider/Divider";
-import {
-  IconGear,
-} from "../../atoms/Icons/Icons";
+import { IconGear } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
@@ -37,7 +35,12 @@ export interface ITicketModals {
 }
 
 export function Ticket() {
+  const user = useAppSelector(getUser);
+  const accessToken = user?.accessToken || "";
   const language = useAppSelector(getCurrentLanguage);
+  let ticketID = useParams().ticketID || "";
+
+  const [ticket, setTicket] = useState<ticketType>();
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchedTicketSuccess, setFetchedTicketSuccess] = useState<boolean>(false);
 
@@ -49,24 +52,17 @@ export function Ticket() {
     cancel: false,
   });
 
-  let ticketID = useParams().ticketID || "";
-
-  const user = useAppSelector(getUser);
-  const accessToken = user?.accessToken || "";
-
-  const [ticket, setTicket] = useState<ticketType>();
-
   let CancelToken = axios.CancelToken;
   let source = CancelToken.source();
-  
+
   const fetchTicket = async () => {
     const response = await TicketService.getTicket(ticketID, accessToken, source.token);
-    if(response.data.success) {
+    if (response.data.success) {
       setTicket(response.data.data);
       setFetchedTicketSuccess(true);
     }
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchTicket();
@@ -103,7 +99,13 @@ export function Ticket() {
                     <Breadcrumbs crumbs={["Tickets"]} />
                     <div className='flex flex-col lg:flex-row lg:gap-2 lg:justify-between lg:items-end'>
                       <PageHeader title={`Ticket #${ticket.ticketNumber}`} />
-                      <TicketActions user={user} ticket={ticket} setTicket={setTicket} ticketModals={ticketModals} setTicketModals={setTicketModals} />
+                      <TicketActions
+                        user={user}
+                        ticket={ticket}
+                        setTicket={setTicket}
+                        ticketModals={ticketModals}
+                        setTicketModals={setTicketModals}
+                      />
                     </div>
                   </div>
                   <Tab.Group>
