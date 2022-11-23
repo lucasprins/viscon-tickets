@@ -9,6 +9,7 @@ import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
+import { Button } from "../../atoms/Button/Button";
 import { AssigneeCard } from "../../atoms/Cards/AssigneeCard";
 import { AvatarCard } from "../../atoms/Cards/AvatarCard";
 import { Divider } from "../../atoms/Divider/Divider";
@@ -44,6 +45,8 @@ export function Ticket() {
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchedTicketSuccess, setFetchedTicketSuccess] = useState<boolean>(false);
 
+  const [addingSolution, setAddingSolution] = useState<boolean>(false);
+
   const [ticketModals, setTicketModals] = useState<ITicketModals>({
     claim: false,
     unclaim: false,
@@ -63,6 +66,17 @@ export function Ticket() {
     }
     setLoading(false);
   };
+
+  const addSolution = async (solution: string) => {
+    setAddingSolution(true);
+    console.log(solution);
+    const response = await TicketService.addSolution(ticketID, accessToken, solution);
+    console.log(response);
+    if (response.data.success) {
+      setTicket(response.data.data);
+    }
+    setAddingSolution(false);
+  }
 
   useEffect(() => {
     fetchTicket();
@@ -274,15 +288,15 @@ export function Ticket() {
                       </Tab.Panel>
                       {/* Solution Panel */}
                       <Tab.Panel>
-                        <Formik initialValues={ticket} onSubmit={() => console.log("submit")}>
+                        <Formik initialValues={ticket} onSubmit={(ticket) => addSolution(ticket.solution)}>
                           {({ errors, touched, isValidating }) => (
-                            <Form className='flex flex-col w-full gap-5'>
+                            <Form className='flex flex-col items-end w-full gap-5'>
                               <div className='flex flex-col w-full gap-1.5'>
                                 <InputLabel htmlFor='solution' text={translations[language].solution} />
                                 <InputTextArea
                                   disabled={
                                     user?.role === "VisconAdmin" || user?.role === "VisconEmployee"
-                                      ? ticket.status === "InProgress"
+                                      ? ticket.status === "InProgress" || ticket.status === "Resolved"
                                         ? false
                                         : true
                                       : true
@@ -290,7 +304,22 @@ export function Ticket() {
                                   id='solution'
                                   name='solution'
                                 />
-                                <InputErrorMessage name='issue' />
+                                <InputErrorMessage name='solution' />
+                              </div>
+                              <div>
+                                <Button
+                                  formType='submit'
+                                  size='medium'
+                                  width='content'
+                                  type='primary'
+                                  disabled={addingSolution}
+                                  icon={
+                                    addingSolution ? (
+                                      <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                                    ) : undefined
+                                  }
+                                  text='Save solution'
+                                />
                               </div>
                             </Form>
                           )}

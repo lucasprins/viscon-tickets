@@ -22,5 +22,7 @@ namespace server.Services.TicketService
         Task<ServiceResponse<GetTicketDTO>> ResolveTicket(TicketIdDTO ticketToResolve);
         Task<ServiceResponse<GetTicketDTO>> OpenTicket(TicketIdDTO ticketToOpen);
         Task<ServiceResponse<GetTicketDTO>> CancelTicket(TicketIdDTO ticketToCancel);
+
+        Task<ServiceResponse<GetTicketDTO>> AddSolution(AddSolutionDTO solution);
     }
 }

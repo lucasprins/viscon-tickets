@@ -85,5 +85,13 @@ namespace server.Controllers
         {
             return Ok(await _ticketService.CancelTicket(ticketToCancel));
         }
+
+        [HttpPut("AddSolution/"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> AddSolution(AddSolutionDTO solution)
+        {
+            return Ok(await _ticketService.AddSolution(solution));
+        }
+
+        // ADD SOLUTION ATTACHMENT
     }
 }
