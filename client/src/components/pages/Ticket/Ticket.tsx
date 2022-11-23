@@ -1,38 +1,19 @@
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import { Form, Formik } from "formik";
-import React, { Fragment, useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import React, { Fragment, useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { getUser } from "../../../features/auth/authSlice";
-import {
-  fetchTicketAsync,
-  getCancelledTicketSuccess,
-  getClaimedTicketSuccess,
-  getFetchedTicketSuccess,
-  getFetchingTicket,
-  getOpenedTicketSuccess,
-  getResolvedTicketSuccess,
-  getTicket,
-  getUnclaimedTicketSuccess,
-  resetTickets,
-  resetTicketActions,
-} from "../../../features/tickets/ticketsSlice";
+import TicketService from "../../../features/tickets/ticketsService";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
-import { Badge } from "../../atoms/Badge/Badge";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
-import { Button } from "../../atoms/Button/Button";
 import { AssigneeCard } from "../../atoms/Cards/AssigneeCard";
 import { AvatarCard } from "../../atoms/Cards/AvatarCard";
 import { Divider } from "../../atoms/Divider/Divider";
 import {
-  IconAlert,
-  IconCheck,
-  IconFileSearch,
-  IconFlipBackwards,
   IconGear,
-  IconStopwatch,
 } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
@@ -41,49 +22,71 @@ import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
-import { Modal } from "../../organisms/Modal/Modal";
 import { TicketActions } from "./TicketActions";
 import { TicketModals } from "./TicketModals";
 import { TicketStatusBadge } from "./TicketStatusBadge";
 
 var translations = require("../../../translations/ticketTranslations.json");
 
+export interface ITicketModals {
+  claim: boolean;
+  unclaim: boolean;
+  resolve: boolean;
+  open: boolean;
+  cancel: boolean;
+}
+
 export function Ticket() {
   const language = useAppSelector(getCurrentLanguage);
-  const dispatch = useAppDispatch();
-  const loading = useAppSelector(getFetchingTicket);
-  const navigate = useNavigate();
-  const fetchedTicketSuccess = useAppSelector(getFetchedTicketSuccess);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [fetchedTicketSuccess, setFetchedTicketSuccess] = useState<boolean>(false);
 
-  let { ticketID } = useParams();
+  const [ticketModals, setTicketModals] = useState<ITicketModals>({
+    claim: false,
+    unclaim: false,
+    resolve: false,
+    open: false,
+    cancel: false,
+  });
+
+  let ticketID = useParams().ticketID || "";
 
   const user = useAppSelector(getUser);
-  const ticket: ticketType | any = useAppSelector(getTicket);
+  const accessToken = user?.accessToken || "";
+
+  const [ticket, setTicket] = useState<ticketType>();
+
+  let CancelToken = axios.CancelToken;
+  let source = CancelToken.source();
+  
+  const fetchTicket = async () => {
+    const response = await TicketService.getTicket(ticketID, accessToken, source.token);
+    if(response.data.success) {
+      setTicket(response.data.data);
+      setFetchedTicketSuccess(true);
+    }
+    setLoading(false);
+  }
 
   useEffect(() => {
-    let CancelToken = axios.CancelToken;
-    let source = CancelToken.source();
-    dispatch(
-      fetchTicketAsync({ ticketId: ticketID || "", accessToken: user?.accessToken || "", cancelToken: source.token })
-    );
+    fetchTicket();
 
     return () => {
       source.cancel();
-      dispatch(resetTickets());
     };
-  }, [dispatch, ticketID]);
+  }, []);
 
   if (!user) {
     return <Navigate to='/login' />;
   }
 
-  if (fetchedTicketSuccess == false) {
+  if (!loading && fetchedTicketSuccess == false) {
     return <Navigate to='/ticket-not-found' />;
   }
 
   return (
     <>
-      <TicketModals />
+      <TicketModals ticketModals={ticketModals} setTicketModals={setTicketModals} />
       <div className='flex flex-col w-full h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
         <Layout />
         <>
@@ -91,7 +94,7 @@ export function Ticket() {
             <div className='flex items-center justify-center w-full h-full'>
               <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
             </div>
-          ) : ticket != null ? (
+          ) : ticket !== undefined ? (
             <div className='flex flex-col w-full h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
               {/* Main Page */}
               <div className='flex flex-col w-full h-full xl:flex-row'>
@@ -100,7 +103,7 @@ export function Ticket() {
                     <Breadcrumbs crumbs={["Tickets"]} />
                     <div className='flex flex-col lg:flex-row lg:gap-2 lg:justify-between lg:items-end'>
                       <PageHeader title={`Ticket #${ticket.ticketNumber}`} />
-                      <TicketActions user={user} ticket={ticket} />
+                      <TicketActions user={user} ticket={ticket} setTicket={setTicket} ticketModals={ticketModals} setTicketModals={setTicketModals} />
                     </div>
                   </div>
                   <Tab.Group>
