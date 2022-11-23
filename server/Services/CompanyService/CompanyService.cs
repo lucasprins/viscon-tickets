@@ -25,7 +25,7 @@ namespace server.Services.CompanyService
     {
       ServiceResponse<List<GetCompanyDTO>> serviceResponse = new ServiceResponse<List<GetCompanyDTO>>();
 
-      var existingCompany = await _context.Companies.FirstOrDefaultAsync(c => c.Name.ToLower().Equals(newCompany.Name.ToLower()));
+      var existingCompany = await _context.Companies.Where(c => c.Name != "Viscon").OrderByDescending(c => c.IsActive).ThenBy(c => c.Name).FirstOrDefaultAsync(c => c.Name.ToLower().Equals(newCompany.Name.ToLower()));
 
       if (existingCompany != null)
       {
@@ -78,7 +78,7 @@ namespace server.Services.CompanyService
       ServiceResponse<List<GetCompanyDTO>> response = new ServiceResponse<List<GetCompanyDTO>>();
       try
       {
-        List<Company> dbCompanies = await _context.Companies.OrderByDescending(c => c.IsActive).ThenBy(c => c.Name).ToListAsync();
+        List<Company> dbCompanies = await _context.Companies.Where(c => c.Name != "Viscon").OrderByDescending(c => c.IsActive).ThenBy(c => c.Name).ToListAsync();
         response.Data = (dbCompanies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToList();
       }
       catch (Exception ex)
@@ -145,7 +145,7 @@ namespace server.Services.CompanyService
         {
           dbCompany.IsActive = !dbCompany.IsActive;
           await _context.SaveChangesAsync();
-          response.Data = await (_context.Companies.OrderByDescending(c => c.IsActive).ThenBy(c => c.Name).Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
+          response.Data = await (_context.Companies.Where(c => c.Name != "Viscon").OrderByDescending(c => c.IsActive).ThenBy(c => c.Name).Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
         }
       }
       catch

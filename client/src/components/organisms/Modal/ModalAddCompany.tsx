@@ -3,7 +3,13 @@ import { Formik, Form } from "formik";
 import React, { Fragment } from "react";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { emailExists, validateCompanyName, validateEmail, validateName, validatePassword } from "../../../utils/input-validation";
+import {
+  emailExists,
+  validateCompanyName,
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { Divider } from "../../atoms/Divider/Divider";
 import { IconClose, IconKey, IconMail } from "../../atoms/Icons/Icons";
@@ -65,10 +71,9 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
       source.token
     );
 
-
     setAddingCompany(false);
 
-    if(response.data.success) {
+    if (response.data.success) {
       onClose();
       window.location.reload();
     }
@@ -174,15 +179,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                         />
                         <InputErrorMessage name='adminEmail' />
                       </div>
-                      <div className='flex flex-col-reverse gap-4 pt-4 md:flex-row'>
-                        <Button
-                          size='medium'
-                          width='full'
-                          type='secondary-gray'
-                          text='Cancel'
-                          onclick={onClose}
-                          disabled={addingCompany}
-                        />
+                      <div className='flex flex-col-reverse gap-4 pt-4 md:flex-row-reverse'>
                         <Button
                           formType='submit'
                           size='medium'
@@ -195,6 +192,14 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                               <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
                             ) : undefined
                           }
+                        />
+                        <Button
+                          size='medium'
+                          width='full'
+                          type='secondary-gray'
+                          text='Cancel'
+                          onclick={onClose}
+                          disabled={addingCompany}
                         />
                       </div>
                     </div>
