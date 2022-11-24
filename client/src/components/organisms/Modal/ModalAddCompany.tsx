@@ -93,11 +93,11 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
         leaveTo='opacity-0'
       >
         <Dialog
-          className='absolute inset-0 z-50 flex justify-center p-5 lg:items-center lg:p-0'
+          className='absolute inset-0 z-50 flex justify-center p-5 md:items-center md:p-0'
           open={state}
           onClose={onClose}
         >
-          <Dialog.Panel className='flex flex-col items-center w-full gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 lg:w-96 rounded-xl drop-shadow'>
+          <Dialog.Panel className='flex flex-col items-center w-full gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 md:w-96 rounded-xl drop-shadow'>
             <div className='flex items-center justify-between w-full'>
               <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>Add a company</Dialog.Title>
               <ButtonIcon

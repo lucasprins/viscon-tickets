@@ -23,7 +23,10 @@
     "addMachine": "Machine toevoegen",
     "editCompany": "Bedrijf bewerken",
     "deactivate": "Deactiveren",
-    "activate": "Activeren"
+    "activate": "Activeren",
+
+    "noCompanies": "Geen bedrijven gevonden",
+    "noCompaniesSubtitle": "Verwijder uw zoekterm of voeg een bedrijf toe"
   },
   "en": {
     "admin": "Admin",
@@ -49,6 +52,8 @@
     "addMachine": "Add machine",
     "editCompany": "Edit company",
     "deactivate": "Deactivate",
-    "activate": "Activate"
+    "activate": "Activate",
+    "noCompanies": "No companies found",
+    "noCompaniesSubtitle": "Remove your search term or add a company"
   }
 }

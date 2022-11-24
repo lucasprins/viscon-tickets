@@ -1,6 +1,7 @@
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../features/auth/authSlice";
 import CompanyService from "../../../features/customers/companyService";
 import { toggleBackdrop } from "../../../features/modal/modalSlice";
@@ -20,6 +21,7 @@ var translations = require("../../../translations/adminTranslations.json");
 const AdminCompanies = () => {
   const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const language = useAppSelector(getCurrentLanguage);
   const accessToken = user?.accessToken || "";
 
@@ -71,9 +73,12 @@ const AdminCompanies = () => {
     }
   };
 
-  const handleRowClick = (id: string) => {
+  const handleRowClickCompany = (id: string) => {
     const selectedCompany = companies?.find((company) => company.id === id);
     setSelectedCompany(selectedCompany);
+    if(window.innerWidth < 768) {
+      document.getElementById("company-detail")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -120,7 +125,7 @@ const AdminCompanies = () => {
             />
           </div>
           {filteredCompanies !== undefined ? (
-            <AdminCompaniesTable companies={filteredCompanies} handleRowClick={handleRowClick} />
+            <AdminCompaniesTable companies={filteredCompanies} handleRowClick={handleRowClickCompany} />
           ) : (
             <div className='flex items-center justify-center w-full mt-8 mb-8'>
               <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
@@ -129,22 +134,18 @@ const AdminCompanies = () => {
         </div>
 
         {/* Right Side */}
-        <div className='box-border flex flex-col w-full gap-6 py-8 lg:pl-8'>
+        <div id="company-detail" className='box-border flex flex-col w-full gap-6 py-8 lg:pl-8'>
           {selectedCompany !== undefined ? (
             <>
-              <div className='flex flex-col justify-between gap-4 md:items-center md:flex-row'>
+              <div className='flex items-center justify-between gap-4'>
                 <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{selectedCompany.name}</h4>
-                <div className='flex gap-4 md:flex-row-reverse'>
-                  <Button
-                    size='small'
-                    width='content'
-                    type='tertiary-gray'
-                    text={
-                      selectedCompany.isActive ? translations[language].deactivate : translations[language].activate
-                    }
-                    onclick={handleToggleCompanyStatus}
-                  />
-                </div>
+                <Button
+                  size='small'
+                  width='content'
+                  type='tertiary-gray'
+                  text={selectedCompany.isActive ? translations[language].deactivate : translations[language].activate}
+                  onclick={handleToggleCompanyStatus}
+                />
               </div>
 
               <Tab.Group>

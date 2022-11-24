@@ -176,8 +176,8 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
         <div className='flex flex-col items-center justify-center w-full gap-6 p-8 lg:py-16'>
           <EmptyState
             color='primary'
-            title=' TODO '
-            subtitle=' TODO '
+            title={translations[language].noCompanies}
+            subtitle={translations[language].noCompaniesSubtitle}
             featuredIcon={
               <FeaturedIcon
                 size='lg'
