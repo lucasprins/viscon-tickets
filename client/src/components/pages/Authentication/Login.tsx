@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AppAction } from "../../../App";
 import AuthService from "../../../features/auth/authService";
-import { clearMessage } from "../../../features/auth/messageSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { validateEmail, validatePassword } from "../../../utils/input-validation";
 import { Button } from "../../atoms/Button/Button";
 import { IconKey, IconMail, IconTranslate } from "../../atoms/Icons/Icons";
@@ -21,9 +20,7 @@ const translations = require("../../../translations/authenticationTranslations.j
 export function Login() {
   const { appState, appDispatch } = useAppContext();
 
-  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(appState.isAuthenticated);
   const [error, setError] = useState("");
 
   const language: string = useAppSelector(getCurrentLanguage);
@@ -40,26 +37,23 @@ export function Login() {
 
     try {
       const response = await AuthService.login(email, password);
+      console.log(response);
       if(response.data.success) {
         appDispatch({ type: AppAction.USER_LOGIN, payload: response.data.data });
-        setIsAuthenticated(true);
       } else {
         setError(response.data.message);
       }
     } catch {
       console.log("Unable to login");
     }
-
-    // if (email && password) {
-    //   dispatch(login({ email, password }))
-    //     .unwrap()
-    //     .catch(() => {
-    //       setLoading(false);
-    //     });
-    // }
+    setLoading(false);
   };
 
-  if (isAuthenticated) {
+  useEffect(() => {
+    console.log(appState.isAuthenticated);
+  })
+
+  if (useAuthentication()) {
     return <Navigate to='/' />;
   }
   

@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { CancelToken } from "axios";
 import { RootState } from "../../store";
 import { createTicketType, ticketType, userType } from "../../utils/types";
-import { setMessage } from "../auth/messageSlice";
 import { toggleBackdrop } from "../modal/modalSlice";
 
 import TicketService from "./ticketsService";
@@ -81,7 +80,6 @@ export const createTicket = createAsyncThunk(
             return { ticket: response.data.data };
         } catch (error: any) {
             console.log(error);
-            thunkAPI.dispatch(setMessage(error.message));
             return thunkAPI.rejectWithValue(error.message);
         }
     }
