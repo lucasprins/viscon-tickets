@@ -1,16 +1,19 @@
 import React , { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { getLanguageModal, toggleBackdrop, toggleLanguageModal } from '../../../features/modal/modalSlice'
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks'
+import { useAppContext, useAppDispatch, useAppSelector } from '../../../utils/hooks'
 import { getCurrentLanguage, setLanguage } from '../../../features/user/userSlice';
 import { Button } from '../../atoms/Button/Button';
 import { ButtonIcon } from '../../atoms/Button/ButtonIcon';
 import { IconFlag } from '../../atoms/Icons/IconsFlags';
 import { IconCheck, IconClose } from '../../atoms/Icons/Icons';
+import { AppAction } from '../../../App';
 
 var translations = require('../../../translations/modalTranslations.json');
 
 export function ModalChangeLanguage() {
+    const { appState, appDispatch } = useAppContext();
+
     const dispatch = useAppDispatch();
     const language = useAppSelector(getCurrentLanguage);
     let isOpen = useAppSelector(getLanguageModal);
@@ -22,6 +25,7 @@ export function ModalChangeLanguage() {
 
     const changeLanguage = (language: string) => {
         dispatch(setLanguage(language));
+        appDispatch({ type: AppAction.CHANGE_LANGUAGE, payload: language })
     };
 
     return (
@@ -35,10 +39,10 @@ export function ModalChangeLanguage() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0">
 
-            <Dialog className='z-50 absolute inset-0 flex items-center p-6 lg:p-0 justify-center' open={isOpen} onClose={closeModal}>
-                <Dialog.Panel className='bg-white dark:bg-dark-800 w-full lg:w-96 flex flex-col items-center gap-6 p-6 rounded-xl drop-shadow'>
-                    <div className='flex justify-between items-center w-full'>
-                        <Dialog.Title className='text-gray-900 dark:text-white text-xl font-semibold'>{translations[language].selectLanguage}</Dialog.Title>
+            <Dialog className='absolute inset-0 z-50 flex items-center justify-center p-6 lg:p-0' open={isOpen} onClose={closeModal}>
+                <Dialog.Panel className='flex flex-col items-center w-full gap-6 p-6 bg-white dark:bg-dark-800 lg:w-96 rounded-xl drop-shadow'>
+                    <div className='flex items-center justify-between w-full'>
+                        <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>{translations[language].selectLanguage}</Dialog.Title>
                         <ButtonIcon icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />} onclick={closeModal} />
                     </div>
                     <div className='flex flex-col w-full gap-4'>

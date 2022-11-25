@@ -1,16 +1,12 @@
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUser } from "../../../features/auth/authSlice";
 import CompanyService from "../../../features/customers/companyService";
 import { toggleBackdrop } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
-import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
-import { IconClose, IconLogout } from "../../atoms/Icons/Icons";
 import { InputSearch } from "../../atoms/Input/InputSearch";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
@@ -19,11 +15,11 @@ import { AdminCompaniesTable } from "./AdminCompaniesTable";
 var translations = require("../../../translations/adminTranslations.json");
 
 const AdminCompanies = () => {
-  const user = useAppSelector(getUser);
+  const { appState } = useAppContext();
+  
+  const user = appState.user;
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const language = useAppSelector(getCurrentLanguage);
-  const accessToken = user?.accessToken || "";
 
   const [queryCompany, setQueryCompany] = useState<string>("");
   const [queryMachine, setQueryMachine] = useState<string>("");
@@ -51,7 +47,7 @@ const AdminCompanies = () => {
   let sourceCompanies = cancelTokenCompanies.source();
 
   const fetchCompanies = async () => {
-    const response = await CompanyService.getAllCompanies(accessToken, sourceCompanies.token);
+    const response = await CompanyService.getAllCompanies(sourceCompanies.token);
     if (response.data.success) {
       setCompanies(response.data.data);
       setFilteredCompanies(response.data.data);
@@ -63,7 +59,7 @@ const AdminCompanies = () => {
   const handleToggleCompanyStatus = async () => {
     if (selectedCompany) {
       setDeactivatingCompany(true);
-      const response = await CompanyService.toggleCompanyStatus(selectedCompany.id, accessToken);
+      const response = await CompanyService.toggleCompanyStatus(selectedCompany.id);
       if (response.data.success) {
         setCompanies(response.data.data);
         setFilteredCompanies(response.data.data);

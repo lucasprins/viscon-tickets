@@ -1,5 +1,6 @@
 import axios, { CancelToken } from "axios";
 import { createTicketType, userType } from "../../utils/types";
+import { authHeader } from "../auth/authHeader";
 
 const API_URL = "https://localhost:7295/api/ticket/";
 
@@ -50,21 +51,9 @@ const getTicket = async (ticketId: string, accessToken: string, cancelToken: Can
   return response;
 };
 
-const getTickets = async (page: Number, status: string, accessToken: string, cancelToken: CancelToken) => {
+const getTickets = async (page: Number, status: string, cancelToken: CancelToken) => {
   const response = await axios.get(API_URL + `GetAllTickets?page=${page}&status=${status}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    cancelToken: cancelToken,
-  });
-  return response;
-};
-
-const getTotalTickets = async (status: string, accessToken: string, cancelToken: CancelToken) => {
-  const response = await axios.get(API_URL + `GetTotalTickets?status=${status}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: authHeader(),
     cancelToken: cancelToken,
   });
   return response;
@@ -154,7 +143,6 @@ const TicketService = {
   openTicket,
   cancelTicket,
   getTickets,
-  getTotalTickets,
   addSolution,
 };
 

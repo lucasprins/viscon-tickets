@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert } from "../../atoms/Icons/Icons";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { Button } from "../../atoms/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,6 @@ import { ticketType } from "../../../utils/types";
 import { EmptyState } from "../../molecules/EmptyState/EmptyState";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";
-import { getUser } from "../../../features/auth/authSlice";
 
 interface TicketsTableType {
   id: string;
@@ -54,9 +53,11 @@ export function TableTickets({
   handleChangeStatusFilter,
   resetFilters,
 }: TableTicketsProps) {
-  const language = useAppSelector(getCurrentLanguage);
+  const { appState } = useAppContext();
+  const user = appState.user;
+  const language = appState.language;
   const navigate = useNavigate();
-  const user = useAppSelector(getUser);
+
   let tableTickets: TicketsTableType[] = [];
 
   tickets.forEach((ticket) => {

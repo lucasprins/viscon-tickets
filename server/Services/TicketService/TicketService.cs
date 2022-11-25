@@ -116,60 +116,17 @@ namespace server.Services.TicketService
       return serviceResponse;
     }
 
-    public async Task<ServiceResponse<int>> GetTotalTickets(Status? status)
+    public async Task<ServiceResponse<GetTicketsDTO>> GetAllTickets(int page, Status? status)
     {
-      ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
-      var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
-
-      try
-      {
-        if (requestUser == null)
-        {
-          serviceResponse.Success = false;
-          serviceResponse.Message = "Requesting user not found.";
-          return serviceResponse;
-        }
-
-        if (status != null)
-        {
-          if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
-          {
-            serviceResponse.Data = _context.Tickets.Where(t => t.Status == status).Count();
-          }
-          else
-          {
-            serviceResponse.Data = _context.Tickets.Where(t => t.Status == status && t.CompanyId == requestUser.CompanyId).Count();
-          }
-        }
-        else
-        {
-          if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
-          {
-            serviceResponse.Data = _context.Tickets.Count();
-          }
-          else
-          {
-            serviceResponse.Data = _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId).Count();
-          }
-        }
-      }
-      catch (Exception ex)
-      {
-        serviceResponse.Success = false;
-        serviceResponse.Message = "Unable to get total tickets.";
-        System.Console.WriteLine(ex.Message);
-      }
-
-      return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<List<GetTicketDTO>>> GetAllTickets(int page, Status? status)
-    {
-      ServiceResponse<List<GetTicketDTO>> serviceResponse = new ServiceResponse<List<GetTicketDTO>>();
+      ServiceResponse<GetTicketsDTO> serviceResponse = new ServiceResponse<GetTicketsDTO>();
       var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
 
       int pageSize = 10;
       int skip = (page - 1) * pageSize;
+
+      System.Console.WriteLine("PAGES: " + page + " " + pageSize + " " + skip);
+      System.Console.WriteLine("STATUS: " + status);
+      System.Console.WriteLine("REQUEST USER: " + requestUser?.FirstName);
 
       try
       {
@@ -181,6 +138,8 @@ namespace server.Services.TicketService
         }
 
         IQueryable<Ticket> tickets = _context.Tickets.Select(ticket => ticket);
+        var ticketsDTO = new GetTicketsDTO();
+        ticketsDTO.Tickets = new List<GetTicketDTO>();
 
         if (status != null)
           tickets = tickets.Where(ticket => ticket.Status == status);
@@ -189,13 +148,12 @@ namespace server.Services.TicketService
           tickets = tickets.Where(ticket => ticket.CompanyId == requestUser.CompanyId);
 
         tickets = tickets
-            .OrderBy(ticket => ticket.Status)
-            .ThenBy(ticket => ticket.Priority)
-            .ThenByDescending(ticket => ticket.CreationDate)
-            .Skip(skip)
-            .Take(pageSize)
-            .Select(ticket => ticket);
-
+        .OrderBy(ticket => ticket.Status)
+        .ThenBy(ticket => ticket.Priority)
+        .ThenByDescending(ticket => ticket.CreationDate)
+        .Skip(skip)
+        .Take(pageSize)
+        .Select(ticket => ticket);
 
         List<Ticket> ticketsList = await tickets.ToListAsync();
         List<GetTicketDTO> ticketsListConverted = new List<GetTicketDTO>();
@@ -204,20 +162,34 @@ namespace server.Services.TicketService
           foreach (Ticket ticket in ticketsList)
             ticketsListConverted.Add(await CreateGetTicketDTO(ticket));
         }
-        catch (Exception ex)
+        catch
         {
           serviceResponse.Success = false;
           serviceResponse.Message = "Unable to return the tickets.";
-          System.Console.WriteLine(ex.Message);
           return serviceResponse;
         }
 
-        serviceResponse.Data = ticketsListConverted;
+        ticketsDTO.Tickets = ticketsListConverted;
+
+        if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
+        {
+          ticketsDTO.TotalTickets = _context.Tickets.Count();
+          ticketsDTO.OpenTickets = _context.Tickets.Count(t => t.Status == Status.Open);
+          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.AssigneeId == requestUser.Id);
+        }
+        else
+        {
+          ticketsDTO.TotalTickets = _context.Tickets.Count(t => t.CompanyId == requestUser.CompanyId);
+          ticketsDTO.OpenTickets = _context.Tickets.Count(t => t.CompanyId == requestUser.CompanyId && t.Status == Status.Open);
+          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.CreatorId == requestUser.Id);
+        }
+
+        serviceResponse.Data = ticketsDTO;
       }
       catch (Exception ex)
       {
         serviceResponse.Success = false;
-        serviceResponse.Message = "Unable to get all tickets.";
+        serviceResponse.Message = "Unable to get tickets.";
         System.Console.WriteLine(ex.Message);
       }
 
@@ -518,77 +490,6 @@ namespace server.Services.TicketService
       {
         serviceResponse.Success = false;
         serviceResponse.Message = "Unable to cancel ticket with given id.";
-        System.Console.WriteLine(ex.Message);
-      }
-
-      return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<int>> GetTotalTicketsByUser()
-
-    {
-      ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
-      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
-
-      if (user == null)
-      {
-        serviceResponse.Success = false;
-        serviceResponse.Message = "User not found.";
-        return serviceResponse;
-      }
-
-      try
-      {
-        if (user.Role == Role.VisconAdmin || user.Role == Role.VisconEmployee)
-        {
-          serviceResponse.Data = await _context.Tickets.Where(t => t.AssigneeId == user.Id).CountAsync();
-        }
-        else
-        {
-          serviceResponse.Data = await _context.Tickets.Where(t => t.CreatorId == user.Id).CountAsync();
-        }
-      }
-
-      catch (Exception ex)
-      {
-        serviceResponse.Success = false;
-        serviceResponse.Message = "Unable to get total tickets by user.";
-        System.Console.WriteLine(ex.Message);
-      }
-
-      return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<int>> GetTotalTicketsThisWeek()
-    {
-      ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
-      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
-
-      if (user == null)
-      {
-        serviceResponse.Success = false;
-        serviceResponse.Message = "User not found.";
-        return serviceResponse;
-      }
-
-      try
-      {
-        var compareDate = DateTime.UtcNow.AddDays(-7);
-
-        if (user.Role == Role.VisconAdmin || user.Role == Role.VisconEmployee)
-        {
-          serviceResponse.Data = await _context.Tickets.Where(t => t.CreationDate > compareDate).CountAsync();
-        }
-        else
-        {
-          serviceResponse.Data = await _context.Tickets.Where(t => t.CreatorId == user.Id && t.CreationDate > compareDate).CountAsync();
-        }
-      }
-
-      catch (Exception ex)
-      {
-        serviceResponse.Success = false;
-        serviceResponse.Message = "Unable to get total tickets this week.";
         System.Console.WriteLine(ex.Message);
       }
 

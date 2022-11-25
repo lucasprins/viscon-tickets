@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import {
@@ -21,15 +21,18 @@ import { Avatar } from "../../atoms/Avatar/Avatar";
 import { Divider } from "../../atoms/Divider/Divider";
 import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
-import { getUser, logout } from "../../../features/auth/authSlice";
+import AuthService from "../../../features/auth/authService";
+import { AppAction } from "../../../App";
 
 var translations = require("../../../translations/sidebarTranslations.json");
 
 export function NavigationSidebar() {
+  const { appState, appDispatch } = useAppContext();
+  const user = appState.user;
+
   const dispatch = useAppDispatch();
   const language: string = useSelector(getCurrentLanguage);
   const root = document.getElementsByTagName("html")[0];
-  const user = useAppSelector(getUser);
 
   const openLanguageModal = () => {
     dispatch(toggleBackdrop());
@@ -48,8 +51,10 @@ export function NavigationSidebar() {
     }
   };
 
-  const logOut = useCallback(() => {
-    dispatch(logout());
+  const handleLogout = useCallback(() => {
+    AuthService.logout();
+    appDispatch({ type: AppAction.USER_LOGOUT });
+
   }, [dispatch]);
 
   return (
@@ -117,7 +122,7 @@ export function NavigationSidebar() {
             </div>
           </Link>
           <ButtonIcon
-            onclick={logOut}
+            onclick={handleLogout}
             icon={<IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
           />
         </div>

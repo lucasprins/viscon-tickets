@@ -27,27 +27,9 @@ namespace server.Controllers
         }
 
         [HttpGet("GetAllTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
-        public async Task<ActionResult<ServiceResponse<List<GetTicketDTO>>>> GetAllTickets(int page, Status? status = null)
+        public async Task<ActionResult<ServiceResponse<GetTicketsDTO>>> GetAllTickets(int page, Status? status = null)
         {
             return Ok(await _ticketService.GetAllTickets(page, status));
-        }
-
-        [HttpGet("GetTotalTickets"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
-        public async Task<ActionResult<ServiceResponse<int>>> GetTotalTickets(Status? status = null)
-        {
-            return Ok(await _ticketService.GetTotalTickets(status));
-        }
-
-        [HttpGet("GetTotalTicketsByUser"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
-        public async Task<ActionResult<ServiceResponse<int>>> GetTotalTicketsByUser()
-        {
-            return Ok(await _ticketService.GetTotalTicketsByUser());
-        }
-
-        [HttpGet("GetTotalTicketsThisWeek"), Authorize(Roles = "VisconAdmin, VisconEmployee, CustomerAdmin, CustomerEmployee")]
-        public async Task<ActionResult<ServiceResponse<int>>> GetTotalTicketsThisWeek()
-        {
-            return Ok(await _ticketService.GetTotalTicketsThisWeek());
         }
 
         [HttpPost("CreateTicket"), Authorize(Roles = "CustomerAdmin, CustomerEmployee")]

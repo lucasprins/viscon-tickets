@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Button } from "../../atoms/Button/Button";
@@ -24,7 +24,9 @@ interface Props {
 var translations = require("../../../translations/adminTranslations.json");
 
 export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
-  const language = useAppSelector(getCurrentLanguage);
+  const { appState } = useAppContext();
+  const language = appState.language;
+
   const columnHelper = createColumnHelper<companyType>();
 
   const columnNonMemo = [
@@ -37,7 +39,7 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
     columnHelper.accessor("isActive", {
       header: translations[language].status,
       cell: (props) => {
-        if(props.getValue()) {
+        if (props.getValue()) {
           return <Badge size='md' color='primary' text={translations[language].active} />;
         } else {
           return <Badge size='md' color='gray' text={translations[language].inactive} />;
@@ -62,7 +64,7 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
     columnHelper.accessor("isActive", {
       header: translations[language].status,
       cell: (props) => {
-        if(props.getValue()) {
+        if (props.getValue()) {
           return <Badge size='md' color='primary' text='Active' />;
         } else {
           return <Badge size='md' color='gray' text='Inactive' />;
@@ -79,7 +81,7 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
 
   useEffect(() => {
     handleReizeTable();
-  }, [])
+  }, []);
 
   const handleReizeTable = () => {
     if (window.innerWidth <= 1280) {
@@ -89,9 +91,7 @@ export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
     }
   };
 
-  //const columns =columnsNonMemo;
   const columns = isMobile ? columnNonMemoSmall : columnNonMemo;
-  // const data = tableTickets;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const data = companies;
 

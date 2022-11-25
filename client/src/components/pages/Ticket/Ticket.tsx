@@ -3,10 +3,9 @@ import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { Fragment, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { getUser } from "../../../features/auth/authSlice";
 import TicketService from "../../../features/tickets/ticketsService";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
@@ -36,9 +35,11 @@ export interface ITicketModals {
 }
 
 export function Ticket() {
-  const user = useAppSelector(getUser);
+  const { appState } = useAppContext();
+
+  const user = appState.user;
+  const language = appState.language;
   const accessToken = user?.accessToken || "";
-  const language = useAppSelector(getCurrentLanguage);
   let ticketID = useParams().ticketID || "";
 
   const [ticket, setTicket] = useState<ticketType>();

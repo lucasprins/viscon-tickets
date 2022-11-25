@@ -2,9 +2,8 @@ import { Tab } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getUser } from "../../../features/auth/authSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import Layout from "../../organisms/Layout/Layout";
@@ -13,10 +12,12 @@ import AdminCompanies from "./AdminCompanies";
 var translations = require("../../../translations/adminTranslations.json");
 
 const Admin = () => {
-  const language = useAppSelector(getCurrentLanguage);
-  const user = useAppSelector(getUser);
+  const { appState } = useAppContext();
 
-  if (!user) {
+  const language = appState.language;
+  const user = appState.user;
+
+  if (!useAuthentication()) {
     return <Navigate to='/login' />;
   }
 

@@ -6,8 +6,7 @@ import Layout from "../../organisms/Layout/Layout";
 import { MachineSolutionList } from "../../molecules/MachineSolution/MachineSolutionList";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
-import { getUser } from "../../../features/auth/authSlice";
+import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { Navigate } from "react-router-dom";
 import { MachineType } from "../../../utils/types";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";
@@ -18,8 +17,10 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 var translations = require("../../../translations/knowledgebaseTranslations.json");
 
 export function Knowledgebase() {
-  const language = useAppSelector(getCurrentLanguage);
-  const user = useAppSelector(getUser);
+  const { appState, appDispatch } = useAppContext();
+
+  const language = appState.language;
+  const user = appState.user;
   const accessToken = user?.accessToken || "";
   const userRole = user?.role;
 
@@ -32,7 +33,7 @@ export function Knowledgebase() {
 
   const fetchAllMachines = async () => {
     setLoading(true);
-    const response = await MachineService.getAllMachines(accessToken, source.token);
+    const response = await MachineService.getAllMachines(source.token);
     if (response.data.success) {
       setMachines(response.data.data);
       setSelectedMachine(response.data.data[0]);
@@ -52,7 +53,7 @@ export function Knowledgebase() {
     setSelectedMachine(payload);
   };
 
-  if (!user) {
+  if (!useAuthentication()) {
     return <Navigate to='/login' />;
   }
 

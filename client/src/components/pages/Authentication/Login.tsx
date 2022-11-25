@@ -1,10 +1,11 @@
 import { Formik, Form } from "formik";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getIsLoggedIn, login } from "../../../features/auth/authSlice";
+import { AppAction } from "../../../App";
+import AuthService from "../../../features/auth/authService";
 import { clearMessage } from "../../../features/auth/messageSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { validateEmail, validatePassword } from "../../../utils/input-validation";
 import { Button } from "../../atoms/Button/Button";
 import { IconKey, IconMail, IconTranslate } from "../../atoms/Icons/Icons";
@@ -18,40 +19,50 @@ import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 const translations = require("../../../translations/authenticationTranslations.json");
 
 export function Login() {
+  const { appState, appDispatch } = useAppContext();
+
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
-  const isLoggedIn = useAppSelector(getIsLoggedIn);
-  const { message } = useAppSelector((state) => state.message);
+  const [isAuthenticated, setIsAuthenticated] = useState(appState.isAuthenticated);
+  const [error, setError] = useState("");
 
   const language: string = useAppSelector(getCurrentLanguage);
   const logo = require("../../../assets/viscon-login.jpg");
-
-  useEffect(() => {
-    dispatch(clearMessage());
-  }, [dispatch]);
 
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const handleLogin = (formValue: { email: string; password: string }) => {
+  const handleLogin = async (formValue: { email: string; password: string }) => {
     const { email, password } = formValue;
     setLoading(true);
 
-    if (email && password) {
-      dispatch(login({ email, password }))
-        .unwrap()
-        .catch(() => {
-          setLoading(false);
-        });
+    try {
+      const response = await AuthService.login(email, password);
+      if(response.data.success) {
+        appDispatch({ type: AppAction.USER_LOGIN, payload: response.data.data });
+        setIsAuthenticated(true);
+      } else {
+        setError(response.data.message);
+      }
+    } catch {
+      console.log("Unable to login");
     }
+
+    // if (email && password) {
+    //   dispatch(login({ email, password }))
+    //     .unwrap()
+    //     .catch(() => {
+    //       setLoading(false);
+    //     });
+    // }
   };
 
-  if (isLoggedIn) {
+  if (isAuthenticated) {
     return <Navigate to='/' />;
   }
-
+  
   return (
     <div className='flex w-full dark:bg-dark-800 dark:text-white lg:h-screen'>
       <div className='hidden p-8 lg:flex lg:absolute'>
@@ -119,9 +130,9 @@ export function Login() {
                   />
                 </div>
                 {/* Error message */}
-                {message && (
+                {error !== "" && (
                   <div className='flex justify-center'>
-                    <span className='text-error-500'>{message}</span>
+                    <span className='text-error-500'>{error}</span>
                   </div>
                 )}
               </Form>

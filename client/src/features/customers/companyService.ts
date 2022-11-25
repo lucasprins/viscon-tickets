@@ -1,12 +1,11 @@
 import axios, { CancelToken } from "axios";
+import { authHeader } from "../auth/authHeader";
 
 const API_URL = "https://localhost:7295/api/company/";
 
-const getAllCompanies = async (accessToken: string, cancelToken: CancelToken) => {
+const getAllCompanies = async (cancelToken: CancelToken) => {
   const response = await axios.get(API_URL + "GetAllCompanies/", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: authHeader(),
     cancelToken: cancelToken,
   });
   return response;
@@ -17,17 +16,14 @@ const companyExists = async (name: string) => {
   return response;
 };
 
-const toggleCompanyStatus = async (companyId: string, accessToken: string) => {
+const toggleCompanyStatus = async (companyId: string) => {
   const response = await axios.get(API_URL + "ToggleCompanyStatus/" + companyId, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: authHeader(),
   });
   return response;
 }
 
 const addCompany = async (
-  accessToken: string,
   companyName: string,
   companyCountry: string,
   adminFirstName: string,
@@ -50,9 +46,7 @@ const addCompany = async (
       },
     },
     {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      headers: authHeader(),
       cancelToken: cancelToken,
     }
   );

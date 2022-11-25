@@ -1,22 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getAccessToken, getUser } from "../../../features/auth/authSlice";
-import {
-  fetchTicketsAsync,
-  fetchTotalTicketsAsync,
-  fetchTotalTicketsByUser,
-  fetchTotalTicketsThisWeek,
-  getFetchingTickets,
-  getFetchingTotalTickets,
-  getTickets,
-  getTotalTickets,
-  getTotalTicketsByUser,
-  getTotalTicketsThisWeek,
-  resetTicketsMetrics,
-} from "../../../features/tickets/ticketsSlice";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import TicketService from "../../../features/tickets/ticketsService";
+import { useAppContext, useAuthentication } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
 import { MetricCard } from "../../atoms/Cards/MetricCard";
@@ -30,18 +16,19 @@ import { TableTickets } from "../../organisms/Table/TableTickets";
 const translations = require("../../../translations/ticketsTranslations.json");
 
 export function Tickets() {
-  const user = useAppSelector(getUser);
-  const language = useAppSelector(getCurrentLanguage);
-  const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(getAccessToken) || "";
+  const { appState } = useAppContext();
+  const user = appState.user;
+  const language = appState.language;
 
-  const tickets = useAppSelector(getTickets);
-  const totalTickets = useAppSelector(getTotalTickets);
-  const totalTicketsByUser = useAppSelector(getTotalTicketsByUser);
-  const totalTicketsThisWeek = useAppSelector(getTotalTicketsThisWeek);
+  const metricsSpinner = <Spinner size='w-10 h-10' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />;
 
-  const loadingTickets = useAppSelector(getFetchingTickets);
-  const loadingTotalTickets = useAppSelector(getFetchingTotalTickets);
+  const [tickets, setTickets] = useState();
+  const [loadingTickets, setLoadingTickets] = useState<boolean>();
+  const [error, setError] = useState<boolean>(false);
+
+  const [totalTickets, setTotalTickets] = useState<number>(0);
+  const [yourTickets, setYourTickets] = useState<number>(0);
+  const [openTickets, setOpenTickets] = useState<number>(0);
 
   const [page, setPage] = useState(1);
   const maxPages = Math.ceil(totalTickets / 10);
@@ -54,9 +41,7 @@ export function Tickets() {
     { value: "Cancelled", label: translations[language].cancelled },
   ];
 
-  const [searchFilter, setSearchFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState({ value: "", label: "All" });
-  const [company, setCompany] = useState("");
 
   const handleChangeStatusFilter = (payload: any) => {
     setStatusFilter(payload);
@@ -64,57 +49,36 @@ export function Tickets() {
   };
 
   const resetFilters = () => {
-    setSearchFilter("");
     setStatusFilter({ value: "", label: "All" });
-    setCompany("");
   };
 
   let CancelTokenTickets = axios.CancelToken;
   let sourceTickets = CancelTokenTickets.source();
-  let CancelTokenTotalTickets = axios.CancelToken;
-  let sourceTotalTickets = CancelTokenTotalTickets.source();
-  let CancelTokenTotalTicketsByUser = axios.CancelToken;
-  let sourceTotalTicketsByUser = CancelTokenTotalTicketsByUser.source();
-  let CancelTokenTotalTicketsThisWeek = axios.CancelToken;
-  let sourceTotalTicketsThisWeek = CancelTokenTotalTicketsThisWeek.source();
+
+  const fetchTickets = async () => {
+    setLoadingTickets(true);
+    const response = await TicketService.getTickets(page, statusFilter.value, sourceTickets.token);
+    console.log(response);
+    if (response.data.success) {
+      setTickets(response.data.data.tickets);
+      setTotalTickets(response.data.data.totalTickets);
+      setYourTickets(response.data.data.yourTickets);
+      setOpenTickets(response.data.data.openTickets);
+    } else {
+      setError(true);
+    }
+    setLoadingTickets(false);
+  };
 
   useEffect(() => {
-    dispatch(
-      fetchTicketsAsync({
-        page: page,
-        status: statusFilter.value,
-        accessToken: accessToken,
-        cancelToken: sourceTickets.token,
-      })
-    );
+    fetchTickets();
+
+    console.table(tickets);
+
     return () => {
       sourceTickets.cancel();
     };
   }, [page, statusFilter]);
-
-  useEffect(() => {
-    dispatch(
-      fetchTotalTicketsAsync({
-        status: statusFilter.value,
-        accessToken: accessToken,
-        cancelToken: sourceTotalTickets.token,
-      })
-    );
-    return () => {
-      sourceTotalTickets.cancel();
-    };
-  }, [statusFilter]);
-
-  useEffect(() => {
-    dispatch(fetchTotalTicketsByUser({ accessToken: accessToken, cancelToken: sourceTotalTicketsByUser.token }));
-    dispatch(fetchTotalTicketsThisWeek({ accessToken: accessToken, cancelToken: sourceTotalTicketsThisWeek.token }));
-    return () => {
-      dispatch(resetTicketsMetrics());
-      sourceTotalTicketsByUser.cancel();
-      sourceTotalTickets.cancel();
-      sourceTotalTicketsByUser.cancel();
-    };
-  }, []);
 
   const handleNextPage = () => {
     page != maxPages && setPage(page + 1);
@@ -124,7 +88,7 @@ export function Tickets() {
     page > 1 && setPage(page - 1);
   };
 
-  if (!user) {
+  if (!useAuthentication() || user == undefined) {
     return <Navigate to='/login' />;
   }
 
@@ -142,23 +106,27 @@ export function Tickets() {
                 width='content'
                 type='secondary-gray'
                 text={translations[language].create_ticket}
-                url="/knowledgebase/create-ticket"
+                url='/knowledgebase/create-ticket'
                 icon={<IconPlus size='20' color='stroke-gray-700 dark:stroke-white' fill='' />}
               />
             )}
           </div>
           <Divider />
         </div>
-        <div className='hidden w-full gap-6 lg:flex '>
-          <MetricCard number={totalTickets.toString()} title='Total tickets' />
-          <MetricCard number={totalTicketsThisWeek.toString()} title="This week's tickets" />
-          <MetricCard number={totalTicketsByUser.toString()} title='Your tickets' />
-        </div>
-        {loadingTickets || loadingTotalTickets ? (
-          <div className='flex items-center justify-center w-full h-96'>
-            <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
+        {!loadingTickets ? (
+          <div className='hidden w-full gap-6 lg:flex '>
+            <MetricCard content={totalTickets} title='Total tickets' />
+            <MetricCard content={openTickets} title="Open tickets" />
+            <MetricCard content={yourTickets} title='Your tickets' />
           </div>
         ) : (
+          <div className='hidden w-full gap-6 lg:flex '>
+            <MetricCard content={metricsSpinner} title='Total tickets' />
+            <MetricCard content={metricsSpinner} title="Open tickets" />
+            <MetricCard content={metricsSpinner} title='Your tickets' />
+          </div>
+        )}
+        {!loadingTickets && tickets !== undefined ? (
           <div className='lg:flex'>
             <TableTickets
               tickets={tickets}
@@ -171,6 +139,10 @@ export function Tickets() {
               handleChangeStatusFilter={handleChangeStatusFilter}
               resetFilters={resetFilters}
             />
+          </div>
+        ) : (
+          <div className='flex items-center justify-center w-full h-96'>
+            <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
           </div>
         )}
       </div>

@@ -14,11 +14,10 @@ import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/input-validation";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
 import { companyMachineType, createTicketType, MachineType, userType } from "../../../utils/types";
-import { getUser } from "../../../features/auth/authSlice";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { getMachines, getSelectedMachine, setSelectedMachine } from "../../../features/machines/machinesSlice";
 import {
@@ -37,13 +36,16 @@ import MachineService from "../../../features/machines/machinesService";
 var translations = require("../../../translations/createTicketTranslations.json");
 
 export function CreateTicket() {
+  const { appState } = useAppContext();
+  const user = appState.user;
+  const language = appState.language;
+  const accessToken = user?.accessToken;
+  
   const [currentStep, setCurrentStep] = useState(1);
-  const user: userType | null = useAppSelector(getUser);
+
   const loading = useAppSelector(getCreatingTicket);
-  const language = useAppSelector(getCurrentLanguage);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const accessToken = user?.accessToken || "";
 
   const createTicketSuccess: boolean | null = useAppSelector(getCreatedTicketSuccess);
   const [openErrorModal, setOpenErrorModal] = useState(true);
@@ -84,7 +86,7 @@ export function CreateTicket() {
 
   const fetchAllMachines = async () => {
     setLoadingMachines(true);
-    const response = await MachineService.getAllMachines(accessToken, sourceMachines.token);
+    const response = await MachineService.getAllMachines(sourceMachines.token);
     if (response.data.success) {
       setMachines(response.data.data);
       setSelectedMachine(response.data.data[0]);
@@ -94,7 +96,7 @@ export function CreateTicket() {
 
   const fetchAllCompanyMachines = async () => {
     setLoadingCompanyMachines(true);
-    const response = await MachineService.getAllCompanyMachines(accessToken, sourceCompanyMachines.token);
+    const response = await MachineService.getAllCompanyMachines(sourceCompanyMachines.token);
     if (response.data.success) {
       setCompanyMachines(response.data.data);
       setSelectedCompanyMachine(response.data.data[0]);
@@ -136,7 +138,7 @@ export function CreateTicket() {
     }
   };
 
-  if (!user) {
+  if (!useAuthentication()) {
     return <Navigate to='/login' />;
   }
 

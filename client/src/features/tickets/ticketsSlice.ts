@@ -4,7 +4,6 @@ import { RootState } from "../../store";
 import { createTicketType, ticketType, userType } from "../../utils/types";
 import { setMessage } from "../auth/messageSlice";
 import { toggleBackdrop } from "../modal/modalSlice";
-import TicketsMetricsService from "./ticketsMetricsService";
 
 import TicketService from "./ticketsService";
 
@@ -88,55 +87,6 @@ export const createTicket = createAsyncThunk(
     }
 );
 
-export const fetchTicketsAsync = createAsyncThunk(
-    "tickets/fetchTicketsAsync",
-    async ({ page, status, accessToken, cancelToken }: { page: Number, status: string, accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
-        try {
-            const response = await TicketService.getTickets(page, status, accessToken, cancelToken);
-            return { response: response.data };
-        } catch (error: any) {
-            console.log(error);
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
-
-export const fetchTotalTicketsAsync = createAsyncThunk(
-    "tickets/fetchTotalTicketsAsync",
-    async ({ status, accessToken, cancelToken }: { status: string, accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
-        try {
-            const response = await TicketService.getTotalTickets(status, accessToken, cancelToken);
-            return { response: response.data };
-        } catch (error: any) {
-            console.log(error);
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
-
-export const fetchTotalTicketsByUser = createAsyncThunk(
-    "tickets/fetchTotalTicketsByUser",
-    async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
-        try {
-            const response = await TicketsMetricsService.getTotalTicketsByUser(accessToken, cancelToken);
-            return { response: response.data };
-        } catch (error: any) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
-
-export const fetchTotalTicketsThisWeek = createAsyncThunk(
-    "tickets/fetchTotalTicketsThisWeek",
-    async ({ accessToken, cancelToken }: { accessToken: string, cancelToken: CancelToken }, thunkAPI) => {
-        try {
-            const response = await TicketsMetricsService.getTotalTicketsThisWeek(accessToken, cancelToken);
-            return { response: response.data };
-        } catch (error: any) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
 
 const ticketsSlice = createSlice({
     name: "tickets",
@@ -188,58 +138,6 @@ const ticketsSlice = createSlice({
         [createTicket.rejected.toString()]: (state) => {
             state.creatingTicket = false;
             state.createdTicketSuccess = false;
-        },
-
-        [fetchTicketsAsync.pending.toString()]: (state) => {
-            state.fetchingTickets = true;
-        },
-        [fetchTicketsAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
-            state.fetchingTickets = false;
-            state.fetchedTicketsSuccess = action.payload.response.success ? true : false;
-            state.tickets = action.payload.response.data;
-        },
-        [fetchTicketsAsync.rejected.toString()]: (state) => {
-            state.fetchingTickets = false;
-            state.fetchedTicketsSuccess = false;
-        },
-
-        [fetchTotalTicketsAsync.pending.toString()]: (state) => {
-            state.fetchingTotalTickets = true;
-        },
-        [fetchTotalTicketsAsync.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
-            state.fetchingTotalTickets = false;
-            state.fetchedTotalTicketsSuccess = action.payload.response.success ? true : false;
-            state.totalTickets = action.payload.response.data;
-        },
-        [fetchTotalTicketsAsync.rejected.toString()]: (state) => {
-            state.fetchingTotalTickets = false;
-            state.fetchedTotalTicketsSuccess = false;
-        },
-
-        [fetchTotalTicketsByUser.pending.toString()]: (state) => {
-            state.fetchingTotalTicketsByUser = true;
-        },
-        [fetchTotalTicketsByUser.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
-            state.fetchingTotalTicketsByUser = false;
-            state.fetchedTotalTicketsByUserSuccess = action.payload.response.success ? true : false;
-            state.totalTicketsByUser = action.payload.response.data;
-        },
-        [fetchTotalTicketsByUser.rejected.toString()]: (state) => {
-            state.fetchingTotalTicketsByUser = false;
-            state.fetchedTotalTicketsByUserSuccess = false;
-        },
-
-        [fetchTotalTicketsThisWeek.pending.toString()]: (state) => {
-            state.fetchingTotalTicketsThisWeek = true;
-        },
-        [fetchTotalTicketsThisWeek.fulfilled.toString()]: (state, action: PayloadAction<any>) => {
-            state.fetchingTotalTicketsThisWeek = false;
-            state.fetchedTotalTicketsThisWeekSuccess = action.payload.response.success ? true : false;
-            state.totalTicketsThisWeek = action.payload.response.data;
-        },
-        [fetchTotalTicketsThisWeek.rejected.toString()]: (state) => {
-            state.fetchingTotalTicketsThisWeek = false;
-            state.fetchedTotalTicketsThisWeekSuccess = false;
         },
 
     },

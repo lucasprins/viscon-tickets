@@ -1,22 +1,19 @@
 import axios, { CancelToken } from "axios";
+import { authHeader } from "../auth/authHeader";
 
 const API_URL = "https://localhost:7295/api/machine/";
 
-const getAllMachines = async (accessToken: string, cancelToken: CancelToken) => {
+const getAllMachines = async (cancelToken: CancelToken) => {
   const response = await axios.get(API_URL + "GetAllMachines/", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: authHeader(),
     cancelToken: cancelToken,
   });
   return response;
 };
 
-const getAllCompanyMachines = async (accessToken: string, cancelToken: CancelToken) => {
+const getAllCompanyMachines = async (cancelToken: CancelToken) => {
   const response = await axios.get(API_URL + "GetAllCompanyMachines/", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: authHeader(),
     cancelToken: cancelToken,
   });
   return response;

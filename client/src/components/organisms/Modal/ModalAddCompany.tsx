@@ -1,32 +1,23 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment } from "react";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import {
   emailExists,
   validateCompanyName,
-  validateEmail,
   validateName,
-  validatePassword,
 } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
-import { Divider } from "../../atoms/Divider/Divider";
-import { IconClose, IconKey, IconMail } from "../../atoms/Icons/Icons";
+import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import InputSelectAutoComplete from "../../atoms/Input/InputSelectAutoComplete";
 import { countries } from "../../../utils/countries";
-import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Button } from "../../atoms/Button/Button";
 import { Spinner } from "../../atoms/Spinner/Spinner";
-import { getAccessToken } from "../../../features/auth/authSlice";
 import axios from "axios";
 import CompanyService from "../../../features/customers/companyService";
-import { Modal } from "./Modal";
-import { useNavigate } from "react-router-dom";
-import { toggleBackdrop } from "../../../features/modal/modalSlice";
 
 type formValues = {
   companyName: string;
@@ -37,8 +28,8 @@ type formValues = {
 };
 
 const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => void }) => {
-  const language = useAppSelector(getCurrentLanguage);
-  const accessToken = useAppSelector(getAccessToken) || "";
+  const { appState } = useAppContext();
+  const language = appState.language;  
 
   const [selectedCountry, setSelectedCountry] = React.useState(countries[0]);
   const [addingCompany, setAddingCompany] = React.useState(false);
@@ -61,7 +52,6 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
   const submitAddCompany = async (values: formValues) => {
     setAddingCompany(true);
     const response = await CompanyService.addCompany(
-      accessToken,
       values.companyName,
       selectedCountry,
       values.adminFirstName,
