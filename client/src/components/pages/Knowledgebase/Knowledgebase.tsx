@@ -93,7 +93,7 @@ export function Knowledgebase() {
           ) : undefined}
         </div>
         {/* Solutions */}
-        <div className='flex flex-col w-full gap-6 px-6 pb-6 bg-gray-50 dark:bg-dark-800 md:pt-6 lg:p-8'>
+        <div className='flex flex-col w-full gap-6 px-6 pb-6 bg-white md:bg-gray-50 dark:bg-dark-800 md:pt-6 lg:p-8'>
           <div className=''>
             <Breadcrumbs crumbs={[translations[language].knowledgebase]} />
           </div>
