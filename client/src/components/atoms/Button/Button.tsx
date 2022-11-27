@@ -18,6 +18,8 @@ export function Button({ size, width, type, text, icon, url, onclick, formType, 
   let buttonSizeStyle = "";
   let buttonTypeStyle = "";
 
+  console.log(" BUTTON RENDERED");
+
   switch (size) {
     case "large":
       buttonSizeStyle = "py-2.5 px-5 font-semibold";

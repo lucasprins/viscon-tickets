@@ -10,58 +10,59 @@ import { userType as UserType } from "./utils/types";
 const localStorageUser = localStorage.getItem("user");
 const initialUser = localStorageUser ? JSON.parse(localStorageUser) : undefined;
 
-export enum AppAction {
-  CHANGE_LANGUAGE = "CHANGE_LANGUAGE",
-  USER_LOGIN = "USER_LOGIN",
-	USER_LOGOUT = "USER_LOGOUT"
-}
+type AppContextEvent =
+  | {
+      type: "CHANGE_LANGUAGE";
+      payload: string;
+    }
+  | {
+      type: "USER_LOGIN";
+      payload: UserType;
+    }
+  | {
+      type: "USER_LOGOUT";
+    };
 
-interface TAppState {
+interface AppState {
   language: string;
-	isAuthenticated: boolean;
+  isAuthenticated: boolean;
   user: UserType | undefined;
-
 }
 
-interface TAppAction {
-  type: AppAction;
-  payload?: any;
+interface AppContext {
+  appState: AppState;
+  appDispatch: React.Dispatch<AppContextEvent>;
 }
 
-interface TAppContext {
-  appState: TAppState;
-  appDispatch: React.Dispatch<TAppAction>;
-}
-
-const initialAppState: TAppState = {
+const initialAppState: AppState = {
   language: "en",
-	isAuthenticated: initialUser !== undefined,
+  isAuthenticated: initialUser !== undefined,
   user: initialUser,
 };
 
-const appReducer = (state: TAppState, action: TAppAction) => {
+const appReducer = (state: AppState, action: AppContextEvent) => {
   switch (action.type) {
-    case AppAction.CHANGE_LANGUAGE:
+    case "CHANGE_LANGUAGE":
       return {
         ...state,
         language: action.payload,
       };
-    case AppAction.USER_LOGIN:
+    case "USER_LOGIN":
       return {
         ...state,
-				isAuthenticated: true,
+        isAuthenticated: true,
         user: action.payload,
       };
-		case AppAction.USER_LOGOUT:
-			return {
-				...state,
-				isAuthenticated: false,
-				user: undefined
-			}
+    case "USER_LOGOUT":
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: undefined,
+      };
   }
 };
 
-export const AppContext = React.createContext<TAppContext | undefined>(undefined);
+export const AppContext = React.createContext<AppContext | undefined>(undefined);
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, initialAppState);

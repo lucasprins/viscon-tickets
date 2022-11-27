@@ -22,7 +22,6 @@ import { Divider } from "../../atoms/Divider/Divider";
 import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import AuthService from "../../../features/auth/authService";
-import { AppAction } from "../../../App";
 
 var translations = require("../../../translations/sidebarTranslations.json");
 
@@ -53,7 +52,7 @@ export function NavigationSidebar() {
 
   const handleLogout = useCallback(() => {
     AuthService.logout();
-    appDispatch({ type: AppAction.USER_LOGOUT });
+    appDispatch({ type: "USER_LOGOUT" });
 
   }, [dispatch]);
 

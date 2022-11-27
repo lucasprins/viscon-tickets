@@ -1,7 +1,6 @@
 import { Formik, Form } from "formik";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { AppAction } from "../../../App";
 import AuthService from "../../../features/auth/authService";
 import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
@@ -39,7 +38,7 @@ export function Login() {
       const response = await AuthService.login(email, password);
       console.log(response);
       if(response.data.success) {
-        appDispatch({ type: AppAction.USER_LOGIN, payload: response.data.data });
+        appDispatch({ type: "USER_LOGIN", payload: response.data.data });
       } else {
         setError(response.data.message);
       }
