@@ -10,7 +10,7 @@ import { userType as UserType } from "./utils/types";
 const localStorageUser = localStorage.getItem("user");
 const initialUser = localStorageUser ? JSON.parse(localStorageUser) : undefined;
 
-type AppContextEvent =
+type AppContextAction =
   | {
       type: "CHANGE_LANGUAGE";
       payload: string;
@@ -31,7 +31,7 @@ interface AppState {
 
 interface AppContext {
   appState: AppState;
-  appDispatch: React.Dispatch<AppContextEvent>;
+  appDispatch: React.Dispatch<AppContextAction>;
 }
 
 const initialAppState: AppState = {
@@ -40,7 +40,7 @@ const initialAppState: AppState = {
   user: initialUser,
 };
 
-const appReducer = (state: AppState, action: AppContextEvent) => {
+const appReducer = (state: AppState, action: AppContextAction) => {
   switch (action.type) {
     case "CHANGE_LANGUAGE":
       return {

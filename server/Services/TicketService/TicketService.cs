@@ -104,6 +104,10 @@ namespace server.Services.TicketService
           return serviceResponse;
         }
 
+        if(ticket.Solution == null) {
+          ticket.Solution = "";
+        }
+
         serviceResponse.Data = await CreateGetTicketDTO(ticket);
       }
       catch (Exception ex)
