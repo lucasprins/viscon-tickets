@@ -1,6 +1,7 @@
 {
     "nl": {
         "login": "Inloggen",
+        "loginSubtitle": "Welkom terug bij het Viscon ticketsysteem! Vul uw inloggegevens in om verder te gaan.",
         "language": "Taal",
         "forgotPassword": "Wachtwoord vergeten",
         "loggingIn": "Inloggen..."
@@ -8,6 +9,7 @@
     },
     "en": {
         "login": "Login",
+        "loginSubtitle": "Welcome back to the Viscon ticketsystem! Please enter your details to proceed.",
         "language": "Language",
         "forgotPassword": "Forgot password ",
         "loggingIn": "Logging in..."

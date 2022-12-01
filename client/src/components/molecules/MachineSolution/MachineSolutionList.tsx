@@ -7,47 +7,44 @@ import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { EmptyState } from "../EmptyState/EmptyState";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconAlert } from "../../atoms/Icons/Icons";
-import { SolutionType } from "../../../utils/types";
+import { MachineType, SolutionType } from "../../../utils/types";
 
 var translations = require("../../../translations/miscTranslations.json");
 
-export function MachineSolutionList() {
-    const solutions = useAppSelector(getSolutions);
-    const language = useAppSelector(getCurrentLanguage);
+export function MachineSolutionList({ selectedMachine }: { selectedMachine: MachineType | undefined }) {
+  const solutions = useAppSelector(getSolutions);
+  const language = useAppSelector(getCurrentLanguage);
 
-    const selectedMachine = useAppSelector(getSelectedMachine);
+  let filteredSolutions: SolutionType[] = [];
 
-    const filteredSolutionsMachine = solutions.filter(
-        (solution: SolutionType) => solution.machineId === selectedMachine.machineId
-    );
-    const filteredSolutionsLanguage = filteredSolutionsMachine.filter(
-        (solution: SolutionType) => solution.language === language
-    );
+  if (selectedMachine !== undefined) {
+    filteredSolutions = solutions.filter((solution: SolutionType) => solution.machineId === selectedMachine.id);
+  }
 
-    return (
-        <>
-            {filteredSolutionsLanguage.length > 0 ? (
-                <div className='flex flex-col gap-6 w-full'>
-                    {filteredSolutionsLanguage.map((solution: SolutionType) => (
-                        <MachineSolution key={solution.solutionId} solution={solution} machine={selectedMachine} />
-                    ))}
-                </div>
-            ) : (
-                <div className='flex justify-center pt-8 pb-8 md:pb-4'>
-                    <EmptyState
-                        color='primary'
-                        title={translations[language].noSolutions}
-						subtitle={translations[language].noSolutionsSubtitle}
-                        featuredIcon={
-                            <FeaturedIcon
-                                size='lg'
-                                type='primary'
-                                icon={<IconAlert size='20' fill='fill-primary-500' color='stroke-primary-500' />}
-                            />
-                        }
-                    />
-                </div>
-            )}
-        </>
-    );
+  return (
+    <>
+      {filteredSolutions.length > 0 && selectedMachine !== undefined ? (
+        <div className='flex flex-col w-full gap-6'>
+          {filteredSolutions.map((solution: SolutionType) => (
+            <MachineSolution key={solution.solutionId} solution={solution} machine={selectedMachine} />
+          ))}
+        </div>
+      ) : (
+        <div className='flex justify-center pt-8 pb-8 md:pb-4'>
+          <EmptyState
+            color='primary'
+            title={translations[language].noSolutions}
+            subtitle={translations[language].noSolutionsSubtitle}
+            featuredIcon={
+              <FeaturedIcon
+                size='lg'
+                type='primary'
+                icon={<IconAlert size='20' fill='fill-primary-500' color='stroke-primary-500' />}
+              />
+            }
+          />
+        </div>
+      )}
+    </>
+  );
 }

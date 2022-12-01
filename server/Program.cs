@@ -10,6 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using server.Services.AuthService;
 using server.Services.TicketService;
+using server.Services.UserService;
+using server.Services.TokenService;
+using server.Services.MachineService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +62,9 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMachineService, MachineService>();
 
 var app = builder.Build();
 

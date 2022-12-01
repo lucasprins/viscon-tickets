@@ -37,5 +37,17 @@ namespace server.Controllers
         {
             return Ok(await _companyService.AddCompany(newCompany));
         }
+
+        [HttpGet("CompanyExists/{name}")]
+        public async Task<ActionResult<ServiceResponse<bool>>> CompanyExists(string name)
+        {
+            return Ok(await _companyService.CompanyExists(name));
+        }
+
+        [HttpGet("ToggleCompanyStatus/{id}"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDTO>>>> DeactivateCompany(Guid id)
+        {
+            return Ok(await _companyService.ToggleCompanyStatus(id));
+        }
     }
 }

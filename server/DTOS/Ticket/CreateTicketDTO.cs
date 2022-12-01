@@ -14,7 +14,7 @@ namespace server.DTOS
         public string ActionPerformed { get; set; } = null!;
         public string ExtraInfo { get; set; } = null!;
 
-        public Guid MachineId { get; set; }
+        public Guid CompanyMachineId { get; set; }
         public Guid CreatorId { get; set; }
         public Guid CompanyId { get; set; }
     }

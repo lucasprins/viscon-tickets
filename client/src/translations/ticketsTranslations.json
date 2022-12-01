@@ -1,19 +1,29 @@
 {
     "nl":{
+        "tickets": "Tickets",
+        "create_ticket": "Ticket aanmaken",
         "ticketID":"Ticket ID",
 
         "noTickets": "Geen tickets gevonden...",
-        "noTicketsText": "Het lijkt erop dat je nog geen tickets hebt aangemaakt. Klik op de knop hieronder om een ticket aan te maken.",
+        "noTicketsText": "We hebben geen tickets kunnen vinden die voldoen aan uw filters. Klik op de knop hieronder om de filters te resetten.",
 
+        "open": "Open",
+        "inProgress": "In behandeling",
+        "resolved": "Opgelost",
         "cancelled": "Geannuleerd"
     },
 
     "en":{
+        "tickets": "Tickets",
+        "create_ticket": "Create ticket",
         "ticketID":"Ticket ID",
 
         "noTickets": "No tickets found...",
-        "noTicketsText": "It looks like you haven't created any tickets yet. Click on the button below to create a ticket.",
+        "noTicketsText": "We couldn't find any tickets that match your filters. Click the button below to reset your filters.",
 
+        "open": "Open",
+        "inProgress": "In progress",
+        "resolved": "Resolved",
         "cancelled": "Cancelled"
 
     }

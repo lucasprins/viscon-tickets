@@ -9,6 +9,7 @@
         "contact_information_subtitle": "Verander alstublieft het telefoonnummer als dat nodig is.",
         "contact_information_subtitle_long": "Controleer alstublieft.",
       
+        "select_company_machine": "Selecteer de machine waar hij probleem zich voordoet",
         "describe_issue": "Omschrijf het probleem",
         "describe_issue_subtitle": "Beschrijf zorgvuldig wat u ziet en wat er mis gaat.",
         "describe_issue_specific" : "Wat ziet u dat er fout gaat?",
@@ -34,7 +35,8 @@
         "First_name" : "Voornaam",
         "Last_name" : "Achternaam",
         "Company_name" : "Bedrijf",
-        "Phone_number" : "Telefoonnummer"
+        "Phone_number" : "Telefoonnummer",
+        "machine": "Machine"
 
     },
     "en": {
@@ -47,6 +49,7 @@
         "contact_information_subtitle": "Please change the default phone number if necessary.",
         "contact_information_subtitle_long": "Please make sure that this is the correct contact information. If you're using a different phone than usual, please enter the number here.",
         
+        "select_company_machine": "Select the machine where the problem occurs",
         "describe_issue": "Describe the issue",
         "describe_issue_subtitle": "Please describe carefully what is going wrong and what you are seeing.",
         "describe_issue_specific" : "What do you see that is going wrong?",
@@ -72,6 +75,7 @@
         "First_name" : "First Name",
         "Last_name" : "Last Name",
         "Company_name" : "Company",
-        "Phone_number" : "Phone number"
+        "Phone_number" : "Phone number",
+        "machine": "Machine"
     }
 }

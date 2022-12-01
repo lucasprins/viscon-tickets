@@ -4,13 +4,17 @@
         "invalidPhoneNumber": "Ongeldig telefoonnummer",
         "invalidEmail": "Ongeldig emailadres",
         "inputTooShort": "Uw ingevoerde tekst is te kort",
-        "passwordTooShort": "Uw wachtwoord is te kort"
+        "passwordTooShort": "Uw wachtwoord is te kort",
+        "companyExists": "Bedrijf bestaat al",
+        "emailExists": "Emailadres bestaat al"
     },
     "en": {
         "fieldRequired": "This field is required",
         "invalidPhoneNumber": "Invalid phone number",
         "invalidEmail": "Invalid email address",
-        "inputTooShort": "Your input is to short",
-        "passwordTooShort": "Your password is too short"
+        "inputTooShort": "Your input is too short",
+        "passwordTooShort": "Your password is too short",
+        "companyExists": "Company already exists",
+        "emailExists": "Email address already exists"
     }
 }
