@@ -37,10 +37,10 @@ namespace server.Controllers
             return Ok(await _machineService.GetCompanyMachines());
         }
 
-        [HttpGet("GetCompanyMachine/{id}"), Authorize]
-        public async Task<ActionResult<ServiceResponse<CompanyMachine>>> GetCompanyMachine(int id)
-        {
-            return Ok(await _machineService.GetCompanyMachineById(id));
-        }
+        // [HttpGet("GetCompanyMachine/{id}"), Authorize]
+        // public async Task<ActionResult<ServiceResponse<CompanyMachine>>> GetCompanyMachine(int id)
+        // {
+        //     return Ok(await _machineService.GetCompanyMachineById(id));
+        // }
     }
 }
