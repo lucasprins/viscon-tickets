@@ -72,7 +72,7 @@ const AdminCompanies = () => {
   const handleRowClickCompany = (id: string) => {
     const selectedCompany = companies?.find((company) => company.id === id);
     setSelectedCompany(selectedCompany);
-    if(window.innerWidth < 768) {
+    if(window.innerWidth < 1024) {
       document.getElementById("company-detail")?.scrollIntoView({ behavior: "smooth" });
     }
   };
