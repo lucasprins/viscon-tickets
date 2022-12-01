@@ -21,10 +21,10 @@ namespace server.Services.MachineService
       _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<GetCompanyMachineDTO>> GetCompanyMachineById(int id)
-    {
-      throw new NotImplementedException();
-    }
+    // public async Task<ServiceResponse<GetCompanyMachineDTO>> GetCompanyMachineById(int id)
+    // {
+    //   throw new NotImplementedException();
+    // }
 
     public async Task<ServiceResponse<List<GetCompanyMachineDTO>>> GetCompanyMachines()
     {
