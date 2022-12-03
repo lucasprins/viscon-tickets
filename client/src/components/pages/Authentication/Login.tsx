@@ -92,7 +92,6 @@ export function Login() {
                       style='icon'
                       type='password'
                       placeholder='Enter your password'
-                      validate={(input) => validatePassword(input, language)}
                       icon={<IconKey size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                       id='password'
                       name='password'
