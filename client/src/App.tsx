@@ -87,3 +87,7 @@ function App() {
 }
 
 export default App;
+
+// translations fixing: 
+//TicketCancelmodal 
+// 

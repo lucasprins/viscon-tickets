@@ -155,7 +155,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                         />
                         <InputErrorMessage name='adminEmail' />
                       </div>
-                      <div className='flex flex-col-reverse gap-4 pt-4 md:flex-row-reverse'>
+                      <div className='flex flex-col gap-4 pt-4 md:flex-row-reverse'>
                         <Button
                           formType='submit'
                           size='medium'

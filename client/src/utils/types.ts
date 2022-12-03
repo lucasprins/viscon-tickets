@@ -45,7 +45,7 @@ export type ticketType = {
   creationDate: string;
   status: string;
   priority: string;
-  issueType: string;
+  issueType: TicketIssueType;
   issue: string;
   actionExpected: string;
   actionPerformed: string;
@@ -62,12 +62,19 @@ export type createTicketType = {
   lastName: string;
   company: companyType;
   phoneNumber: string;
+  issueType: TicketIssueType;
   issue: string;
   actionExpected: string;
   actionPerformed: string;
   extraInfo: string;
   machine: companyMachineType | undefined;
 };
+
+export enum TicketIssueType {
+  Software = "Software",
+  Hardware = "Hardware",
+  Other = "Other",
+}
 
 export type ticketUserType = {
   id: string;

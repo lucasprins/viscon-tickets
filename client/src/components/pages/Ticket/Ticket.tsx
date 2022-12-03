@@ -60,6 +60,7 @@ export function Ticket() {
 
   const fetchTicket = async () => {
     const response = await TicketService.getTicket(ticketID, accessToken, source.token);
+    console.log(response);
     if (response.data.success) {
       setTicket(response.data.data);
       setFetchedTicketSuccess(true);
@@ -198,10 +199,10 @@ export function Ticket() {
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
                               {translations[language].creator}
                             </span>
-                              <AvatarCard
-                                name={`${ticket.creator.firstName} ${ticket.creator.lastName}`}
-                                subtitle={ticket.phoneNumber}
-                              />
+                            <AvatarCard
+                              name={`${ticket.creator.firstName} ${ticket.creator.lastName}`}
+                              subtitle={ticket.phoneNumber}
+                            />
                           </div>
                           <div className='flex flex-col w-full gap-2'>
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
@@ -213,16 +214,28 @@ export function Ticket() {
                         <Formik initialValues={ticket} onSubmit={() => console.log("submit")}>
                           {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col w-full gap-5'>
-                              <div className='flex flex-col w-full gap-1.5'>
-                                <InputLabel htmlFor='machineName' text={translations[language].machine} />
-                                <InputField
-                                  style='icon'
-                                  type='text'
-                                  id='machineName'
-                                  name='machineName'
-                                  disabled={true}
-                                  icon={<IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' />}
-                                />
+                              <div className='flex flex-col gap-4 md:flex-row'>
+                                <div className='flex flex-col w-full gap-1.5'>
+                                  <InputLabel htmlFor='machineName' text={translations[language].machine} />
+                                  <InputField
+                                    style='icon'
+                                    type='text'
+                                    id='machineName'
+                                    name='machineName'
+                                    disabled={true}
+                                    icon={<IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' />}
+                                  />
+                                </div>
+                                <div className='flex flex-col w-full gap-1.5'>
+                                  <InputLabel htmlFor='issueType' text='Issue type' />
+                                  <InputField
+                                    style='iconless'
+                                    type='text'
+                                    id='issueType'
+                                    name='issueType'
+                                    disabled={true}
+                                  />
+                                </div>
                               </div>
                               <div className='flex flex-col w-full gap-1.5'>
                                 <InputLabel htmlFor='issue' text={translations[language].describe_issue_specific} />
@@ -290,6 +303,12 @@ export function Ticket() {
                                   name='solution'
                                 />
                               </div>
+                              {ticket.status === "Cancelled" ? (
+                                <div className='flex flex-col w-full gap-1.5'>
+                                  <InputLabel htmlFor='cancelReason' text="Reason for cancelling" />
+                                  <InputTextArea disabled id='cancelReason' name='cancelReason' />
+                                </div>
+                              ) : undefined}
                               {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
                                 <div>
                                   <Button

@@ -63,7 +63,7 @@ namespace server.Controllers
         }
 
         [HttpPut("CancelTicket"), Authorize(Roles = "CustomerAdmin, CustomerEmployee")]
-        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> CancelTicket(TicketIdDTO ticketToCancel)
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> CancelTicket(CancelTicketDTO ticketToCancel)
         {
             return Ok(await _ticketService.CancelTicket(ticketToCancel));
         }
