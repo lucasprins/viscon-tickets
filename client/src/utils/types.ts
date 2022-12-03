@@ -45,6 +45,7 @@ export type ticketType = {
   creationDate: string;
   status: string;
   priority: string;
+  issueType: string;
   issue: string;
   actionExpected: string;
   actionPerformed: string;

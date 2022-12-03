@@ -49,19 +49,6 @@ namespace server.Services.CompanyService
         });
 
         await _context.SaveChangesAsync();
-
-        var machines = await _context.Machines.Where(m => m.BlueprintNumber == company.Id.ToString()).ToListAsync();
-        System.Console.WriteLine("Machine count: " + machines.Count);
-        foreach (var machine in machines)
-        {
-          await _context.CompanyMachines.AddAsync(new CompanyMachine
-          {
-            CompanyId = company.Id,
-            MachineId = machine.Id
-          });
-        }
-
-        await _context.SaveChangesAsync();
         serviceResponse.Data = await (_context.Companies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
       }
       catch (Exception ex)

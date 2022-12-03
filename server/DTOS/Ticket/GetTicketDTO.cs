@@ -15,6 +15,7 @@ namespace server.DTOS
         public Status Status { get; set; }
         public Priority Priority { get; set; }
 
+        public IssueType IssueType { get; set; }
         public string Issue { get; set; } = null!;
         public string ActionExpected { get; set; } = null!;
         public string ActionPerformed { get; set; } = null!;
