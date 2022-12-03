@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import CompanyService from "../../../features/customers/companyService";
 import { toggleBackdrop } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
@@ -19,7 +18,7 @@ const AdminCompanies = () => {
   
   const user = appState.user;
   const dispatch = useAppDispatch();
-  const language = useAppSelector(getCurrentLanguage);
+  const language = appState.language;
 
   const [queryCompany, setQueryCompany] = useState<string>("");
   const [queryMachine, setQueryMachine] = useState<string>("");

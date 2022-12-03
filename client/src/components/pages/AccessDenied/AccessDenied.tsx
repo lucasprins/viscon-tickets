@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getCurrentLanguage } from '../../../features/user/userSlice';
-import { useAppContext, useAppSelector, useAuthentication } from '../../../utils/hooks';
+import { useAppContext, useAuthentication } from '../../../utils/hooks';
 import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';

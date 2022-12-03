@@ -5,7 +5,6 @@ import { Divider } from "../../atoms/Divider/Divider";
 import Layout from "../../organisms/Layout/Layout";
 import { MachineSolutionList } from "../../molecules/MachineSolution/MachineSolutionList";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { Navigate } from "react-router-dom";
 import { MachineType } from "../../../utils/types";

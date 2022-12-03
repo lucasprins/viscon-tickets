@@ -1,7 +1,6 @@
 import React from "react";
 import TicketService from "../../../features/tickets/ticketsService";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { ticketType, userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { IconFlipBackwards, IconCheck, IconFileSearch } from "../../atoms/Icons/Icons";
@@ -23,7 +22,7 @@ export const TicketActions = ({
   ticketModals: ITicketModals;
   setTicketModals: React.Dispatch<React.SetStateAction<ITicketModals>>;
 }) => {
-  const language = useAppSelector(getCurrentLanguage);
+  const language = useAppContext().appState.language;
 
   const [claimingTicket, setClaimingTicket] = React.useState(false);
   const [unclaimingTicket, setUnclaimingTicket] = React.useState(false);

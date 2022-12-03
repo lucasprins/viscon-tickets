@@ -22,7 +22,6 @@ import CompanyService from "../../../features/customers/companyService";
 type formValues = {
   companyName: string;
   adminFirstName: string;
-  adminPrefix: string;
   adminLastName: string;
   adminEmail: string;
 };
@@ -44,7 +43,6 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
   const formValues: formValues = {
     companyName: "",
     adminFirstName: "",
-    adminPrefix: "",
     adminLastName: "",
     adminEmail: "",
   };
@@ -55,7 +53,6 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
       values.companyName,
       selectedCountry,
       values.adminFirstName,
-      values.adminPrefix,
       values.adminLastName,
       values.adminEmail,
       source.token
@@ -133,17 +130,6 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                           name='adminFirstName'
                         />
                         <InputErrorMessage name='adminFirstName' />
-                      </div>
-                      <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminPrefix' text='Prefix' />
-                        <InputField
-                          style='iconless'
-                          type='text'
-                          placeholder='van der'
-                          id='adminPrefix'
-                          name='adminPrefix'
-                        />
-                        <InputErrorMessage name='adminPrefix' />
                       </div>
                       <div className='flex flex-col gap-1.5'>
                         <InputLabel htmlFor='adminLastName' text='Last name' />

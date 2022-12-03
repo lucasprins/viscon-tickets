@@ -13,7 +13,6 @@ import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/input-validation";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";

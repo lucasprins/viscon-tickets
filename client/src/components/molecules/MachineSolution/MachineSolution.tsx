@@ -1,6 +1,5 @@
 import React from 'react';
-import { getCurrentLanguage } from '../../../features/user/userSlice';
-import { useAppSelector } from '../../../utils/hooks';
+import { useAppContext, useAppSelector } from '../../../utils/hooks';
 import { MachineType, SolutionType } from '../../../utils/types';
 import { Tag } from '../../atoms/Tag/Tag';
 
@@ -12,13 +11,13 @@ type MachineSolutionProps = {
 }
 
 export function MachineSolution({ solution, machine }: MachineSolutionProps) {
-	const language = useAppSelector(getCurrentLanguage);
+	const language = useAppContext().appState.language;
 	
 	return (
-		<div className='p-5 flex flex-col gap-4 bg-white dark:bg-dark-700 dark:border-dark-600 border-solid border border-gray-200 rounded-xl w-full drop-shadow-sm dark:text-white'>
+		<div className='flex flex-col w-full gap-4 p-5 bg-white border border-gray-200 border-solid dark:bg-dark-700 dark:border-dark-600 rounded-xl drop-shadow-sm dark:text-white'>
 			<div className='flex flex-col gap-y-1'>
-				<h3 className=' text-gray-800 dark:text-white font-medium'>{solution.issue}</h3>
-				<p className=' text-gray-600 dark:text-dark-300'>{solution.solution}</p>
+				<h3 className='font-medium text-gray-800  dark:text-white'>{solution.issue}</h3>
+				<p className='text-gray-600  dark:text-dark-300'>{solution.solution}</p>
 			</div>
 
 			{/* Tags */}

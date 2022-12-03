@@ -1,7 +1,6 @@
 export type userType = {
   id: string;
   firstName: string;
-  prefix: string | undefined;
   lastName: string;
   email: string;
   phoneNumber: string;
@@ -72,6 +71,5 @@ export type createTicketType = {
 export type ticketUserType = {
   id: string;
   firstName: string;
-  prefix: string | null;
   lastName: string;
 };

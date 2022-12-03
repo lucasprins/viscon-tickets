@@ -4,7 +4,6 @@ import { Form, Formik } from "formik";
 import React, { Fragment, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import TicketService from "../../../features/tickets/ticketsService";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
@@ -189,9 +188,7 @@ export function Ticket() {
                                 subtitle={translations[language].assignee}
                                 name={
                                   ticket.assignee !== null
-                                    ? ticket.assignee?.prefix == null
-                                      ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                      : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket?.assignee?.lastName}`
+                                    ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
                                     : undefined
                                 }
                               />
@@ -201,17 +198,10 @@ export function Ticket() {
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
                               {translations[language].creator}
                             </span>
-                            {ticket?.creator?.prefix == null ? (
                               <AvatarCard
                                 name={`${ticket.creator.firstName} ${ticket.creator.lastName}`}
                                 subtitle={ticket.phoneNumber}
                               />
-                            ) : (
-                              <AvatarCard
-                                name={`${ticket.creator.firstName} ${ticket.creator.prefix} ${ticket.creator.lastName}`}
-                                subtitle={ticket.phoneNumber}
-                              />
-                            )}
                           </div>
                           <div className='flex flex-col w-full gap-2'>
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
@@ -350,9 +340,7 @@ export function Ticket() {
                         subtitle={translations[language].assignee}
                         name={
                           ticket.assignee !== null
-                            ? ticket.assignee?.prefix == null
-                              ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                              : `${ticket.assignee?.firstName} ${ticket.assignee?.prefix} ${ticket?.assignee?.lastName}`
+                            ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
                             : undefined
                         }
                       />

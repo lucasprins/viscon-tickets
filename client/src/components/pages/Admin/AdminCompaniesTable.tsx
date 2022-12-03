@@ -7,7 +7,6 @@ import {
   Table,
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { companyType } from "../../../utils/types";
 import { Badge } from "../../atoms/Badge/Badge";

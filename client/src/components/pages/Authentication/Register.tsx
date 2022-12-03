@@ -1,8 +1,7 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { Button } from "../../atoms/Button/Button";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
@@ -12,15 +11,14 @@ import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 
 export function Register() {
-    const language = useAppSelector(getCurrentLanguage);
-    const dispatch = useAppDispatch();
+    const language = useAppContext().appState.language;
     const [newPassword, setNewPassword] = useState({
         passwordOne: "",
         passwordTwo: "",
     });
 
     return (
-        <div className='h-screen w-screen flex justify-center p-6 lg:py-24 dark:bg-dark-800'>
+        <div className='flex justify-center w-screen h-screen p-6 lg:py-24 dark:bg-dark-800'>
             <div className='flex flex-col items-center gap-8'>
                 <div className='flex flex-col items-center gap-6 w-96'>
                     <FeaturedIcon
@@ -29,10 +27,10 @@ export function Register() {
                         icon={<IconKey size='26' color='stroke-primary-500' fill='fill-primary-500' />}
                     />
                     <div className='flex flex-col gap-3'>
-                        <h1 className='text-display_sm text-gray-900 dark:text-white font-semibold text-center'>
+                        <h1 className='font-semibold text-center text-gray-900 text-display_sm dark:text-white'>
                             {"Set up your password"}
                         </h1>
-                        <p className='text-md text-gray-600 dark:text-dark-400 text-center'>
+                        <p className='text-center text-gray-600 text-md dark:text-dark-400'>
                             {"Before you can login you will need to set up a password."}
                         </p>
                     </div>
@@ -40,7 +38,7 @@ export function Register() {
 
                 <Formik initialValues={newPassword} onSubmit={() => console.log("Submitting login")}>
                     {({ errors, touched, isValidating }) => (
-                        <Form className='flex flex-col gap-6 w-full'>
+                        <Form className='flex flex-col w-full gap-6'>
                             <div className="flex flex-col gap-5">
                                 <div className='flex flex-col gap-1.5 w-full'>
                                     <InputLabel htmlFor='passwordOne' text='Password' />

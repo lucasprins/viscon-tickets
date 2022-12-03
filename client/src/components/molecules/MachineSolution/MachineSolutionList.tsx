@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useAppSelector } from "../../../utils/hooks";
-import { getSelectedMachine } from "../../../features/machines/machinesSlice";
+import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { getSolutions } from "../../../features/solutions/solutionsSlice";
 import { MachineSolution } from "./MachineSolution";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { EmptyState } from "../EmptyState/EmptyState";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconAlert } from "../../atoms/Icons/Icons";
@@ -13,7 +11,7 @@ var translations = require("../../../translations/miscTranslations.json");
 
 export function MachineSolutionList({ selectedMachine }: { selectedMachine: MachineType | undefined }) {
   const solutions = useAppSelector(getSolutions);
-  const language = useAppSelector(getCurrentLanguage);
+  const language = useAppContext().appState.language;
 
   let filteredSolutions: SolutionType[] = [];
 

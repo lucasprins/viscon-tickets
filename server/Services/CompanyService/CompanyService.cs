@@ -42,7 +42,6 @@ namespace server.Services.CompanyService
         await _userService.AddUser(new AddUserDTO
         {
           FirstName = newCompany.AdminUser.FirstName,
-          Prefix = newCompany.AdminUser.Prefix,
           LastName = newCompany.AdminUser.LastName,
           Email = newCompany.AdminUser.Email,
           Role = newCompany.AdminUser.Role,
