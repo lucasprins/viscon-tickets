@@ -25,6 +25,7 @@ namespace server.Data
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       Guid AdminCompanyGuid = Guid.NewGuid();
+      Guid CustomerCompanyGuid = Guid.NewGuid();
 
       modelBuilder.Entity<CompanyMachine>()
           .HasOne(cm => cm.Company)
@@ -79,6 +80,11 @@ namespace server.Data
               new Company { Id = AdminCompanyGuid, Name = "Viscon", Country = "Netherlands (the)", IsActive = true }
           );
 
+      modelBuilder.Entity<Company>()
+            .HasData(
+                new Company { Id = CustomerCompanyGuid, Name = "Customer", Country = "Netherlands (the)", IsActive = true }
+            );
+
 
       byte[] passwordHash, passwordSalt;
       using (var hmac = new HMACSHA512())
@@ -101,6 +107,21 @@ namespace server.Data
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
               });
+
+      modelBuilder.Entity<User>()
+        .HasData(
+            new User
+            {
+            Id = Guid.NewGuid(),
+            FirstName = "Customer",
+            LastName = "Admin",
+            Email = "root@customer.nl",
+            Role = Role.CustomerAdmin,
+            IsActive = true,
+            CompanyId = CustomerCompanyGuid,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt,
+            });
     }
   }
 }
