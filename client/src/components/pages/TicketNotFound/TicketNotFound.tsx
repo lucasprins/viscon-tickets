@@ -5,7 +5,7 @@ import { IconAlert, IconTicket } from '../../atoms/Icons/Icons';
 import { useAppContext, useAppSelector, useAuthentication } from '../../../utils/hooks';
 import { Navigate } from 'react-router-dom';
 
-var translations = require('../../../translations/ticketTranslations.json');
+var translations = require('../../../translations/allTranslation.json');
 
 export function TicketNotFound() {
 	const language = useAppContext().appState.language;

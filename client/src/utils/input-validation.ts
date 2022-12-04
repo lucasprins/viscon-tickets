@@ -2,7 +2,7 @@ import CompanyService from "../features/customers/companyService";
 import MachineService from "../features/machines/machinesService";
 import UserService from "../features/user/userService";
 
-var translations = require("../translations/validateInputTranslations.json");
+var translations = require("../translations/allTranslations.json");
 
 /**
  * Returns an error if a given phoneNumber doesn't meet the specified phone number requirements

@@ -9,7 +9,7 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 import { ITicketModals } from "./Ticket";
 import TicketCancelModal from "./TicketCancelModal";
 
-var translations = require("../../../translations/ticketTranslations.json");
+var translations = require("../../../translations/allTranslation.json");
 
 export const TicketActions = ({
   user,

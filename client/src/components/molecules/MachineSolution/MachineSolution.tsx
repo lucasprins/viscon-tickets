@@ -3,7 +3,7 @@ import { useAppContext, useAppSelector } from '../../../utils/hooks';
 import { MachineType, SolutionType } from '../../../utils/types';
 import { Tag } from '../../atoms/Tag/Tag';
 
-var translations = require('../../../translations/knowledgebaseTranslations.json');
+var translations = require('../../../translations/allTranslations.json');
 
 type MachineSolutionProps = {
 	solution: SolutionType,

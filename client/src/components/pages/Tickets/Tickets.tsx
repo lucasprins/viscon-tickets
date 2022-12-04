@@ -13,7 +13,7 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
 import { TableTickets } from "../../organisms/Table/TableTickets";
 
-const translations = require("../../../translations/ticketsTranslations.json");
+const translations = require("../../../translations/allTranslations.json");
 
 export function Tickets() {
   const { appState } = useAppContext();

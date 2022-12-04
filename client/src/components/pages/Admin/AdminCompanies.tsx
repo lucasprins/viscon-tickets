@@ -14,7 +14,7 @@ import ModalAddCompanyMachine from "../../organisms/Modal/ModalAddCompanyMachine
 import { AdminCompaniesMachinesTable } from "./Tables/AdminCompaniesMachinesTable";
 import { AdminCompaniesTable } from "./Tables/AdminCompaniesTable";
 
-var translations = require("../../../translations/adminTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 const AdminCompanies = () => {
   const { appState } = useAppContext();

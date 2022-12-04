@@ -26,6 +26,8 @@ type formValues = {
   adminEmail: string;
 };
 
+var translations = require("../../../translations/allTranslations.json");
+
 const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => void }) => {
   const { appState } = useAppContext();
   const language = appState.language;  

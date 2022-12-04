@@ -13,7 +13,7 @@ import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 
-const translations = require("../../../translations/authenticationTranslations.json");
+const translations = require("../../../translations/allTranslations.json");
 
 export function Login() {
   const { appState, appDispatch } = useAppContext();

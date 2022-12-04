@@ -19,7 +19,7 @@ interface Props {
   companyMachines: CompanyMachineJoined[];
 }
 
-var translations = require("../../../../translations/adminTranslations.json");
+var translations = require("../../../../translations/allTranslations.json");
 
 export function AdminCompaniesMachinesTable({ companyMachines: companyMachines }: Props) {
   const { appState } = useAppContext();

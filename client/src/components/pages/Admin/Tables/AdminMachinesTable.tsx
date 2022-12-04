@@ -20,7 +20,7 @@ interface Props {
   handleRowClick: (id: string) => void;
 }
 
-var translations = require("../../../../translations/adminTranslations.json");
+var translations = require("../../../../translations/allTranslations.json");
 
 function AdminMachinesTable({ machines, handleRowClick }: Props) {
   const { appState } = useAppContext();

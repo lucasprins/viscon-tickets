@@ -7,7 +7,7 @@ import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconAlert } from "../../atoms/Icons/Icons";
 import { MachineType, SolutionType } from "../../../utils/types";
 
-var translations = require("../../../translations/miscTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function MachineSolutionList({ selectedMachine }: { selectedMachine: MachineType | undefined }) {
   const solutions = useAppSelector(getSolutions);

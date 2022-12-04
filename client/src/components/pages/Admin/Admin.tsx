@@ -9,7 +9,7 @@ import Layout from "../../organisms/Layout/Layout";
 import AdminCompanies from "./AdminCompanies";
 import AdminMachines from "./AdminMachines";
 
-var translations = require("../../../translations/adminTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 const Admin = () => {
   const { appState } = useAppContext();

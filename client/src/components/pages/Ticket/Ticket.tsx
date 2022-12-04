@@ -23,7 +23,7 @@ import { TicketActions } from "./TicketActions";
 import { TicketModals } from "./TicketModals";
 import { TicketStatusBadge } from "./TicketStatusBadge";
 
-var translations = require("../../../translations/ticketTranslations.json");
+var translations = require("../../../translations/allTranslation.json");
 
 export interface ITicketModals {
   claim: boolean;

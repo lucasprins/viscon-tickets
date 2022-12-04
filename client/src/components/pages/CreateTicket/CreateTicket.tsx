@@ -32,7 +32,7 @@ import { InputDropdown } from "../../atoms/Input/InputDropdown";
 import axios from "axios";
 import MachineService from "../../../features/machines/machinesService";
 
-var translations = require("../../../translations/createTicketTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function CreateTicket() {
   const { appState } = useAppContext();

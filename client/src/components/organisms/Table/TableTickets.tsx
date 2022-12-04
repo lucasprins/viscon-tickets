@@ -39,7 +39,7 @@ type TableTicketsProps = {
   resetFilters: () => void;
 };
 
-var translations = require("../../../translations/ticketsTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function TableTickets({
   tickets,
