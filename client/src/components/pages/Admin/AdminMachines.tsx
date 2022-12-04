@@ -10,6 +10,7 @@ import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
+import ModalAddMachine from "../../organisms/Modal/ModalAddMachine";
 import AdminMachinesTable from "./Tables/AdminMachinesTable";
 
 var translations = require("../../../translations/adminTranslations.json");
@@ -76,11 +77,11 @@ const AdminMachines = () => {
         machines?.filter((machine) => machine.type.toLowerCase().includes(queryMachine.toLowerCase()))
       );
     }
-  }, [queryMachine]);
+  }, [queryMachine, machines]);
 
   return (
     <Tab.Panel>
-      <ModalAddCompany state={modalStates.addMachine} onClose={toggleAddMachineModal} />
+      <ModalAddMachine state={modalStates.addMachine} onClose={toggleAddMachineModal} setMachines={setMachines} />
       {/* Split Div */}
       <div className='flex flex-col lg:grid lg:grid-cols-2'>
         {/* Left Side */}

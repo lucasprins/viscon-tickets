@@ -27,10 +27,26 @@ const getCompanyMachinesJoined = async (cancelToken: CancelToken, companyId: str
   return response;
 };
 
+const addMachine = async (cancelToken: CancelToken, type: string, blueprintNumber: string) => {
+  const response = await axios.post(
+    API_URL + "AddMachine/",
+    {
+      blueprintNumber: blueprintNumber,
+      type: type,
+    },
+    {
+      headers: authHeader(),
+      cancelToken: cancelToken,
+    }
+  );
+  return response;
+}
+
 const MachineService = {
   getAllMachines,
   getAllCompanyMachines,
   getCompanyMachinesJoined,
+  addMachine,
 };
 
 export default MachineService;
