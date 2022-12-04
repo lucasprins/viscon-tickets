@@ -5,7 +5,7 @@ import { Avatar } from "../Avatar/Avatar";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconAlert } from "../Icons/Icons";
 
-var translations = require("../../../translations/allTranslation.json");
+var translations = require("../../../translations/allTranslations.json");
 
 type AssigneeCardProps = {
     name: string | undefined,

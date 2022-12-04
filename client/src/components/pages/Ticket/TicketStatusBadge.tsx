@@ -3,7 +3,7 @@ import { useAppContext } from "../../../utils/hooks";
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert, IconStopwatch, IconCheck } from "../../atoms/Icons/Icons";
 
-var translations = require("../../../translations/allTranslation.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export const TicketStatusBadge = ({ status }: { status: string}) => {
     const language = useAppContext().appState.language;
