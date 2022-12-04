@@ -2,20 +2,22 @@ import { Tab } from "@headlessui/react";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import CompanyService from "../../../features/customers/companyService";
+import MachineService from "../../../features/machines/machinesService";
 import { toggleBackdrop } from "../../../features/modal/modalSlice";
 import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { companyType } from "../../../utils/types";
+import { CompanyMachineJoined, companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
-import { AdminCompaniesTable } from "./AdminCompaniesTable";
+import { AdminCompaniesMachinesTable } from "./Tables/AdminCompaniesMachinesTable";
+import { AdminCompaniesTable } from "./Tables/AdminCompaniesTable";
 
 var translations = require("../../../translations/adminTranslations.json");
 
 const AdminCompanies = () => {
   const { appState } = useAppContext();
-  
+
   const user = appState.user;
   const dispatch = useAppDispatch();
   const language = appState.language;
@@ -38,12 +40,18 @@ const AdminCompanies = () => {
     dispatch(toggleBackdrop());
   };
 
+  const [deactivatingCompany, setDeactivatingCompany] = useState<boolean>(false);
   const [selectedCompany, setSelectedCompany] = useState<companyType>();
   const [companies, setCompanies] = useState<companyType[]>();
   const [filteredCompanies, setFilteredCompanies] = useState<companyType[]>();
 
+  const [companyMachines, setCompanyMachines] = useState<CompanyMachineJoined[]>();
+  const [filteredCompanyMachines, setFilteredCompanyMachines] = useState<CompanyMachineJoined[]>();
+
   let cancelTokenCompanies = axios.CancelToken;
   let sourceCompanies = cancelTokenCompanies.source();
+  let cancelTokenCompanyMachines = axios.CancelToken;
+  let sourceCompanyMachines = cancelTokenCompanyMachines.source();
 
   const fetchCompanies = async () => {
     const response = await CompanyService.getAllCompanies(sourceCompanies.token);
@@ -53,7 +61,15 @@ const AdminCompanies = () => {
     }
   };
 
-  const [deactivatingCompany, setDeactivatingCompany] = useState<boolean>(false);
+  const fetchCompanyMachinesJoined = async (selectedCompany: companyType) => {
+    console.table(selectedCompany);
+    const response = await MachineService.getCompanyMachinesJoined(sourceCompanyMachines.token, selectedCompany.id);
+    console.log(response.data);
+    if (response.data.success) {
+      setCompanyMachines(response.data.data);
+      setFilteredCompanyMachines(response.data.data);
+    }
+  };
 
   const handleToggleCompanyStatus = async () => {
     if (selectedCompany) {
@@ -71,7 +87,7 @@ const AdminCompanies = () => {
   const handleRowClickCompany = (id: string) => {
     const selectedCompany = companies?.find((company) => company.id === id);
     setSelectedCompany(selectedCompany);
-    if(window.innerWidth < 1024) {
+    if (window.innerWidth < 1024) {
       document.getElementById("company-detail")?.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -87,12 +103,32 @@ const AdminCompanies = () => {
   }, [queryCompany]);
 
   useEffect(() => {
+    if (queryMachine === "") {
+      setFilteredCompanyMachines(companyMachines);
+    } else {
+      setFilteredCompanyMachines(
+        companyMachines?.filter((machine) => machine.name.toLowerCase().includes(queryMachine.toLowerCase()))
+      );
+    }
+  });
+
+  useEffect(() => {
     fetchCompanies();
 
     return () => {
       sourceCompanies.cancel();
     };
   }, []);
+
+  useEffect(() => {
+    if (selectedCompany) {
+      fetchCompanyMachinesJoined(selectedCompany);
+    }
+
+    return () => {
+      sourceCompanyMachines.cancel();
+    };
+  }, [selectedCompany]);
 
   return (
     <Tab.Panel>
@@ -129,7 +165,7 @@ const AdminCompanies = () => {
         </div>
 
         {/* Right Side */}
-        <div id="company-detail" className='box-border flex flex-col w-full gap-6 py-8 lg:pl-8'>
+        <div id='company-detail' className='box-border flex flex-col w-full gap-6 py-8 lg:pl-8'>
           {selectedCompany !== undefined ? (
             <>
               <div className='flex items-center justify-between gap-4'>
@@ -193,9 +229,9 @@ const AdminCompanies = () => {
                       <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
                         <div className='w-full'>
                           <InputSearch
-                            value={queryCompany}
+                            value={queryMachine}
                             placeholder={translations[language].search}
-                            onChange={(e) => setQueryCompany(e.target.value)}
+                            onChange={(e) => setQueryMachine(e.target.value)}
                           />
                         </div>
                         <Button
@@ -206,6 +242,13 @@ const AdminCompanies = () => {
                           onclick={() => {}}
                         />
                       </div>
+                      {filteredCompanyMachines !== undefined ? (
+                        <AdminCompaniesMachinesTable companyMachines={filteredCompanyMachines} />
+                      ) : (
+                        <div className='flex items-center justify-center w-full mt-8 mb-8'>
+                          <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
+                        </div>
+                      )}
                     </div>
                   </Tab.Panel>
 

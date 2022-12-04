@@ -19,9 +19,18 @@ const getAllCompanyMachines = async (cancelToken: CancelToken) => {
   return response;
 };
 
+const getCompanyMachinesJoined = async (cancelToken: CancelToken, companyId: string) => {
+  const response = await axios.get(API_URL + "GetCompanyMachinesJoined/" + companyId, {
+    headers: authHeader(),
+    cancelToken: cancelToken,
+  });
+  return response;
+};
+
 const MachineService = {
   getAllMachines,
   getAllCompanyMachines,
+  getCompanyMachinesJoined,
 };
 
 export default MachineService;

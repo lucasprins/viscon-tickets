@@ -31,6 +31,13 @@ export type MachineType = {
   type: string;
 };
 
+export type CompanyMachineJoined = {
+  id: string;
+  name: string;
+  companyId: string;
+  machine: MachineType;
+}
+
 export type companyMachineType = {
   id: string;
   name: string;
@@ -70,14 +77,14 @@ export type createTicketType = {
   machine: companyMachineType | undefined;
 };
 
-export enum TicketIssueType {
-  Software = "Software",
-  Hardware = "Hardware",
-  Other = "Other",
-}
-
 export type ticketUserType = {
   id: string;
   firstName: string;
   lastName: string;
 };
+
+export enum TicketIssueType {
+  Software = "Software",
+  Hardware = "Hardware",
+  Other = "Other",
+}

@@ -7,20 +7,20 @@ import {
   Table,
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
-import { companyType } from "../../../utils/types";
-import { Badge } from "../../atoms/Badge/Badge";
-import { Button } from "../../atoms/Button/Button";
-import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
-import { IconAlert } from "../../atoms/Icons/Icons";
-import { EmptyState } from "../../molecules/EmptyState/EmptyState";
+import { useAppContext, useAppSelector } from "../../../../utils/hooks";
+import { companyType } from "../../../../utils/types";
+import { Badge } from "../../../atoms/Badge/Badge";
+import { Button } from "../../../atoms/Button/Button";
+import { FeaturedIcon } from "../../../atoms/Icons/FeaturedIcon";
+import { IconAlert } from "../../../atoms/Icons/Icons";
+import { EmptyState } from "../../../molecules/EmptyState/EmptyState";
 
 interface Props {
   companies: companyType[];
   handleRowClick: (id: string) => void;
 }
 
-var translations = require("../../../translations/adminTranslations.json");
+var translations = require("../../../../translations/adminTranslations.json");
 
 export function AdminCompaniesTable({ companies, handleRowClick }: Props) {
   const { appState } = useAppContext();

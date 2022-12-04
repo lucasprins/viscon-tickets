@@ -23,6 +23,7 @@ namespace server
 
             CreateMap<Machine, GetMachineDTO>();
             CreateMap<CompanyMachine, GetCompanyMachineDTO>();
+            CreateMap<CompanyMachine, GetCompanyMachineJoinedDTO>();
         }
     }
 }

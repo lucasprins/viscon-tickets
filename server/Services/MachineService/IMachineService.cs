@@ -9,7 +9,10 @@ namespace server.Services.MachineService
     {
         Task<ServiceResponse<List<GetMachineDTO>>> GetMachines();
         Task<ServiceResponse<GetMachineDTO>> GetMachineById(int id);
+        Task<ServiceResponse<List<GetMachineDTO>>> AddMachine(AddMachineDTO newMachine);
         Task<ServiceResponse<List<GetCompanyMachineDTO>>> GetCompanyMachines();
      //   Task<ServiceResponse<GetCompanyMachineDTO>> GetCompanyMachineById(int id);
+
+        Task<ServiceResponse<List<GetCompanyMachineJoinedDTO>>> GetCompanyMachinesJoined(Guid companyId);
     }
 }
