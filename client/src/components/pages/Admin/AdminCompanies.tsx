@@ -10,6 +10,7 @@ import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
+import ModalAddCompanyMachine from "../../organisms/Modal/ModalAddCompanyMachine";
 import { AdminCompaniesMachinesTable } from "./Tables/AdminCompaniesMachinesTable";
 import { AdminCompaniesTable } from "./Tables/AdminCompaniesTable";
 
@@ -28,6 +29,7 @@ const AdminCompanies = () => {
 
   const [modalStates, setModalStates] = useState({
     addCompany: false,
+    addCompanyMachine: false,
     editCompany: false,
     deactivateCompany: false,
   });
@@ -36,6 +38,14 @@ const AdminCompanies = () => {
     setModalStates({
       ...modalStates,
       addCompany: !modalStates.addCompany,
+    });
+    dispatch(toggleBackdrop());
+  };
+
+  const toggleAddCompanyMachineModal = () => {
+    setModalStates({
+      ...modalStates,
+      addCompanyMachine: !modalStates.addCompanyMachine,
     });
     dispatch(toggleBackdrop());
   };
@@ -110,7 +120,7 @@ const AdminCompanies = () => {
         companyMachines?.filter((machine) => machine.name.toLowerCase().includes(queryMachine.toLowerCase()))
       );
     }
-  });
+  }, [queryMachine, companyMachines]);
 
   useEffect(() => {
     fetchCompanies();
@@ -133,6 +143,15 @@ const AdminCompanies = () => {
   return (
     <Tab.Panel>
       <ModalAddCompany state={modalStates.addCompany} onClose={toggleAddCompanyModal} />
+      {selectedCompany && (
+        <ModalAddCompanyMachine
+          state={modalStates.addCompanyMachine}
+          company={selectedCompany}
+          onClose={toggleAddCompanyMachineModal}
+          setCompanyMachines={setCompanyMachines}
+        />
+      )}
+
       {/* Split Div */}
       <div className='flex flex-col lg:grid lg:grid-cols-2'>
         {/* Left Side */}
@@ -239,7 +258,7 @@ const AdminCompanies = () => {
                           width='content'
                           type='secondary-gray'
                           text={translations[language].addMachine}
-                          onclick={() => {}}
+                          onclick={() => toggleAddCompanyMachineModal()}
                         />
                       </div>
                       {filteredCompanyMachines !== undefined ? (

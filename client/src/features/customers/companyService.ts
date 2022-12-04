@@ -21,7 +21,7 @@ const toggleCompanyStatus = async (companyId: string) => {
     headers: authHeader(),
   });
   return response;
-}
+};
 
 const addCompany = async (
   companyName: string,

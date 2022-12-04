@@ -40,13 +40,37 @@ const addMachine = async (cancelToken: CancelToken, type: string, blueprintNumbe
     }
   );
   return response;
-}
+};
+
+const addCompanyMachine = async (name: string, companyId: string, machineId: string) => {
+  const response = await axios.post(
+    API_URL + "AddCompanyMachine/",
+    {
+      name: name,
+      companyId: companyId,
+      machineId: machineId,
+    },
+    {
+      headers: authHeader(),
+    }
+  );
+  return response;
+};
+
+const companyMachineExists = async (companyId: string, machineName: string) => {
+  const response = await axios.get(`${API_URL}CompanyMachineExists/${companyId}/${machineName}`, {
+    headers: authHeader(),
+  });
+  return response;
+};
 
 const MachineService = {
   getAllMachines,
   getAllCompanyMachines,
   getCompanyMachinesJoined,
   addMachine,
+  addCompanyMachine,
+  companyMachineExists,
 };
 
 export default MachineService;

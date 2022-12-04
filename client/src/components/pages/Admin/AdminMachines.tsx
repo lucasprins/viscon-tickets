@@ -10,6 +10,7 @@ import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
+import ModalAddCompanyMachine from "../../organisms/Modal/ModalAddCompanyMachine";
 import ModalAddMachine from "../../organisms/Modal/ModalAddMachine";
 import AdminMachinesTable from "./Tables/AdminMachinesTable";
 
@@ -82,6 +83,7 @@ const AdminMachines = () => {
   return (
     <Tab.Panel>
       <ModalAddMachine state={modalStates.addMachine} onClose={toggleAddMachineModal} setMachines={setMachines} />
+
       {/* Split Div */}
       <div className='flex flex-col lg:grid lg:grid-cols-2'>
         {/* Left Side */}
@@ -115,7 +117,6 @@ const AdminMachines = () => {
             <>
               <div className='flex items-center justify-between gap-4'>
                 <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{selectedMachine.type}</h4>
-                <Button size='small' width='content' type='tertiary-gray' text='TODO' />
               </div>
 
               <Tab.Group>
@@ -129,7 +130,7 @@ const AdminMachines = () => {
                             : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
                         }
                       >
-                        {translations[language].machines}
+                        Companies
                       </button>
                     )}
                   </Tab>

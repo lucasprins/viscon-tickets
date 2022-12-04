@@ -1,4 +1,5 @@
 import CompanyService from "../features/customers/companyService";
+import MachineService from "../features/machines/machinesService";
 import UserService from "../features/user/userService";
 
 var translations = require("../translations/validateInputTranslations.json");
@@ -122,3 +123,13 @@ export const emailExists = async (email: string, language: string) => {
   }
   return error;
 };
+
+export const companyMachineExists = async (companyId: string, machineName: string, language: string) => {
+  let error;
+  const response = await MachineService.companyMachineExists(companyId, machineName);
+  console.log(response);
+  if (response.data.data == true) {
+    error = "Company machine already exists";
+  }
+  return error;
+}

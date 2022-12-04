@@ -37,6 +37,12 @@ namespace server.Controllers
       return Ok(await _machineService.AddMachine(newMachine));
     }
 
+    [HttpPost("AddCompanyMachine"), Authorize(Roles = "VisconAdmin")]
+    public async Task<ActionResult<ServiceResponse<List<GetCompanyMachineJoinedDTO>>>> AddCompanyMachine(AddCompanyMachineDTO newCompanyMachine)
+    {
+      return Ok(await _machineService.AddCompanyMachine(newCompanyMachine));
+    }
+
     [HttpGet("GetAllCompanyMachines"), Authorize]
     public async Task<ActionResult<ServiceResponse<List<CompanyMachine>>>> GetAllCompanyMachines()
     {
@@ -47,6 +53,12 @@ namespace server.Controllers
     public async Task<ActionResult<ServiceResponse<List<GetCompanyMachineJoinedDTO>>>> GetCompanyMachinesJoined(Guid companyId)
     {
       return Ok(await _machineService.GetCompanyMachinesJoined(companyId));
+    }
+
+    [HttpGet("CompanyMachineExists/{companyId}/{machineName}"), Authorize(Roles = "VisconAdmin")]
+    public async Task<ActionResult<ServiceResponse<bool>>> CompanyMachineExists(Guid companyId, string machineName)
+    {
+      return Ok(await _machineService.CompanyMachineExists(companyId, machineName));
     }
   }
 }
