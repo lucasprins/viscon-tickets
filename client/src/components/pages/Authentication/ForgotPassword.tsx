@@ -8,9 +8,10 @@ import { IconArrow, IconKey, IconMail } from "../../atoms/Icons/Icons";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 
+var translations = require("../../../translations/allTranslations.json");
+
 export function ForgotPassword() {
     const language = useAppContext().appState.language;
-
     // "enterEmail" | "enterCode" | "enterPassword"
     const currentStep = useState("enterEmail");
     
@@ -29,10 +30,10 @@ export function ForgotPassword() {
                     />
                     <div className='flex flex-col gap-3'>
                         <h1 className='font-semibold text-center text-gray-900 text-display_sm dark:text-white'>
-                            {"Forgot password?"}
+                            {translations[language].forgotPasswordTitle}
                         </h1>
                         <p className='text-center text-gray-600 text-md dark:text-dark-400'>
-                            {"No worries, we'll send you reset instructions."}
+                            {translations[language].forgotPasswordSubtitle}
                         </p>
                     </div>
                 </div>
@@ -45,7 +46,7 @@ export function ForgotPassword() {
                                     <InputField
                                         style='icon'
                                         type='email'
-                                        placeholder='Enter your email'
+                                        placeholder={translations[language].forgotPasswordEmailPlaceholder}
                                         icon={<IconMail size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                                         id='email'
                                         name='email'
@@ -57,7 +58,7 @@ export function ForgotPassword() {
                                 size='medium'
                                 width='full'
                                 type='primary'
-                                text='Reset password'
+                                text={translations[language].forgotPasswordButton}
                                 onclick={() => console.log("Clicked on Login")}
                             />
                         </Form>
@@ -68,7 +69,7 @@ export function ForgotPassword() {
                     type="gray"
                     url="/login"
                     icon={<IconArrow size='20' color='stroke-gray-500' fill='stroke-gray-500' direction='left' />}
-                    text='Back to log in'
+                    text={translations[language].forgotPasswordButtonArrow  }
                 />
             </div>
         </div>

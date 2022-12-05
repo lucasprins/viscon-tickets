@@ -14,7 +14,9 @@
         "validateInpuTrans": "done",
         "": "not_done",
         "ModalAddCompany:": "not_done",
-        "ModalAddMachineCompany:": "not_done"
+        "ModalAddMachineCompany:": "not_done",
+        "ForgotPasswordPage:": "not_done",
+        "ForgotPassword" : "done"
     },
     "nl": {
         "----------ClientFiles-------": "------ClientFiles------",
@@ -149,6 +151,12 @@
         "passwordTooShort": "Uw wachtwoord is te kort",
         "companyExists": "Bedrijf bestaat al",
         "emailExists": "Emailadres bestaat al",
+        "----forgotpasswordPageTrans----" : "----forgotpasswordPageTrans----",
+        "forgotPasswordTitle" : "Wachtwoord vergeten?",
+        "forgotPasswordSubtitle" : "Geen probleem. We sturen u een link om uw wachtwoord te resetten.",
+        "forgotPasswordButton" : "Wachtwoord resetten",
+        "forgotPasswordEmailPlaceholder" : "Geef je Emailadres",
+        "forgotPasswordButtonArrow" : "Terug naar inloggen",
         "----------ServerFile--------": "------ServerFiles-------"
     },
     "en": {
@@ -284,6 +292,12 @@
         "passwordTooShort": "Your password is too short",
         "companyExists": "Company already exists",
         "emailExists": "Email address already exists",
+        "----forgotpasswordPageTrans----" : "----forgotpasswordPageTrans----",
+        "forgotPasswordTitle": "Forgot password?",
+        "forgotPasswordSubtitle": "No worries, we'll send you reset instructions.",
+        "forgotPasswordButton": "Reset password",
+        "forgotPasswordEmailPlaceholder": "Enter your email address",
+        "forgotPasswordButtonArrow" : "Back to log in",
         "----------ServerFile--------": "------ServerFiles-------"
     }
 }

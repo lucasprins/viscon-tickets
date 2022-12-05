@@ -7,7 +7,7 @@ import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconFlag } from "../../atoms/Icons/IconsFlags";
 import { IconCheck, IconClose } from "../../atoms/Icons/Icons";
 
-var translations = require("../../../translations/modalTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function ModalChangeLanguage() {
   const { appState, appDispatch } = useAppContext();

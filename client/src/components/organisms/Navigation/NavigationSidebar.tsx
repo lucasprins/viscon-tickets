@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import AuthService from "../../../features/auth/authService";
 
-var translations = require("../../../translations/sidebarTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function NavigationSidebar() {
   const { appState, appDispatch } = useAppContext();

@@ -13,7 +13,7 @@ import MachineService from "../../../features/machines/machinesService";
 import axios from "axios";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 
-var translations = require("../../../translations/knowledgebaseTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function Knowledgebase() {
   const { appState, appDispatch } = useAppContext();
