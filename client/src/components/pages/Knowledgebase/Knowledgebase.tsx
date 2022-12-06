@@ -33,6 +33,7 @@ export function Knowledgebase() {
   const fetchAllMachines = async () => {
     setLoading(true);
     const response = await MachineService.getAllMachines(source.token);
+    console.log(response);
     if (response.data.success) {
       setMachines(response.data.data);
       setSelectedMachine(response.data.data[0]);
@@ -74,6 +75,7 @@ export function Knowledgebase() {
               selectedOption={selectedMachine}
               selectedKey={"type"}
               onchange={handleChange}
+              identifier={"id"}
             />
           ) : (
             <div className='flex items-center justify-center w-full mt-8 mb-8'>

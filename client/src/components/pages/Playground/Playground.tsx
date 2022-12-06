@@ -24,13 +24,7 @@ export const Playground = () => {
             <div className='flex flex-col w-full gap-20 p-8'>
                 <Breadcrumbs crumbs={["Playground"]} />
                 
-                <InputDropdown 
-                    label="Test"
-                    options={options}
-                    selectedOption={selected} 
-                    selectedKey={"name"}
-                    onchange={handleChange}
-                />
+            
             </div>
         </div>
     );
