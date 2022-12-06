@@ -102,7 +102,7 @@ const AdminMachines = () => {
               size='medium'
               width='content'
               type='secondary-gray'
-              text='Add machine'
+              text={translations[language].addMachine}
               onclick={toggleAddMachineModal}
             />
           </div>

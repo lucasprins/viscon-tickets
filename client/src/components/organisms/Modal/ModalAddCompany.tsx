@@ -88,7 +88,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
         >
           <Dialog.Panel className='flex flex-col items-center w-full gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 md:w-96 rounded-xl drop-shadow'>
             <div className='flex items-center justify-between w-full'>
-              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>Add a company</Dialog.Title>
+              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>{translations[language].addACompany}</Dialog.Title>
               <ButtonIcon
                 icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                 onclick={onClose}
@@ -106,7 +106,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                     {/* Inputs */}
                     <div className='flex flex-col gap-4'>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='companyName' text='Name' />
+                        <InputLabel htmlFor='companyName' text={translations[language].name} />
                         <InputField
                           style='iconless'
                           type='text'
@@ -117,12 +117,12 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                         />
                         <InputErrorMessage name='companyName' />
                       </div>
-                      <InputSelectAutoComplete label='Country' options={countries} onChange={onChange} />
+                      <InputSelectAutoComplete label={translations[language].country} options={countries} onChange={onChange} />
                       <Dialog.Title className='mt-2 text-xl font-semibold text-gray-900 dark:text-white'>
-                        Admin account
+                        {translations[language].adminAccountName}
                       </Dialog.Title>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminFirstName' text='First name' />
+                        <InputLabel htmlFor='adminFirstName' text={translations[language].First_name} />
                         <InputField
                           style='iconless'
                           type='text'
@@ -134,7 +134,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                         <InputErrorMessage name='adminFirstName' />
                       </div>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminLastName' text='Last name' />
+                        <InputLabel htmlFor='adminLastName' text={translations[language].Last_name} />
                         <InputField
                           style='iconless'
                           type='text'
@@ -146,7 +146,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                         <InputErrorMessage name='adminLastName' />
                       </div>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminEmail' text='Email' />
+                        <InputLabel htmlFor='adminEmail' text={translations[language].email} />
                         <InputField
                           style='iconless'
                           type='text'
@@ -163,7 +163,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                           size='medium'
                           width='full'
                           type='primary'
-                          text='Add'
+                          text={translations[language].add}
                           disabled={addingCompany}
                           icon={
                             addingCompany ? (
@@ -175,7 +175,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text='Cancel'
+                          text={translations[language].cancelled}
                           onclick={onClose}
                           disabled={addingCompany}
                         />
