@@ -205,6 +205,7 @@ export function TableTickets({
                 selectedOption={statusFilter}
                 selectedKey={"label"}
                 onchange={handleChangeStatusFilter}
+                identifier={"value"}
               />
             </div>
           </div>

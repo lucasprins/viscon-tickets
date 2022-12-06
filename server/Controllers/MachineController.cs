@@ -19,7 +19,7 @@ namespace server.Controllers
       _machineService = machineService;
     }
 
-    [HttpGet("GetAllMachines"), Authorize(Roles = "VisconAdmin")]
+    [HttpGet("GetAllMachines"), Authorize]
     public async Task<ActionResult<ServiceResponse<List<GetMachineDTO>>>> GetAllMachines()
     {
       return Ok(await _machineService.GetMachines());

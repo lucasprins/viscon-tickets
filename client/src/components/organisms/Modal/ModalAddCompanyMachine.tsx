@@ -128,6 +128,7 @@ const ModalAddCompanyMachine = ({
                             selectedOption={selectedMachine}
                             selectedKey={"type"}
                             onchange={handleChange}
+                            identifier={"id"}
                           />
                         ) : undefined}
                         <div className='flex flex-col gap-1.5'>

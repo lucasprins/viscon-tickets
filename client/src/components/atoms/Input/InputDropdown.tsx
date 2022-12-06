@@ -9,6 +9,7 @@ interface Props<T> {
   options: T[];
   selectedOption: T;
   selectedKey: keyof T;
+  identifier: keyof T;
   onchange: (payload: T) => void;
 }
 
@@ -18,6 +19,7 @@ export const InputDropdown = <T extends unknown>({
   selectedOption,
   selectedKey,
   onchange,
+  identifier
 }: Props<T>) => {
   return (
     <div className='w-full'>
@@ -52,7 +54,7 @@ export const InputDropdown = <T extends unknown>({
           >
             <Listbox.Options className='w-full absolute bg-white z-40 focus:outline-4 outline-primary-200 dark:outline-0 cursor-pointer overflow-y-scroll no-scrollbar p-1.5 max-h-72 rounded-lg drop-shadow-sm dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-200 dark:text-white dark:font-normal dark:border-dark-600'>
               {options.map((option: T) => (
-                <Listbox.Option key={`${option[selectedKey]}`} value={option}>
+                <Listbox.Option key={`${option[identifier]}`} value={option}>
                   {({ active }) => (
                     <div
                       className={`${active ? "bg-gray-50 dark:bg-dark-600" : undefined} ${

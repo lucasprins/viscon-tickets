@@ -246,6 +246,7 @@ export function CreateTicket() {
                   selectedOption={selectedMachine}
                   selectedKey={"type"}
                   onchange={handleChangeSelectedMachine}
+                  identifier={"id"}
                 />
               )}
               <Divider />
@@ -382,6 +383,7 @@ export function CreateTicket() {
                   selectedOption={selectedCompanyMachine}
                   selectedKey={"name"}
                   onchange={handleChangeSelectedCompanyMachine}
+                  identifier={"id"}
                 />
               )}
               <div className='flex gap-3 -mt-3 md:gap-4'>
