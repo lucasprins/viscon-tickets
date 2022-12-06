@@ -10,6 +10,7 @@ const createTicket = async (ticket: createTicketType, user: userType) => {
     API_URL + "CreateTicket",
     {
       phoneNumber: ticket.phoneNumber,
+      issueType: ticket.issueType,
       issue: ticket.issue,
       actionExpected: ticket.actionExpected,
       actionPerformed: ticket.actionPerformed,
@@ -119,16 +120,15 @@ const openTicket = async (ticketId: string, accessToken: string) => {
   return response;
 };
 
-const cancelTicket = async (ticketId: string, accessToken: string) => {
+const cancelTicket = async (ticketId: string, cancelReason: string) => {
   const response = await axios.put(
     API_URL + "CancelTicket",
     {
       ticketId: ticketId,
+      cancelReason: cancelReason,
     },
     {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      headers: authHeader(),
     }
   );
   return response;

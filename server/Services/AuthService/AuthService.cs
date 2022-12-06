@@ -108,7 +108,6 @@ namespace server.Services.AuthService
         {
           Id = dbUser.Id,
           FirstName = dbUser.FirstName,
-          Prefix = dbUser.Prefix,
           LastName = dbUser.LastName,
           Email = dbUser.Email,
           PhoneNumber = dbUser.PhoneNumber ?? string.Empty,
@@ -151,7 +150,6 @@ namespace server.Services.AuthService
           {
             Id = Guid.NewGuid(),
             FirstName = newUser.FirstName,
-            Prefix = newUser.Prefix,
             LastName = newUser.LastName,
             Email = newUser.Email,
             PhoneNumber = newUser.PhoneNumber,
@@ -170,7 +168,6 @@ namespace server.Services.AuthService
             {
               Id = user.Id,
               FirstName = user.FirstName,
-              Prefix = user.Prefix,
               LastName = user.LastName,
               Email = user.Email,
               PhoneNumber = user.PhoneNumber,

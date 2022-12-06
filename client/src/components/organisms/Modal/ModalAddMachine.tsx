@@ -2,11 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment } from "react";
 import { useAppContext } from "../../../utils/hooks";
-import {
-  emailExists,
-  validateCompanyName,
-  validateName,
-} from "../../../utils/input-validation";
+import { emailExists, validateCompanyName, validateName } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
@@ -17,54 +13,46 @@ import { countries } from "../../../utils/countries";
 import { Button } from "../../atoms/Button/Button";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import axios from "axios";
-import CompanyService from "../../../features/customers/companyService";
+import MachineService from "../../../features/machines/machinesService";
+import { MachineType } from "../../../utils/types";
 
 type formValues = {
-  companyName: string;
-  adminFirstName: string;
-  adminLastName: string;
-  adminEmail: string;
+  type: string;
+  blueprintNumber: string;
 };
 
-var translations = require("../../../translations/allTranslations.json");
-
-const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => void }) => {
+const ModalAddMachine = ({
+  state,
+  onClose,
+  setMachines,
+}: {
+  state: boolean;
+  onClose: () => void;
+  setMachines: React.Dispatch<React.SetStateAction<MachineType[] | undefined>>;
+}) => {
   const { appState } = useAppContext();
-  const language = appState.language;  
+  const language = appState.language;
 
-  const [selectedCountry, setSelectedCountry] = React.useState(countries[0]);
-  const [addingCompany, setAddingCompany] = React.useState(false);
+  const [addingMachine, setAddingMachine] = React.useState(false);
 
   let cancelToken = axios.CancelToken;
   let source = cancelToken.source();
 
-  const onChange = (payload: string) => {
-    setSelectedCountry(payload);
-  };
-
   const formValues: formValues = {
-    companyName: "",
-    adminFirstName: "",
-    adminLastName: "",
-    adminEmail: "",
+    type: "",
+    blueprintNumber: "",
   };
 
-  const submitAddCompany = async (values: formValues) => {
-    setAddingCompany(true);
-    const response = await CompanyService.addCompany(
-      values.companyName,
-      selectedCountry,
-      values.adminFirstName,
-      values.adminLastName,
-      values.adminEmail,
-      source.token
-    );
+  const submitAddMachine = async (values: formValues) => {
+    setAddingMachine(true);
+    const response = await MachineService.addMachine(source.token, values.type, values.blueprintNumber);
+    console.log(response);
 
-    setAddingCompany(false);
+    setAddingMachine(false);
 
     if (response.data.success) {
+      setMachines(response.data.data);
       onClose();
-      window.location.reload();
     }
   };
 
@@ -97,7 +85,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
             <div className='flex flex-col w-full gap-4'>
               <Formik
                 initialValues={formValues}
-                onSubmit={(values) => submitAddCompany(values)}
+                onSubmit={(values) => submitAddMachine(values)}
                 validateOnChange={false}
                 validateOnBlur={false}
               >
@@ -106,56 +94,28 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                     {/* Inputs */}
                     <div className='flex flex-col gap-4'>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='companyName' text='Name' />
-                        <InputField
-                          style='iconless'
-                          type='text'
-                          validate={(input) => validateCompanyName(input, language)}
-                          placeholder='Viscon'
-                          id='companyName'
-                          name='companyName'
-                        />
-                        <InputErrorMessage name='companyName' />
-                      </div>
-                      <InputSelectAutoComplete label='Country' options={countries} onChange={onChange} />
-                      <Dialog.Title className='mt-2 text-xl font-semibold text-gray-900 dark:text-white'>
-                        Admin account
-                      </Dialog.Title>
-                      <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminFirstName' text='First name' />
+                        <InputLabel htmlFor='type' text='Type (name)' />
                         <InputField
                           style='iconless'
                           type='text'
                           validate={(input) => validateName(input, language)}
-                          placeholder='John'
-                          id='adminFirstName'
-                          name='adminFirstName'
+                          placeholder='Satteliet shuttle'
+                          id='type'
+                          name='type'
                         />
                         <InputErrorMessage name='adminFirstName' />
                       </div>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminLastName' text='Last name' />
+                        <InputLabel htmlFor='blueprintNumber' text='Blueprint number' />
                         <InputField
                           style='iconless'
                           type='text'
                           validate={(input) => validateName(input, language)}
-                          placeholder='Heuvel'
-                          id='adminLastName'
-                          name='adminLastName'
+                          placeholder='0294240'
+                          id='blueprintNumber'
+                          name='blueprintNumber'
                         />
                         <InputErrorMessage name='adminLastName' />
-                      </div>
-                      <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='adminEmail' text='Email' />
-                        <InputField
-                          style='iconless'
-                          type='text'
-                          validate={(input) => emailExists(input, language)}
-                          placeholder='admin@ad.min'
-                          id='adminEmail'
-                          name='adminEmail'
-                        />
-                        <InputErrorMessage name='adminEmail' />
                       </div>
                       <div className='flex flex-col gap-4 pt-4 md:flex-row-reverse'>
                         <Button
@@ -164,9 +124,9 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                           width='full'
                           type='primary'
                           text='Add'
-                          disabled={addingCompany}
+                          disabled={addingMachine}
                           icon={
-                            addingCompany ? (
+                            addingMachine ? (
                               <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
                             ) : undefined
                           }
@@ -177,7 +137,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                           type='secondary-gray'
                           text='Cancel'
                           onclick={onClose}
-                          disabled={addingCompany}
+                          disabled={addingMachine}
                         />
                       </div>
                     </div>
@@ -192,4 +152,4 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
   );
 };
 
-export default ModalAddCompany;
+export default ModalAddMachine;

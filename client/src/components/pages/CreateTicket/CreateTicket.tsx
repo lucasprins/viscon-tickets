@@ -13,11 +13,10 @@ import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { validatePhoneNumber, validateTextarea } from "../../../utils/input-validation";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
-import { companyMachineType, createTicketType, MachineType, userType } from "../../../utils/types";
+import { companyMachineType, createTicketType, MachineType, TicketIssueType, userType } from "../../../utils/types";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { getMachines, getSelectedMachine, setSelectedMachine } from "../../../features/machines/machinesSlice";
 import {
@@ -33,14 +32,14 @@ import { InputDropdown } from "../../atoms/Input/InputDropdown";
 import axios from "axios";
 import MachineService from "../../../features/machines/machinesService";
 
-var translations = require("../../../translations/createTicketTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function CreateTicket() {
   const { appState } = useAppContext();
   const user = appState.user;
   const language = appState.language;
   const accessToken = user?.accessToken;
-  
+
   const [currentStep, setCurrentStep] = useState(1);
 
   const loading = useAppSelector(getCreatingTicket);
@@ -55,6 +54,7 @@ export function CreateTicket() {
     lastName: user?.lastName || "",
     company: user?.company || { name: "", id: "", country: "", isActive: true },
     phoneNumber: user?.phoneNumber || "",
+    issueType: TicketIssueType.Hardware,
     issue: "",
     actionExpected: "",
     actionPerformed: "",
@@ -100,7 +100,7 @@ export function CreateTicket() {
     if (response.data.success) {
       setCompanyMachines(response.data.data);
       setSelectedCompanyMachine(response.data.data[0]);
-      setTicket({ ...ticket, machine: response.data.data[0]});
+      setTicket({ ...ticket, machine: response.data.data[0] });
       console.log(response.data.data);
     }
     setLoadingCompanyMachines(false);
@@ -123,7 +123,7 @@ export function CreateTicket() {
   };
 
   const addIssueInformation = (values: any) => {
-    setTicket({ ...ticket, ...values });
+    setTicket({ ...ticket, ...values, issueType: ticket.issueType });
     setCurrentStep(4);
   };
 
@@ -384,7 +384,33 @@ export function CreateTicket() {
                   onchange={handleChangeSelectedCompanyMachine}
                 />
               )}
-              <Formik initialValues={ticket} onSubmit={addIssueInformation}>
+              <div className='flex gap-3 -mt-3 md:gap-4'>
+                <Button
+                  size='small'
+                  width='full'
+                  type={ticket.issueType === "Hardware" ? "primary" : "secondary-gray"}
+                  text='Hardware'
+                  onclick={() => setTicket({ ...ticket, issueType: TicketIssueType.Hardware })}
+                />
+                <Button
+                  size='small'
+                  width='full'
+                  type={ticket.issueType === "Software" ? "primary" : "secondary-gray"}
+                  text='Software'
+                  onclick={() => setTicket({ ...ticket, issueType: TicketIssueType.Software })}
+                />
+                <Button
+                  size='small'
+                  width='full'
+                  type={ticket.issueType === "Other" ? "primary" : "secondary-gray"}
+                  text='Other'
+                  onclick={() => setTicket({ ...ticket, issueType: TicketIssueType.Other })}
+                />
+              </div>
+              <Formik
+                initialValues={ticket}
+                onSubmit={addIssueInformation}
+              >
                 {({ errors, touched, isValidating }) => (
                   <Form className='flex flex-col w-full gap-5'>
                     <div className='flex flex-col w-full gap-1.5'>
@@ -557,13 +583,11 @@ export function CreateTicket() {
                     </div>
                     <div className='flex flex-col w-full gap-1.5'>
                       <InputLabel htmlFor='machine.name' text={translations[language].machine} />
-                      <InputField
-                        style='iconless'
-                        type='text'
-                        disabled={true}
-                        id='machine.name'
-                        name='machine.name'
-                      />
+                      <InputField style='iconless' type='text' disabled={true} id='machine.name' name='machine.name' />
+                    </div>
+                    <div className='flex flex-col w-full gap-1.5'>
+                      <InputLabel htmlFor='issueType' text='Issue type' />
+                      <InputField style='iconless' type='text' disabled={true} id='issueType' name='issueType' />
                     </div>
                     <div className='flex flex-col w-full gap-1.5'>
                       <InputLabel htmlFor='issue' text={translations[language].describe_issue_specific} />

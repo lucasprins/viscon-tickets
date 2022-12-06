@@ -9,6 +9,7 @@ namespace server.DTOS
     {
         public string PhoneNumber { get; set; } = null!;
 
+        public IssueType IssueType { get; set; }
         public string Issue { get; set; } = null!;
         public string ActionExpected { get; set; } = null!;
         public string ActionPerformed { get; set; } = null!;

@@ -1,14 +1,13 @@
 import React from "react";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
-import { ticketType } from "../../../utils/types";
+import { useAppContext } from "../../../utils/hooks";
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert, IconStopwatch, IconCheck } from "../../atoms/Icons/Icons";
 
-var translations = require("../../../translations/ticketTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export const TicketStatusBadge = ({ status }: { status: string}) => {
-    const language = useAppSelector(getCurrentLanguage);
+    const language = useAppContext().appState.language;
+
     let statusBadge;
     switch (status) {
         case "Open":

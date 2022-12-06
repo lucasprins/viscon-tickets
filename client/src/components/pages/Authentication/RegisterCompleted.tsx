@@ -1,14 +1,13 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { Button } from "../../atoms/Button/Button";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconCheck } from "../../atoms/Icons/Icons";
 
 
 export function RegisterCompleted() {
-    const language = useAppSelector(getCurrentLanguage);
+    const language = useAppContext().appState.language;
 
     return (
         <div className='flex justify-center h-screen p-6 md:p-0 md:pt-24 dark:bg-dark-800'>

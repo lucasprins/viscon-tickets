@@ -5,7 +5,6 @@ import { Divider } from "../../atoms/Divider/Divider";
 import Layout from "../../organisms/Layout/Layout";
 import { MachineSolutionList } from "../../molecules/MachineSolution/MachineSolutionList";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { Navigate } from "react-router-dom";
 import { MachineType } from "../../../utils/types";
@@ -14,7 +13,7 @@ import MachineService from "../../../features/machines/machinesService";
 import axios from "axios";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 
-var translations = require("../../../translations/knowledgebaseTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function Knowledgebase() {
   const { appState, appDispatch } = useAppContext();

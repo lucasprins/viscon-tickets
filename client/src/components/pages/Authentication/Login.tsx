@@ -2,8 +2,7 @@ import { Formik, Form } from "formik";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../../../features/auth/authService";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
+import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
 import { validateEmail, validatePassword } from "../../../utils/input-validation";
 import { Button } from "../../atoms/Button/Button";
 import { IconKey, IconMail, IconTranslate } from "../../atoms/Icons/Icons";
@@ -14,7 +13,7 @@ import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 
-const translations = require("../../../translations/authenticationTranslations.json");
+const translations = require("../../../translations/allTranslations.json");
 
 export function Login() {
   const { appState, appDispatch } = useAppContext();
@@ -22,7 +21,7 @@ export function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const language: string = useAppSelector(getCurrentLanguage);
+  const language = appState.language;
   const logo = require("../../../assets/viscon-login.jpg");
 
   const initialValues = {
@@ -93,7 +92,6 @@ export function Login() {
                       style='icon'
                       type='password'
                       placeholder='Enter your password'
-                      validate={(input) => validatePassword(input, language)}
                       icon={<IconKey size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                       id='password'
                       name='password'

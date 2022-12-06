@@ -1,12 +1,11 @@
 import React from "react";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { getInitials } from "../../../utils/textManipulation";
 import { Avatar } from "../Avatar/Avatar";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";
 import { IconAlert } from "../Icons/Icons";
 
-var translations = require("../../../translations/ticketTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 type AssigneeCardProps = {
     name: string | undefined,
@@ -14,20 +13,20 @@ type AssigneeCardProps = {
 };
 
 export function AssigneeCard({ name, subtitle }: AssigneeCardProps) {
-    const language = useAppSelector(getCurrentLanguage);
+    const language = useAppContext().appState.language;
 
     return (
         <>
             {name !== undefined ? (
-                <div className='flex gap-4 p-3 md:p-4 w-full drop-shadow-sm bg-white dark:bg-dark-700 border items-center border-gray-200 dark:border-dark-600 rounded-xl'>
+                <div className='flex items-center w-full gap-4 p-3 bg-white border border-gray-200 md:p-4 drop-shadow-sm dark:bg-dark-700 dark:border-dark-600 rounded-xl'>
                     <div>
                         <Avatar name={name} color="primary" />
                     </div>
-                    <h5 className='text-gray-700 text-lg font-semibold dark:text-white'>{name}</h5>
+                    <h5 className='text-lg font-semibold text-gray-700 dark:text-white'>{name}</h5>
 
                 </div>
             ) : (
-            <div className='flex flex-col gap-2 p-4 w-full drop-shadow-sm bg-white dark:bg-dark-800 border items-center text-center border-gray-200 dark:border-dark-600 rounded-xl'>
+            <div className='flex flex-col items-center w-full gap-2 p-4 text-center bg-white border border-gray-200 drop-shadow-sm dark:bg-dark-800 dark:border-dark-600 rounded-xl'>
                 <span className="flex">
                     <FeaturedIcon size="md" type="gray" icon={<IconAlert size='22' fill='fill-gray-600 dark:fill-gray-300' color='stroke-gray-600 dark:stroke-gray-300' />} />
                 </span>

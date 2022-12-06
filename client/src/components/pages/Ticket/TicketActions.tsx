@@ -1,14 +1,15 @@
 import React from "react";
+import { toggleBackdrop } from "../../../features/modal/modalSlice";
 import TicketService from "../../../features/tickets/ticketsService";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch } from "../../../utils/hooks";
 import { ticketType, userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { IconFlipBackwards, IconCheck, IconFileSearch } from "../../atoms/Icons/Icons";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { ITicketModals } from "./Ticket";
+import TicketCancelModal from "./TicketCancelModal";
 
-var translations = require("../../../translations/ticketTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export const TicketActions = ({
   user,
@@ -23,7 +24,8 @@ export const TicketActions = ({
   ticketModals: ITicketModals;
   setTicketModals: React.Dispatch<React.SetStateAction<ITicketModals>>;
 }) => {
-  const language = useAppSelector(getCurrentLanguage);
+  const language = useAppContext().appState.language;
+  const dispatch = useAppDispatch();
 
   const [claimingTicket, setClaimingTicket] = React.useState(false);
   const [unclaimingTicket, setUnclaimingTicket] = React.useState(false);
@@ -73,12 +75,14 @@ export const TicketActions = ({
 
   const cancelTicket = async () => {
     setCancellingTicket(true);
-    const response = await TicketService.cancelTicket(ticket.id, user.accessToken);
-    setTicket(response.data.data);
-    if (!response.data.success) {
-      setTicketModals({ ...ticketModals, cancel: true });
-    }
-    setCancellingTicket(false);
+    dispatch(toggleBackdrop());
+
+    // const response = await TicketService.cancelTicket(ticket.id, user.accessToken);
+    // setTicket(response.data.data);
+    // if (!response.data.success) {
+    //   setTicketModals({ ...ticketModals, cancel: true });
+    // }
+    // setCancellingTicket(false);
   };
 
   let ticketActions: JSX.Element[] = [];
@@ -247,7 +251,6 @@ export const TicketActions = ({
           disabled={cancellingTicket}
           onclick={cancelTicket}
           text={translations[language].cancel_ticket}
-          icon={cancellingTicket ? <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' /> : undefined}
         />
       );
       ticketActionsMobile.push(
@@ -259,7 +262,6 @@ export const TicketActions = ({
           disabled={cancellingTicket}
           onclick={cancelTicket}
           text={translations[language].cancel_ticket}
-          icon={cancellingTicket ? <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' /> : undefined}
         />
       );
     }
@@ -267,6 +269,7 @@ export const TicketActions = ({
 
   return (
     <>
+      <TicketCancelModal ticketId={ticket.id} state={cancellingTicket} onClose={() => setCancellingTicket(false)}  />
       <div className='hidden gap-3 lg:flex'>{ticketActions}</div>
       <div className='flex flex-col-reverse gap-3 mt-3 lg:hidden'>{ticketActionsMobile}</div>
     </>

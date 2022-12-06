@@ -1,7 +1,6 @@
 export type userType = {
   id: string;
   firstName: string;
-  prefix: string | undefined;
   lastName: string;
   email: string;
   phoneNumber: string;
@@ -32,6 +31,13 @@ export type MachineType = {
   type: string;
 };
 
+export type CompanyMachineJoined = {
+  id: string;
+  name: string;
+  companyId: string;
+  machine: MachineType;
+}
+
 export type companyMachineType = {
   id: string;
   name: string;
@@ -46,6 +52,7 @@ export type ticketType = {
   creationDate: string;
   status: string;
   priority: string;
+  issueType: TicketIssueType;
   issue: string;
   actionExpected: string;
   actionPerformed: string;
@@ -62,6 +69,7 @@ export type createTicketType = {
   lastName: string;
   company: companyType;
   phoneNumber: string;
+  issueType: TicketIssueType;
   issue: string;
   actionExpected: string;
   actionPerformed: string;
@@ -72,6 +80,11 @@ export type createTicketType = {
 export type ticketUserType = {
   id: string;
   firstName: string;
-  prefix: string | null;
   lastName: string;
 };
+
+export enum TicketIssueType {
+  Software = "Software",
+  Hardware = "Hardware",
+  Other = "Other",
+}

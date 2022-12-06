@@ -21,13 +21,12 @@ const toggleCompanyStatus = async (companyId: string) => {
     headers: authHeader(),
   });
   return response;
-}
+};
 
 const addCompany = async (
   companyName: string,
   companyCountry: string,
   adminFirstName: string,
-  adminPrefix: string,
   adminLastName: string,
   adminEmail: string,
   cancelToken: CancelToken
@@ -39,7 +38,6 @@ const addCompany = async (
       country: companyCountry,
       adminUser: {
         firstName: adminFirstName,
-        prefix: adminPrefix,
         lastName: adminLastName,
         email: adminEmail,
         role: "CustomerAdmin",

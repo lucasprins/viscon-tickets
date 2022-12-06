@@ -33,7 +33,6 @@ namespace server.Services.UserService
       User addingUser = new User();
       addingUser.Id = Guid.NewGuid();
       addingUser.FirstName = newUser.FirstName;
-      addingUser.Prefix = newUser.Prefix;
       addingUser.LastName = newUser.LastName;
       addingUser.Email = newUser.Email;
       addingUser.Role = newUser.Role;

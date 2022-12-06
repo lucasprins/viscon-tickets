@@ -12,7 +12,7 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221121190753_InitialCreate")]
+    [Migration("20221204095731_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,22 @@ namespace server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1f7853c5-4bb7-448d-886e-3a573806a502"),
+                            Country = "Netherlands (the)",
+                            IsActive = true,
+                            Name = "Viscon"
+                        },
+                        new
+                        {
+                            Id = new Guid("2f859672-5768-4413-9f0b-727023bda1b3"),
+                            Country = "Netherlands (the)",
+                            IsActive = true,
+                            Name = "Customer"
+                        });
                 });
 
             modelBuilder.Entity("server.Models.CompanyMachine", b =>
@@ -184,6 +200,9 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("IssueType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid?>("MachineId")
                         .HasColumnType("uuid");
 
@@ -272,9 +291,6 @@ namespace server.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<string>("Prefix")
-                        .HasColumnType("text");
-
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
@@ -283,6 +299,32 @@ namespace server.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3286e0f3-db49-4fca-b133-42df2ef453fe"),
+                            CompanyId = new Guid("1f7853c5-4bb7-448d-886e-3a573806a502"),
+                            Email = "root@viscon.nl",
+                            FirstName = "Viscon",
+                            IsActive = true,
+                            LastName = "Admin",
+                            PasswordHash = new byte[] { 60, 130, 195, 27, 89, 48, 51, 151, 144, 32, 99, 189, 198, 183, 105, 223, 40, 254, 198, 249, 77, 65, 173, 220, 146, 244, 117, 233, 141, 50, 151, 201, 121, 142, 38, 172, 225, 149, 231, 108, 91, 222, 12, 125, 186, 5, 56, 209, 172, 165, 26, 114, 15, 238, 170, 231, 141, 11, 194, 159, 79, 188, 84, 184 },
+                            PasswordSalt = new byte[] { 113, 63, 39, 166, 107, 240, 63, 249, 97, 60, 184, 197, 26, 177, 123, 5, 223, 15, 167, 206, 90, 29, 183, 68, 20, 249, 156, 29, 75, 71, 243, 55, 49, 197, 230, 101, 123, 140, 132, 51, 161, 11, 230, 63, 151, 8, 47, 154, 238, 177, 13, 23, 21, 34, 83, 164, 165, 1, 96, 255, 53, 96, 232, 163, 49, 213, 236, 149, 36, 65, 160, 24, 29, 128, 118, 165, 7, 11, 141, 164, 114, 250, 178, 125, 147, 135, 145, 217, 94, 95, 141, 74, 145, 185, 138, 22, 102, 4, 119, 54, 54, 161, 27, 149, 226, 78, 12, 153, 222, 209, 6, 43, 213, 203, 53, 170, 73, 128, 41, 15, 200, 133, 148, 111, 160, 255, 149, 51 },
+                            Role = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("0a525c40-6248-4c6f-9743-809300df3e8c"),
+                            CompanyId = new Guid("2f859672-5768-4413-9f0b-727023bda1b3"),
+                            Email = "root@customer.nl",
+                            FirstName = "Customer",
+                            IsActive = true,
+                            LastName = "Admin",
+                            PasswordHash = new byte[] { 60, 130, 195, 27, 89, 48, 51, 151, 144, 32, 99, 189, 198, 183, 105, 223, 40, 254, 198, 249, 77, 65, 173, 220, 146, 244, 117, 233, 141, 50, 151, 201, 121, 142, 38, 172, 225, 149, 231, 108, 91, 222, 12, 125, 186, 5, 56, 209, 172, 165, 26, 114, 15, 238, 170, 231, 141, 11, 194, 159, 79, 188, 84, 184 },
+                            PasswordSalt = new byte[] { 113, 63, 39, 166, 107, 240, 63, 249, 97, 60, 184, 197, 26, 177, 123, 5, 223, 15, 167, 206, 90, 29, 183, 68, 20, 249, 156, 29, 75, 71, 243, 55, 49, 197, 230, 101, 123, 140, 132, 51, 161, 11, 230, 63, 151, 8, 47, 154, 238, 177, 13, 23, 21, 34, 83, 164, 165, 1, 96, 255, 53, 96, 232, 163, 49, 213, 236, 149, 36, 65, 160, 24, 29, 128, 118, 165, 7, 11, 141, 164, 114, 250, 178, 125, 147, 135, 145, 217, 94, 95, 141, 74, 145, 185, 138, 22, 102, 4, 119, 54, 54, 161, 27, 149, 226, 78, 12, 153, 222, 209, 6, 43, 213, 203, 53, 170, 73, 128, 41, 15, 200, 133, 148, 111, 160, 255, 149, 51 },
+                            Role = 4
+                        });
                 });
 
             modelBuilder.Entity("server.Models.CompanyMachine", b =>

@@ -440,7 +440,7 @@ namespace server.Services.TicketService
       return serviceResponse;
     }
 
-    public async Task<ServiceResponse<GetTicketDTO>> CancelTicket(TicketIdDTO ticketToCancel)
+    public async Task<ServiceResponse<GetTicketDTO>> CancelTicket(CancelTicketDTO ticketToCancel)
     {
       ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
       var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
@@ -485,6 +485,7 @@ namespace server.Services.TicketService
         }
 
         ticket.Status = Status.Cancelled;
+        ticket.CancelReason = ticketToCancel.CancelReason;
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 

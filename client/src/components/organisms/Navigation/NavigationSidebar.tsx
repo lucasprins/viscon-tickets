@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
@@ -23,14 +22,14 @@ import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import AuthService from "../../../features/auth/authService";
 
-var translations = require("../../../translations/sidebarTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function NavigationSidebar() {
   const { appState, appDispatch } = useAppContext();
   const user = appState.user;
 
   const dispatch = useAppDispatch();
-  const language: string = useSelector(getCurrentLanguage);
+  const language: string = appState.language;
   const root = document.getElementsByTagName("html")[0];
 
   const openLanguageModal = () => {
@@ -113,9 +112,7 @@ export function NavigationSidebar() {
             <Avatar name='Lucas Prins' color='gray' />
             <div className='flex flex-col'>
               <span className='text-sm font-semibold text-gray-700 dark:text-white'>
-                {user?.prefix
-                  ? `${user?.firstName} ${user?.prefix} ${user?.lastName}`
-                  : `${user?.firstName} ${user?.lastName}`}
+                {`${user?.firstName} ${user?.lastName}`}
               </span>
               <span className='text-sm text-gray-500 dark:text-dark-300'>{user?.company.name}</span>
             </div>

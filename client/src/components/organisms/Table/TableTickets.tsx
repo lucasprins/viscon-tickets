@@ -9,7 +9,6 @@ import {
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert } from "../../atoms/Icons/Icons";
 import { useAppContext, useAppSelector } from "../../../utils/hooks";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
 import { Button } from "../../atoms/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { ticketType } from "../../../utils/types";
@@ -40,7 +39,7 @@ type TableTicketsProps = {
   resetFilters: () => void;
 };
 
-var translations = require("../../../translations/ticketsTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function TableTickets({
   tickets,

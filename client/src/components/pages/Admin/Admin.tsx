@@ -1,15 +1,15 @@
 import { Tab } from "@headlessui/react";
 import { Formik, Form } from "formik";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { Navigate } from "react-router-dom";
-import { getCurrentLanguage } from "../../../features/user/userSlice";
-import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
+import { useAppContext, useAuthentication } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import Layout from "../../organisms/Layout/Layout";
 import AdminCompanies from "./AdminCompanies";
+import AdminMachines from "./AdminMachines";
 
-var translations = require("../../../translations/adminTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 const Admin = () => {
   const { appState } = useAppContext();
@@ -95,6 +95,8 @@ const Admin = () => {
               <Tab.Panels>
                 {/* Companies Tab */}
                 <AdminCompanies />
+                {/* Machines Tab */}
+                <AdminMachines />
               </Tab.Panels>
             </Tab.Group>
           </div>

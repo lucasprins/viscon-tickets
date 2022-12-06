@@ -15,11 +15,13 @@ namespace server.DTOS
         public Status Status { get; set; }
         public Priority Priority { get; set; }
 
+        public IssueType IssueType { get; set; }
         public string Issue { get; set; } = null!;
         public string ActionExpected { get; set; } = null!;
         public string ActionPerformed { get; set; } = null!;
         public string ExtraInfo { get; set; } = null!;
         public string Solution { get; set; } = null!;
+        public string CancelReason { get; set; } = null!;
 
         public GetCompanyDTO Company { get; set; } = null!;
         public GetTicketUserDTO Creator { get; set; } = null!;

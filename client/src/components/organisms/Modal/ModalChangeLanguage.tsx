@@ -2,19 +2,18 @@ import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { getLanguageModal, toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
 import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
-import { getCurrentLanguage, setLanguage } from "../../../features/user/userSlice";
 import { Button } from "../../atoms/Button/Button";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconFlag } from "../../atoms/Icons/IconsFlags";
 import { IconCheck, IconClose } from "../../atoms/Icons/Icons";
 
-var translations = require("../../../translations/modalTranslations.json");
+var translations = require("../../../translations/allTranslations.json");
 
 export function ModalChangeLanguage() {
   const { appState, appDispatch } = useAppContext();
 
   const dispatch = useAppDispatch();
-  const language = useAppSelector(getCurrentLanguage);
+  const language = appState.language;
   let isOpen = useAppSelector(getLanguageModal);
 
   const closeModal = () => {
@@ -23,7 +22,6 @@ export function ModalChangeLanguage() {
   };
 
   const changeLanguage = (language: string) => {
-    dispatch(setLanguage(language));
     appDispatch({ type: "CHANGE_LANGUAGE", payload: language });
   };
 
