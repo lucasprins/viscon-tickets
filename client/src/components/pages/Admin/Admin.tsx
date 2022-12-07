@@ -37,45 +37,36 @@ const Admin = () => {
             <Tab.Group>
               <div className='overflow-x-scroll no-scrollbar'>
                 <Tab.List className='flex w-full gap-6 border-b-2 border-gray-200 outline-none dark:border-dark-600 2xl:gap-8 no-scrollbar'>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={
-                          selected
-                            ? "text-primary-600 border-b-2 border-primary-600 font-semibold -mb-0.5 px pb-3 outline-none"
-                            : "text-gray-500 dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                        }
-                      >
-                        {translations[language].companies}
-                      </button>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={
-                          selected
-                            ? "text-primary-600 border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
-                            : "text-gray-500 dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                        }
-                      >
-                        {translations[language].machines}
-                      </button>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={
-                          selected
-                            ? "text-primary-600 border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
-                            : "text-gray-500 dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                        }
-                      >
-                        {translations[language].solutions}
-                      </button>
-                    )}
-                  </Tab>
+                  {user?.role === "VisconAdmin" && (
+                    <>
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={
+                              selected
+                                ? "text-primary-600 border-b-2 border-primary-600 font-semibold -mb-0.5 px pb-3 outline-none"
+                                : "text-gray-500 dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
+                            }
+                          >
+                            {translations[language].companies}
+                          </button>
+                        )}
+                      </Tab>
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={
+                              selected
+                                ? "text-primary-600 border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
+                                : "text-gray-500 dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
+                            }
+                          >
+                            {translations[language].machines}
+                          </button>
+                        )}
+                      </Tab>
+                    </>
+                  )}
                   <Tab as={Fragment}>
                     {({ selected }) => (
                       <button
@@ -93,10 +84,15 @@ const Admin = () => {
               </div>
 
               <Tab.Panels>
-                {/* Companies Tab */}
-                <AdminCompanies />
-                {/* Machines Tab */}
-                <AdminMachines />
+                {user?.role === "VisconAdmin" && (
+                  <>
+                    {/* Companies Tab */}
+                    <AdminCompanies />
+                    {/* Machines Tab */}
+                    <AdminMachines />
+                  </>
+                )}
+                <Tab.Panel>Users</Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
           </div>

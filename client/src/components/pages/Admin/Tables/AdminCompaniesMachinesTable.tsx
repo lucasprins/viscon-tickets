@@ -42,7 +42,7 @@ export function AdminCompaniesMachinesTable({ companyMachines: companyMachines }
     }),
     columnHelper.accessor("machine.blueprintNumber", {
       cell: (props) => {
-        return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
+        return <span className='font-medium text-gray-600 dark:text-dark-300'>{props.getValue()}</span>;
       },
       header: translations[language].blueprint_number,
     }),

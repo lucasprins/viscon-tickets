@@ -27,12 +27,12 @@ const ModalAddCompanyMachine = ({
   state,
   onClose,
   company,
-  setCompanyMachines
+  setCompanyMachines,
 }: {
   state: boolean;
   onClose: () => void;
   company: companyType;
-  setCompanyMachines: React.Dispatch<React.SetStateAction<CompanyMachineJoined[] | undefined>>
+  setCompanyMachines: React.Dispatch<React.SetStateAction<CompanyMachineJoined[] | undefined>>;
 }) => {
   const { appState } = useAppContext();
   const language = appState.language;
@@ -57,7 +57,7 @@ const ModalAddCompanyMachine = ({
     if (selectedMachine) {
       const response = await MachineService.addCompanyMachine(values.name, company.id, selectedMachine.id);
       console.log(response);
-      
+
       if (response.data.success) {
         onClose();
         setCompanyMachines(response.data.data);
@@ -68,11 +68,15 @@ const ModalAddCompanyMachine = ({
   };
 
   const fetchMachines = async () => {
-    const response = await MachineService.getAllMachines(source.token);
-    if (response.data.success) {
-      setMachines(response.data.data);
+    try {
+      const response = await MachineService.getAllMachines(source.token);
+      if (response.data.success) {
+        setMachines(response.data.data);
+      }
+      setSelectedMachine(response.data.data[0]);
+    } catch (error) {
+      // MODAL RENDEREN MET ERROR
     }
-    setSelectedMachine(response.data.data[0]);
   };
 
   useEffect(() => {
@@ -103,7 +107,9 @@ const ModalAddCompanyMachine = ({
         >
           <Dialog.Panel className='flex flex-col items-center h-full w-full max-h-[28.825rem] gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 md:w-96 rounded-xl drop-shadow'>
             <div className='flex items-center justify-between w-full'>
-              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>{translations[language].addAMachine}</Dialog.Title>
+              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>
+                {translations[language].addAMachine}
+              </Dialog.Title>
               <ButtonIcon
                 icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                 onclick={onClose}
@@ -163,7 +169,7 @@ const ModalAddCompanyMachine = ({
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text={translations[language].cancelled}
+                          text={translations[language].cancel}
                           onclick={onClose}
                           disabled={addingCompanyMachine}
                         />

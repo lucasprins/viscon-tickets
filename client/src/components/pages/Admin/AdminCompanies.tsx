@@ -156,8 +156,7 @@ const AdminCompanies = () => {
       <div className='flex flex-col lg:grid lg:grid-cols-2'>
         {/* Left Side */}
         <div className='box-border flex flex-col w-full gap-6 py-8 border-gray-200 dark:border-dark-600 lg:pr-8 lg:border-r-2 '>
-          {/* Search */}
-          <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{translations[language].companies}</h4>
+          {/* Search */}{" "}
           <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
             <div className='w-full'>
               <InputSearch
