@@ -23,13 +23,13 @@ type AppContextAction =
       type: "USER_LOGOUT";
     };
 
-interface AppState {
+type AppState = {
   language: string;
   isAuthenticated: boolean;
   user: UserType | undefined;
 }
 
-interface AppContext {
+type AppContext = {
   appState: AppState;
   appDispatch: React.Dispatch<AppContextAction>;
 }
