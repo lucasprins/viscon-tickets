@@ -33,13 +33,13 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "Type (name)",
+      header: translations[language].machineType,
     }),
     columnHelper.accessor("blueprintNumber", {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "Blueprint number",
+      header: translations[language].blueprint_number,
     }),
   ];
 
@@ -128,8 +128,8 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
         <div className='flex flex-col items-center justify-center w-full gap-6 p-8 lg:py-16'>
           <EmptyState
             color='primary'
-            title='No machines found'
-            subtitle='You can add a new machine by clicking the button above'
+            title={translations[language].machinesNotFound}
+            subtitle={translations[language].machinesNotFoundSubtitle}
             featuredIcon={
               <FeaturedIcon
                 size='lg'

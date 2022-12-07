@@ -21,6 +21,8 @@ type formValues = {
   blueprintNumber: string;
 };
 
+var translations = require("../../../translations/allTranslations.json");
+
 const ModalAddMachine = ({
   state,
   onClose,
@@ -76,7 +78,7 @@ const ModalAddMachine = ({
         >
           <Dialog.Panel className='flex flex-col items-center w-full gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 md:w-96 rounded-xl drop-shadow'>
             <div className='flex items-center justify-between w-full'>
-              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>Add a company</Dialog.Title>
+              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>{translations[language].machineType}</Dialog.Title>
               <ButtonIcon
                 icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                 onclick={onClose}
@@ -94,7 +96,7 @@ const ModalAddMachine = ({
                     {/* Inputs */}
                     <div className='flex flex-col gap-4'>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='type' text='Type (name)' />
+                        <InputLabel htmlFor='type' text={translations[language].typeName} />
                         <InputField
                           style='iconless'
                           type='text'
@@ -106,7 +108,7 @@ const ModalAddMachine = ({
                         <InputErrorMessage name='adminFirstName' />
                       </div>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='blueprintNumber' text='Blueprint number' />
+                        <InputLabel htmlFor='blueprintNumber' text={translations[language].blueprint_number} />
                         <InputField
                           style='iconless'
                           type='text'
@@ -123,7 +125,7 @@ const ModalAddMachine = ({
                           size='medium'
                           width='full'
                           type='primary'
-                          text='Add'
+                          text={translations[language].add}
                           disabled={addingMachine}
                           icon={
                             addingMachine ? (
@@ -135,7 +137,7 @@ const ModalAddMachine = ({
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text='Cancel'
+                          text={translations[language].cancelled}
                           onclick={onClose}
                           disabled={addingMachine}
                         />

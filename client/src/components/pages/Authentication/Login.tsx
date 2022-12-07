@@ -66,19 +66,19 @@ export function Login() {
           <div className='lg:hidden'>
             <NavigationHeader />
           </div>
-          <PageHeader title='Log in' subtitle={translations[language].loginSubtitle} />
+          <PageHeader title={translations[language].login} subtitle={translations[language].loginSubtitle} />
           <Formik initialValues={initialValues} onSubmit={(values) => handleLogin(values)}>
             {({ errors, touched, isValidating }) => (
               <Form className='flex flex-col gap-6'>
                 {/* Inputs */}
                 <div className='flex flex-col gap-5'>
                   <div className='flex flex-col gap-1.5'>
-                    <InputLabel htmlFor='email' text='Email' />
+                    <InputLabel htmlFor='email' text={translations[language].email} />
                     <InputField
                       style='icon'
                       type='email'
                       validate={(input) => validateEmail(input, language)}
-                      placeholder='Enter your email'
+                      placeholder={translations[language].emailPlaceholder}
                       icon={<IconMail size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                       id='email'
                       name='email'
@@ -87,11 +87,11 @@ export function Login() {
                   </div>
 
                   <div className='flex flex-col w-full gap-1.5'>
-                    <InputLabel htmlFor='password' text='Password' />
+                    <InputLabel htmlFor='password' text={translations[language].password} />
                     <InputField
                       style='icon'
                       type='password'
-                      placeholder='Enter your password'
+                      placeholder={translations[language].passwordPlaceholder}
                       icon={<IconKey size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                       id='password'
                       name='password'

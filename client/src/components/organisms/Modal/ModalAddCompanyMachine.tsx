@@ -21,6 +21,8 @@ type formValues = {
   name: string;
 };
 
+var translations = require("../../../translations/allTranslations.json");
+
 const ModalAddCompanyMachine = ({
   state,
   onClose,
@@ -101,7 +103,7 @@ const ModalAddCompanyMachine = ({
         >
           <Dialog.Panel className='flex flex-col items-center h-full w-full max-h-[28.825rem] gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 md:w-96 rounded-xl drop-shadow'>
             <div className='flex items-center justify-between w-full'>
-              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>Add a machine</Dialog.Title>
+              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>{translations[language].addAMachine}</Dialog.Title>
               <ButtonIcon
                 icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                 onclick={onClose}
@@ -121,7 +123,7 @@ const ModalAddCompanyMachine = ({
                       <div>
                         {machines !== undefined && selectedMachine !== undefined ? (
                           <InputDropdown
-                            label='Machines'
+                            label={translations[language].machines}
                             options={machines}
                             selectedOption={selectedMachine}
                             selectedKey={"type"}
@@ -130,7 +132,7 @@ const ModalAddCompanyMachine = ({
                           />
                         ) : undefined}
                         <div className='flex flex-col gap-1.5'>
-                          <InputLabel htmlFor='name' text='Name' />
+                          <InputLabel htmlFor='name' text={translations[language].name} />
                           <InputField
                             style='iconless'
                             type='text'
@@ -149,7 +151,7 @@ const ModalAddCompanyMachine = ({
                           size='medium'
                           width='full'
                           type='primary'
-                          text='Add'
+                          text={translations[language].add}
                           disabled={addingCompanyMachine}
                           icon={
                             addingCompanyMachine ? (
@@ -161,7 +163,7 @@ const ModalAddCompanyMachine = ({
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text='Cancel'
+                          text={translations[language].cancelled}
                           onclick={onClose}
                           disabled={addingCompanyMachine}
                         />

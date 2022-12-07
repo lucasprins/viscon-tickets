@@ -38,13 +38,13 @@ export function AdminCompaniesMachinesTable({ companyMachines: companyMachines }
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "Type",
+      header: translations[language].machineType,
     }),
     columnHelper.accessor("machine.blueprintNumber", {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "Blueprint number",
+      header: translations[language].blueprint_number,
     }),
   ];
 
@@ -59,7 +59,7 @@ export function AdminCompaniesMachinesTable({ companyMachines: companyMachines }
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: "type",
+      header: translations[language].machineType,
     }),
   ];
 
