@@ -20,6 +20,7 @@ namespace server.Data
     public DbSet<Ticket> Tickets { get; set; } = null!;
     public DbSet<Notification> Notifications { get; set; } = null!;
     public DbSet<Solution> Solutions { get; set; } = null!;
+    public DbSet<Issue> Issues { get; set; } = null!;
     public DbSet<Token> Tokens { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,10 +42,15 @@ namespace server.Data
           .WithMany(c => c.Users)
           .HasForeignKey(u => u.CompanyId);
 
+        modelBuilder.Entity<Issue>()
+            .HasOne(i => i.Machine)
+            .WithMany(m => m.Issues)
+            .HasForeignKey(i => i.MachineId);
+
       modelBuilder.Entity<Solution>()
-          .HasOne(s => s.Machine)
+          .HasOne(s => s.Issue)
           .WithMany(m => m.Solutions)
-          .HasForeignKey(s => s.MachineId);
+          .HasForeignKey(s => s.IssueId);
 
       modelBuilder.Entity<Notification>()
           .HasOne(n => n.User)

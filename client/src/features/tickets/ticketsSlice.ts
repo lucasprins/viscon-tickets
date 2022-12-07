@@ -142,22 +142,8 @@ const ticketsSlice = createSlice({
 });
 
 export const getCreatingTicket = (state: RootState) => state.tickets.creatingTicket;
-export const getTicket = (state: RootState) => state.tickets.ticket;
-export const getTickets = (state: RootState) => state.tickets.tickets;
 export const getCreatedTicketSuccess = (state: RootState) => state.tickets.createdTicketSuccess;
 
-export const getFetchingTickets = (state: RootState) => state.tickets.fetchingTickets;
-export const getFetchedTicketsSuccess = (state: RootState) => state.tickets.fetchedTicketsSuccess;
-export const getFetchedTicketSuccess = (state: RootState) => state.tickets.fetchedTicketSuccess;
-export const getFetchingTotalTickets = (state: RootState) => state.tickets.fetchingTotalTickets;
-export const getFetchedTotalTicketsSuccess = (state: RootState) => state.tickets.fetchedTotalTicketsSuccess;
-export const getTotalTickets = (state: RootState) => state.tickets.totalTickets;
-export const getTotalTicketsByUser = (state: RootState) => state.tickets.totalTicketsByUser;
-export const getFetchingTotalTicketsByUser = (state: RootState) => state.tickets.fetchingTotalTicketsByUser;
-export const getFetchedTotalTicketsByUserSuccess = (state: RootState) => state.tickets.fetchedTotalTicketsByUserSuccess;
-export const getFetchingTotalTicketsThisWeek = (state: RootState) => state.tickets.fetchingTotalTicketsThisWeek;
-export const getFetchedTotalTicketsThisWeekSuccess = (state: RootState) => state.tickets.fetchedTotalTicketsThisWeekSuccess;
-export const getTotalTicketsThisWeek = (state: RootState) => state.tickets.totalTicketsThisWeek;
 
 export const { resetCreateTicket, resetTickets, resetTicketActions, resetTicketsMetrics } = ticketsSlice.actions;
 

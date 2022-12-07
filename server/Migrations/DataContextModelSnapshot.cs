@@ -46,14 +46,14 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1f7853c5-4bb7-448d-886e-3a573806a502"),
+                            Id = new Guid("b5edb80e-9ee4-4920-bcba-3d30d400e9f4"),
                             Country = "Netherlands (the)",
                             IsActive = true,
                             Name = "Viscon"
                         },
                         new
                         {
-                            Id = new Guid("2f859672-5768-4413-9f0b-727023bda1b3"),
+                            Id = new Guid("f2ecee3c-6eae-4f5f-b8e2-3a357714d38f"),
                             Country = "Netherlands (the)",
                             IsActive = true,
                             Name = "Customer"
@@ -83,6 +83,26 @@ namespace server.Migrations
                     b.HasIndex("MachineId");
 
                     b.ToTable("CompanyMachines");
+                });
+
+            modelBuilder.Entity("server.Models.Issue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("MachineId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MachineId");
+
+                    b.ToTable("Issues");
                 });
 
             modelBuilder.Entity("server.Models.Machine", b =>
@@ -140,20 +160,12 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Issue")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("MachineId")
+                    b.Property<Guid>("IssueId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MachineId");
+                    b.HasIndex("IssueId");
 
                     b.ToTable("Solutions");
                 });
@@ -301,26 +313,26 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3286e0f3-db49-4fca-b133-42df2ef453fe"),
-                            CompanyId = new Guid("1f7853c5-4bb7-448d-886e-3a573806a502"),
+                            Id = new Guid("60c82659-9b1b-42a4-b2db-4ea512e8a60e"),
+                            CompanyId = new Guid("b5edb80e-9ee4-4920-bcba-3d30d400e9f4"),
                             Email = "root@viscon.nl",
                             FirstName = "Viscon",
                             IsActive = true,
                             LastName = "Admin",
-                            PasswordHash = new byte[] { 60, 130, 195, 27, 89, 48, 51, 151, 144, 32, 99, 189, 198, 183, 105, 223, 40, 254, 198, 249, 77, 65, 173, 220, 146, 244, 117, 233, 141, 50, 151, 201, 121, 142, 38, 172, 225, 149, 231, 108, 91, 222, 12, 125, 186, 5, 56, 209, 172, 165, 26, 114, 15, 238, 170, 231, 141, 11, 194, 159, 79, 188, 84, 184 },
-                            PasswordSalt = new byte[] { 113, 63, 39, 166, 107, 240, 63, 249, 97, 60, 184, 197, 26, 177, 123, 5, 223, 15, 167, 206, 90, 29, 183, 68, 20, 249, 156, 29, 75, 71, 243, 55, 49, 197, 230, 101, 123, 140, 132, 51, 161, 11, 230, 63, 151, 8, 47, 154, 238, 177, 13, 23, 21, 34, 83, 164, 165, 1, 96, 255, 53, 96, 232, 163, 49, 213, 236, 149, 36, 65, 160, 24, 29, 128, 118, 165, 7, 11, 141, 164, 114, 250, 178, 125, 147, 135, 145, 217, 94, 95, 141, 74, 145, 185, 138, 22, 102, 4, 119, 54, 54, 161, 27, 149, 226, 78, 12, 153, 222, 209, 6, 43, 213, 203, 53, 170, 73, 128, 41, 15, 200, 133, 148, 111, 160, 255, 149, 51 },
+                            PasswordHash = new byte[] { 138, 95, 118, 41, 231, 104, 231, 133, 39, 19, 254, 83, 2, 246, 184, 197, 79, 168, 32, 101, 14, 82, 213, 139, 62, 167, 212, 147, 155, 161, 174, 168, 51, 218, 127, 114, 108, 42, 67, 12, 88, 108, 0, 116, 83, 61, 205, 47, 130, 183, 115, 155, 141, 113, 171, 224, 170, 113, 206, 153, 112, 252, 17, 11 },
+                            PasswordSalt = new byte[] { 81, 22, 80, 84, 42, 229, 148, 96, 41, 211, 63, 167, 193, 30, 222, 178, 57, 174, 219, 72, 60, 55, 204, 231, 45, 107, 179, 1, 160, 47, 192, 212, 78, 116, 198, 102, 98, 61, 176, 246, 115, 137, 181, 22, 93, 1, 190, 178, 49, 231, 78, 108, 56, 228, 246, 219, 11, 40, 241, 110, 203, 22, 83, 85, 3, 132, 84, 39, 58, 206, 188, 166, 51, 197, 157, 63, 210, 128, 62, 81, 203, 208, 222, 12, 215, 35, 89, 64, 58, 48, 149, 93, 150, 88, 245, 31, 105, 133, 245, 4, 202, 228, 59, 97, 28, 201, 234, 255, 156, 61, 233, 29, 64, 227, 17, 77, 152, 165, 203, 167, 53, 41, 85, 36, 97, 17, 115, 68 },
                             Role = 2
                         },
                         new
                         {
-                            Id = new Guid("0a525c40-6248-4c6f-9743-809300df3e8c"),
-                            CompanyId = new Guid("2f859672-5768-4413-9f0b-727023bda1b3"),
+                            Id = new Guid("dc204b93-59bf-4171-bd49-e72798fc36e8"),
+                            CompanyId = new Guid("f2ecee3c-6eae-4f5f-b8e2-3a357714d38f"),
                             Email = "root@customer.nl",
                             FirstName = "Customer",
                             IsActive = true,
                             LastName = "Admin",
-                            PasswordHash = new byte[] { 60, 130, 195, 27, 89, 48, 51, 151, 144, 32, 99, 189, 198, 183, 105, 223, 40, 254, 198, 249, 77, 65, 173, 220, 146, 244, 117, 233, 141, 50, 151, 201, 121, 142, 38, 172, 225, 149, 231, 108, 91, 222, 12, 125, 186, 5, 56, 209, 172, 165, 26, 114, 15, 238, 170, 231, 141, 11, 194, 159, 79, 188, 84, 184 },
-                            PasswordSalt = new byte[] { 113, 63, 39, 166, 107, 240, 63, 249, 97, 60, 184, 197, 26, 177, 123, 5, 223, 15, 167, 206, 90, 29, 183, 68, 20, 249, 156, 29, 75, 71, 243, 55, 49, 197, 230, 101, 123, 140, 132, 51, 161, 11, 230, 63, 151, 8, 47, 154, 238, 177, 13, 23, 21, 34, 83, 164, 165, 1, 96, 255, 53, 96, 232, 163, 49, 213, 236, 149, 36, 65, 160, 24, 29, 128, 118, 165, 7, 11, 141, 164, 114, 250, 178, 125, 147, 135, 145, 217, 94, 95, 141, 74, 145, 185, 138, 22, 102, 4, 119, 54, 54, 161, 27, 149, 226, 78, 12, 153, 222, 209, 6, 43, 213, 203, 53, 170, 73, 128, 41, 15, 200, 133, 148, 111, 160, 255, 149, 51 },
+                            PasswordHash = new byte[] { 138, 95, 118, 41, 231, 104, 231, 133, 39, 19, 254, 83, 2, 246, 184, 197, 79, 168, 32, 101, 14, 82, 213, 139, 62, 167, 212, 147, 155, 161, 174, 168, 51, 218, 127, 114, 108, 42, 67, 12, 88, 108, 0, 116, 83, 61, 205, 47, 130, 183, 115, 155, 141, 113, 171, 224, 170, 113, 206, 153, 112, 252, 17, 11 },
+                            PasswordSalt = new byte[] { 81, 22, 80, 84, 42, 229, 148, 96, 41, 211, 63, 167, 193, 30, 222, 178, 57, 174, 219, 72, 60, 55, 204, 231, 45, 107, 179, 1, 160, 47, 192, 212, 78, 116, 198, 102, 98, 61, 176, 246, 115, 137, 181, 22, 93, 1, 190, 178, 49, 231, 78, 108, 56, 228, 246, 219, 11, 40, 241, 110, 203, 22, 83, 85, 3, 132, 84, 39, 58, 206, 188, 166, 51, 197, 157, 63, 210, 128, 62, 81, 203, 208, 222, 12, 215, 35, 89, 64, 58, 48, 149, 93, 150, 88, 245, 31, 105, 133, 245, 4, 202, 228, 59, 97, 28, 201, 234, 255, 156, 61, 233, 29, 64, 227, 17, 77, 152, 165, 203, 167, 53, 41, 85, 36, 97, 17, 115, 68 },
                             Role = 4
                         });
                 });
@@ -344,6 +356,17 @@ namespace server.Migrations
                     b.Navigation("Machine");
                 });
 
+            modelBuilder.Entity("server.Models.Issue", b =>
+                {
+                    b.HasOne("server.Models.Machine", "Machine")
+                        .WithMany("Issues")
+                        .HasForeignKey("MachineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Machine");
+                });
+
             modelBuilder.Entity("server.Models.Notification", b =>
                 {
                     b.HasOne("server.Models.User", "User")
@@ -357,13 +380,13 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Models.Solution", b =>
                 {
-                    b.HasOne("server.Models.Machine", "Machine")
+                    b.HasOne("server.Models.Issue", "Issue")
                         .WithMany("Solutions")
-                        .HasForeignKey("MachineId")
+                        .HasForeignKey("IssueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Machine");
+                    b.Navigation("Issue");
                 });
 
             modelBuilder.Entity("server.Models.Ticket", b =>
@@ -439,11 +462,16 @@ namespace server.Migrations
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("server.Models.Issue", b =>
+                {
+                    b.Navigation("Solutions");
+                });
+
             modelBuilder.Entity("server.Models.Machine", b =>
                 {
                     b.Navigation("CompanyMachines");
 
-                    b.Navigation("Solutions");
+                    b.Navigation("Issues");
 
                     b.Navigation("Tickets");
                 });
