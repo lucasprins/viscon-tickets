@@ -8,7 +8,7 @@ import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { InputTextArea } from "../../atoms/Input/InputTextArea";
-import { MachineSolutionList } from "../../molecules/MachineSolution/MachineSolutionList";
+import { KnowledgebaseIssuesList } from "../../molecules/MachineSolution/KnowledgebaseIssuesList";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
@@ -250,7 +250,7 @@ export function CreateTicket() {
                 />
               )}
               <Divider />
-              <MachineSolutionList selectedMachine={selectedMachine} />
+              {selectedMachine && <KnowledgebaseIssuesList selectedMachine={selectedMachine} />}
               <div className='flex flex-col-reverse gap-4 pt-4 sm:flex-row'>
                 <Button
                   size='medium'
@@ -409,10 +409,7 @@ export function CreateTicket() {
                   onclick={() => setTicket({ ...ticket, issueType: TicketIssueType.Other })}
                 />
               </div>
-              <Formik
-                initialValues={ticket}
-                onSubmit={addIssueInformation}
-              >
+              <Formik initialValues={ticket} onSubmit={addIssueInformation}>
                 {({ errors, touched, isValidating }) => (
                   <Form className='flex flex-col w-full gap-5'>
                     <div className='flex flex-col w-full gap-1.5'>

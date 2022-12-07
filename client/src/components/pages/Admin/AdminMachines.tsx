@@ -133,7 +133,7 @@ const AdminMachines = () => {
                       </button>
                     )}
                   </Tab>
-                  <Tab as={Fragment}>
+                  {/* <Tab as={Fragment}>
                     {({ selected }) => (
                       <button
                         className={
@@ -145,7 +145,7 @@ const AdminMachines = () => {
                         Solutions
                       </button>
                     )}
-                  </Tab>
+                  </Tab> */}
                 </Tab.List>
 
                 <Tab.Panels>

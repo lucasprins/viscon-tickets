@@ -501,7 +501,7 @@ namespace server.Services.TicketService
       return serviceResponse;
     }
 
-    public async Task<ServiceResponse<GetTicketDTO>> AddSolution(AddSolutionDTO solution)
+    public async Task<ServiceResponse<GetTicketDTO>> AddSolution(AddTicketSolutionDTO solution)
     {
       ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
       var requestingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());

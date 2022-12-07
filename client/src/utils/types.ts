@@ -17,14 +17,6 @@ export type companyType = {
   isActive: boolean;
 };
 
-export type SolutionType = {
-  solutionId: string;
-  machineId: string;
-  issue: string;
-  solution: string;
-  language: string;
-};
-
 export type MachineType = {
   id: string;
   blueprintNumber: string;
@@ -82,6 +74,16 @@ export type ticketUserType = {
   firstName: string;
   lastName: string;
 };
+
+export type IssueType = {
+  id: string;
+  description: string;
+}
+
+export type SolutionType = {
+  id: string;
+  description: string;
+}
 
 export enum TicketIssueType {
   Software = "Software",

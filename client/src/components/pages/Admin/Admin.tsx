@@ -65,6 +65,19 @@ const Admin = () => {
                           </button>
                         )}
                       </Tab>
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={
+                              selected
+                                ? "text-primary-600 border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
+                                : "text-gray-500 dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
+                            }
+                          >
+                            {translations[language].issues}
+                          </button>
+                        )}
+                      </Tab>
                     </>
                   )}
                   <Tab as={Fragment}>
@@ -78,6 +91,8 @@ const Admin = () => {
                       >
                         {translations[language].users}
                       </button>
+            
+                      
                     )}
                   </Tab>
                 </Tab.List>
@@ -90,6 +105,8 @@ const Admin = () => {
                     <AdminCompanies />
                     {/* Machines Tab */}
                     <AdminMachines />
+                    {/* Issues Tab */}
+                    <Tab.Panel>Issues</Tab.Panel>
                   </>
                 )}
                 <Tab.Panel>Users</Tab.Panel>
