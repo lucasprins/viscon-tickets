@@ -175,7 +175,7 @@ const ModalAddCompany = ({ state, onClose }: { state: boolean; onClose: () => vo
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text={translations[language].cancelled}
+                          text={translations[language].cancel}
                           onclick={onClose}
                           disabled={addingCompany}
                         />
