@@ -8,7 +8,6 @@ import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { InputTextArea } from "../../atoms/Input/InputTextArea";
-import { KnowledgebaseIssuesList } from "../../molecules/MachineSolution/KnowledgebaseIssuesList";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
@@ -31,6 +30,7 @@ import { Modal } from "../../organisms/Modal/Modal";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";
 import axios from "axios";
 import MachineService from "../../../features/machines/machinesService";
+import { KnowledgebaseIssuesList } from "../../molecules/MachineSolution/KnowledgebaseIssuesList";
 
 var translations = require("../../../translations/allTranslations.json");
 
@@ -160,7 +160,7 @@ export function CreateTicket() {
               dispatch(resetCreateTicket());
             }}
             button_secondary_onclick={() => {
-              navigate("/");
+              navigate("/tickets");
             }}
           />
         </>
@@ -174,13 +174,13 @@ export function CreateTicket() {
             is_open={true}
             close_modal={() => {
               dispatch(resetCreateTicket());
-              navigate("/");
+              navigate("/tickets");
             }}
             button_primary_text='Dashboard'
             button_secondary_text='Tickets'
             button_primary_onclick={() => {
               dispatch(resetCreateTicket());
-              navigate("/");
+              navigate("/tickets");
             }}
             button_secondary_onclick={() => {
               dispatch(resetCreateTicket());
