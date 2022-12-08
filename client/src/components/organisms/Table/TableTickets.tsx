@@ -101,9 +101,9 @@ export function TableTickets({
               return <Badge size='md' color='primary' text='In progress' />;
             }
           case "Resolved":
-            return <Badge size='md' color='gray' text='Resolved' />;
+            return <Badge size='md' color='gray' text={translations[language].Resolved} />;
           case "InProgress":
-            return <Badge size='md' color='primary' text='In progress' />;
+            return <Badge size='md' color='primary' text={translations[language].In_progress} />;
           case "Cancelled":
             return <Badge size='md' color='gray' text={translations[language].cancelled} />;
         }
