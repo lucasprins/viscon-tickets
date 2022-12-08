@@ -95,11 +95,11 @@ export function TableTickets({
       cell: (props: { getValue: () => any }) => {
         switch (props.getValue()) {
           case "Open":
-            return <Badge size='md' color='error' text='Open' />;
+            return <Badge size='md' color='error' text={translations[language].open} />;
           case "Resolved":
-            return <Badge size='md' color='gray' text='Resolved' />;
+            return <Badge size='md' color='gray' text={translations[language].Resolved} />;
           case "InProgress":
-            return <Badge size='md' color='primary' text='In progress' />;
+            return <Badge size='md' color='primary' text={translations[language].In_progress} />;
           case "Cancelled":
             return <Badge size='md' color='gray' text={translations[language].cancelled} />;
         }

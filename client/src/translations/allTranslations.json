@@ -17,9 +17,9 @@
         "ForgotPasswordPage:": "done",
         "ForgotPassword" : "done",
         "": "not_done",
-       "NewPassword.tsx" : "not_done",
-       "Register.tsx" : "not_done",
-       "RegisterCompleted.tsx" : "not_done"
+       "NewPassword.tsx" : "done",
+       "Register.tsx" : "done",
+       "RegisterCompleted.tsx" : "done"
 
     },
     "nl": {
@@ -40,7 +40,6 @@
         "knowledgebase": "Kennisbank",
         "language": "Taal",
         "open": "Open",
-        "in_progress": "Bezig",
         "resolved": "Opgelost",
         "cancelled": "Geannuleerd",
         "adminAccountName" : "Admin account",
@@ -48,6 +47,9 @@
         "password" : "Wachtwoord",
         "cancel": "Annuleren",
         "issues" : "Problemen",
+        "Open" : "Open",
+        "Resolved" : "Opgelost",
+        "In_progress" : "Bezig",
         "---------Pages-------": "-------Pages-------",
         "----Knowledgebase----": "----Knowledgebase----",
         "blueprint_number": "Tekeningnummer",
@@ -199,6 +201,9 @@
         "password" : "Password",
         "cancel": "Cancel",
         "issues" : "Issues",
+        "Open" : "Open",
+        "Resolved" : "Resolved",
+        "In_progress" : "In progress",
         "-------Pages-------": "------Pages------",
         "----Knowledgebase----": "----Knowledgebase----",
         "blueprint_number": "Blueprint",
@@ -304,7 +309,6 @@
         "history": "History",
         "creation_date": "Creation Date",
         "assignee": "Assignee",
-        "in_progress": "In progress",
         "not_claimed": "This ticket has not been claimed yet",
         "claim_ticket": "Claim ticket",
         "unclaim": "Unclaim",
