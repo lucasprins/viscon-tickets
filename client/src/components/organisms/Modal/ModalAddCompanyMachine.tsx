@@ -129,7 +129,7 @@ const ModalAddCompanyMachine = ({
                       <div>
                         {machines !== undefined && selectedMachine !== undefined ? (
                           <InputDropdown
-                            label={translations[language].machines}
+                            label={translations[language].machineType}
                             options={machines}
                             selectedOption={selectedMachine}
                             selectedKey={"type"}
