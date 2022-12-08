@@ -181,19 +181,22 @@ export function Ticket() {
                                 <TicketStatusBadge status={ticket.status} />
                               </div>
                             </div>
-                            <div className='flex flex-col w-full gap-2'>
-                              <span className='font-medium text-gray-700 text-md dark:text-white'>
-                                {translations[language].assignee}
-                              </span>
-                              <AssigneeCard
-                                subtitle={translations[language].assignee}
-                                name={
-                                  ticket.assignee !== null
-                                    ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                    : undefined
-                                }
-                              />
-                            </div>
+                            {user.role === "VisconAdmin" ||
+                              (user.role === "VisconEmployee" && (
+                                <div className='flex flex-col w-full gap-2'>
+                                  <span className='font-medium text-gray-700 text-md dark:text-white'>
+                                    {translations[language].assignee}
+                                  </span>
+                                  <AssigneeCard
+                                    subtitle={translations[language].assignee}
+                                    name={
+                                      ticket.assignee !== null
+                                        ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                        : undefined
+                                    }
+                                  />
+                                </div>
+                              ))}
                           </div>
                           <div className='flex flex-col w-full gap-2'>
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
@@ -293,7 +296,7 @@ export function Ticket() {
                       {/* Solution Panel */}
                       <Tab.Panel>
                         <Formik initialValues={ticket} onSubmit={(ticket) => addSolution(ticket.solution)}>
-                          {({ errors, touched, isValidating }) => (
+                          {({ values, errors, touched, isValidating }) => (
                             <Form className='flex flex-col items-end w-full gap-5'>
                               <div className='flex flex-col w-full gap-1.5'>
                                 <InputLabel htmlFor='solution' text={translations[language].solution} />
@@ -305,7 +308,7 @@ export function Ticket() {
                               </div>
                               {ticket.status === "Cancelled" ? (
                                 <div className='flex flex-col w-full gap-1.5'>
-                                  <InputLabel htmlFor='cancelReason' text="Reason for cancelling" />
+                                  <InputLabel htmlFor='cancelReason' text='Reason for cancelling' />
                                   <InputTextArea disabled id='cancelReason' name='cancelReason' />
                                 </div>
                               ) : undefined}
@@ -315,8 +318,8 @@ export function Ticket() {
                                     formType='submit'
                                     size='medium'
                                     width='content'
-                                    type='primary'
-                                    disabled={addingSolution}
+                                    type={values.solution === ticket.solution ? "secondary-gray" : "primary"}
+                                    disabled={addingSolution || values.solution === ticket.solution}
                                     icon={
                                       addingSolution ? (
                                         <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
@@ -351,19 +354,22 @@ export function Ticket() {
                         <TicketStatusBadge status={ticket.status} />
                       </div>
                     </div>
-                    <div className='flex flex-col w-full gap-2'>
-                      <span className='font-medium text-gray-700 text-md dark:text-white'>
-                        {translations[language].assignee}
-                      </span>
-                      <AssigneeCard
-                        subtitle={translations[language].assignee}
-                        name={
-                          ticket.assignee !== null
-                            ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                            : undefined
-                        }
-                      />
-                    </div>
+                    {user.role === "VisconAdmin" ||
+                      (user.role === "VisconEmployee" && (
+                        <div className='flex flex-col w-full gap-2'>
+                          <span className='font-medium text-gray-700 text-md dark:text-white'>
+                            {translations[language].assignee}
+                          </span>
+                          <AssigneeCard
+                            subtitle={translations[language].assignee}
+                            name={
+                              ticket.assignee !== null
+                                ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ))}
                   </div>
                   <Divider />
                 </div>

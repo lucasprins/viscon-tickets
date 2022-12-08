@@ -110,7 +110,7 @@ const AdminCompanies = () => {
         companies?.filter((company) => company.name.toLowerCase().includes(queryCompany.toLowerCase()))
       );
     }
-  }, [queryCompany]);
+  }, [queryCompany, companies]);
 
   useEffect(() => {
     if (queryMachine === "") {
@@ -142,7 +142,7 @@ const AdminCompanies = () => {
 
   return (
     <Tab.Panel>
-      <ModalAddCompany state={modalStates.addCompany} onClose={toggleAddCompanyModal} />
+      <ModalAddCompany setCompanies={setCompanies} state={modalStates.addCompany} onClose={toggleAddCompanyModal} />
       {selectedCompany && (
         <ModalAddCompanyMachine
           state={modalStates.addCompanyMachine}

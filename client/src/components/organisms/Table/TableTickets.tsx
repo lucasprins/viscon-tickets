@@ -95,7 +95,11 @@ export function TableTickets({
       cell: (props: { getValue: () => any }) => {
         switch (props.getValue()) {
           case "Open":
-            return <Badge size='md' color='error' text='Open' />;
+            if(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+              return <Badge size='md' color='error' text='Open' />;
+            } else {
+              return <Badge size='md' color='primary' text='In progress' />;
+            }
           case "Resolved":
             return <Badge size='md' color='gray' text='Resolved' />;
           case "InProgress":
