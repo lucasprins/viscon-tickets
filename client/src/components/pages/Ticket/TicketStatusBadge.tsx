@@ -33,7 +33,7 @@ export const TicketStatusBadge = ({ status }: { status: string }) => {
           <Badge
             size='md'
             color='gray'
-            text={translations[language].in_progress}
+            text={translations[language].In_progress}
             icon={
               <IconStopwatch
                 size='14'
@@ -50,7 +50,7 @@ export const TicketStatusBadge = ({ status }: { status: string }) => {
         <Badge
           size='md'
           color='gray'
-          text={translations[language].in_progress}
+          text={translations[language].In_progress}
           icon={
             <IconStopwatch
               size='14'

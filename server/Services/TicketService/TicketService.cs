@@ -177,15 +177,15 @@ namespace server.Services.TicketService
 
         if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
         {
-          ticketsDTO.TotalTickets = _context.Tickets.Count();
+          ticketsDTO.UnresolvedTickets = _context.Tickets.Where(t => t.Status == Status.Open || t.Status == Status.InProgress).Count();
           ticketsDTO.OpenTickets = _context.Tickets.Count(t => t.Status == Status.Open);
-          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.AssigneeId == requestUser.Id);
+          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.AssigneeId == requestUser.Id && t.Status == Status.InProgress);
         }
         else
         {
-          ticketsDTO.TotalTickets = _context.Tickets.Count(t => t.CompanyId == requestUser.CompanyId);
+          ticketsDTO.UnresolvedTickets = _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId && (t.Status == Status.Open || t.Status == Status.InProgress)).Count();
           ticketsDTO.OpenTickets = _context.Tickets.Count(t => t.CompanyId == requestUser.CompanyId && t.Status == Status.Open);
-          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.CreatorId == requestUser.Id);
+          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.CreatorId == requestUser.Id && (t.Status == Status.InProgress || t.Status == Status.Open));
         }
 
         serviceResponse.Data = ticketsDTO;

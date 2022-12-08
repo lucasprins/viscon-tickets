@@ -62,7 +62,11 @@ export function Ticket() {
     const response = await TicketService.getTicket(ticketID, accessToken, source.token);
     console.log(response);
     if (response.data.success) {
-      setTicket(response.data.data);
+      if(response.data.data.solution == null) {
+        setTicket({ ...response.data.data, solution: ""});
+      } else {
+        setTicket(response.data.data);
+      }
       setFetchedTicketSuccess(true);
     }
     setLoading(false);
