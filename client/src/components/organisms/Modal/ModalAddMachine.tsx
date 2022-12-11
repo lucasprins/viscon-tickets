@@ -48,7 +48,6 @@ const ModalAddMachine = ({
   const submitAddMachine = async (values: formValues) => {
     setAddingMachine(true);
     const response = await MachineService.addMachine(source.token, values.type, values.blueprintNumber);
-    console.log(response);
 
     setAddingMachine(false);
 

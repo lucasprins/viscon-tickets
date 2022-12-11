@@ -74,7 +74,6 @@ const AdminCompanies = () => {
   const fetchCompanyMachinesJoined = async (selectedCompany: companyType) => {
     console.table(selectedCompany);
     const response = await MachineService.getCompanyMachinesJoined(sourceCompanyMachines.token, selectedCompany.id);
-    console.log(response.data);
     if (response.data.success) {
       setCompanyMachines(response.data.data);
       setFilteredCompanyMachines(response.data.data);

@@ -56,7 +56,6 @@ const ModalAddCompanyMachine = ({
     setAddingCompanyMachine(true);
     if (selectedMachine) {
       const response = await MachineService.addCompanyMachine(values.name, company.id, selectedMachine.id);
-      console.log(response);
 
       if (response.data.success) {
         onClose();

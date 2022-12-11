@@ -23,9 +23,7 @@ export function MachineSolutionsList({ selectedIssue }: { selectedIssue: IssueTy
 
   const fetchSolutions = async () => {
     setLoadingSolutions(true);
-    console.log(selectedIssue.id);
     const response = await SolutionService.getSolutions(selectedIssue.id, source.token);
-    console.log(response);
     if (response.data.success) {
       setSolutions(response.data.data);
     }

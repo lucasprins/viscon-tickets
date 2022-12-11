@@ -18,12 +18,6 @@ import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
 import { companyMachineType, createTicketType, MachineType, TicketIssueType, userType } from "../../../utils/types";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { getMachines, getSelectedMachine, setSelectedMachine } from "../../../features/machines/machinesSlice";
-import {
-  createTicket,
-  getCreatedTicketSuccess,
-  getCreatingTicket,
-  resetCreateTicket,
-} from "../../../features/tickets/ticketsSlice";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Spinner } from "../../atoms/Spinner/Spinner";
 import { Modal } from "../../organisms/Modal/Modal";
@@ -31,6 +25,8 @@ import { InputDropdown } from "../../atoms/Input/InputDropdown";
 import axios from "axios";
 import MachineService from "../../../features/machines/machinesService";
 import { KnowledgebaseIssuesList } from "../../molecules/MachineSolution/KnowledgebaseIssuesList";
+import InputDropdownAutoComplete from "../../atoms/Input/InputDropdownAutoComplete";
+import TicketService from "../../../features/tickets/ticketsService";
 
 var translations = require("../../../translations/allTranslations.json");
 
@@ -38,15 +34,18 @@ export function CreateTicket() {
   const { appState } = useAppContext();
   const user = appState.user;
   const language = appState.language;
-  const accessToken = user?.accessToken;
+  const dispatch = useAppDispatch();
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [modalState, setModalState] = useState({
+    creationFailed: false,
+    creationSuccess: false,
+    backToDashboard: false,
+  });
 
-  const loading = useAppSelector(getCreatingTicket);
-  const dispatch = useAppDispatch();
+  const [creatingTicket, setCreatingTicket] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const createTicketSuccess: boolean | null = useAppSelector(getCreatedTicketSuccess);
   const [openErrorModal, setOpenErrorModal] = useState(true);
 
   const [ticket, setTicket] = useState<createTicketType>({
@@ -98,10 +97,10 @@ export function CreateTicket() {
     setLoadingCompanyMachines(true);
     const response = await MachineService.getAllCompanyMachines(sourceCompanyMachines.token);
     if (response.data.success) {
+      response.data.data.unshift({ id: "", name: "", serialNumber: "", company: { name: "", id: "", country: "" } });
       setCompanyMachines(response.data.data);
       setSelectedCompanyMachine(response.data.data[0]);
       setTicket({ ...ticket, machine: response.data.data[0] });
-      console.log(response.data.data);
     }
     setLoadingCompanyMachines(false);
   };
@@ -111,19 +110,18 @@ export function CreateTicket() {
     fetchAllCompanyMachines();
 
     return () => {
-      dispatch(resetCreateTicket());
       sourceMachines.cancel();
       sourceCompanyMachines.cancel();
     };
   }, []);
 
   const addContactInformation = (values: any) => {
-    setTicket({ ...ticket, ...values });
+    setTicket({ ...ticket, ...values, machine: ticket.machine });
     setCurrentStep(3);
   };
 
   const addIssueInformation = (values: any) => {
-    setTicket({ ...ticket, ...values, issueType: ticket.issueType });
+    setTicket({ ...ticket, ...values, issueType: ticket.issueType, machine: ticket.machine });
     setCurrentStep(4);
   };
 
@@ -132,10 +130,23 @@ export function CreateTicket() {
     dispatch(toggleLanguageModal());
   };
 
-  const submitTicket = () => {
+  const submitTicket = async () => {
+    setCreatingTicket(true);
     if (user) {
-      dispatch(createTicket({ ticket, user }));
+      await TicketService.createTicket(ticket, user)
+        .then((res) => {
+
+          if (res.data.success) {
+            setModalState({ ...modalState, creationSuccess: true });
+          } else {
+            setModalState({ ...modalState, creationFailed: true });
+          }
+        })
+        .catch((err) => {
+          setModalState({ ...modalState, creationFailed: true });
+        });
     }
+    setCreatingTicket(false);
   };
 
   if (!useAuthentication()) {
@@ -144,20 +155,18 @@ export function CreateTicket() {
 
   return (
     <>
-      {createTicketSuccess == false && (
+      {modalState.creationFailed && (
         <>
           <Modal
             type='error'
             title='Oops, something went wrong.'
             subtitle='Please submit the ticket again or try again later.'
-            is_open={openErrorModal}
+            is_open={true}
             close_modal={() => {
-              dispatch(resetCreateTicket());
             }}
             button_primary_text='Close'
             button_secondary_text='Dashboard'
             button_primary_onclick={() => {
-              dispatch(resetCreateTicket());
             }}
             button_secondary_onclick={() => {
               navigate("/tickets");
@@ -165,7 +174,7 @@ export function CreateTicket() {
           />
         </>
       )}
-      {createTicketSuccess == true && (
+      {modalState.creationSuccess && (
         <>
           <Modal
             type='success'
@@ -173,17 +182,14 @@ export function CreateTicket() {
             subtitle='We will get back to you as soon as possible.'
             is_open={true}
             close_modal={() => {
-              dispatch(resetCreateTicket());
               navigate("/tickets");
             }}
             button_primary_text='Dashboard'
             button_secondary_text='Tickets'
             button_primary_onclick={() => {
-              dispatch(resetCreateTicket());
               navigate("/tickets");
             }}
             button_secondary_onclick={() => {
-              dispatch(resetCreateTicket());
               navigate("/tickets");
             }}
           />
@@ -240,7 +246,7 @@ export function CreateTicket() {
                 subtitle={translations[language].view_solutions_subtitle_long}
               />
               {selectedMachine && (
-                <InputDropdown
+                <InputDropdownAutoComplete
                   label={translations[language].select_machine}
                   options={machines}
                   selectedOption={selectedMachine}
@@ -377,14 +383,24 @@ export function CreateTicket() {
                 subtitle={translations[language].describe_issue_subtitle}
               />
               {selectedCompanyMachine && (
-                <InputDropdown
+                <>
+                  {/* <InputDropdown
                   label={translations[language].select_company_machine}
                   options={companyMachines}
                   selectedOption={selectedCompanyMachine}
                   selectedKey={"name"}
                   onchange={handleChangeSelectedCompanyMachine}
                   identifier={"id"}
-                />
+                /> */}
+                  <InputDropdownAutoComplete
+                    label={translations[language].select_company_machine}
+                    options={companyMachines}
+                    selectedOption={selectedCompanyMachine}
+                    selectedKey={"name"}
+                    onchange={handleChangeSelectedCompanyMachine}
+                    identifier={"id"}
+                  />
+                </>
               )}
               <div className='flex gap-3 -mt-3 md:gap-4'>
                 <Button
@@ -405,7 +421,7 @@ export function CreateTicket() {
                   size='small'
                   width='full'
                   type={ticket.issueType === "Other" ? "primary" : "secondary-gray"}
-                  text='Other'
+                  text={translations[language].other}
                   onclick={() => setTicket({ ...ticket, issueType: TicketIssueType.Other })}
                 />
               </div>
@@ -634,7 +650,7 @@ export function CreateTicket() {
                         width='full'
                         type='secondary-gray'
                         text={translations[language].back}
-                        disabled={loading}
+                        disabled={creatingTicket}
                         onclick={() => setCurrentStep(4)}
                       />
                       <Button
@@ -642,9 +658,11 @@ export function CreateTicket() {
                         size='medium'
                         width='full'
                         type='primary'
-                        disabled={loading}
+                        disabled={creatingTicket}
                         icon={
-                          loading ? <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' /> : undefined
+                          creatingTicket ? (
+                            <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
+                          ) : undefined
                         }
                         text={translations[language].confirm_create_ticket}
                       />

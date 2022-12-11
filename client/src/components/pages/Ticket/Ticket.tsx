@@ -59,17 +59,28 @@ export function Ticket() {
   let source = CancelToken.source();
 
   const fetchTicket = async () => {
-    const response = await TicketService.getTicket(ticketID, accessToken, source.token);
-    console.log(response);
-    if (response.data.success) {
-      if(response.data.data.solution == null) {
-        setTicket({ ...response.data.data, solution: ""});
-      } else {
-        setTicket(response.data.data);
-      }
-      setFetchedTicketSuccess(true);
-    }
-    setLoading(false);
+    const response = TicketService.getTicket(ticketID, accessToken, source.token)
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          if (response.data.data.solution == null) {
+            response.data.data.solution = "";
+          }
+          if (response.data.data.machineName == null) {
+            response.data.data.machineName = "";
+          }
+          setTicket(response.data.data);
+          setFetchedTicketSuccess(true);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (axios.isCancel(error)) {
+          console.log("Request canceled", error.message);
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   const addSolution = async (solution: string) => {
@@ -222,17 +233,19 @@ export function Ticket() {
                           {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col w-full gap-5'>
                               <div className='flex flex-col gap-4 md:flex-row'>
-                                <div className='flex flex-col w-full gap-1.5'>
-                                  <InputLabel htmlFor='machineName' text={translations[language].machine} />
-                                  <InputField
-                                    style='icon'
-                                    type='text'
-                                    id='machineName'
-                                    name='machineName'
-                                    disabled={true}
-                                    icon={<IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' />}
-                                  />
-                                </div>
+                                {ticket.machineName !== "" && (
+                                  <div className='flex flex-col w-full gap-1.5'>
+                                    <InputLabel htmlFor='machineName' text={translations[language].machine} />
+                                    <InputField
+                                      style='icon'
+                                      type='text'
+                                      id='machineName'
+                                      name='machineName'
+                                      disabled={true}
+                                      icon={<IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' />}
+                                    />
+                                  </div>
+                                )}
                                 <div className='flex flex-col w-full gap-1.5'>
                                   <InputLabel htmlFor='issueType' text='Issue type' />
                                   <InputField

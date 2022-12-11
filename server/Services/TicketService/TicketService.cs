@@ -33,9 +33,9 @@ namespace server.Services.TicketService
       return ticketDTO;
     }
 
-    public async Task<ServiceResponse<GetTicketDTO>> CreateTicket(CreateTicketDTO newTicket)
+    public async Task<ServiceResponse<bool>> CreateTicket(CreateTicketDTO newTicket)
     {
-      ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+      ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
       try
       {
         System.Console.WriteLine("TICKET MACHINE: " + newTicket.CompanyMachineId);
@@ -48,20 +48,9 @@ namespace server.Services.TicketService
         ticket.Status = Status.Open;
         ticket.Priority = Priority.Medium;
 
-        try
-        {
-          serviceResponse.Data = await CreateGetTicketDTO(ticket);
-        }
-        catch (Exception ex)
-        {
-          serviceResponse.Success = false;
-          serviceResponse.Message = "Unable to return the ticket that was just created.";
-          System.Console.WriteLine(ex.Message);
-          return serviceResponse;
-        }
-
         _context.Tickets.Add(ticket);
         await _context.SaveChangesAsync();
+        serviceResponse.Data = true;
       }
       catch (Exception ex)
       {

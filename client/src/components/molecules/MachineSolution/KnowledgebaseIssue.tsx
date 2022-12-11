@@ -14,9 +14,7 @@ function KnowledgebaseIssue({ issue }: { issue: IssueType }) {
 
   const fetchSolutions = async () => {
     setLoadingSolutions(true);
-    console.log(issue.id);
     const response = await SolutionService.getSolutions(issue.id, source.token);
-    console.log(response);
     if (response.data.success) {
       setSolutions(response.data.data);
     }

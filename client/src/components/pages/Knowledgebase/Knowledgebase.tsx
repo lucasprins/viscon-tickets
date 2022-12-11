@@ -16,6 +16,7 @@ import { Button } from "../../atoms/Button/Button";
 import { IconPlus } from "../../atoms/Icons/Icons";
 import { KnowledgebaseIssuesList } from "../../molecules/MachineSolution/KnowledgebaseIssuesList";
 import { MachineSolutionsList } from "../../molecules/MachineSolution/MachineSolutionsList";
+import InputDropdownAutoComplete from "../../atoms/Input/InputDropdownAutoComplete";
 
 var translations = require("../../../translations/allTranslations.json");
 
@@ -77,7 +78,7 @@ export function Knowledgebase() {
         />
         <Divider />
         {selectedMachine ? (
-          <InputDropdown
+          <InputDropdownAutoComplete
             label={translations[language].search_machine}
             options={machines}
             selectedOption={selectedMachine}

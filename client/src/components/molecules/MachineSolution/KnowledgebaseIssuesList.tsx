@@ -30,7 +30,6 @@ export function KnowledgebaseIssuesList({
   const fetchIssues = async () => {
     setLoadingIssues(true);
     const response = await IssueService.getIssues(selectedMachine?.id || "", source.token);
-    console.log(response);
     if (response.data.success) {
       setIssues(response.data.data);
     }
