@@ -181,7 +181,7 @@ export const TicketActions = ({
             width='content'
             type='primary'
             text={translations[language].resolve}
-            disabled={unclaimingTicket || resolvingTicket || (ticket.solution != "" )}
+            disabled={unclaimingTicket || resolvingTicket || (ticket.solution == "" )}
             onclick={resolveTicket}
             icon={
               resolvingTicket ? (
@@ -199,7 +199,7 @@ export const TicketActions = ({
             width='full'
             type='primary'
             text={translations[language].resolve}
-            disabled={unclaimingTicket || resolvingTicket || (ticket.solution != "" )}
+            disabled={unclaimingTicket || resolvingTicket || (ticket.solution != " " && ticket.solution != null )}
             onclick={resolveTicket}
             icon={
               resolvingTicket ? (
