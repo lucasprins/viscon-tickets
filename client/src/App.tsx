@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Backdrop from "./components/atoms/Backdrop/Backdrop";
 import { ModalChangeLanguage } from "./components/organisms/Modal/ModalChangeLanguage";
@@ -6,6 +6,7 @@ import { getBackdropState } from "./features/modal/modalSlice";
 import { useAppSelector } from "./utils/hooks";
 import { routes } from "./routes";
 import { userType as UserType } from "./utils/types";
+import { parseJwt } from "./utils/jwt";
 
 const localStorageUser = localStorage.getItem("user");
 const initialUser = localStorageUser ? JSON.parse(localStorageUser) : undefined;
@@ -68,6 +69,16 @@ function App() {
   const [appState, appDispatch] = useReducer(appReducer, initialAppState);
 
   const backdropState = useAppSelector(getBackdropState);
+
+  useEffect(() => {
+    if(appState.user?.accessToken) {
+      const { exp } = parseJwt(appState.user.accessToken);
+      const currentTime = new Date().getTime() / 1000;
+      if (exp < currentTime) {
+        appDispatch({ type: "USER_LOGOUT" });
+      }
+    }
+  }, []);
 
   return (
     <>

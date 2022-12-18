@@ -134,7 +134,9 @@ namespace server.Migrations
                 {
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TokenValue = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TokenType = table.Column<int>(type: "integer", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -168,7 +170,8 @@ namespace server.Migrations
                     CompanyMachineId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: false),
                     AssigneeId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MachineId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,6 +186,11 @@ namespace server.Migrations
                         name: "FK_Tickets_CompanyMachines_CompanyMachineId",
                         column: x => x.CompanyMachineId,
                         principalTable: "CompanyMachines",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tickets_Machines_MachineId",
+                        column: x => x.MachineId,
+                        principalTable: "Machines",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tickets_Users_AssigneeId",
@@ -221,8 +229,8 @@ namespace server.Migrations
                 columns: new[] { "Id", "Country", "IsActive", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("010a51f9-7ffc-4846-ad27-5a267a971d41"), "Netherlands (the)", true, "Customer" },
-                    { new Guid("c58b2db0-1d84-4180-99e7-da64422e0a42"), "Netherlands (the)", true, "Viscon" }
+                    { new Guid("7623918f-6cca-4d31-b429-019868de2a0f"), "Netherlands (the)", true, "Customer" },
+                    { new Guid("9c0a6f40-dd54-4098-b879-4c31f54c887c"), "Netherlands (the)", true, "Viscon" }
                 });
 
             migrationBuilder.InsertData(
@@ -230,8 +238,8 @@ namespace server.Migrations
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "IsActive", "LastName", "PasswordHash", "PasswordSalt", "PhoneNumber", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("23bd719b-4c71-40c3-8f63-1d414d76b27a"), new Guid("c58b2db0-1d84-4180-99e7-da64422e0a42"), "root@viscon.nl", "Viscon", true, "Admin", new byte[] { 218, 123, 35, 22, 78, 109, 144, 167, 82, 122, 253, 217, 49, 35, 169, 206, 36, 126, 111, 3, 6, 239, 118, 1, 211, 183, 154, 194, 247, 230, 168, 56, 2, 198, 135, 35, 130, 203, 154, 149, 132, 58, 151, 189, 20, 98, 254, 90, 59, 135, 194, 126, 135, 131, 99, 107, 20, 224, 158, 163, 145, 56, 175, 228 }, new byte[] { 65, 12, 168, 23, 16, 56, 17, 110, 200, 71, 9, 248, 171, 10, 24, 123, 229, 151, 69, 237, 241, 201, 234, 28, 88, 199, 89, 91, 162, 68, 35, 142, 30, 184, 63, 109, 53, 101, 48, 61, 191, 77, 112, 239, 229, 252, 233, 24, 8, 41, 17, 174, 246, 30, 102, 114, 247, 108, 216, 242, 184, 205, 163, 132, 228, 49, 168, 228, 112, 201, 155, 41, 184, 161, 80, 97, 100, 45, 133, 180, 171, 236, 158, 22, 2, 23, 241, 157, 103, 211, 31, 143, 115, 31, 15, 4, 58, 234, 249, 46, 8, 247, 33, 222, 248, 222, 41, 170, 42, 118, 8, 253, 76, 106, 224, 73, 125, 154, 50, 165, 93, 72, 107, 241, 126, 13, 200, 76 }, null, 2 },
-                    { new Guid("c250188a-5752-40c2-b8c3-e6e2bc903525"), new Guid("010a51f9-7ffc-4846-ad27-5a267a971d41"), "root@customer.nl", "Customer", true, "Admin", new byte[] { 218, 123, 35, 22, 78, 109, 144, 167, 82, 122, 253, 217, 49, 35, 169, 206, 36, 126, 111, 3, 6, 239, 118, 1, 211, 183, 154, 194, 247, 230, 168, 56, 2, 198, 135, 35, 130, 203, 154, 149, 132, 58, 151, 189, 20, 98, 254, 90, 59, 135, 194, 126, 135, 131, 99, 107, 20, 224, 158, 163, 145, 56, 175, 228 }, new byte[] { 65, 12, 168, 23, 16, 56, 17, 110, 200, 71, 9, 248, 171, 10, 24, 123, 229, 151, 69, 237, 241, 201, 234, 28, 88, 199, 89, 91, 162, 68, 35, 142, 30, 184, 63, 109, 53, 101, 48, 61, 191, 77, 112, 239, 229, 252, 233, 24, 8, 41, 17, 174, 246, 30, 102, 114, 247, 108, 216, 242, 184, 205, 163, 132, 228, 49, 168, 228, 112, 201, 155, 41, 184, 161, 80, 97, 100, 45, 133, 180, 171, 236, 158, 22, 2, 23, 241, 157, 103, 211, 31, 143, 115, 31, 15, 4, 58, 234, 249, 46, 8, 247, 33, 222, 248, 222, 41, 170, 42, 118, 8, 253, 76, 106, 224, 73, 125, 154, 50, 165, 93, 72, 107, 241, 126, 13, 200, 76 }, null, 4 }
+                    { new Guid("265f7b8c-b81b-458c-8bb4-0afe8b42084e"), new Guid("7623918f-6cca-4d31-b429-019868de2a0f"), "root@customer.nl", "Customer", true, "Admin", new byte[] { 111, 226, 56, 233, 103, 200, 125, 64, 143, 64, 181, 3, 84, 253, 119, 143, 60, 3, 28, 221, 9, 53, 132, 182, 167, 52, 104, 189, 162, 17, 20, 149, 57, 248, 177, 243, 141, 164, 208, 112, 253, 74, 101, 125, 222, 178, 165, 185, 242, 139, 130, 157, 119, 67, 205, 9, 236, 0, 223, 83, 248, 29, 188, 98 }, new byte[] { 231, 161, 213, 45, 8, 246, 205, 71, 100, 219, 33, 241, 246, 123, 226, 162, 4, 176, 121, 131, 169, 93, 37, 232, 156, 122, 51, 239, 126, 22, 29, 194, 60, 8, 247, 141, 154, 237, 56, 41, 243, 106, 162, 45, 68, 18, 121, 177, 94, 69, 158, 170, 188, 202, 231, 163, 39, 159, 39, 12, 15, 141, 108, 225, 227, 119, 89, 30, 173, 107, 166, 158, 118, 0, 246, 106, 206, 78, 9, 31, 235, 135, 59, 86, 216, 48, 161, 242, 75, 2, 146, 77, 250, 5, 168, 64, 175, 235, 237, 92, 188, 189, 199, 78, 227, 218, 207, 223, 18, 15, 213, 17, 222, 102, 204, 160, 121, 135, 245, 96, 100, 55, 52, 3, 103, 17, 174, 147 }, null, 4 },
+                    { new Guid("51cfe35a-1ed1-4587-887e-6ef036b6b8e1"), new Guid("9c0a6f40-dd54-4098-b879-4c31f54c887c"), "root@viscon.nl", "Viscon", true, "Admin", new byte[] { 111, 226, 56, 233, 103, 200, 125, 64, 143, 64, 181, 3, 84, 253, 119, 143, 60, 3, 28, 221, 9, 53, 132, 182, 167, 52, 104, 189, 162, 17, 20, 149, 57, 248, 177, 243, 141, 164, 208, 112, 253, 74, 101, 125, 222, 178, 165, 185, 242, 139, 130, 157, 119, 67, 205, 9, 236, 0, 223, 83, 248, 29, 188, 98 }, new byte[] { 231, 161, 213, 45, 8, 246, 205, 71, 100, 219, 33, 241, 246, 123, 226, 162, 4, 176, 121, 131, 169, 93, 37, 232, 156, 122, 51, 239, 126, 22, 29, 194, 60, 8, 247, 141, 154, 237, 56, 41, 243, 106, 162, 45, 68, 18, 121, 177, 94, 69, 158, 170, 188, 202, 231, 163, 39, 159, 39, 12, 15, 141, 108, 225, 227, 119, 89, 30, 173, 107, 166, 158, 118, 0, 246, 106, 206, 78, 9, 31, 235, 135, 59, 86, 216, 48, 161, 242, 75, 2, 146, 77, 250, 5, 168, 64, 175, 235, 237, 92, 188, 189, 199, 78, 227, 218, 207, 223, 18, 15, 213, 17, 222, 102, 204, 160, 121, 135, 245, 96, 100, 55, 52, 3, 103, 17, 174, 147 }, null, 2 }
                 });
 
             migrationBuilder.CreateIndex(

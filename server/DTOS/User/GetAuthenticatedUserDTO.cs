@@ -17,5 +17,6 @@ namespace server.DTOS
         public bool IsActive { get; set; }
         public GetCompanyDTO Company { get; set; } = null!;
         public string AccessToken { get; set; } = null!;
+        // public Guid RefreshToken { get; set; }
     }
 }

@@ -104,6 +104,9 @@ namespace server.Services.AuthService
       else
       {
         string userJWTToken = CreateToken(dbUser);
+        // Token refreshToken = CreateRefreshToken(dbUser);
+        // SetRefreshToken(refreshToken);
+
         response.Data = new GetAuthenticatedUserDTO
         {
           Id = dbUser.Id,
@@ -120,6 +123,35 @@ namespace server.Services.AuthService
       return response;
     }
 
+    // private Token CreateRefreshToken(User user)
+    // {
+    //   Token refreshToken = new Token
+    //   {
+    //     UserId = user.Id,
+    //     TokenType = TokenType.REFRESH,
+    //     TokenValue = Guid.NewGuid(),
+    //     CreationDate = DateTime.UtcNow,
+    //     ExpirationDate = DateTime.UtcNow.AddDays(7)
+    //   };
+
+    //   _context.Tokens.Add(refreshToken);
+    //   _context.SaveChanges();
+    //   return refreshToken;
+    // }
+
+    // private void SetRefreshToken(Token refreshToken)
+    // {
+    //   var cookieOptions = new CookieOptions
+    //   {
+    //     HttpOnly = true,
+    //     Expires = refreshToken.ExpirationDate
+    //   };
+
+    //   if (_httpContextAccessor.HttpContext != null)
+    //   {
+    //     _httpContextAccessor.HttpContext.Response.Cookies.Append("refreshToken", refreshToken.TokenValue.ToString(), cookieOptions);
+    //   }
+    // }
 
     public async Task<ServiceResponse<GetUserDTO>> Register(RegisterDTO newUser)
     {
@@ -181,55 +213,62 @@ namespace server.Services.AuthService
       }
     }
 
-    public async Task<ServiceResponse<GetUserDTO>> RegisterUser(RegisterUserDTO newUser, Guid registrationToken) {
-        ServiceResponse<GetUserDTO> response = new ServiceResponse<GetUserDTO>();
+    public async Task<ServiceResponse<GetUserDTO>> RegisterUser(RegisterUserDTO newUser, Guid registrationToken)
+    {
+      ServiceResponse<GetUserDTO> response = new ServiceResponse<GetUserDTO>();
 
-        var databaseRegistrationToken = await _context.Tokens.Where(t => t.TokenValue == registrationToken && t.TokenType == TokenType.REGISTER).FirstOrDefaultAsync();
+      var databaseRegistrationToken = await _context.Tokens.Where(t => t.TokenValue == registrationToken && t.TokenType == TokenType.REGISTER).FirstOrDefaultAsync();
 
-        if(databaseRegistrationToken == null) {
-            response.Success = false;
-            response.Message = "Registration token does not exist.";
-            return response;
-        }
-
-        if(databaseRegistrationToken.ExpirationDate < DateTime.Now) {
-            response.Success = false;
-            response.Message = "Registration token has expired.";
-            return response;
-        }
-
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower().Equals(newUser.Email.ToLower()));
-
-        if (user == null) {
-            response.Success = false;
-            response.Message = "User not found.";
-            return response;
-        }
-
-        if (user.PasswordHash != null && user.PasswordSalt != null) {
-            response.Success = false;
-            response.Message = "User has already registered.";
-            return response;
-        }
-
-        CreatePasswordHash(newUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
-        user.PasswordHash = passwordHash;
-        user.PasswordSalt = passwordSalt;
-        user.PhoneNumber = newUser.PhoneNumber;
-        
-        try {
-            _context.Users.Update(user);
-            _context.Tokens.Remove(databaseRegistrationToken);
-            await _context.SaveChangesAsync();
-            response.Data = _mapper.Map<GetUserDTO>(user);
-        }
-        catch {
-            response.Success = false;
-            response.Message = "User could not be registered";
-            return response;
-        }
-
+      if (databaseRegistrationToken == null)
+      {
+        response.Success = false;
+        response.Message = "Registration token does not exist.";
         return response;
+      }
+
+      if (databaseRegistrationToken.ExpirationDate < DateTime.Now)
+      {
+        response.Success = false;
+        response.Message = "Registration token has expired.";
+        return response;
+      }
+
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower().Equals(newUser.Email.ToLower()));
+
+      if (user == null)
+      {
+        response.Success = false;
+        response.Message = "User not found.";
+        return response;
+      }
+
+      if (user.PasswordHash != null && user.PasswordSalt != null)
+      {
+        response.Success = false;
+        response.Message = "User has already registered.";
+        return response;
+      }
+
+      CreatePasswordHash(newUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+      user.PasswordHash = passwordHash;
+      user.PasswordSalt = passwordSalt;
+      user.PhoneNumber = newUser.PhoneNumber;
+
+      try
+      {
+        _context.Users.Update(user);
+        _context.Tokens.Remove(databaseRegistrationToken);
+        await _context.SaveChangesAsync();
+        response.Data = _mapper.Map<GetUserDTO>(user);
+      }
+      catch
+      {
+        response.Success = false;
+        response.Message = "User could not be registered";
+        return response;
+      }
+
+      return response;
     }
 
     public string CreateToken(User user)
