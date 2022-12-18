@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppContext } from "../App";
 import type { RootState, AppDispatch } from "../store";
+import { parseJwt } from "./jwt";
 
 // Use throughout the app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -16,8 +17,8 @@ export const useAppContext = () => {
   return context;
 };
 
-export const useAuthentication = () => {
+export const useAuthentication = (): boolean => {
   const { appState } = useAppContext();
 
   return appState.isAuthenticated;
-}
+};

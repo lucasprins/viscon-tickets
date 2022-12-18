@@ -28,12 +28,12 @@ type AppState = {
   language: string;
   isAuthenticated: boolean;
   user: UserType | undefined;
-}
+};
 
 type AppContext = {
   appState: AppState;
   appDispatch: React.Dispatch<AppContextAction>;
-}
+};
 
 const initialAppState: AppState = {
   language: "en",
@@ -67,11 +67,10 @@ export const AppContext = React.createContext<AppContext | undefined>(undefined)
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, initialAppState);
-
   const backdropState = useAppSelector(getBackdropState);
 
   useEffect(() => {
-    if(appState.user?.accessToken) {
+    if (appState.user?.accessToken) {
       const { exp } = parseJwt(appState.user.accessToken);
       const currentTime = new Date().getTime() / 1000;
       if (exp < currentTime) {
@@ -99,6 +98,6 @@ function App() {
 
 export default App;
 
-// translations fixing: 
-//TicketCancelmodal 
-// 
+// translations fixing:
+//TicketCancelmodal
+//
