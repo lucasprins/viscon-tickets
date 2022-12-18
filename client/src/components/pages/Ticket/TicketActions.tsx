@@ -1,7 +1,6 @@
 import React from "react";
-import { toggleBackdrop } from "../../../features/modal/modalSlice";
 import TicketService from "../../../features/tickets/ticketsService";
-import { useAppContext, useAppDispatch } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useModalContext } from "../../../utils/hooks";
 import { ticketType, userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { IconFlipBackwards, IconCheck, IconFileSearch } from "../../atoms/Icons/Icons";
@@ -26,6 +25,7 @@ export const TicketActions = ({
 }) => {
   const language = useAppContext().appState.language;
   const dispatch = useAppDispatch();
+  const { modalDispatch } = useModalContext();
 
   const [claimingTicket, setClaimingTicket] = React.useState(false);
   const [unclaimingTicket, setUnclaimingTicket] = React.useState(false);
@@ -75,7 +75,7 @@ export const TicketActions = ({
 
   const cancelTicket = async () => {
     setCancellingTicket(true);
-    dispatch(toggleBackdrop());
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
 
     // const response = await TicketService.cancelTicket(ticket.id, user.accessToken);
     // setTicket(response.data.data);

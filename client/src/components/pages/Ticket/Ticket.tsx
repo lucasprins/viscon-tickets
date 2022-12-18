@@ -196,22 +196,21 @@ export function Ticket() {
                                 <TicketStatusBadge status={ticket.status} />
                               </div>
                             </div>
-                            {user.role === "VisconAdmin" ||
-                              (user.role === "VisconEmployee" && (
-                                <div className='flex flex-col w-full gap-2'>
-                                  <span className='font-medium text-gray-700 text-md dark:text-white'>
-                                    {translations[language].assignee}
-                                  </span>
-                                  <AssigneeCard
-                                    subtitle={translations[language].assignee}
-                                    name={
-                                      ticket.assignee !== null
-                                        ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                        : undefined
-                                    }
-                                  />
-                                </div>
-                              ))}
+                            {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
+                              <div className='flex flex-col w-full gap-2'>
+                                <span className='font-medium text-gray-700 text-md dark:text-white'>
+                                  {translations[language].assignee}
+                                </span>
+                                <AssigneeCard
+                                  subtitle={translations[language].assignee}
+                                  name={
+                                    ticket.assignee !== null
+                                      ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                      : undefined
+                                  }
+                                />
+                              </div>
+                            ) : undefined}
                           </div>
                           <div className='flex flex-col w-full gap-2'>
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
@@ -371,22 +370,21 @@ export function Ticket() {
                         <TicketStatusBadge status={ticket.status} />
                       </div>
                     </div>
-                    {user.role === "VisconAdmin" ||
-                      (user.role === "VisconEmployee" && (
-                        <div className='flex flex-col w-full gap-2'>
-                          <span className='font-medium text-gray-700 text-md dark:text-white'>
-                            {translations[language].assignee}
-                          </span>
-                          <AssigneeCard
-                            subtitle={translations[language].assignee}
-                            name={
-                              ticket.assignee !== null
-                                ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                : undefined
-                            }
-                          />
-                        </div>
-                      ))}
+                    {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
+                      <div className='flex flex-col w-full gap-2'>
+                        <span className='font-medium text-gray-700 text-md dark:text-white'>
+                          {translations[language].assignee}
+                        </span>
+                        <AssigneeCard
+                          subtitle={translations[language].assignee}
+                          name={
+                            ticket.assignee !== null
+                              ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                              : undefined
+                          }
+                        />
+                      </div>
+                    ) : undefined}
                   </div>
                   <Divider />
                 </div>

@@ -2,11 +2,10 @@ import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Backdrop from "./components/atoms/Backdrop/Backdrop";
 import { ModalChangeLanguage } from "./components/organisms/Modal/ModalChangeLanguage";
-import { getBackdropState } from "./features/modal/modalSlice";
-import { useAppSelector } from "./utils/hooks";
 import { routes } from "./routes";
 import { userType as UserType } from "./utils/types";
 import { parseJwt } from "./utils/jwt";
+import { initialModalState, ModalContext, modalReducer } from "./services/modalService";
 
 const localStorageUser = localStorage.getItem("user");
 const initialUser = localStorageUser ? JSON.parse(localStorageUser) : undefined;
@@ -67,7 +66,7 @@ export const AppContext = React.createContext<AppContext | undefined>(undefined)
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, initialAppState);
-  const backdropState = useAppSelector(getBackdropState);
+  const [modalState, modalDispatch] = useReducer(modalReducer, initialModalState);
 
   useEffect(() => {
     if (appState.user?.accessToken) {
@@ -82,15 +81,17 @@ function App() {
   return (
     <>
       <AppContext.Provider value={{ appState: appState, appDispatch: appDispatch }}>
-        <ModalChangeLanguage />
-        <Backdrop state={backdropState} z_index='z-40' />
-        <Router>
-          <Routes>
-            {routes.map(({ path, component }, key) => (
-              <Route path={path} key={key} element={component} />
-            ))}
-          </Routes>
-        </Router>
+        <ModalContext.Provider value={{ modalState: modalState, modalDispatch: modalDispatch }}>
+          <ModalChangeLanguage />
+          <Backdrop />
+          <Router>
+            <Routes>
+              {routes.map(({ path, component }, key) => (
+                <Route path={path} key={key} element={component} />
+              ))}
+            </Routes>
+          </Router>
+        </ModalContext.Provider>
       </AppContext.Provider>
     </>
   );

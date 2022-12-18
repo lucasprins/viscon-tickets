@@ -1,14 +1,13 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment, useEffect, useState } from "react";
-import { useAppContext, useAppDispatch } from "../../../utils/hooks";
-import { emailExists, validateCompanyName, validateName, validateTextarea } from "../../../utils/input-validation";
+import { useAppContext, useAppDispatch, useModalContext } from "../../../utils/hooks";
+import { emailExists, validateCompanyName, validateTextInput } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { Button } from "../../atoms/Button/Button";
 import { Spinner } from "../../atoms/Spinner/Spinner";
-import { toggleBackdrop } from "../../../features/modal/modalSlice";
 import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import TicketService from "../../../features/tickets/ticketsService";
 
@@ -18,10 +17,9 @@ type formValues = {
 
 const TicketCancelModal = ({ ticketId, state, onClose }: { ticketId: string; state: boolean; onClose: () => void }) => {
   const { appState } = useAppContext();
+  const { modalDispatch } = useModalContext();
   const language = appState.language;
-
-  const dispatch = useAppDispatch();
-
+  
   const [cancellingTicket, setCancellingTicket] = useState(false);
 
   const handleSubmit = async (values: formValues) => {
@@ -36,7 +34,7 @@ const TicketCancelModal = ({ ticketId, state, onClose }: { ticketId: string; sta
 
   const handleClose = () => {
     onClose();
-    dispatch(toggleBackdrop());
+    modalDispatch({ type: "TOGGLE_BACKDROP"});
   };
 
   const formValues: formValues = {
@@ -86,7 +84,7 @@ const TicketCancelModal = ({ ticketId, state, onClose }: { ticketId: string; sta
                         <InputTextArea
                           touched={touched.cancelReason}
                           error={errors.cancelReason}
-                          validate={(input) => validateTextarea(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='Enter the reason...'
                           id='cancelReason'
                           name='cancelReason'

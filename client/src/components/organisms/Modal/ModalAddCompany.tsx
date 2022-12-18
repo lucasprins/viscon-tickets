@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment } from "react";
 import { useAppContext } from "../../../utils/hooks";
-import { emailExists, validateCompanyName, validateName } from "../../../utils/input-validation";
+import { emailExists, validateCompanyName, validateTextInput } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
@@ -137,7 +137,7 @@ const ModalAddCompany = ({
                         <InputField
                           style='iconless'
                           type='text'
-                          validate={(input) => validateName(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='John'
                           id='adminFirstName'
                           name='adminFirstName'
@@ -149,7 +149,7 @@ const ModalAddCompany = ({
                         <InputField
                           style='iconless'
                           type='text'
-                          validate={(input) => validateName(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='Heuvel'
                           id='adminLastName'
                           name='adminLastName'

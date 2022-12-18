@@ -11,9 +11,14 @@ import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
-import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { useAppContext, useAppDispatch, useAppSelector, useAuthentication } from "../../../utils/hooks";
-import { validatePhoneNumber, validateTextarea } from "../../../utils/input-validation";
+import {
+  useAppContext,
+  useAppDispatch,
+  useAppSelector,
+  useAuthentication,
+  useModalContext,
+} from "../../../utils/hooks";
+import { validatePhoneNumber, validateTextInput } from "../../../utils/input-validation";
 import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
 import { companyMachineType, createTicketType, MachineType, TicketIssueType, userType } from "../../../utils/types";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
@@ -32,6 +37,7 @@ var translations = require("../../../translations/allTranslations.json");
 
 export function CreateTicket() {
   const { appState } = useAppContext();
+  const { modalDispatch } = useModalContext();
   const user = appState.user;
   const language = appState.language;
   const dispatch = useAppDispatch();
@@ -126,8 +132,8 @@ export function CreateTicket() {
   };
 
   const openLanguageModal = () => {
-    dispatch(toggleBackdrop());
-    dispatch(toggleLanguageModal());
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
+    modalDispatch({ type: "TOGGLE_LANGUAGE" });
   };
 
   const submitTicket = async () => {
@@ -135,7 +141,6 @@ export function CreateTicket() {
     if (user) {
       await TicketService.createTicket(ticket, user)
         .then((res) => {
-
           if (res.data.success) {
             setModalState({ ...modalState, creationSuccess: true });
           } else {
@@ -162,12 +167,10 @@ export function CreateTicket() {
             title='Oops, something went wrong.'
             subtitle='Please submit the ticket again or try again later.'
             is_open={true}
-            close_modal={() => {
-            }}
+            close_modal={() => {}}
             button_primary_text='Close'
             button_secondary_text='Dashboard'
-            button_primary_onclick={() => {
-            }}
+            button_primary_onclick={() => {}}
             button_secondary_onclick={() => {
               navigate("/tickets");
             }}
@@ -433,7 +436,7 @@ export function CreateTicket() {
                       <InputTextArea
                         touched={touched.issue}
                         error={errors.issue}
-                        validate={(input) => validateTextarea(input, language)}
+                        validate={(input) => validateTextInput(input, language)}
                         id='issue'
                         name='issue'
                         placeholder={translations[language].describe_placeholder_specific}
@@ -445,7 +448,7 @@ export function CreateTicket() {
                       <InputTextArea
                         touched={touched.actionExpected}
                         error={errors.actionExpected}
-                        validate={(input) => validateTextarea(input, language)}
+                        validate={(input) => validateTextInput(input, language)}
                         id='actionExpected'
                         name='actionExpected'
                         placeholder={translations[language].describe_placeholder_expectation}
@@ -457,7 +460,7 @@ export function CreateTicket() {
                       <InputTextArea
                         touched={touched.actionPerformed}
                         error={errors.actionPerformed}
-                        validate={(input) => validateTextarea(input, language)}
+                        validate={(input) => validateTextInput(input, language)}
                         id='actionPerformed'
                         name='actionPerformed'
                         placeholder={translations[language].describe_placeholder_tried}

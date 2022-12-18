@@ -1,10 +1,10 @@
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import CompanyService from "../../../features/customers/companyService";
 import MachineService from "../../../features/machines/machinesService";
-import { toggleBackdrop } from "../../../features/modal/modalSlice";
-import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
 import { CompanyMachineJoined, companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
@@ -18,6 +18,7 @@ var translations = require("../../../translations/allTranslations.json");
 
 const AdminCompanies = () => {
   const { appState } = useAppContext();
+  const { modalDispatch } = useModalContext();
 
   const user = appState.user;
   const dispatch = useAppDispatch();
@@ -39,7 +40,7 @@ const AdminCompanies = () => {
       ...modalStates,
       addCompany: !modalStates.addCompany,
     });
-    dispatch(toggleBackdrop());
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
   };
 
   const toggleAddCompanyMachineModal = () => {
@@ -47,7 +48,7 @@ const AdminCompanies = () => {
       ...modalStates,
       addCompanyMachine: !modalStates.addCompanyMachine,
     });
-    dispatch(toggleBackdrop());
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
   };
 
   const [deactivatingCompany, setDeactivatingCompany] = useState<boolean>(false);
@@ -138,6 +139,10 @@ const AdminCompanies = () => {
       sourceCompanyMachines.cancel();
     };
   }, [selectedCompany]);
+
+  if(user?.role !== "VisconAdmin") {
+    return <Navigate to="access-denied" />
+  }
 
   return (
     <Tab.Panel>

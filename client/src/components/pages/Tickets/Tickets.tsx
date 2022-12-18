@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import TicketService from "../../../features/tickets/ticketsService";
-import { useAppContext, useAuthentication } from "../../../utils/hooks";
+import { useAppContext, useAuthentication, useJwtExpiration } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
 import { MetricCard } from "../../atoms/Cards/MetricCard";

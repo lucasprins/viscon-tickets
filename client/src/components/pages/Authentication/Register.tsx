@@ -1,12 +1,9 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
-import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { Button } from "../../atoms/Button/Button";
-import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
-import { IconKey, IconMail, IconArrow } from "../../atoms/Icons/Icons";
-import { IconFlag } from "../../atoms/Icons/IconsFlags";
+import { IconKey } from "../../atoms/Icons/Icons";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 

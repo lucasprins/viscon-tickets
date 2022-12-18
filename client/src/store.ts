@@ -1,10 +1,8 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import modalReducer from './features/modal/modalSlice';
 import machinesReducer from './features/machines/machinesSlice';
 import solutionsReducer from './features/solutions/solutionsSlice';
 
 const reducers = {
-	modal: modalReducer,
 	machines: machinesReducer,
 	solutions: solutionsReducer,
   };

@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import {
@@ -27,6 +26,7 @@ var translations = require("../../../translations/allTranslations.json");
 
 export function NavigationSidebar() {
   const { appState, appDispatch } = useAppContext();
+  const { modalDispatch } = useModalContext();
   const user = appState.user;
 
   const dispatch = useAppDispatch();
@@ -34,8 +34,8 @@ export function NavigationSidebar() {
   const root = document.getElementsByTagName("html")[0];
 
   const openLanguageModal = () => {
-    dispatch(toggleBackdrop());
-    dispatch(toggleLanguageModal());
+    modalDispatch({ type: "TOGGLE_LANGUAGE"});
+    modalDispatch({ type: "TOGGLE_BACKDROP"});
   };
 
   const toggleAppearance = () => {

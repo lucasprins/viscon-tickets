@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment, useEffect } from "react";
 import { useAppContext } from "../../../utils/hooks";
-import { companyMachineExists, emailExists, validateCompanyName, validateName } from "../../../utils/input-validation";
+import { companyMachineExists, emailExists, validateCompanyName } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
