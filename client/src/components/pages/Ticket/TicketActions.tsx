@@ -181,8 +181,10 @@ export const TicketActions = ({
             width='content'
             type='primary'
             text={translations[language].resolve}
-            disabled={unclaimingTicket || resolvingTicket || (ticket.solution == "" )}
-            onclick={resolveTicket}
+            disabled={unclaimingTicket || resolvingTicket || (ticket.solution === "" ) || (ticket.solution === null)}
+            onclick={() => {
+              resolveTicket();
+            }}
             icon={
               resolvingTicket ? (
                 <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />

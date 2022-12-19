@@ -16,6 +16,7 @@ import axios from "axios";
 import { CompanyMachineJoined, companyType, MachineType } from "../../../utils/types";
 import MachineService from "../../../features/machines/machinesService";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";
+import InputDropdownAutoComplete from "../../atoms/Input/InputDropdownAutoComplete";
 
 type formValues = {
   name: string;
@@ -127,14 +128,14 @@ const ModalAddCompanyMachine = ({
                     <div className='flex flex-col justify-between h-full gap-4'>
                       <div>
                         {machines !== undefined && selectedMachine !== undefined ? (
-                          <InputDropdown
-                            label={translations[language].machineType}
-                            options={machines}
-                            selectedOption={selectedMachine}
-                            selectedKey={"type"}
-                            onchange={handleChange}
-                            identifier={"id"}
-                          />
+                           <InputDropdownAutoComplete
+                           label={translations[language].search_machine}
+                           options={machines}
+                           selectedOption={selectedMachine}
+                           selectedKey={"type"}
+                           onchange={handleChange}
+                           identifier={"type"}
+                         />
                         ) : undefined}
                         <div className='flex flex-col gap-1.5'>
                           <InputLabel htmlFor='name' text={translations[language].name} />

@@ -232,7 +232,7 @@ export function Ticket() {
                           {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col w-full gap-5'>
                               <div className='flex flex-col gap-4 md:flex-row'>
-                                {ticket.machineName !== "" && (
+                                {ticket.machineName !== "" && ticket.machineName !== null && (
                                   <div className='flex flex-col w-full gap-1.5'>
                                     <InputLabel htmlFor='machineName' text={translations[language].machine} />
                                     <InputField
@@ -314,6 +314,12 @@ export function Ticket() {
                         <Formik initialValues={ticket} onSubmit={(ticket) => addSolution(ticket.solution)}>
                           {({ values, errors, touched, isValidating }) => (
                             <Form className='flex flex-col items-end w-full gap-5'>
+                               {ticket.status === "Cancelled" ? (
+                                <div className='flex flex-col w-full gap-1.5'>
+                                  <InputLabel htmlFor='cancelReason' text='Reason for cancelling' />
+                                  <InputTextArea disabled id='cancelReason' name='cancelReason' />
+                                </div>
+                              ) : undefined}
                               <div className='flex flex-col w-full gap-1.5'>
                                 <InputLabel htmlFor='solution' text={translations[language].solution} />
                                 <InputTextArea
@@ -322,12 +328,7 @@ export function Ticket() {
                                   name='solution'
                                 />
                               </div>
-                              {ticket.status === "Cancelled" ? (
-                                <div className='flex flex-col w-full gap-1.5'>
-                                  <InputLabel htmlFor='cancelReason' text='Reason for cancelling' />
-                                  <InputTextArea disabled id='cancelReason' name='cancelReason' />
-                                </div>
-                              ) : undefined}
+                             
                               {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
                                 <div>
                                   <Button

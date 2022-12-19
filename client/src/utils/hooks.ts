@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { AppContext } from "../App";
 import { ModalContext } from "../services/modalService";
 import type { RootState, AppDispatch } from "../store";
@@ -52,3 +53,9 @@ export const useJwtExpiration = (): boolean => {
 
   return isExpired;
 };
+
+export const useQuery = () => {
+  const { search } = useLocation();
+
+  return useMemo(() => new URLSearchParams(search), [search]);
+}

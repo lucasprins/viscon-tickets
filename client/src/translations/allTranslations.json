@@ -52,6 +52,7 @@
         "In_progress" : "Bezig",
         "none": "Geen",
         "other": "Overig",
+        "submit": "Verzenden",
         "---------Pages-------": "-------Pages-------",
         "----Knowledgebase----": "----Knowledgebase----",
         "blueprint_number": "Tekeningnummer",
@@ -179,7 +180,13 @@
         "typeName" : "Type naam",
         "machinesNotFound" : "Geen machines gevonden...",
         "MachinesNotFoundSubtitle" : "Je kan een nieuwe machine toevoegen door de button hierboven te klikken.",
-        "----------ServerFile--------": "------ServerFiles-------"
+        "----------ServerFile--------": "------ServerFiles-------",
+
+        "----Register----": "----Register----",
+        "registerTitle" : "Registreren",
+        "registerSubtitle" : "Uw token is geverifieerd! Maar voordat u kunt inloggen moet u een wachtwoord instellen en uw telefoonnummer invoeren.",
+        "registerCompletedTitle": "Registratie voltooid",
+        "registerCompletedSubtitle": "Uw wachtwoord is succesvol aangemaakt. U kunt nu op de knop hieronder klikken om terug te gaan naar de inlogpagina." 
     },
     "en": {
         "----------ClientFiles-------": "------ClientFiles------",
@@ -208,6 +215,7 @@
         "In_progress" : "In progress",
         "none": "None",
         "other": "Other",
+        "submit": "Submit",
         "-------Pages-------": "------Pages------",
         "----Knowledgebase----": "----Knowledgebase----",
         "blueprint_number": "Blueprint",
@@ -341,6 +349,12 @@
         "machinesNotFound" : "No machines found",
         "MachinesNotFoundSubtitle" : "You can add a new machine by clicking the button above",
 
-        "----------ServerFile--------": "------ServerFiles-------"
+        "----------ServerFile--------": "------ServerFiles-------",
+
+        "----Register----": "----Register----",
+        "registerTitle": "Set up your password",
+        "registerSubtitle": "Your token has been verified! But before you can login you will need to set up a password and enter your phone number.",
+        "registerCompleted": "Registration completed!",
+        "registerCompletedSubtitle": "Your password has been successfully set. Click below to continue to the login page."
     }
 }

@@ -27,7 +27,7 @@ namespace server.Services.EmailService
       mail.Subject = "Viscon Registration";
       mail.Body = new TextPart("plain")
       {
-        Text = $"Please click the link below to complete your registration: https://localhost:3000/register/{token}"
+        Text = $"Please click the link below to complete your registration: http://localhost:3000/register?token={token}"
       };
 
       using (var client = new SmtpClient())

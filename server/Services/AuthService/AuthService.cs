@@ -233,7 +233,7 @@ namespace server.Services.AuthService
         return response;
       }
 
-      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower().Equals(newUser.Email.ToLower()));
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == databaseRegistrationToken.UserId);
 
       if (user == null)
       {
