@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconsFlags renders icon flag component correctly and has all props 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <svg
+        fill="none"
+        height="small"
+        viewBox="0 0 24 24"
+        width="small"
+      >
+        <path
+          d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z"
+          fill="#F0F0F0"
+        />
+        <path
+          d="M12.0002 -0.000488281C6.84061 -0.000488281 2.4421 3.25601 0.746582 7.82562H23.2538C21.5583 3.25601 17.1598 -0.000488281 12.0002 -0.000488281Z"
+          fill="#A2001D"
+        />
+        <path
+          d="M12.0002 24.0004C17.1598 24.0004 21.5583 20.7439 23.2538 16.1743H0.746582C2.4421 20.7439 6.84061 24.0004 12.0002 24.0004Z"
+          fill="#0052B4"
+        />
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      fill="none"
+      height="small"
+      viewBox="0 0 24 24"
+      width="small"
+    >
+      <path
+        d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z"
+        fill="#F0F0F0"
+      />
+      <path
+        d="M12.0002 -0.000488281C6.84061 -0.000488281 2.4421 3.25601 0.746582 7.82562H23.2538C21.5583 3.25601 17.1598 -0.000488281 12.0002 -0.000488281Z"
+        fill="#A2001D"
+      />
+      <path
+        d="M12.0002 24.0004C17.1598 24.0004 21.5583 20.7439 23.2538 16.1743H0.746582C2.4421 20.7439 6.84061 24.0004 12.0002 24.0004Z"
+        fill="#0052B4"
+      />
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
