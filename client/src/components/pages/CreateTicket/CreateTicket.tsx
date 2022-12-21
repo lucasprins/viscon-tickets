@@ -506,8 +506,14 @@ export function CreateTicket() {
                 title={translations[language].add_attachments}
                 subtitle={translations[language].add_attachments_subtitle}
               />
-
-              <FileDropzone />
+              <Formik initialValues={{files: []}} onSubmit={() => {}}>
+                {({ values, errors }) => (
+                  <Form>
+                    <FileDropzone name="files"/>
+                    <pre>{JSON.stringify({ values, errors})}</pre>
+                  </Form>
+                )}
+              </Formik>
               <div className='flex flex-row gap-4 pt-4'>
                 <Button
                   size='medium'

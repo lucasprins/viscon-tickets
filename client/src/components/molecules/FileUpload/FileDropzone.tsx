@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from "react";
+import { useField } from "formik";
+import React, { useCallback, useEffect, useState } from "react";
 import { FileError, FileRejection, useDropzone } from "react-dropzone"
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconUpload } from "../../atoms/Icons/Icons";
@@ -7,15 +8,31 @@ import { SingleFileUpload } from "./SingleFileUpload";
 type UploadableFile = {
     file: File;
     errors: FileError[];
+    url?: string;
 }
 
-export function FileDropzone() {
-    
+export function FileDropzone({name}: {name: string}) {
+    const [_, __, helpers]  =  useField(name);
+
     const [files, setFiles] = useState<UploadableFile[]>([]);
     const onDrop = useCallback((accFiles:File[], rejFiles:FileRejection[]) => {
        const mappedAcc = accFiles.map(file => ({file, errors: []}))
        setFiles(curr => [...curr, ...mappedAcc, ...rejFiles]);
     }, []);
+
+    useEffect(() => {
+        helpers.setValue(files);
+        // helpers.setTouched(true);
+    }, [files]);
+
+    function onUpload(file: File, url:string) {
+        setFiles((current) => current.map((fileWrapper) => {
+            if(fileWrapper.file === file) {
+                return {...fileWrapper, url};
+            }
+            return fileWrapper;
+        }));
+    }
 
     function onDelete(file: File) {
         setFiles((current) => current.filter((fileWrapper) => fileWrapper.file !== file));
@@ -39,7 +56,7 @@ export function FileDropzone() {
             </div>
 
         {files.map((fileWrapper, index) => (
-            <SingleFileUpload onDelete={onDelete} key={index} file={fileWrapper.file}/>
+            <SingleFileUpload onDelete={onDelete} onUpload={onUpload} key={index} file={fileWrapper.file}/>
         ))}
         </React.Fragment>
     );
