@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { AppContext } from "../App";
@@ -59,3 +59,38 @@ export const useQuery = () => {
 
   return useMemo(() => new URLSearchParams(search), [search]);
 }
+
+/**
+ * Custom hook to check if the window is mobile/tablet size
+ * @returns boolean
+ * 
+ * @example
+ * const isMobile = useMobileTable();
+ * 
+ * if (isMobile) {
+ *  // do something
+ * }
+ */
+export const useWindowMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    if (window.innerWidth <= 1280) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  window.addEventListener('resize', handleResize);
+
+  useEffect(() => {
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return isMobile;
+};
