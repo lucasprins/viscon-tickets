@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment } from "react";
 import { useAppContext } from "../../../utils/hooks";
-import { emailExists, validateCompanyName, validateName } from "../../../utils/input-validation";
+import { emailExists, validateCompanyName, validateTextInput } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
@@ -20,6 +20,8 @@ type formValues = {
   type: string;
   blueprintNumber: string;
 };
+
+var translations = require("../../../translations/allTranslations.json");
 
 const ModalAddMachine = ({
   state,
@@ -46,7 +48,6 @@ const ModalAddMachine = ({
   const submitAddMachine = async (values: formValues) => {
     setAddingMachine(true);
     const response = await MachineService.addMachine(source.token, values.type, values.blueprintNumber);
-    console.log(response);
 
     setAddingMachine(false);
 
@@ -76,7 +77,7 @@ const ModalAddMachine = ({
         >
           <Dialog.Panel className='flex flex-col items-center w-full gap-4 p-5 overflow-y-scroll bg-white no-scrollbar dark:bg-dark-800 md:w-96 rounded-xl drop-shadow'>
             <div className='flex items-center justify-between w-full'>
-              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>Add a company</Dialog.Title>
+              <Dialog.Title className='text-xl font-semibold text-gray-900 dark:text-white'>{translations[language].machineType}</Dialog.Title>
               <ButtonIcon
                 icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
                 onclick={onClose}
@@ -94,11 +95,11 @@ const ModalAddMachine = ({
                     {/* Inputs */}
                     <div className='flex flex-col gap-4'>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='type' text='Type (name)' />
+                        <InputLabel htmlFor='type' text={translations[language].typeName} />
                         <InputField
                           style='iconless'
                           type='text'
-                          validate={(input) => validateName(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='Satteliet shuttle'
                           id='type'
                           name='type'
@@ -106,11 +107,11 @@ const ModalAddMachine = ({
                         <InputErrorMessage name='adminFirstName' />
                       </div>
                       <div className='flex flex-col gap-1.5'>
-                        <InputLabel htmlFor='blueprintNumber' text='Blueprint number' />
+                        <InputLabel htmlFor='blueprintNumber' text={translations[language].blueprint_number} />
                         <InputField
                           style='iconless'
                           type='text'
-                          validate={(input) => validateName(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='0294240'
                           id='blueprintNumber'
                           name='blueprintNumber'
@@ -123,7 +124,7 @@ const ModalAddMachine = ({
                           size='medium'
                           width='full'
                           type='primary'
-                          text='Add'
+                          text={translations[language].add}
                           disabled={addingMachine}
                           icon={
                             addingMachine ? (
@@ -135,7 +136,7 @@ const ModalAddMachine = ({
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text='Cancel'
+                          text={translations[language].cancel}
                           onclick={onClose}
                           disabled={addingMachine}
                         />

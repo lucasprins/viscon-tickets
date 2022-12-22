@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { toggleBackdrop, toggleLanguageModal } from "../../../features/modal/modalSlice";
-import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import {
@@ -15,6 +14,7 @@ import {
   IconSun,
   IconTicket,
   IconTranslate,
+  IconUser,
 } from "../../atoms/Icons/Icons";
 import { Avatar } from "../../atoms/Avatar/Avatar";
 import { Divider } from "../../atoms/Divider/Divider";
@@ -26,6 +26,7 @@ var translations = require("../../../translations/allTranslations.json");
 
 export function NavigationSidebar() {
   const { appState, appDispatch } = useAppContext();
+  const { modalDispatch } = useModalContext();
   const user = appState.user;
 
   const dispatch = useAppDispatch();
@@ -33,8 +34,8 @@ export function NavigationSidebar() {
   const root = document.getElementsByTagName("html")[0];
 
   const openLanguageModal = () => {
-    dispatch(toggleBackdrop());
-    dispatch(toggleLanguageModal());
+    modalDispatch({ type: "TOGGLE_LANGUAGE"});
+    modalDispatch({ type: "TOGGLE_BACKDROP"});
   };
 
   const toggleAppearance = () => {
@@ -63,11 +64,11 @@ export function NavigationSidebar() {
           <NavigationHeader />
         </div>
         <ul className='flex flex-col px-4 gap-y-2'>
-          <NavigationItem
+          {/* <NavigationItem
             name={translations[language].dashboard}
             url='dashboard'
             icon={<IconHome size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-          />
+          /> */}
           <NavigationItem
             name={translations[language].tickets}
             url='tickets'
@@ -78,6 +79,13 @@ export function NavigationSidebar() {
             url='knowledgebase'
             icon={<IconBook size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
           />
+
+          <NavigationItem
+            name={translations[language].account}
+            url='account'
+            icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+          />
+
           {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationItem
             name='Admin'
             url='admin'
@@ -109,7 +117,7 @@ export function NavigationSidebar() {
         <Divider />
         <div className='flex justify-between'>
           <Link to='/account' className='flex items-center gap-3 ml-2'>
-            <Avatar name='Lucas Prins' color='gray' />
+            <Avatar name={user?.firstName + " " + user?.lastName} color='gray' />
             <div className='flex flex-col'>
               <span className='text-sm font-semibold text-gray-700 dark:text-white'>
                 {`${user?.firstName} ${user?.lastName}`}

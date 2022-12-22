@@ -8,11 +8,9 @@ namespace server.Models
     public class Solution
     {
         public Guid Id { get; set; }
-        public string Issue { get; set; } = null!;
         public string Description { get; set; } = null!;
-        public string Language { get; set; } = null!;
-        public Guid MachineId { get; set; }
-        
-        public Machine Machine { get; set; } = null!;
+        public Guid IssueId { get; set; }
+
+        public Issue Issue { get; set; } = null!;
     }
 }

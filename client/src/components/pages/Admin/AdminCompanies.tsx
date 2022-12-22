@@ -1,10 +1,10 @@
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import CompanyService from "../../../features/customers/companyService";
 import MachineService from "../../../features/machines/machinesService";
-import { toggleBackdrop } from "../../../features/modal/modalSlice";
-import { useAppContext, useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
 import { CompanyMachineJoined, companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
@@ -18,6 +18,7 @@ var translations = require("../../../translations/allTranslations.json");
 
 const AdminCompanies = () => {
   const { appState } = useAppContext();
+  const { modalDispatch } = useModalContext();
 
   const user = appState.user;
   const dispatch = useAppDispatch();
@@ -39,7 +40,7 @@ const AdminCompanies = () => {
       ...modalStates,
       addCompany: !modalStates.addCompany,
     });
-    dispatch(toggleBackdrop());
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
   };
 
   const toggleAddCompanyMachineModal = () => {
@@ -47,7 +48,7 @@ const AdminCompanies = () => {
       ...modalStates,
       addCompanyMachine: !modalStates.addCompanyMachine,
     });
-    dispatch(toggleBackdrop());
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
   };
 
   const [deactivatingCompany, setDeactivatingCompany] = useState<boolean>(false);
@@ -74,7 +75,6 @@ const AdminCompanies = () => {
   const fetchCompanyMachinesJoined = async (selectedCompany: companyType) => {
     console.table(selectedCompany);
     const response = await MachineService.getCompanyMachinesJoined(sourceCompanyMachines.token, selectedCompany.id);
-    console.log(response.data);
     if (response.data.success) {
       setCompanyMachines(response.data.data);
       setFilteredCompanyMachines(response.data.data);
@@ -110,7 +110,7 @@ const AdminCompanies = () => {
         companies?.filter((company) => company.name.toLowerCase().includes(queryCompany.toLowerCase()))
       );
     }
-  }, [queryCompany]);
+  }, [queryCompany, companies]);
 
   useEffect(() => {
     if (queryMachine === "") {
@@ -140,9 +140,13 @@ const AdminCompanies = () => {
     };
   }, [selectedCompany]);
 
+  if(user?.role !== "VisconAdmin") {
+    return <Navigate to="access-denied" />
+  }
+
   return (
     <Tab.Panel>
-      <ModalAddCompany state={modalStates.addCompany} onClose={toggleAddCompanyModal} />
+      <ModalAddCompany setCompanies={setCompanies} state={modalStates.addCompany} onClose={toggleAddCompanyModal} />
       {selectedCompany && (
         <ModalAddCompanyMachine
           state={modalStates.addCompanyMachine}
@@ -156,8 +160,7 @@ const AdminCompanies = () => {
       <div className='flex flex-col lg:grid lg:grid-cols-2'>
         {/* Left Side */}
         <div className='box-border flex flex-col w-full gap-6 py-8 border-gray-200 dark:border-dark-600 lg:pr-8 lg:border-r-2 '>
-          {/* Search */}
-          <h4 className='text-lg font-semibold text-gray-800 dark:text-white'>{translations[language].companies}</h4>
+          {/* Search */}{" "}
           <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
             <div className='w-full'>
               <InputSearch

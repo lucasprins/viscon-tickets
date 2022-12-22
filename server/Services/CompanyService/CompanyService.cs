@@ -49,7 +49,7 @@ namespace server.Services.CompanyService
         });
 
         await _context.SaveChangesAsync();
-        serviceResponse.Data = await (_context.Companies.Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
+        serviceResponse.Data = await (_context.Companies.Where(c => c.Name != "Viscon").Select(c => _mapper.Map<GetCompanyDTO>(c))).ToListAsync();
       }
       catch (Exception ex)
       {

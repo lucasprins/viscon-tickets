@@ -7,7 +7,7 @@ namespace server.DTOS
 {
     public class AddSolutionDTO
     {
-        public Guid TicketId { get; set; }
-        public string Solution { get; set; } = string.Empty;
+        public string Description { get; set; } = null!;
+        public Guid IssueId { get; set; }
     }
 }

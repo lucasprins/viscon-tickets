@@ -33,9 +33,9 @@ namespace server.Services.TicketService
       return ticketDTO;
     }
 
-    public async Task<ServiceResponse<GetTicketDTO>> CreateTicket(CreateTicketDTO newTicket)
+    public async Task<ServiceResponse<bool>> CreateTicket(CreateTicketDTO newTicket)
     {
-      ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+      ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
       try
       {
         System.Console.WriteLine("TICKET MACHINE: " + newTicket.CompanyMachineId);
@@ -48,20 +48,9 @@ namespace server.Services.TicketService
         ticket.Status = Status.Open;
         ticket.Priority = Priority.Medium;
 
-        try
-        {
-          serviceResponse.Data = await CreateGetTicketDTO(ticket);
-        }
-        catch (Exception ex)
-        {
-          serviceResponse.Success = false;
-          serviceResponse.Message = "Unable to return the ticket that was just created.";
-          System.Console.WriteLine(ex.Message);
-          return serviceResponse;
-        }
-
         _context.Tickets.Add(ticket);
         await _context.SaveChangesAsync();
+        serviceResponse.Data = true;
       }
       catch (Exception ex)
       {
@@ -177,15 +166,15 @@ namespace server.Services.TicketService
 
         if (requestUser.Role == Role.VisconAdmin || requestUser.Role == Role.VisconEmployee)
         {
-          ticketsDTO.TotalTickets = _context.Tickets.Count();
+          ticketsDTO.UnresolvedTickets = _context.Tickets.Where(t => t.Status == Status.Open || t.Status == Status.InProgress).Count();
           ticketsDTO.OpenTickets = _context.Tickets.Count(t => t.Status == Status.Open);
-          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.AssigneeId == requestUser.Id);
+          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.AssigneeId == requestUser.Id && t.Status == Status.InProgress);
         }
         else
         {
-          ticketsDTO.TotalTickets = _context.Tickets.Count(t => t.CompanyId == requestUser.CompanyId);
+          ticketsDTO.UnresolvedTickets = _context.Tickets.Where(t => t.CompanyId == requestUser.CompanyId && (t.Status == Status.Open || t.Status == Status.InProgress)).Count();
           ticketsDTO.OpenTickets = _context.Tickets.Count(t => t.CompanyId == requestUser.CompanyId && t.Status == Status.Open);
-          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.CreatorId == requestUser.Id);
+          ticketsDTO.YourTickets = _context.Tickets.Count(t => t.CreatorId == requestUser.Id && (t.Status == Status.InProgress || t.Status == Status.Open));
         }
 
         serviceResponse.Data = ticketsDTO;
@@ -501,7 +490,7 @@ namespace server.Services.TicketService
       return serviceResponse;
     }
 
-    public async Task<ServiceResponse<GetTicketDTO>> AddSolution(AddSolutionDTO solution)
+    public async Task<ServiceResponse<GetTicketDTO>> AddSolution(AddTicketSolutionDTO solution)
     {
       ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
       var requestingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());

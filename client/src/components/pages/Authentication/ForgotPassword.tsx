@@ -49,7 +49,7 @@ export function ForgotPassword() {
                                         placeholder={translations[language].forgotPasswordEmailPlaceholder}
                                         icon={<IconMail size='20' color='stroke-gray-500' fill='stroke-gray-500' />}
                                         id='email'
-                                        name='email'
+                                        name={translations[language].email}
                                     />
                             </div>
 

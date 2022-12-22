@@ -1,7 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect } from 'react'
-import { toggleBackdrop } from '../../../features/modal/modalSlice';
-import { useAppDispatch } from '../../../utils/hooks';
+import { useAppDispatch, useModalContext } from '../../../utils/hooks';
 import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconCheck } from '../../atoms/Icons/Icons';
@@ -23,14 +22,14 @@ export function Modal({ type, title, subtitle, is_open, close_modal, button_prim
 	let modalIcon;
 	let modalButtonColor: 'primary' | 'secondary-gray' | 'secondary-color' | 'tertiary-gray' | 'tertiary-color' | 'error';
 
-	const dispatch = useAppDispatch();
+	const { modalDispatch } = useModalContext();
 
 	useEffect(() => {
-		dispatch(toggleBackdrop());
+		modalDispatch({ type: "TOGGLE_BACKDROP" });
 		return () => {
-			dispatch(toggleBackdrop());
+			modalDispatch({ type: "TOGGLE_BACKDROP" });
 		}
-	}, [dispatch]);
+	}, []);
 
 	switch (type) {
 		//PRIMARY asks the user if they are sure about choice
@@ -64,12 +63,12 @@ export function Modal({ type, title, subtitle, is_open, close_modal, button_prim
 			leaveFrom="opacity-100"
 			leaveTo="opacity-0">
 
-			<Dialog className="z-50 absolute inset-0 flex items-center p-6 justify-center" open={is_open} onClose={close_modal}>
-				<Dialog.Panel className="w-full lg:w-96 flex flex-col items-center justify-center rounded-2xl bg-white p-6 gap-8 dark:bg-dark-800 drop-shadow transition-all">
-					<div className='flex flex-col justify-center items-center gap-5'>
+			<Dialog className="absolute inset-0 z-50 flex items-center justify-center p-6" open={is_open} onClose={close_modal}>
+				<Dialog.Panel className="flex flex-col items-center justify-center w-full gap-8 p-6 transition-all bg-white lg:w-96 rounded-2xl dark:bg-dark-800 drop-shadow">
+					<div className='flex flex-col items-center justify-center gap-5'>
 						<FeaturedIcon type={modalIconType} size="md" icon={modalIcon} />
-						<div className='flex flex-col text-center gap-2'>
-							<h3 className="text-gray-900 dark:text-white text-lg font-semibold">{title}</h3>
+						<div className='flex flex-col gap-2 text-center'>
+							<h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
 							<p className='text-sm text-gray-600 dark:text-dark-300'>{subtitle}</p>
 						</div>
 					</div>

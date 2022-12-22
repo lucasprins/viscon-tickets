@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import TicketService from "../../../features/tickets/ticketsService";
-import { useAppContext, useAuthentication } from "../../../utils/hooks";
+import { useAppContext, useAuthentication, useJwtExpiration } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
 import { MetricCard } from "../../atoms/Cards/MetricCard";
@@ -26,17 +26,21 @@ export function Tickets() {
   const [loadingTickets, setLoadingTickets] = useState<boolean>();
   const [error, setError] = useState<boolean>(false);
 
-  const [totalTickets, setTotalTickets] = useState<number>(0);
+  const [unresolvedTickets, setUnresolvedTickets] = useState<number>(0);
   const [yourTickets, setYourTickets] = useState<number>(0);
   const [openTickets, setOpenTickets] = useState<number>(0);
 
   const [page, setPage] = useState(1);
-  const maxPages = Math.ceil(totalTickets / 10);
+  const maxPages = Math.ceil(unresolvedTickets / 10);
 
-  const statusOptions = [
+  const statusOptions = user?.role === "VisconAdmin" || user?.role === "VisconEmployee" ? [
     { value: "", label: "All" },
     { value: "Open", label: translations[language].open },
     { value: "InProgress", label: translations[language].inProgress },
+    { value: "Resolved", label: translations[language].resolved },
+    { value: "Cancelled", label: translations[language].cancelled },
+  ] : [
+    { value: "", label: "All" },
     { value: "Resolved", label: translations[language].resolved },
     { value: "Cancelled", label: translations[language].cancelled },
   ];
@@ -61,7 +65,7 @@ export function Tickets() {
     console.log(response);
     if (response.data.success) {
       setTickets(response.data.data.tickets);
-      setTotalTickets(response.data.data.totalTickets);
+      setUnresolvedTickets(response.data.data.unresolvedTickets);
       setYourTickets(response.data.data.yourTickets);
       setOpenTickets(response.data.data.openTickets);
     } else {
@@ -115,14 +119,14 @@ export function Tickets() {
         </div>
         {!loadingTickets ? (
           <div className='hidden w-full gap-6 lg:flex '>
-            <MetricCard content={totalTickets} title='Total tickets' />
             <MetricCard content={openTickets} title="Open tickets" />
+            <MetricCard content={unresolvedTickets} title='Unresolved tickets' />
             <MetricCard content={yourTickets} title='Your tickets' />
           </div>
         ) : (
           <div className='hidden w-full gap-6 lg:flex '>
-            <MetricCard content={metricsSpinner} title='Total tickets' />
             <MetricCard content={metricsSpinner} title="Open tickets" />
+            <MetricCard content={metricsSpinner} title='Total tickets' />
             <MetricCard content={metricsSpinner} title='Your tickets' />
           </div>
         )}

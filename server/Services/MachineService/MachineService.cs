@@ -189,7 +189,7 @@ namespace server.Services.MachineService
           foreach (var companyMachine in companyMachines)
           {
             var machine = await _context.Machines.FirstOrDefaultAsync(m => m.Id == companyMachine.MachineId);
-            if (machine != null)
+            if (machine != null && !machines.Contains(machine))
               machines.Add(machine);
           }
 

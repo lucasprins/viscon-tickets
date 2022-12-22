@@ -22,12 +22,11 @@ export function InputTextArea({ placeholder, disabled, id, name, validate, error
   } else {
     inputFieldBorderStyle = "border-gray-200 dark:border-dark-600 focus:outline outline-2 outline-primary-500 dark:outline-primary-600";
   }
-  
 
   return (
     <>
       {disabled ? (
-        <div className="relative flex items-center text-gray-900 w-full drop-shadow-sm">
+        <div className="relative flex items-center w-full text-gray-900 drop-shadow-sm">
           <Field
             validate={validate}
             disabled
@@ -40,7 +39,7 @@ export function InputTextArea({ placeholder, disabled, id, name, validate, error
           ></Field>
         </div>
       ) : (
-        <div className="relative flex items-center text-gray-900 w-full drop-shadow-sm">
+        <div className="relative flex items-center w-full text-gray-900 drop-shadow-sm">
           <Field
             validate={validate}
             placeholder={placeholder}

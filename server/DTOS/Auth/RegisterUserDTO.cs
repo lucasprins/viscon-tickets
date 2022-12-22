@@ -7,7 +7,6 @@ namespace server.DTOS
 {
     public class RegisterUserDTO
     {
-        public string Email { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public string Password { get; set; } = null!;
     }

@@ -22,7 +22,7 @@ export const routes = [
     { path: '/new-password', name: 'access-denied', component: <NewPassword /> },
     { path: '/register', name: 'access-denied', component: <Register /> },
     { path: '/register-completed', name: 'access-denied', component: <RegisterCompleted /> },
-    { path: '/', name: 'dashboard', component: <Dashboard /> },
+    { path: '/', name: 'dashboard', component: <Tickets /> },
     { path: '/tickets', name: 'tickets', component: <Tickets /> },
     { path: '/tickets/:ticketID', name: 'ticket', component: <Ticket /> },
     { path: '/knowledgebase', name: 'knowledgebase', component: <Knowledgebase /> },

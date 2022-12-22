@@ -6,5 +6,6 @@ namespace server.Models
     public enum TokenType
     {
         REGISTER = 1,
+        REFRESH = 2,
     }
 }

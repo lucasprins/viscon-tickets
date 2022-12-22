@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { Badge } from "../../atoms/Badge/Badge";
 import { IconAlert } from "../../atoms/Icons/Icons";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
+import { useAppContext, useWindowMobile } from "../../../utils/hooks";
 import { Button } from "../../atoms/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { ticketType } from "../../../utils/types";
@@ -95,11 +95,15 @@ export function TableTickets({
       cell: (props: { getValue: () => any }) => {
         switch (props.getValue()) {
           case "Open":
-            return <Badge size='md' color='error' text='Open' />;
+            if(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+              return <Badge size='md' color='error' text={translations[language].Open}  />;
+            } else {
+              return <Badge size='md' color='primary' text={translations[language].In_progress} />;
+            }
           case "Resolved":
-            return <Badge size='md' color='gray' text='Resolved' />;
+            return <Badge size='md' color='gray' text={translations[language].Resolved} />;
           case "InProgress":
-            return <Badge size='md' color='primary' text='In progress' />;
+            return <Badge size='md' color='primary' text={translations[language].In_progress} />;
           case "Cancelled":
             return <Badge size='md' color='gray' text={translations[language].cancelled} />;
         }
@@ -147,11 +151,15 @@ export function TableTickets({
       cell: (props: { getValue: () => any }) => {
         switch (props.getValue()) {
           case "Open":
-            return <Badge size='md' color='error' text='Open' />;
+            if(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+              return <Badge size='md' color='error' text={translations[language].Open}  />;
+            } else {
+              return <Badge size='md' color='primary' text={translations[language].In_progress} />;
+            }
           case "Resolved":
-            return <Badge size='md' color='gray' text='Resolved' />;
+            return <Badge size='md' color='gray' text={translations[language].Resolved} />;
           case "InProgress":
-            return <Badge size='md' color='primary' text='In progress' />;
+            return <Badge size='md' color='primary' text={translations[language].In_progress} />;
           case "Cancelled":
             return <Badge size='md' color='gray' text={translations[language].cancelled} />;
         }
@@ -159,25 +167,26 @@ export function TableTickets({
     }),
   ];
 
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useWindowMobile();
+  // const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    window.addEventListener("resize", handleReizeTable);
-  });
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleReizeTable);
+  // });
 
-  useEffect(() => {
-    handleReizeTable();
-  }, [])
+  // useEffect(() => {
+  //   handleReizeTable();
+  // }, [])
 
   const columnsNonMemo = isMobile ? columnsNonMemoSmall : columnsNonMemoBig;
 
-  const handleReizeTable = () => {
-    if (window.innerWidth <= 1024) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
+  // const handleReizeTable = () => {
+  //   if (window.innerWidth <= 1024) {
+  //     setIsMobile(true);
+  //   } else {
+  //     setIsMobile(false);
+  //   }
+  // };
 
   //const columns =columnsNonMemo;
   const columns = columnsNonMemo;
@@ -205,6 +214,7 @@ export function TableTickets({
                 selectedOption={statusFilter}
                 selectedKey={"label"}
                 onchange={handleChangeStatusFilter}
+                identifier={"value"}
               />
             </div>
           </div>

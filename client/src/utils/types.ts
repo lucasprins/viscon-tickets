@@ -1,3 +1,5 @@
+export type ObjectValues<T> = T[keyof T];
+
 export type userType = {
   id: string;
   firstName: string;
@@ -15,14 +17,6 @@ export type companyType = {
   name: string;
   country: string;
   isActive: boolean;
-};
-
-export type SolutionType = {
-  solutionId: string;
-  machineId: string;
-  issue: string;
-  solution: string;
-  language: string;
 };
 
 export type MachineType = {
@@ -82,6 +76,16 @@ export type ticketUserType = {
   firstName: string;
   lastName: string;
 };
+
+export type IssueType = {
+  id: string;
+  description: string;
+}
+
+export type SolutionType = {
+  id: string;
+  description: string;
+}
 
 export enum TicketIssueType {
   Software = "Software",

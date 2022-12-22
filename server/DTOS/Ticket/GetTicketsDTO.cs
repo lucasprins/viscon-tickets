@@ -8,7 +8,7 @@ namespace server.DTOS
     public class GetTicketsDTO
     {
         public List<GetTicketDTO> Tickets { get; set; } = null!;
-        public int TotalTickets { get; set; }
+        public int UnresolvedTickets { get; set; }
         public int OpenTickets { get; set; }
         public int YourTickets { get; set; }
     }
