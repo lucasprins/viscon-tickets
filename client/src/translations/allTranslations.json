@@ -23,6 +23,17 @@
 
     },
     "nl": {
+        "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar het dashboard?",
+        "createticket.modal.dashboard.button-primary": "Dashboard",
+        "createticket.modal.dashboard.button-secondary": "Annuleren",
+        "createticket.modal.success.title": "Gelukt! Uw ticket is aangemaakt.",
+        "createticket.modal.success.button-primary": "Tickets",
+        "createticket.modal.success.button-secondary": "Kennisbank",
+        "createticket.modal.error.title": "Er is iets fout gegaan...",
+        "createticket.modal.error.subtitle": "Probeer het opnieuw of probeer het later nog een keer.",
+        "createticket.modal.error.button-primary": "Opniew proberen",
+        "createticket.modal.error.button-secondary": "Naar tickets",
+
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
         "First_name": "Voornaam",
@@ -189,6 +200,23 @@
         "registerCompletedSubtitle": "Uw wachtwoord is succesvol aangemaakt. U kunt nu op de knop hieronder klikken om terug te gaan naar de inlogpagina." 
     },
     "en": {
+        "createticket.modal.dashboard.title": "Are you sure you want to go back to the dashboard?",
+        "createticket.modal.dashboard.button-primary": "Dashboard",
+        "createticket.modal.dashboard.button-secondary": "Cancel",
+        "createticket.modal.success.title": "Perfect! Your ticket has been created.",
+        "createticket.modal.success.button-primary": "Tickets",
+        "createticket.modal.success.button-secondary": "Knowledgebase",
+        "createticket.modal.error.title": "Oops! Something went wrong.",
+        "createticket.modal.error.subtitle": "Please submit the ticket again or try again later.",
+        "createticket.modal.error.button-primary": "Try again",
+        "createticket.modal.error.button-secondary": "Tickets",
+
+
+
+
+
+
+        
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
         "First_name": "First Name",
