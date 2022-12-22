@@ -6,7 +6,14 @@ import { IconUpload } from "../../atoms/Icons/Icons";
 import { ErrorHandler } from "./ErrorHandler";
 import { SingleFileUpload } from "./SingleFileUpload";
 
+let currentId = 0;
+
+function getNewId() {
+  return ++currentId;
+}
+
 type UploadableFile = {
+    id: number;
     file: File;
     errors: FileError[];
     url?: string;
@@ -17,9 +24,10 @@ export function FileDropzone({name}: {name: string}) {
 
     const [files, setFiles] = useState<UploadableFile[]>([]);
     const onDrop = useCallback((accFiles:File[], rejFiles:FileRejection[]) => {
-       const mappedAcc = accFiles.map(file => ({file, errors: []}))
-       setFiles(curr => [...curr, ...mappedAcc, ...rejFiles]);
-    }, []);
+        const mappedAcc = accFiles.map((file) => ({ file, errors: [], id: getNewId() }));
+        const mappedRej = rejFiles.map((r) => ({ ...r, id: getNewId() }));
+        setFiles((curr) => [...curr, ...mappedAcc, ...mappedRej]);
+      }, []);
 
     useEffect(() => {
         helpers.setValue(files);
@@ -63,15 +71,14 @@ export function FileDropzone({name}: {name: string}) {
                 </div>
             </div>
 
-            {files.map((fileWrapper, index) => (
-            <div>
+            {files.map((fileWrapper) => (
+            <div key={fileWrapper.id}>
             {fileWrapper.errors.length ? (
                 <ErrorHandler file={fileWrapper.file} errors={fileWrapper.errors} onDelete={onDelete}/>
             ) : (
                 <SingleFileUpload
                 onDelete={onDelete}
                 onUpload={onUpload}
-                key={index}
                 file={fileWrapper.file}
                 />
             )}
