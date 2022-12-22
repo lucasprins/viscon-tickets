@@ -65,7 +65,7 @@ export const useQuery = () => {
  * @returns boolean
  * 
  * @example
- * const isMobile = useMobileTable();
+ * const isMobile = useWindowMobile();
  * 
  * if (isMobile) {
  *  // do something
