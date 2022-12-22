@@ -7,7 +7,7 @@ import {
   Table,
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
-import { useAppContext, useAppSelector } from "../../../../utils/hooks";
+import { useAppContext, useAppSelector, useWindowMobile } from "../../../../utils/hooks";
 import { CompanyMachineJoined, companyType } from "../../../../utils/types";
 import { Badge } from "../../../atoms/Badge/Badge";
 import { Button } from "../../../atoms/Button/Button";
@@ -63,23 +63,7 @@ export function AdminCompaniesMachinesTable({ companyMachines: companyMachines }
     }),
   ];
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleReizeTable);
-  });
-
-  useEffect(() => {
-    handleReizeTable();
-  }, []);
-
-  const handleReizeTable = () => {
-    if (window.innerWidth <= 1280) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
+  const isMobile = useWindowMobile();
 
   const columns = isMobile ? columnNonMemoSmall : columnNonMemo;
   // eslint-disable-next-line react-hooks/exhaustive-deps

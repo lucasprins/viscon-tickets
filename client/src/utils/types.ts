@@ -1,3 +1,5 @@
+export type ObjectValues<T> = T[keyof T];
+
 export type userType = {
   id: string;
   firstName: string;

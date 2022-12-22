@@ -15,6 +15,7 @@ using server.Services.TokenService;
 using server.Services.MachineService;
 using server.Services.IssuesService;
 using server.Services.SolutionService;
+using server.Services.EmailService;
 
 internal class Program
 {
@@ -73,6 +74,7 @@ internal class Program
     builder.Services.AddScoped<IMachineService, MachineService>();
     builder.Services.AddScoped<IIssueService, IssueService>();
     builder.Services.AddScoped<ISolutionService, SolutionService>();
+    builder.Services.AddScoped<IEmailService, EmailService>();
 
     builder.Services.AddScoped<IDataIssue, DataIssue>();
     builder.Services.AddScoped<IDataSolution, DataSolution>();

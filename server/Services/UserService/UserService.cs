@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using server.Services.AuthService;
+using server.Services.EmailService;
 
 namespace server.Services.UserService
 {
@@ -11,10 +12,12 @@ namespace server.Services.UserService
   {
     private readonly DataContext _context;
     private readonly IAuthService _authService;
+    private readonly IEmailService _emailService;
     private readonly IMapper _mapper;
-    public UserService(DataContext context, IAuthService authService, IMapper mapper)
+    public UserService(DataContext context, IAuthService authService, IEmailService emailService, IMapper mapper)
     {
       _mapper = mapper;
+      _emailService = emailService;
       _authService = authService;
       _context = context;
     }
@@ -49,6 +52,7 @@ namespace server.Services.UserService
         await _context.Users.AddAsync(addingUser);
         await _context.Tokens.AddAsync(registrationToken);
         await _context.SaveChangesAsync();
+        await _emailService.SendRegisterEmail(addingUser.Email, registrationToken.TokenValue.ToString());
       }
       catch
       {

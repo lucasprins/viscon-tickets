@@ -21,6 +21,10 @@ const Admin = () => {
     return <Navigate to='/login' />;
   }
 
+  if(user?.role !== "VisconAdmin" && user?.role !== "CustomerAdmin") {
+    return <Navigate to="access-denied" />
+  }
+
   return (
     <div className='flex flex-col h-screen bg-gray-50 md:flex-row dark:bg-dark-800 dark:text-white'>
       <Layout />
