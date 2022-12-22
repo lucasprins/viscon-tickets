@@ -510,7 +510,6 @@ export function CreateTicket() {
                 {({ values, errors }) => (
                   <Form>
                     <FileDropzone name="files"/>
-                    <pre>{JSON.stringify({ values, errors})}</pre>
                   </Form>
                 )}
               </Formik>

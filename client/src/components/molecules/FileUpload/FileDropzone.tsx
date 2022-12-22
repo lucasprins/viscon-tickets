@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FileError, FileRejection, useDropzone } from "react-dropzone"
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconUpload } from "../../atoms/Icons/Icons";
+import { ErrorHandler } from "./ErrorHandler";
 import { SingleFileUpload } from "./SingleFileUpload";
 
 type UploadableFile = {
@@ -38,7 +39,14 @@ export function FileDropzone({name}: {name: string}) {
         setFiles((current) => current.filter((fileWrapper) => fileWrapper.file !== file));
     }
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            'image/*': ['.png', '.jpeg', '.jpg'],
+            'video/*': ['.mp4']
+        },
+        maxSize: 30000 * 1024, // Max 30MB
+      });
 
     return (
         <React.Fragment>
@@ -55,8 +63,19 @@ export function FileDropzone({name}: {name: string}) {
                 </div>
             </div>
 
-        {files.map((fileWrapper, index) => (
-            <SingleFileUpload onDelete={onDelete} onUpload={onUpload} key={index} file={fileWrapper.file}/>
+            {files.map((fileWrapper, index) => (
+            <div>
+            {fileWrapper.errors.length ? (
+                <ErrorHandler file={fileWrapper.file} errors={fileWrapper.errors} onDelete={onDelete}/>
+            ) : (
+                <SingleFileUpload
+                onDelete={onDelete}
+                onUpload={onUpload}
+                key={index}
+                file={fileWrapper.file}
+                />
+            )}
+            </div>
         ))}
         </React.Fragment>
     );
