@@ -1,16 +1,30 @@
 import { useField } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { FileError, FileRejection, useDropzone } from "react-dropzone"
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconUpload } from "../../atoms/Icons/Icons";
 import { ErrorHandler } from "./ErrorHandler";
 import { SingleFileUpload } from "./SingleFileUpload";
 
+
 let currentId = 0;
 
 function getNewId() {
   return ++currentId;
 }
+
+const focusedStyle = {
+    borderColor: '#2196f3'
+};
+
+const acceptStyle = {
+    borderColor: '#2196f3',
+    borderStyle: 'dashed'
+};
+
+const rejectStyle = {
+    borderColor: '#ff1744'
+};
 
 type UploadableFile = {
     id: number;
@@ -47,7 +61,7 @@ export function FileDropzone({name}: {name: string}) {
         setFiles((current) => current.filter((fileWrapper) => fileWrapper.file !== file));
     }
 
-    const { getRootProps, getInputProps } = useDropzone({
+    const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
         onDrop,
         accept: {
             'image/*': ['.png', '.jpeg', '.jpg'],
@@ -55,10 +69,20 @@ export function FileDropzone({name}: {name: string}) {
         },
         maxSize: 30000 * 1024, // Max 30MB
       });
+    
+    const style = useMemo(() => ({
+        ...(isFocused ? focusedStyle : {}),
+        ...(isDragAccept ? acceptStyle : {}),
+        ...(isDragReject ? rejectStyle : {})
+      }), [
+        isFocused,
+        isDragAccept,
+        isDragReject
+      ]);
 
     return (
         <React.Fragment>
-            <div {...getRootProps({ className: "dropzone" })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-200 dark:border-dark-500 shadow-sm">         
+            <div {...getRootProps({ className: "dropzone", style })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-200 dark:border-dark-500 shadow-sm">         
                 <div>
                     <div className="flex justify-center pb-2">
                         <FeaturedIcon type="gray" size="md" icon={<IconUpload size='22' color='stroke-gray-600 dark:stroke-white' fill='' />} />
