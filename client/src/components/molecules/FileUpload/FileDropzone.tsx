@@ -5,6 +5,7 @@ import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconUpload } from "../../atoms/Icons/Icons";
 import { ErrorHandler } from "./ErrorHandler";
 import { SingleFileUpload } from "./SingleFileUpload";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 let currentId = 0;
 
@@ -21,6 +22,8 @@ type UploadableFile = {
 };
 
 export function FileDropzone() {
+  const [animationParent] = useAutoAnimate<HTMLUListElement>();
+
   const [files, setFiles] = useState<UploadableFile[]>([]);
 
   const onDrop = useCallback((accFiles: File[], rejFiles: FileRejection[]) => {
@@ -53,17 +56,13 @@ export function FileDropzone() {
     maxSize: 30000 * 1024, // Max 30MB
   });
 
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
-
   let style = "";
   if (isFocused) {
-    style = "border-primary-600";
+    style = "border-primary-600 dark:border-primary-500";
   } else if (isDragAccept) {
-    style = "border-primary-600";
+    style = "border-primary-600 dark:border-primary-500";
   } else if (isDragReject) {
-    style = "border-error-600 cursor-disabled";
+    style = "border-error-600 dark:border-error-500 cursor-disabled";
   } else {
     style = "border-gray-200 dark:border-dark-500";
   }
@@ -93,14 +92,16 @@ export function FileDropzone() {
         </div>
       </div>
 
-      {files.map(
-        (fileWrapper) =>
-          fileWrapper.errors.length === 0 && (
-            <div key={fileWrapper.id} className='w-full'>
-              <SingleFileUpload onDelete={onDelete} onUpload={onUpload} file={fileWrapper.file} />
-            </div>
-          )
-      )}
+      <ul ref={animationParent} className="flex flex-col gap-3">
+        {files.map(
+          (fileWrapper) =>
+            fileWrapper.errors.length === 0 && (
+              <li key={fileWrapper.id} className='w-full'>
+                <SingleFileUpload onDelete={onDelete} onUpload={onUpload} file={fileWrapper.file} />
+              </li>
+            )
+        )}
+      </ul>
     </div>
   );
 }

@@ -61,7 +61,6 @@ export function Ticket() {
   const fetchTicket = async () => {
     const response = TicketService.getTicket(ticketID, accessToken, source.token)
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           if (response.data.data.solution == null) {
             response.data.data.solution = "";
@@ -85,9 +84,7 @@ export function Ticket() {
 
   const addSolution = async (solution: string) => {
     setAddingSolution(true);
-    console.log(solution);
     const response = await TicketService.addSolution(ticketID, accessToken, solution);
-    console.log(response);
     if (response.data.success) {
       setTicket(response.data.data);
     }

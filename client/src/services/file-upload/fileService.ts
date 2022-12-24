@@ -22,9 +22,8 @@ async function uploadFile(file: File, onUploadProgress: React.Dispatch<React.Set
   });
 
   upload.on("httpUploadProgress", (evt) => {
-    console.log(evt);
     const progress = Math.floor((evt.loaded / evt.total) * 100);
-    onUploadProgress(progress); // Use this to update the progress state in the React component
+    onUploadProgress(progress);
   });
 
   const result = await upload.promise();

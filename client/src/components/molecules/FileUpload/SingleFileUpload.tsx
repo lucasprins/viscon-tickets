@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useEffect, useState } from "react";
 import FileService from "../../../services/file-upload/fileService";
 import { IconImage } from "../../atoms/Icons/Icons";
@@ -28,21 +29,21 @@ export function SingleFileUpload({ file, onDelete, onUpload }: SingleFileUploadP
   }, []);
 
   return (
-    <div className='flex flex-row w-full p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-500'>
-      <div className='pr-3'>
+    <div className='flex flex-row w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-500'>
         <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
-      </div>
-      <div className='flex flex-col w-full'>
-        <FileHeader file={file} onDelete={handleDeleteFile} />
-        <div className='flex flex-row justify-between w-full'>
-          <div className='w-11/12 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-auto mb-auto mr-auto'>
-            <div
-              className='bg-primary-600 h-2.5 rounded-full mt-auto mb-auto mr-auto'
-              style={{ width: progress + "%" }}
-            ></div>
+      <div className='flex flex-col w-full gap-2'>
+        <FileHeader file={file} onDelete={handleDeleteFile} progress={progress} />
+        {progress < 100 && (
+          <div className='flex flex-row justify-between w-full'>
+            <div className='w-11/12 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-auto mb-auto mr-auto'>
+              <div
+                className='bg-primary-600 h-2.5 rounded-full mt-auto mb-auto mr-auto'
+                style={{ width: progress + "%" }}
+              ></div>
+            </div>
+            <span className='pl-5 text-sm font-medium'>{progress}%</span>
           </div>
-          <span className='pl-5 text-sm font-medium'>{progress}%</span>
-        </div>
+        )}
       </div>
     </div>
   );
