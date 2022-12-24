@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconImage } from "../../atoms/Icons/Icons";
 import { FileHeader } from "./FileHeader";
 
 type SingleFileUploadProps = {
     file: File;
     onDelete: (file: File) => void;
+    onUpload: (file: File, url: string) => void;
 };
 
-export function SingleFileUpload({ file, onDelete }: SingleFileUploadProps) {
+export function SingleFileUpload({ file, onDelete, onUpload }: SingleFileUploadProps) {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         async function upload() {
             const url = await uploadFile(file, setProgress);
+            onUpload(file, url);
         }
 
         upload();
@@ -47,6 +48,7 @@ function uploadFile(file: File, onProgress: (percentage: number) => void) {
     return new Promise<string>((res, rej) => {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", url);
+
         xhr.onload = () => {
             const resp = JSON.parse(xhr.responseText);
             res(resp.secure_url);

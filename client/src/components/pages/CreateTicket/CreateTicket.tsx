@@ -522,7 +522,6 @@ export function CreateTicket() {
                 title={translations[language].add_attachments}
                 subtitle={translations[language].add_attachments_subtitle}
               />
-
               <FileDropzone />
               <div className='flex flex-row w-full gap-4 pt-4'>
                 <Button

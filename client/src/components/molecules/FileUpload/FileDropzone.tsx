@@ -1,31 +1,88 @@
-import React, { useCallback, useState } from "react";
+import { useField } from "formik";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { FileError, FileRejection, useDropzone } from "react-dropzone"
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconUpload } from "../../atoms/Icons/Icons";
+import { ErrorHandler } from "./ErrorHandler";
 import { SingleFileUpload } from "./SingleFileUpload";
 
-type UploadableFile = {
-    file: File;
-    errors: FileError[];
+
+let currentId = 0;
+
+function getNewId() {
+  return ++currentId;
 }
 
-export function FileDropzone() {
-    
+const focusedStyle = {
+    borderColor: '#2196f3'
+};
+
+const acceptStyle = {
+    borderColor: '#2196f3',
+    borderStyle: 'dashed'
+};
+
+const rejectStyle = {
+    borderColor: '#ff1744'
+};
+
+type UploadableFile = {
+    id: number;
+    file: File;
+    errors: FileError[];
+    url?: string;
+}
+
+export function FileDropzone({name}: {name: string}) {
+    const [_, __, helpers]  =  useField(name);
+
     const [files, setFiles] = useState<UploadableFile[]>([]);
     const onDrop = useCallback((accFiles:File[], rejFiles:FileRejection[]) => {
-       const mappedAcc = accFiles.map(file => ({file, errors: []}))
-       setFiles(curr => [...curr, ...mappedAcc, ...rejFiles]);
-    }, []);
+        const mappedAcc = accFiles.map((file) => ({ file, errors: [], id: getNewId() }));
+        const mappedRej = rejFiles.map((r) => ({ ...r, id: getNewId() }));
+        setFiles((curr) => [...curr, ...mappedAcc, ...mappedRej]);
+      }, []);
+
+    useEffect(() => {
+        helpers.setValue(files);
+        // helpers.setTouched(true);
+    }, [files]);
+
+    function onUpload(file: File, url:string) {
+        setFiles((current) => current.map((fileWrapper) => {
+            if(fileWrapper.file === file) {
+                return {...fileWrapper, url};
+            }
+            return fileWrapper;
+        }));
+    }
 
     function onDelete(file: File) {
         setFiles((current) => current.filter((fileWrapper) => fileWrapper.file !== file));
     }
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
+        onDrop,
+        accept: {
+            'image/*': ['.png', '.jpeg', '.jpg'],
+            'video/*': ['.mp4']
+        },
+        maxSize: 30000 * 1024, // Max 30MB
+      });
+    
+    const style = useMemo(() => ({
+        ...(isFocused ? focusedStyle : {}),
+        ...(isDragAccept ? acceptStyle : {}),
+        ...(isDragReject ? rejectStyle : {})
+      }), [
+        isFocused,
+        isDragAccept,
+        isDragReject
+      ]);
 
     return (
         <React.Fragment>
-            <div {...getRootProps({ className: "dropzone" })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-200 dark:border-dark-500 shadow-sm">         
+            <div {...getRootProps({ className: "dropzone", style })} className="flex outline-none bg-white dark:bg-dark-700 flex-col gap-y-5 text-center py-4 px-6 rounded-xl border border-gray-200 dark:border-dark-500 shadow-sm">         
                 <div>
                     <div className="flex justify-center pb-2">
                         <FeaturedIcon type="gray" size="md" icon={<IconUpload size='22' color='stroke-gray-600 dark:stroke-white' fill='' />} />
@@ -38,8 +95,18 @@ export function FileDropzone() {
                 </div>
             </div>
 
-        {files.map((fileWrapper, index) => (
-            <SingleFileUpload onDelete={onDelete} key={index} file={fileWrapper.file}/>
+            {files.map((fileWrapper) => (
+            <div key={fileWrapper.id}>
+            {fileWrapper.errors.length ? (
+                <ErrorHandler file={fileWrapper.file} errors={fileWrapper.errors} onDelete={onDelete}/>
+            ) : (
+                <SingleFileUpload
+                onDelete={onDelete}
+                onUpload={onUpload}
+                file={fileWrapper.file}
+                />
+            )}
+            </div>
         ))}
         </React.Fragment>
     );
