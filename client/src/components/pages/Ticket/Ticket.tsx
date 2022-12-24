@@ -59,13 +59,28 @@ export function Ticket() {
   let source = CancelToken.source();
 
   const fetchTicket = async () => {
-    const response = await TicketService.getTicket(ticketID, accessToken, source.token);
-    console.log(response);
-    if (response.data.success) {
-      setTicket(response.data.data);
-      setFetchedTicketSuccess(true);
-    }
-    setLoading(false);
+    const response = TicketService.getTicket(ticketID, accessToken, source.token)
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          if (response.data.data.solution == null) {
+            response.data.data.solution = "";
+          }
+          if (response.data.data.machineName == null) {
+            response.data.data.machineName = "";
+          }
+          setTicket(response.data.data);
+          setFetchedTicketSuccess(true);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (axios.isCancel(error)) {
+          console.log("Request canceled", error.message);
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   const addSolution = async (solution: string) => {
@@ -181,19 +196,21 @@ export function Ticket() {
                                 <TicketStatusBadge status={ticket.status} />
                               </div>
                             </div>
-                            <div className='flex flex-col w-full gap-2'>
-                              <span className='font-medium text-gray-700 text-md dark:text-white'>
-                                {translations[language].assignee}
-                              </span>
-                              <AssigneeCard
-                                subtitle={translations[language].assignee}
-                                name={
-                                  ticket.assignee !== null
-                                    ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                    : undefined
-                                }
-                              />
-                            </div>
+                            {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
+                              <div className='flex flex-col w-full gap-2'>
+                                <span className='font-medium text-gray-700 text-md dark:text-white'>
+                                  {translations[language].assignee}
+                                </span>
+                                <AssigneeCard
+                                  subtitle={translations[language].assignee}
+                                  name={
+                                    ticket.assignee !== null
+                                      ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                                      : undefined
+                                  }
+                                />
+                              </div>
+                            ) : undefined}
                           </div>
                           <div className='flex flex-col w-full gap-2'>
                             <span className='font-medium text-gray-700 text-md dark:text-white'>
@@ -215,17 +232,19 @@ export function Ticket() {
                           {({ errors, touched, isValidating }) => (
                             <Form className='flex flex-col w-full gap-5'>
                               <div className='flex flex-col gap-4 md:flex-row'>
-                                <div className='flex flex-col w-full gap-1.5'>
-                                  <InputLabel htmlFor='machineName' text={translations[language].machine} />
-                                  <InputField
-                                    style='icon'
-                                    type='text'
-                                    id='machineName'
-                                    name='machineName'
-                                    disabled={true}
-                                    icon={<IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' />}
-                                  />
-                                </div>
+                                {ticket.machineName !== "" && ticket.machineName !== null && (
+                                  <div className='flex flex-col w-full gap-1.5'>
+                                    <InputLabel htmlFor='machineName' text={translations[language].machine} />
+                                    <InputField
+                                      style='icon'
+                                      type='text'
+                                      id='machineName'
+                                      name='machineName'
+                                      disabled={true}
+                                      icon={<IconGear size='20' color='stroke-gray-500' fill='fill-primary-500' />}
+                                    />
+                                  </div>
+                                )}
                                 <div className='flex flex-col w-full gap-1.5'>
                                   <InputLabel htmlFor='issueType' text='Issue type' />
                                   <InputField
@@ -293,8 +312,14 @@ export function Ticket() {
                       {/* Solution Panel */}
                       <Tab.Panel>
                         <Formik initialValues={ticket} onSubmit={(ticket) => addSolution(ticket.solution)}>
-                          {({ errors, touched, isValidating }) => (
+                          {({ values, errors, touched, isValidating }) => (
                             <Form className='flex flex-col items-end w-full gap-5'>
+                               {ticket.status === "Cancelled" ? (
+                                <div className='flex flex-col w-full gap-1.5'>
+                                  <InputLabel htmlFor='cancelReason' text='Reason for cancelling' />
+                                  <InputTextArea disabled id='cancelReason' name='cancelReason' />
+                                </div>
+                              ) : undefined}
                               <div className='flex flex-col w-full gap-1.5'>
                                 <InputLabel htmlFor='solution' text={translations[language].solution} />
                                 <InputTextArea
@@ -303,20 +328,15 @@ export function Ticket() {
                                   name='solution'
                                 />
                               </div>
-                              {ticket.status === "Cancelled" ? (
-                                <div className='flex flex-col w-full gap-1.5'>
-                                  <InputLabel htmlFor='cancelReason' text="Reason for cancelling" />
-                                  <InputTextArea disabled id='cancelReason' name='cancelReason' />
-                                </div>
-                              ) : undefined}
+                             
                               {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
                                 <div>
                                   <Button
                                     formType='submit'
                                     size='medium'
                                     width='content'
-                                    type='primary'
-                                    disabled={addingSolution}
+                                    type={values.solution === ticket.solution ? "secondary-gray" : "primary"}
+                                    disabled={addingSolution || values.solution === ticket.solution}
                                     icon={
                                       addingSolution ? (
                                         <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
@@ -351,19 +371,21 @@ export function Ticket() {
                         <TicketStatusBadge status={ticket.status} />
                       </div>
                     </div>
-                    <div className='flex flex-col w-full gap-2'>
-                      <span className='font-medium text-gray-700 text-md dark:text-white'>
-                        {translations[language].assignee}
-                      </span>
-                      <AssigneeCard
-                        subtitle={translations[language].assignee}
-                        name={
-                          ticket.assignee !== null
-                            ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                            : undefined
-                        }
-                      />
-                    </div>
+                    {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
+                      <div className='flex flex-col w-full gap-2'>
+                        <span className='font-medium text-gray-700 text-md dark:text-white'>
+                          {translations[language].assignee}
+                        </span>
+                        <AssigneeCard
+                          subtitle={translations[language].assignee}
+                          name={
+                            ticket.assignee !== null
+                              ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
+                              : undefined
+                          }
+                        />
+                      </div>
+                    ) : undefined}
                   </div>
                   <Divider />
                 </div>

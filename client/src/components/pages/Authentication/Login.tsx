@@ -36,7 +36,7 @@ export function Login() {
     try {
       const response = await AuthService.login(email, password);
       console.log(response);
-      if(response.data.success) {
+      if (response.data.success) {
         appDispatch({ type: "USER_LOGIN", payload: response.data.data });
       } else {
         setError(response.data.message);
@@ -49,12 +49,12 @@ export function Login() {
 
   useEffect(() => {
     console.log(appState.isAuthenticated);
-  })
+  });
 
   if (useAuthentication()) {
-    return <Navigate to='/' />;
+    return <Navigate to='/tickets' />;
   }
-  
+
   return (
     <div className='flex w-full dark:bg-dark-800 dark:text-white lg:h-screen'>
       <div className='hidden p-8 lg:flex lg:absolute'>

@@ -2,10 +2,12 @@ import axios, { CancelToken } from "axios";
 import { createTicketType, userType } from "../../utils/types";
 import { authHeader } from "../auth/authHeader";
 
-const API_URL = "https://localhost:7295/api/ticket/";
+const API_URL = `${process.env.REACT_APP_API_URL}ticket/`;
 
 const createTicket = async (ticket: createTicketType, user: userType) => {
-  console.log(ticket);
+  if(ticket.machine?.id === "") {
+    ticket.machine = undefined;
+  }
   const response = await axios.post(
     API_URL + "CreateTicket",
     {

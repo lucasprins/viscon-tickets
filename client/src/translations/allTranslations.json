@@ -17,12 +17,23 @@
         "ForgotPasswordPage:": "done",
         "ForgotPassword" : "done",
         "": "not_done",
-       "NewPassword.tsx" : "not_done",
-       "Register.tsx" : "not_done",
-       "RegisterCompleted.tsx" : "not_done"
+       "NewPassword.tsx" : "done",
+       "Register.tsx" : "done",
+       "RegisterCompleted.tsx" : "done"
 
     },
     "nl": {
+        "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar het dashboard?",
+        "createticket.modal.dashboard.button-primary": "Dashboard",
+        "createticket.modal.dashboard.button-secondary": "Annuleren",
+        "createticket.modal.success.title": "Gelukt! Uw ticket is aangemaakt.",
+        "createticket.modal.success.button-primary": "Tickets",
+        "createticket.modal.success.button-secondary": "Kennisbank",
+        "createticket.modal.error.title": "Er is iets fout gegaan...",
+        "createticket.modal.error.subtitle": "Probeer het opnieuw of probeer het later nog een keer.",
+        "createticket.modal.error.button-primary": "Opniew proberen",
+        "createticket.modal.error.button-secondary": "Naar tickets",
+
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
         "First_name": "Voornaam",
@@ -40,12 +51,19 @@
         "knowledgebase": "Kennisbank",
         "language": "Taal",
         "open": "Open",
-        "in_progress": "Bezig",
         "resolved": "Opgelost",
-        "cancelled": "Annuleren",
+        "cancelled": "Geannuleerd",
         "adminAccountName" : "Admin account",
         "email" : "Email",
         "password" : "Wachtwoord",
+        "cancel": "Annuleren",
+        "issues" : "Problemen",
+        "Open" : "Open",
+        "Resolved" : "Opgelost",
+        "In_progress" : "Bezig",
+        "none": "Geen",
+        "other": "Overig",
+        "submit": "Verzenden",
         "---------Pages-------": "-------Pages-------",
         "----Knowledgebase----": "----Knowledgebase----",
         "blueprint_number": "Tekeningnummer",
@@ -173,9 +191,32 @@
         "typeName" : "Type naam",
         "machinesNotFound" : "Geen machines gevonden...",
         "MachinesNotFoundSubtitle" : "Je kan een nieuwe machine toevoegen door de button hierboven te klikken.",
-        "----------ServerFile--------": "------ServerFiles-------"
+        "----------ServerFile--------": "------ServerFiles-------",
+
+        "----Register----": "----Register----",
+        "registerTitle" : "Registreren",
+        "registerSubtitle" : "Uw token is geverifieerd! Maar voordat u kunt inloggen moet u een wachtwoord instellen en uw telefoonnummer invoeren.",
+        "registerCompletedTitle": "Registratie voltooid",
+        "registerCompletedSubtitle": "Uw wachtwoord is succesvol aangemaakt. U kunt nu op de knop hieronder klikken om terug te gaan naar de inlogpagina." 
     },
     "en": {
+        "createticket.modal.dashboard.title": "Are you sure you want to go back to the dashboard?",
+        "createticket.modal.dashboard.button-primary": "Dashboard",
+        "createticket.modal.dashboard.button-secondary": "Cancel",
+        "createticket.modal.success.title": "Perfect! Your ticket has been created.",
+        "createticket.modal.success.button-primary": "Tickets",
+        "createticket.modal.success.button-secondary": "Knowledgebase",
+        "createticket.modal.error.title": "Oops! Something went wrong.",
+        "createticket.modal.error.subtitle": "Please submit the ticket again or try again later.",
+        "createticket.modal.error.button-primary": "Try again",
+        "createticket.modal.error.button-secondary": "Tickets",
+
+
+
+
+
+
+        
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
         "First_name": "First Name",
@@ -195,6 +236,14 @@
         "email" : "Email",
         "add" : "Add",
         "password" : "Password",
+        "cancel": "Cancel",
+        "issues" : "Issues",
+        "Open" : "Open",
+        "Resolved" : "Resolved",
+        "In_progress" : "In progress",
+        "none": "None",
+        "other": "Other",
+        "submit": "Submit",
         "-------Pages-------": "------Pages------",
         "----Knowledgebase----": "----Knowledgebase----",
         "blueprint_number": "Blueprint",
@@ -203,7 +252,9 @@
         "cant_find_solution_text": "Please make sure your problem isn't in this knowledgebase before creating a ticket.",
         "knowledgebase_subtitle": "Search for a machine and view all of the common problems and solutions.",
         "noSolutions": "No solutions found...",
-        "noSolutionsSubtitle": "It looks like there aren't any solutions for this machine yet. Try refreshing the page if you think this is an error.",
+        "noSolutionsSubtitle": "It looks like there aren't any solutions for this issue yet. Try refreshing the page if you think this is an error.",
+        "noIssues": "No issues found...",
+        "noIssuesSubtitle": "It looks like there aren't any issues for this machine yet. Try refreshing the page if you think this is an error.",
         "----accesDeniedTrans----": "-----accesDeniedTrans----",
         "titleDenied": "Access denied",
         "subtitleDenied": "You dont have access to the page you are trying to view.",
@@ -298,7 +349,6 @@
         "history": "History",
         "creation_date": "Creation Date",
         "assignee": "Assignee",
-        "in_progress": "In progress",
         "not_claimed": "This ticket has not been claimed yet",
         "claim_ticket": "Claim ticket",
         "unclaim": "Unclaim",
@@ -327,6 +377,12 @@
         "machinesNotFound" : "No machines found",
         "MachinesNotFoundSubtitle" : "You can add a new machine by clicking the button above",
 
-        "----------ServerFile--------": "------ServerFiles-------"
+        "----------ServerFile--------": "------ServerFiles-------",
+
+        "----Register----": "----Register----",
+        "registerTitle": "Set up your password",
+        "registerSubtitle": "Your token has been verified! But before you can login you will need to set up a password and enter your phone number.",
+        "registerCompleted": "Registration completed!",
+        "registerCompletedSubtitle": "Your password has been successfully set. Click below to continue to the login page."
     }
 }

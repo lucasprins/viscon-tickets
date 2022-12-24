@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import React, { Fragment } from "react";
 import { useAppContext } from "../../../utils/hooks";
-import { emailExists, validateCompanyName, validateName } from "../../../utils/input-validation";
+import { emailExists, validateCompanyName, validateTextInput } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
@@ -48,7 +48,6 @@ const ModalAddMachine = ({
   const submitAddMachine = async (values: formValues) => {
     setAddingMachine(true);
     const response = await MachineService.addMachine(source.token, values.type, values.blueprintNumber);
-    console.log(response);
 
     setAddingMachine(false);
 
@@ -100,7 +99,7 @@ const ModalAddMachine = ({
                         <InputField
                           style='iconless'
                           type='text'
-                          validate={(input) => validateName(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='Satteliet shuttle'
                           id='type'
                           name='type'
@@ -112,7 +111,7 @@ const ModalAddMachine = ({
                         <InputField
                           style='iconless'
                           type='text'
-                          validate={(input) => validateName(input, language)}
+                          validate={(input) => validateTextInput(input, language)}
                           placeholder='0294240'
                           id='blueprintNumber'
                           name='blueprintNumber'
@@ -137,7 +136,7 @@ const ModalAddMachine = ({
                           size='medium'
                           width='full'
                           type='secondary-gray'
-                          text={translations[language].cancelled}
+                          text={translations[language].cancel}
                           onclick={onClose}
                           disabled={addingMachine}
                         />

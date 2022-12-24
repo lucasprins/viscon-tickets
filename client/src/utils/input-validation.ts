@@ -28,12 +28,12 @@ export const validatePhoneNumber = (phoneNumber: string, language: string): stri
  * @param language - The language which the user has chosen, taken from Redux state
  * @returns The error which occured, if any
  */
-export const validateTextarea = (text: string, language: string): string | undefined => {
+export const validateTextInput = (text: string, language: string): string | undefined => {
   let error;
   if (!text) {
     error = translations[language].fieldRequired;
-  } else if (text.length < 25) {
-    error = translations[language].inputTooShort;
+  } else if (text.length < 1) {
+    error = translations[language].fieldRequired;
   }
   return error;
 };
@@ -68,23 +68,6 @@ export const validatePassword = (password: string, language: string): string | u
     error = translations[language].fieldRequired;
   } else if (password.length < 5) {
     error = translations[language].passwordTooShort;
-  }
-  return error;
-};
-
-/**
- * Returns an error if a given name doesn't meet the specified name requirements
- *
- * @param name - The name to validate
- * @param language - The language which the user has chosen, taken from Redux state
- * @returns The error which occured, if any
- */
-export const validateName = (name: string, language: string): string | undefined => {
-  let error;
-  if (!name) {
-    error = translations[language].fieldRequired;
-  } else if (name.length < 2) {
-    error = translations[language].inputTooShort;
   }
   return error;
 };

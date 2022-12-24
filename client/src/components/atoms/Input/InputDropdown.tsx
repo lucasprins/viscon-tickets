@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 import { IconChevron, IconCheck } from "../Icons/Icons";
 
 interface Props<T> {
-  label: string;
+  label?: string;
   options: T[];
   selectedOption: T;
   selectedKey: keyof T;
@@ -25,9 +25,11 @@ export const InputDropdown = <T extends unknown>({
     <div className='w-full'>
       <Listbox value={selectedOption} onChange={onchange}>
         <div className='relative'>
-          <div className='mb-1.5'>
+          {label !== undefined && (
+            <div className='mb-1.5'>
             <Listbox.Label className='text-sm font-medium text-gray-700 dark:text-dark-300'>{label}</Listbox.Label>
           </div>
+          )}
           <Listbox.Button className='hover:bg-gray-50 dark:hover:bg-dark-600 focus:outline-4 dark:outline-0 outline-primary-200 w-full rounded-lg mb-2 flex border bg-white text-gray-800 font-medium drop-shadow-sm border-gray-200 py-2.5 px-3.5 dark:text-white dark:font-normal dark:border-dark-600 dark:bg-dark-700'>
             {({ open }) => (
               <div className='flex justify-between w-full'>

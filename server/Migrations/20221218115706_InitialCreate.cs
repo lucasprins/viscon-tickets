@@ -89,20 +89,18 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Solutions",
+                name: "Issues",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Issue = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Language = table.Column<string>(type: "text", nullable: false),
                     MachineId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Solutions", x => x.Id);
+                    table.PrimaryKey("PK_Issues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Solutions_Machines_MachineId",
+                        name: "FK_Issues_Machines_MachineId",
                         column: x => x.MachineId,
                         principalTable: "Machines",
                         principalColumn: "Id",
@@ -137,6 +135,7 @@ namespace server.Migrations
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TokenValue = table.Column<Guid>(type: "uuid", nullable: false),
                     TokenType = table.Column<int>(type: "integer", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -167,7 +166,7 @@ namespace server.Migrations
                     ExtraInfo = table.Column<string>(type: "text", nullable: false),
                     Solution = table.Column<string>(type: "text", nullable: true),
                     CancelReason = table.Column<string>(type: "text", nullable: true),
-                    CompanyMachineId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyMachineId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: false),
                     AssigneeId = table.Column<Guid>(type: "uuid", nullable: true),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -186,8 +185,7 @@ namespace server.Migrations
                         name: "FK_Tickets_CompanyMachines_CompanyMachineId",
                         column: x => x.CompanyMachineId,
                         principalTable: "CompanyMachines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tickets_Machines_MachineId",
                         column: x => x.MachineId,
@@ -206,13 +204,32 @@ namespace server.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Solutions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    IssueId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Solutions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Solutions_Issues_IssueId",
+                        column: x => x.IssueId,
+                        principalTable: "Issues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "Id", "Country", "IsActive", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("1f7853c5-4bb7-448d-886e-3a573806a502"), "Netherlands (the)", true, "Viscon" },
-                    { new Guid("2f859672-5768-4413-9f0b-727023bda1b3"), "Netherlands (the)", true, "Customer" }
+                    { new Guid("5bfdb64e-cc98-4965-99b1-0208875b30ed"), "Netherlands (the)", true, "Customer" },
+                    { new Guid("c4c04b72-58df-459a-b20e-2d944bf30455"), "Netherlands (the)", true, "Viscon" }
                 });
 
             migrationBuilder.InsertData(
@@ -220,8 +237,8 @@ namespace server.Migrations
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "IsActive", "LastName", "PasswordHash", "PasswordSalt", "PhoneNumber", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("0a525c40-6248-4c6f-9743-809300df3e8c"), new Guid("2f859672-5768-4413-9f0b-727023bda1b3"), "root@customer.nl", "Customer", true, "Admin", new byte[] { 60, 130, 195, 27, 89, 48, 51, 151, 144, 32, 99, 189, 198, 183, 105, 223, 40, 254, 198, 249, 77, 65, 173, 220, 146, 244, 117, 233, 141, 50, 151, 201, 121, 142, 38, 172, 225, 149, 231, 108, 91, 222, 12, 125, 186, 5, 56, 209, 172, 165, 26, 114, 15, 238, 170, 231, 141, 11, 194, 159, 79, 188, 84, 184 }, new byte[] { 113, 63, 39, 166, 107, 240, 63, 249, 97, 60, 184, 197, 26, 177, 123, 5, 223, 15, 167, 206, 90, 29, 183, 68, 20, 249, 156, 29, 75, 71, 243, 55, 49, 197, 230, 101, 123, 140, 132, 51, 161, 11, 230, 63, 151, 8, 47, 154, 238, 177, 13, 23, 21, 34, 83, 164, 165, 1, 96, 255, 53, 96, 232, 163, 49, 213, 236, 149, 36, 65, 160, 24, 29, 128, 118, 165, 7, 11, 141, 164, 114, 250, 178, 125, 147, 135, 145, 217, 94, 95, 141, 74, 145, 185, 138, 22, 102, 4, 119, 54, 54, 161, 27, 149, 226, 78, 12, 153, 222, 209, 6, 43, 213, 203, 53, 170, 73, 128, 41, 15, 200, 133, 148, 111, 160, 255, 149, 51 }, null, 4 },
-                    { new Guid("3286e0f3-db49-4fca-b133-42df2ef453fe"), new Guid("1f7853c5-4bb7-448d-886e-3a573806a502"), "root@viscon.nl", "Viscon", true, "Admin", new byte[] { 60, 130, 195, 27, 89, 48, 51, 151, 144, 32, 99, 189, 198, 183, 105, 223, 40, 254, 198, 249, 77, 65, 173, 220, 146, 244, 117, 233, 141, 50, 151, 201, 121, 142, 38, 172, 225, 149, 231, 108, 91, 222, 12, 125, 186, 5, 56, 209, 172, 165, 26, 114, 15, 238, 170, 231, 141, 11, 194, 159, 79, 188, 84, 184 }, new byte[] { 113, 63, 39, 166, 107, 240, 63, 249, 97, 60, 184, 197, 26, 177, 123, 5, 223, 15, 167, 206, 90, 29, 183, 68, 20, 249, 156, 29, 75, 71, 243, 55, 49, 197, 230, 101, 123, 140, 132, 51, 161, 11, 230, 63, 151, 8, 47, 154, 238, 177, 13, 23, 21, 34, 83, 164, 165, 1, 96, 255, 53, 96, 232, 163, 49, 213, 236, 149, 36, 65, 160, 24, 29, 128, 118, 165, 7, 11, 141, 164, 114, 250, 178, 125, 147, 135, 145, 217, 94, 95, 141, 74, 145, 185, 138, 22, 102, 4, 119, 54, 54, 161, 27, 149, 226, 78, 12, 153, 222, 209, 6, 43, 213, 203, 53, 170, 73, 128, 41, 15, 200, 133, 148, 111, 160, 255, 149, 51 }, null, 2 }
+                    { new Guid("1f9476eb-6b12-4ca0-bde9-8935e8dc54a7"), new Guid("5bfdb64e-cc98-4965-99b1-0208875b30ed"), "root@customer.nl", "Customer", true, "Admin", new byte[] { 154, 215, 37, 181, 48, 158, 233, 12, 169, 100, 208, 156, 181, 204, 125, 249, 241, 71, 35, 185, 138, 35, 194, 0, 186, 121, 188, 6, 236, 17, 110, 153, 151, 187, 173, 39, 162, 251, 122, 38, 129, 19, 187, 48, 173, 163, 45, 250, 159, 184, 147, 137, 111, 65, 150, 67, 79, 58, 193, 194, 147, 74, 117, 143 }, new byte[] { 26, 247, 227, 11, 46, 242, 9, 230, 191, 174, 173, 164, 173, 102, 11, 29, 58, 91, 82, 236, 93, 151, 173, 38, 242, 159, 202, 28, 108, 93, 171, 54, 70, 207, 11, 8, 231, 180, 127, 211, 126, 238, 150, 208, 129, 101, 13, 53, 203, 47, 75, 40, 117, 189, 118, 165, 102, 214, 75, 204, 67, 238, 169, 164, 78, 77, 4, 206, 143, 171, 145, 43, 86, 195, 253, 38, 59, 227, 214, 84, 102, 255, 224, 128, 141, 106, 62, 142, 242, 180, 166, 208, 160, 192, 163, 72, 69, 128, 16, 47, 13, 146, 10, 188, 157, 27, 205, 166, 10, 157, 119, 174, 86, 11, 216, 126, 21, 86, 39, 93, 147, 47, 37, 91, 132, 20, 208, 203 }, null, 4 },
+                    { new Guid("b3e897c8-844d-4336-82bb-263e3caaee68"), new Guid("c4c04b72-58df-459a-b20e-2d944bf30455"), "root@viscon.nl", "Viscon", true, "Admin", new byte[] { 154, 215, 37, 181, 48, 158, 233, 12, 169, 100, 208, 156, 181, 204, 125, 249, 241, 71, 35, 185, 138, 35, 194, 0, 186, 121, 188, 6, 236, 17, 110, 153, 151, 187, 173, 39, 162, 251, 122, 38, 129, 19, 187, 48, 173, 163, 45, 250, 159, 184, 147, 137, 111, 65, 150, 67, 79, 58, 193, 194, 147, 74, 117, 143 }, new byte[] { 26, 247, 227, 11, 46, 242, 9, 230, 191, 174, 173, 164, 173, 102, 11, 29, 58, 91, 82, 236, 93, 151, 173, 38, 242, 159, 202, 28, 108, 93, 171, 54, 70, 207, 11, 8, 231, 180, 127, 211, 126, 238, 150, 208, 129, 101, 13, 53, 203, 47, 75, 40, 117, 189, 118, 165, 102, 214, 75, 204, 67, 238, 169, 164, 78, 77, 4, 206, 143, 171, 145, 43, 86, 195, 253, 38, 59, 227, 214, 84, 102, 255, 224, 128, 141, 106, 62, 142, 242, 180, 166, 208, 160, 192, 163, 72, 69, 128, 16, 47, 13, 146, 10, 188, 157, 27, 205, 166, 10, 157, 119, 174, 86, 11, 216, 126, 21, 86, 39, 93, 147, 47, 37, 91, 132, 20, 208, 203 }, null, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -235,14 +252,19 @@ namespace server.Migrations
                 column: "MachineId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Issues_MachineId",
+                table: "Issues",
+                column: "MachineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Notifications_UserId",
                 table: "Notifications",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Solutions_MachineId",
+                name: "IX_Solutions_IssueId",
                 table: "Solutions",
-                column: "MachineId");
+                column: "IssueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_AssigneeId",
@@ -293,6 +315,9 @@ namespace server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tokens");
+
+            migrationBuilder.DropTable(
+                name: "Issues");
 
             migrationBuilder.DropTable(
                 name: "CompanyMachines");
