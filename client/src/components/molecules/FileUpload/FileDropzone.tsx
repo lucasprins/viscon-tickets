@@ -63,7 +63,7 @@ export function FileDropzone() {
   } else if (isDragAccept) {
     style = "border-primary-600";
   } else if (isDragReject) {
-    style = "border-error-600";
+    style = "border-error-600 cursor-disabled";
   } else {
     style = "border-gray-200 dark:border-dark-500";
   }
@@ -93,15 +93,14 @@ export function FileDropzone() {
         </div>
       </div>
 
-      {files.map((fileWrapper) => (
-        <div key={fileWrapper.id} className='w-full'>
-          {fileWrapper.errors.length ? (
-            <ErrorHandler file={fileWrapper.file} errors={fileWrapper.errors} onDelete={onDelete} />
-          ) : (
-            <SingleFileUpload onDelete={onDelete} onUpload={onUpload} file={fileWrapper.file} />
-          )}
-        </div>
-      ))}
+      {files.map(
+        (fileWrapper) =>
+          fileWrapper.errors.length === 0 && (
+            <div key={fileWrapper.id} className='w-full'>
+              <SingleFileUpload onDelete={onDelete} onUpload={onUpload} file={fileWrapper.file} />
+            </div>
+          )
+      )}
     </div>
   );
 }
