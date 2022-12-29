@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using server.Enums;
 using server.Services.AuthService;
 
 namespace server.Services.TicketService
@@ -39,7 +40,7 @@ namespace server.Services.TicketService
       try
       {
         System.Console.WriteLine("TICKET MACHINE: " + newTicket.CompanyMachineId);
-        var ticket = _mapper.Map<Ticket>(newTicket);
+        var ticket = new Ticket();
         bool noExistingTickets = _context.Tickets.Count() == 0;
 
         ticket.Id = Guid.NewGuid();
@@ -47,6 +48,35 @@ namespace server.Services.TicketService
         ticket.CreationDate = DateTime.UtcNow;
         ticket.Status = Status.Open;
         ticket.Priority = Priority.Medium;
+        ticket.IssueType = newTicket.IssueType;
+        ticket.Issue = newTicket.Issue;
+        ticket.ActionExpected = newTicket.ActionExpected;
+        ticket.ActionPerformed = newTicket.ActionPerformed;
+        ticket.ExtraInfo = newTicket.ExtraInfo;
+        ticket.CreatorId = newTicket.CreatorId;
+        ticket.PhoneNumber = newTicket.PhoneNumber;
+        ticket.CompanyId = newTicket.CompanyId;
+        ticket.CompanyMachineId = newTicket.CompanyMachineId;
+        ticket.Attachments = new List<Attachment>();
+
+
+        // for each ticket in newticket.attachments create an attachment and store it in the database
+        if (newTicket.Attachments != null)
+        {
+          var ticketAttachments = new List<Attachment>();
+          foreach (var attachment in newTicket.Attachments)
+          {
+            var newAttachment = new Attachment();
+            newAttachment.Id = Guid.NewGuid();
+            newAttachment.TicketId = ticket.Id;
+            newAttachment.URL = attachment.URL;
+            newAttachment.Key = attachment.Key;
+            newAttachment.Type = AttachmentType.TicketCreated;
+
+            ticket.Attachments.Add(newAttachment);
+          }
+          _context.Attachments.AddRange(ticketAttachments);
+        }
 
         _context.Tickets.Add(ticket);
         await _context.SaveChangesAsync();
@@ -93,11 +123,17 @@ namespace server.Services.TicketService
           return serviceResponse;
         }
 
-        if(ticket.Solution == null) {
+        if (ticket.Solution == null)
+        {
           ticket.Solution = "";
         }
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {

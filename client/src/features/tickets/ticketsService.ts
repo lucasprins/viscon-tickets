@@ -4,7 +4,7 @@ import { authHeader } from "../auth/authHeader";
 
 const API_URL = `${process.env.REACT_APP_API_URL}ticket/`;
 
-const createTicket = async (ticket: createTicketType, user: userType) => {
+const createTicket = async (ticket: createTicketType, user: userType, files: { url: string, key: string }[]) => {
   if(ticket.machine?.id === "") {
     ticket.machine = undefined;
   }
@@ -17,6 +17,7 @@ const createTicket = async (ticket: createTicketType, user: userType) => {
       actionExpected: ticket.actionExpected,
       actionPerformed: ticket.actionPerformed,
       extraInfo: ticket.extraInfo,
+      attachments: files,
       companyMachineId: ticket.machine?.id,
       creatorId: user.id,
       companyId: user.company.id,

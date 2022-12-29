@@ -1,4 +1,5 @@
 import AWS from "aws-sdk";
+import { Attachment } from "../../utils/types";
 
 const s3 = new AWS.S3({
   accessKeyId: "AKIA2PPX4INGVLBBWGNF",
@@ -13,6 +14,7 @@ async function uploadFile(file: File, onUploadProgress: React.Dispatch<React.Set
     Bucket: "viscon-tickets",
     Key: key,
     Body: file,
+    ContentType: file.type,
   };
 
   const upload = new AWS.S3.ManagedUpload({

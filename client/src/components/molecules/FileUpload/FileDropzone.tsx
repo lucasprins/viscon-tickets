@@ -13,7 +13,7 @@ function getNewId() {
   return ++currentId;
 }
 
-type UploadableFile = {
+export type UploadableFile = {
   id: number;
   file: File;
   errors: FileError[];
@@ -21,15 +21,13 @@ type UploadableFile = {
   key?: string;
 };
 
-export function FileDropzone() {
+export function FileDropzone({ files, setFiles }: { files: UploadableFile[], setFiles: React.Dispatch<React.SetStateAction<UploadableFile[]>> }) {
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
-
-  const [files, setFiles] = useState<UploadableFile[]>([]);
 
   const onDrop = useCallback((accFiles: File[], rejFiles: FileRejection[]) => {
     const mappedAcc = accFiles.map((file) => ({ file, errors: [], id: getNewId() }));
     const mappedRej = rejFiles.map((r) => ({ ...r, id: getNewId() }));
-    setFiles((curr) => [...curr, ...mappedAcc, ...mappedRej]);
+    setFiles((curr: UploadableFile[]) => [...curr, ...mappedAcc, ...mappedRej]);
   }, []);
 
   function onUpload(file: File, url: string, key: string) {
@@ -50,8 +48,9 @@ export function FileDropzone() {
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({
     onDrop,
     accept: {
-      "image/*": [".png", ".jpeg", ".jpg"],
-      "video/*": [".mp4"],
+      "image/png": [".png"],
+      "image/jpeg": [".jpeg", ".jpg"],
+      "video/mp4": [".mp4"],
     },
     maxSize: 30000 * 1024, // Max 30MB
   });

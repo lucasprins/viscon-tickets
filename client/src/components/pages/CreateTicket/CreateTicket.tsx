@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../../atoms/Button/Button";
 import { Divider } from "../../atoms/Divider/Divider";
 import { IconFlag } from "../../atoms/Icons/IconsFlags";
@@ -11,13 +11,9 @@ import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import { NavigationHeader } from "../../organisms/Navigation/NavigationHeader";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { ProgressStep } from "../../atoms/Progress/ProgressStep";
-import {
-  useAppContext,
-  useAuthentication,
-  useModalContext,
-} from "../../../utils/hooks";
+import { useAppContext, useAuthentication, useModalContext } from "../../../utils/hooks";
 import { validatePhoneNumber, validateTextInput } from "../../../utils/input-validation";
-import { FileDropzone } from "../../molecules/FileUpload/FileDropzone";
+import { FileDropzone, UploadableFile } from "../../molecules/FileUpload/FileDropzone";
 import { companyMachineType, createTicketType, MachineType, TicketIssueType, userType } from "../../../utils/types";
 import { ButtonLink } from "../../atoms/Button/ButtonLink";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -28,6 +24,7 @@ import MachineService from "../../../features/machines/machinesService";
 import { KnowledgebaseIssuesList } from "../../molecules/MachineSolution/KnowledgebaseIssuesList";
 import InputDropdownAutoComplete from "../../atoms/Input/InputDropdownAutoComplete";
 import TicketService from "../../../features/tickets/ticketsService";
+import FileService from "../../../services/file-upload/fileService";
 
 var translations = require("../../../translations/allTranslations.json");
 
@@ -46,6 +43,8 @@ export function CreateTicket() {
 
   const [creatingTicket, setCreatingTicket] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const [ticketFiles, setTicketFiles] = useState<UploadableFile[]>([]);
 
   const [ticket, setTicket] = useState<createTicketType>({
     firstName: user?.firstName || "",
@@ -114,6 +113,7 @@ export function CreateTicket() {
     };
   }, []);
 
+
   const addContactInformation = (values: any) => {
     setTicket({ ...ticket, ...values, machine: ticket.machine });
     setCurrentStep(3);
@@ -131,8 +131,15 @@ export function CreateTicket() {
 
   const submitTicket = async () => {
     setCreatingTicket(true);
+    let attachments: { url: string, key: string }[] = [];
+    ticketFiles.forEach(file => {
+      if(file.key && file.url) {
+        attachments.push({ url: file.url, key: file.key });
+      }
+    })
+
     if (user) {
-      await TicketService.createTicket(ticket, user)
+      await TicketService.createTicket(ticket, user, attachments)
         .then((res) => {
           if (res.data.success) {
             setModalState({ ...modalState, creationSuccess: true });
@@ -522,7 +529,7 @@ export function CreateTicket() {
                 title={translations[language].add_attachments}
                 subtitle={translations[language].add_attachments_subtitle}
               />
-              <FileDropzone  />
+              <FileDropzone files={ticketFiles} setFiles={setTicketFiles} />
               <div className='flex flex-row w-full gap-4 pt-4'>
                 <Button
                   size='medium'

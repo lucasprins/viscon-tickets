@@ -37,7 +37,7 @@ export function SingleFileUpload({ file, onDelete, onUpload }: SingleFileUploadP
           <div className='flex flex-row justify-between w-full'>
             <div className='w-11/12 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-auto mb-auto mr-auto'>
               <div
-                className='bg-primary-600 h-2.5 rounded-full mt-auto mb-auto mr-auto'
+                className='bg-primary-600 h-2.5 transition-all duration-300 ease-in-out rounded-full mt-auto mb-auto mr-auto'
                 style={{ width: progress + "%" }}
               ></div>
             </div>
@@ -48,31 +48,3 @@ export function SingleFileUpload({ file, onDelete, onUpload }: SingleFileUploadP
     </div>
   );
 }
-
-// function uploadFile(file: File, onProgress: (percentage: number) => void) {
-//     const url = "https://api.cloudinary.com/v1_1/demo/image/upload";
-//     const key = "docs_upload_example_us_preset";
-
-//     return new Promise<string>((res, rej) => {
-//         const xhr = new XMLHttpRequest();
-//         xhr.open("POST", url);
-
-//         xhr.onload = () => {
-//             const resp = JSON.parse(xhr.responseText);
-//             res(resp.secure_url);
-//         };
-//         xhr.onerror = (event) => rej(event);
-//         xhr.upload.onprogress = (event) => {
-//             if (event.lengthComputable) {
-//                 const percentage = (event.loaded / event.total) * 100;
-//                 onProgress(Math.round(percentage));
-//             }
-//         };
-
-//         const formData = new FormData();
-//         formData.append("file", file);
-//         formData.append("upload_preset", key);
-
-//         xhr.send(formData);
-//     });
-// }
