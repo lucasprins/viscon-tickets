@@ -1,5 +1,4 @@
 import AWS from "aws-sdk";
-import { Attachment } from "../../utils/types";
 
 const s3 = new AWS.S3({
   accessKeyId: "AKIA2PPX4INGVLBBWGNF",

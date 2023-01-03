@@ -1,4 +1,4 @@
-import axios, { CancelToken } from "axios";
+import axios from "axios";
 import { authHeader } from "../auth/authHeader";
 
 const API_URL = "https://localhost:7295/api/user/";
