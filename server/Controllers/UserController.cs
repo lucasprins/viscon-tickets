@@ -20,15 +20,21 @@ namespace server.Controllers
         }
 
         [HttpPost("AddUser"), Authorize(Roles = "VisconAdmin, CustomerAdmin")]
-        public async Task<IActionResult> AddUser(AddUserDTO newUser)
+        public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> AddUser(AddUserDTO newUser)
         {
             return Ok(await _userService.AddUser(newUser));
         }
 
         [HttpGet("EmailExists/{email}")]
-        public async Task<IActionResult> EmailExists(string email)
+        public async Task<ActionResult<ServiceResponse<bool>>> EmailExists(string email)
         {
             return Ok(await _userService.EmailExists(email));
+        }
+
+        [HttpGet("GetUsers"), Authorize(Roles = "VisconAdmin, CustomerAdmin")]
+        public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> GetUsers()
+        {
+            return Ok(await _userService.GetAllUsers());
         }
     }
 }

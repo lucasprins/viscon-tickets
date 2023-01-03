@@ -1,7 +1,33 @@
-import axios, { CancelToken } from "axios";;
+import axios, { CancelToken } from "axios";
+import { authHeader } from "../auth/authHeader";
 
 const API_URL = "https://localhost:7295/api/user/";
 
+const getUsers = async () => {
+  const response = await axios.get(API_URL + "GetUsers", {
+    headers: authHeader(),
+  });
+  return response;
+};
+
+const addUser = async (firstName: string, lastName: string, email: string, role: string, companyId: string) => {
+  console.table({ firstName, lastName, email, role, companyId });
+  
+  const response = await axios.post(
+    API_URL + "AddUser",
+    {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      role: role,
+      companyId: companyId,
+    },
+    {
+      headers: authHeader(),
+    }
+  );
+  return response;
+};
 
 const emailExists = async (email: string) => {
   const response = await axios.get(API_URL + "EmailExists/" + email);
@@ -9,6 +35,8 @@ const emailExists = async (email: string) => {
 };
 
 const UserService = {
+  getUsers,
+  addUser,
   emailExists,
 };
 

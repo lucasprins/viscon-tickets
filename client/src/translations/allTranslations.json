@@ -23,8 +23,10 @@
 
     },
     "nl": {
-        "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar het dashboard?",
-        "createticket.modal.dashboard.button-primary": "Dashboard",
+        "general.role": "Rol",
+
+        "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar tickets?",
+        "createticket.modal.dashboard.button-primary": "Tickets",
         "createticket.modal.dashboard.button-secondary": "Annuleren",
         "createticket.modal.success.title": "Gelukt! Uw ticket is aangemaakt.",
         "createticket.modal.success.button-primary": "Tickets",
@@ -33,6 +35,13 @@
         "createticket.modal.error.subtitle": "Probeer het opnieuw of probeer het later nog een keer.",
         "createticket.modal.error.button-primary": "Opniew proberen",
         "createticket.modal.error.button-secondary": "Naar tickets",
+
+        "tickets.refetch-description": "Tickets worden elke 1.5 minuut opnieuw opgehaald. Probeer de pagin te verversen als u uw ticket niet ziet.",
+
+        "admin.users.no-users-found": "Geen gebruikers gevonden...",
+        "admin.users.no-users-found-subtitle": "Het lijkt er op dat er nog geen gebruikers zijn die voldoen aan uw zoekopdracht. Probeer de pagina te verversen als u denkt dat dit een fout is.",
+        "admin.users.add-user-button": "Gebruiker toevoegen",
+        "admin.users.add-user-modal.title": "Gebruiker toevoegen",
 
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
@@ -46,7 +55,7 @@
         "confirm": "Bevestigen",
         "selectLanguage": "Selecteer een taal",
         "create_ticket": "Ticket aanmaken",
-        "dashboard": "Dashboard",
+        "dashboard": "Tickets",
         "tickets": "Tickets",
         "knowledgebase": "Kennisbank",
         "language": "Taal",
@@ -111,7 +120,7 @@
         "emailPlaceholder" : "Vul uw email in",
         "passwordPlaceholder" : "Vul uw wachtwoord in",
         "----createTicketTrans----": "----createTicketTrans----",
-        "backToDashboard": "Terug naar dashboard",
+        "backToDashboard": "Terug naar tickets",
         "view_solutions": "Veelvoorkomende oplossingen",
         "view_solutions_subtitle": "Bekijk een reeks gebruikelijke problemen en hun oplossingen.",
         "view_solutions_subtitle_long": "Selecteer een machine en zorg ervoor dat u alle oplossingen voor uw probleem hebt geprobeerd.",
@@ -200,8 +209,10 @@
         "registerCompletedSubtitle": "Uw wachtwoord is succesvol aangemaakt. U kunt nu op de knop hieronder klikken om terug te gaan naar de inlogpagina." 
     },
     "en": {
-        "createticket.modal.dashboard.title": "Are you sure you want to go back to the dashboard?",
-        "createticket.modal.dashboard.button-primary": "Dashboard",
+        "general.role": "Role",
+
+        "createticket.modal.dashboard.title": "Are you sure you want to go back to the tickets?",
+        "createticket.modal.dashboard.button-primary": "Tickets",
         "createticket.modal.dashboard.button-secondary": "Cancel",
         "createticket.modal.success.title": "Perfect! Your ticket has been created.",
         "createticket.modal.success.button-primary": "Tickets",
@@ -211,6 +222,12 @@
         "createticket.modal.error.button-primary": "Try again",
         "createticket.modal.error.button-secondary": "Tickets",
 
+        "tickets.refetch-description": "Tickets are fetched every 1.5 minutes. If you don't see your ticket, please try refreshing the page.",
+
+        "admin.users.no-users-found": "No users found...",
+        "admin.users.no-users-found-subtitle": "It looks like there are no users in the system that match your query. Please try refreshing the page if you think this is an error.",
+        "admin.users.add-user-button": "Add user",
+        "admin.users.add-user-modal.title": "Add a user",
 
 
 
@@ -292,7 +309,7 @@
         "emailPlaceholder" : "Enter your email",
         "passwordPlaceholder" : "Enter your password",
         "----createTicketTrans----": "----createTicketTrans----",
-        "backToDashboard": "Back to dashboard",
+        "backToDashboard": "Back to tickets",
         "view_solutions": "View common solutions",
         "view_solutions_subtitle": "View a range of problems with their common solutions.",
         "view_solutions_subtitle_long": "Please select a machine and make sure you have tried all the common solutions for your problem.",

@@ -49,6 +49,7 @@ export function Login() {
 
   useEffect(() => {
     localStorage.removeItem("user");
+    appDispatch({ type: "USER_LOGOUT" });
   }, []);
 
   if (useAuthentication()) {

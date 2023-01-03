@@ -190,7 +190,7 @@ export function Register() {
                               }
                               type='tel'
                               validate={(input) => validatePhoneNumber(input, language)}
-                              placeholder='Ex. 06-12345678'
+                              placeholder='Ex. 0612345678'
                               id='phoneNumber'
                               name='phoneNumber'
                             />
