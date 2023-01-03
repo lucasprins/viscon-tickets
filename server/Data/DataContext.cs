@@ -13,6 +13,8 @@ namespace server.Data
   {
     public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
+    public DataContext() { }
+
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
     public DbSet<Machine> Machines { get; set; } = null!;
