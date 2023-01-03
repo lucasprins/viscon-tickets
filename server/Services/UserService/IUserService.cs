@@ -11,5 +11,6 @@ namespace server.Services.UserService
         Task<ServiceResponse<bool>> EmailExists(string email);
         Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers();
         Task<ServiceResponse<List<GetUserDTO>>> ToggleUserStatus(Guid id);
+        Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id);
     }
 }

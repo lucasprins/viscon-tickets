@@ -42,6 +42,10 @@
         "admin.users.no-users-found-subtitle": "Het lijkt er op dat er nog geen gebruikers zijn die voldoen aan uw zoekopdracht. Probeer de pagina te verversen als u denkt dat dit een fout is.",
         "admin.users.add-user-button": "Gebruiker toevoegen",
         "admin.users.add-user-modal.title": "Gebruiker toevoegen",
+        "admin.users.deactivate-user": "Deactiveer gebruiker",
+        "admin.users.activate-user": "Activeer gebruiker",
+        "admin.users.promote-user": "Promoveer gebruiker",
+        "admin.users.demote-user": "Degradeer gebruiker",
 
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
@@ -228,6 +232,10 @@
         "admin.users.no-users-found-subtitle": "It looks like there are no users in the system that match your query. Please try refreshing the page if you think this is an error.",
         "admin.users.add-user-button": "Add user",
         "admin.users.add-user-modal.title": "Add a user",
+        "admin.users.deactivate-user": "Deactivate user",
+        "admin.users.activate-user": "Activate user",
+        "admin.users.promote-user": "Promote user",
+        "admin.users.demote-user": "Demote user",
 
 
 

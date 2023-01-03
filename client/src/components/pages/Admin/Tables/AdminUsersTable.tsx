@@ -12,17 +12,18 @@ import { companyType, userType } from "../../../../utils/types";
 import { Badge } from "../../../atoms/Badge/Badge";
 import { Button } from "../../../atoms/Button/Button";
 import { FeaturedIcon } from "../../../atoms/Icons/FeaturedIcon";
-import { IconAlert, IconClose, IconLock, IconUnlock } from "../../../atoms/Icons/Icons";
+import { IconAlert, IconClose, IconDemote, IconLock, IconPromote, IconUnlock } from "../../../atoms/Icons/Icons";
 import { EmptyState } from "../../../molecules/EmptyState/EmptyState";
 
 interface Props {
   users: userType[];
   toggleStatus: (userId: string) => void;
+  handleRoleChange: (userId: string) => void;
 }
 
 var translations = require("../../../../translations/allTranslations.json");
 
-export function AdminUsersTable({ users, toggleStatus }: Props) {
+export function AdminUsersTable({ users, toggleStatus, handleRoleChange }: Props) {
   const { appState } = useAppContext();
   const language = appState.language;
 
@@ -167,25 +168,45 @@ export function AdminUsersTable({ users, toggleStatus }: Props) {
                     </td>
                   ))}
                   {!isMobile && (
-                    <td className='px-6 py-3.5 text-sm'>
-                      <div 
-                      onClick={() => toggleStatus(row.original.id)}
-                      className='relative flex justify-center group'>
+                    <td className='py-3.5 px-3 text-sm flex gap-4 items-center'>
+                      <div onClick={() => handleRoleChange(row.original.id)} className='relative flex justify-center group'>
+                        {row.original.role == "VisconAdmin" || row.original.role == "CustomerAdmin" ? (
+                          <IconDemote
+                            size='18'
+                            fill=''
+                            color='stroke-gray-400 group-hover:stroke-gray-800 dark:stroke-dark-400 dark:group-hover:stroke-white'
+                          />
+                        ) : (
+                          <IconPromote
+                            size='18'
+                            fill=''
+                            color='stroke-gray-400 group-hover:stroke-gray-800 dark:stroke-dark-400 dark:group-hover:stroke-white'
+                          />
+                        )}
+                        <div className='absolute px-2 py-1 text-white transition-all duration-300 rounded-md opacity-0 pointer-events-none bottom-6 dark:bg-dark-500 bg-dark-600 w-max group-hover:opacity-100'>
+                          {row.original.role == "VisconAdmin" || row.original.role == "CustomerAdmin"
+                            ? translations[language]["admin.users.demote-user"]
+                            : translations[language]["admin.users.promote-user"]}
+                        </div>
+                      </div>
+                      <div onClick={() => toggleStatus(row.original.id)} className='relative flex justify-center group'>
                         {row.original.isActive ? (
                           <IconLock
                             size='18'
                             fill=''
-                            color='stroke-gray-400 hover:stroke-gray-800 dark:stroke-dark-400 dark:hover:stroke-white'
+                            color='stroke-gray-400 group-hover:stroke-gray-800 dark:stroke-dark-400 dark:group-hover:stroke-white'
                           />
                         ) : (
                           <IconUnlock
                             size='18'
                             fill=''
-                            color='stroke-gray-400 hover:stroke-gray-800 dark:stroke-dark-400 dark:hover:stroke-white'
+                            color='stroke-gray-400 group-hover:stroke-gray-800 dark:stroke-dark-400 dark:group-hover:stroke-white'
                           />
                         )}
                         <div className='absolute px-2 py-1 text-white transition-all duration-300 rounded-md opacity-0 pointer-events-none bottom-6 dark:bg-dark-500 bg-dark-600 w-max group-hover:opacity-100'>
-                          {row.original.isActive ? "Deactivate user" : "Activate user"}
+                          {row.original.isActive
+                            ? translations[language]["admin.users.deactivate-user"]
+                            : translations[language]["admin.users.activate-user"]}
                         </div>
                       </div>
                     </td>

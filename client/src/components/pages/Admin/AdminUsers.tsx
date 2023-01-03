@@ -41,6 +41,19 @@ function AdminUsers() {
     }
   };
 
+  const handleRoleChange = async (userId: string, ) => {
+    if (userId !== user?.id) {
+      try {
+        await UserService.changeUserRole(userId).then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            setUsers(response.data.data);
+          }
+        })
+      } catch {}
+    }
+  }
+
   useEffect(() => {
     if (users) {
       const filtered = users.filter((user) => {
@@ -98,7 +111,7 @@ function AdminUsers() {
           />
         </div>
         {users && filteredUsers ? (
-          <AdminUsersTable toggleStatus={toggleUserStatus} users={filteredUsers} />
+          <AdminUsersTable handleRoleChange={handleRoleChange} toggleStatus={toggleUserStatus} users={filteredUsers} />
         ) : (
           <div className='flex items-center justify-center w-full h-96'>
             <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />

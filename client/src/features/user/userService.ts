@@ -31,11 +31,24 @@ const addUser = async (firstName: string, lastName: string, email: string, role:
 
 const toggleUserStatus = async (userId: string) => {
   console.log(userId);
-  const response = await axios.put(API_URL + "ToggleUserStatus/" + userId, 
-  {},
-  {
-    headers: authHeader(),
-  }
+  const response = await axios.put(
+    API_URL + "ToggleUserStatus/" + userId,
+    {},
+    {
+      headers: authHeader(),
+    }
+  );
+
+  return response;
+};
+
+const changeUserRole = async (userId: string) => {
+  const response = await axios.put(
+    API_URL + "ChangeUserRole/" + userId,
+    {},
+    {
+      headers: authHeader(),
+    }
   );
 
   return response;
@@ -50,6 +63,7 @@ const UserService = {
   getUsers,
   addUser,
   toggleUserStatus,
+  changeUserRole,
   emailExists,
 };
 

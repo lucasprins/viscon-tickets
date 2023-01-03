@@ -53,13 +53,66 @@ namespace server.Services.UserService
         await _context.Tokens.AddAsync(registrationToken);
         await _context.SaveChangesAsync();
         await _emailService.SendRegisterEmail(addingUser.Email, registrationToken.TokenValue.ToString());
-        response.Data = _context.Users.Where(u => u.CompanyId == addingUser.CompanyId).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+        response.Data = _context.Users.Where(u => u.CompanyId == addingUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
       }
       catch
       {
         response.Success = false;
         response.Message = "Something went wrong while adding the user.";
         return response;
+      }
+
+      return response;
+    }
+
+    public async Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id)
+    {
+      ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
+      var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+      if (requestUser == null)
+      {
+        response.Success = false;
+        response.Message = "Requesting user not found.";
+        return response;
+      }
+
+      try
+      {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+        if (user == null)
+        {
+          response.Success = false;
+          response.Message = "User not found.";
+          return response;
+        }
+
+        if (user.Role == Role.VisconAdmin)
+        {
+          user.Role = Role.VisconEmployee;
+        }
+        else if (user.Role == Role.VisconEmployee)
+        {
+          user.Role = Role.VisconAdmin;
+        }
+        else if (user.Role == Role.CustomerAdmin)
+        {
+          user.Role = Role.CustomerEmployee;
+        }
+        else if (user.Role == Role.CustomerEmployee)
+        {
+          user.Role = Role.CustomerAdmin;
+        }
+
+        _context.Update(user);
+        await _context.SaveChangesAsync();
+        response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+      }
+      catch
+      {
+        response.Success = false;
+        response.Message = "Something went wrong while changing the user role.";
       }
 
       return response;
@@ -96,7 +149,7 @@ namespace server.Services.UserService
 
       try
       {
-        var users = await _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenBy(u => u.FirstName).ToListAsync();
+        var users = await _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).ToListAsync();
         response.Data = users.Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
       }
       catch
@@ -123,17 +176,17 @@ namespace server.Services.UserService
       try
       {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-        
+
         if (user == null)
         {
           response.Success = false;
           response.Message = "User not found.";
           return response;
         }
-        
+
         user.IsActive = !user.IsActive;
         await _context.SaveChangesAsync();
-        response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+        response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
       }
       catch
       {
