@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserService from "../../../features/user/userService";
-import { useAppContext } from "../../../utils/hooks";
+import { useAppContext, useQuery } from "../../../utils/hooks";
 import { userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
@@ -29,14 +29,16 @@ function AdminUsers() {
   });
 
   const toggleUserStatus = async (userId: string) => {
-    try {
-      await UserService.toggleUserStatus(userId).then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          setUsers(response.data.data);
-        }
-      });
-    } catch {}
+    if (userId !== user?.id) {
+      try {
+        await UserService.toggleUserStatus(userId).then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            setUsers(response.data.data);
+          }
+        });
+      } catch {}
+    }
   };
 
   useEffect(() => {
