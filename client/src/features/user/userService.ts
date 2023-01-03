@@ -12,7 +12,7 @@ const getUsers = async () => {
 
 const addUser = async (firstName: string, lastName: string, email: string, role: string, companyId: string) => {
   console.table({ firstName, lastName, email, role, companyId });
-  
+
   const response = await axios.post(
     API_URL + "AddUser",
     {
@@ -29,6 +29,18 @@ const addUser = async (firstName: string, lastName: string, email: string, role:
   return response;
 };
 
+const toggleUserStatus = async (userId: string) => {
+  console.log(userId);
+  const response = await axios.put(API_URL + "ToggleUserStatus/" + userId, 
+  {},
+  {
+    headers: authHeader(),
+  }
+  );
+
+  return response;
+};
+
 const emailExists = async (email: string) => {
   const response = await axios.get(API_URL + "EmailExists/" + email);
   return response;
@@ -37,6 +49,7 @@ const emailExists = async (email: string) => {
 const UserService = {
   getUsers,
   addUser,
+  toggleUserStatus,
   emailExists,
 };
 

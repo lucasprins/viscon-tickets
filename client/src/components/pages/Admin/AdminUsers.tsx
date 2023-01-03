@@ -5,6 +5,7 @@ import { useAppContext } from "../../../utils/hooks";
 import { userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
+import { Spinner } from "../../atoms/Spinner/Spinner";
 import ModalAddUser from "../../organisms/Modal/ModalAddUser";
 import { AdminUsersTable } from "./Tables/AdminUsersTable";
 
@@ -26,6 +27,17 @@ function AdminUsers() {
   const [modalState, setModalState] = useState({
     addUser: false,
   });
+
+  const toggleUserStatus = async (userId: string) => {
+    try {
+      await UserService.toggleUserStatus(userId).then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          setUsers(response.data.data);
+        }
+      });
+    } catch {}
+  };
 
   useEffect(() => {
     if (users) {
@@ -75,9 +87,21 @@ function AdminUsers() {
               onChange={(e) => setUserQuery(e.target.value)}
             />
           </div>
-          <Button size='medium' width='full' type='secondary-gray' text='Add a user' onclick={() => setModalState({ ...modalState, addUser: true })} />
+          <Button
+            size='medium'
+            width='full'
+            type='secondary-gray'
+            text='Add a user'
+            onclick={() => setModalState({ ...modalState, addUser: true })}
+          />
         </div>
-        {users && filteredUsers ? <AdminUsersTable users={filteredUsers} /> : <div>Loading...</div>}
+        {users && filteredUsers ? (
+          <AdminUsersTable toggleStatus={toggleUserStatus} users={filteredUsers} />
+        ) : (
+          <div className='flex items-center justify-center w-full h-96'>
+            <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
+          </div>
+        )}
       </div>
     </>
   );

@@ -10,5 +10,6 @@ namespace server.Services.UserService
         Task<ServiceResponse<List<GetUserDTO>>> AddUser(AddUserDTO newUser);
         Task<ServiceResponse<bool>> EmailExists(string email);
         Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers();
+        Task<ServiceResponse<List<GetUserDTO>>> ToggleUserStatus(Guid id);
     }
 }

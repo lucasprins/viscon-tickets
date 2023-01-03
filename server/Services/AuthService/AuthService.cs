@@ -78,6 +78,13 @@ namespace server.Services.AuthService
         return response;
       }
 
+      if (!dbUser.IsActive)
+      {
+        response.Success = false;
+        response.Message = "Your account has been deactivated";
+        return response;
+      }
+
       if (dbUser.PasswordHash != null && dbUser.PasswordSalt != null)
       {
         if (!VerifyPasswordHash(user.Password, dbUser.PasswordHash, dbUser.PasswordSalt))

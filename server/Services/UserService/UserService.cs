@@ -96,13 +96,49 @@ namespace server.Services.UserService
 
       try
       {
-        var users = await _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).ToListAsync();
+        var users = await _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenBy(u => u.FirstName).ToListAsync();
         response.Data = users.Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
       }
       catch
       {
         response.Success = false;
         response.Message = "Something went wrong while getting the users.";
+      }
+
+      return response;
+    }
+
+    public async Task<ServiceResponse<List<GetUserDTO>>> ToggleUserStatus(Guid id)
+    {
+      ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
+      var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+      if (requestUser == null)
+      {
+        response.Success = false;
+        response.Message = "Requesting user not found.";
+        return response;
+      }
+
+      try
+      {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        
+        if (user == null)
+        {
+          response.Success = false;
+          response.Message = "User not found.";
+          return response;
+        }
+        
+        user.IsActive = !user.IsActive;
+        await _context.SaveChangesAsync();
+        response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+      }
+      catch
+      {
+        response.Success = false;
+        response.Message = "Something went wrong while toggling the user status.";
       }
 
       return response;

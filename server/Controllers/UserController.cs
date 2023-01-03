@@ -36,5 +36,11 @@ namespace server.Controllers
         {
             return Ok(await _userService.GetAllUsers());
         }
+
+        [HttpPut("ToggleUserStatus/{id}"), Authorize(Roles = "VisconAdmin, CustomerAdmin")]
+        public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> ToggleUserStatus(Guid id)
+        {
+            return Ok(await _userService.ToggleUserStatus(id));
+        }
     }
 }
