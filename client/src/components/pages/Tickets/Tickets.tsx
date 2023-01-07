@@ -33,17 +33,20 @@ export function Tickets() {
   const [page, setPage] = useState(1);
   const maxPages = Math.ceil(unresolvedTickets / 10);
 
-  const statusOptions = user?.role === "VisconAdmin" || user?.role === "VisconEmployee" ? [
-    { value: "", label: "All" },
-    { value: "Open", label: translations[language].open },
-    { value: "InProgress", label: translations[language].inProgress },
-    { value: "Resolved", label: translations[language].resolved },
-    { value: "Cancelled", label: translations[language].cancelled },
-  ] : [
-    { value: "", label: "All" },
-    { value: "Resolved", label: translations[language].resolved },
-    { value: "Cancelled", label: translations[language].cancelled },
-  ];
+  const statusOptions =
+    user?.role === "VisconAdmin" || user?.role === "VisconEmployee"
+      ? [
+          { value: "", label: "All" },
+          { value: "Open", label: translations[language].open },
+          { value: "InProgress", label: translations[language].inProgress },
+          { value: "Resolved", label: translations[language].resolved },
+          { value: "Cancelled", label: translations[language].cancelled },
+        ]
+      : [
+          { value: "", label: "All" },
+          { value: "Resolved", label: translations[language].resolved },
+          { value: "Cancelled", label: translations[language].cancelled },
+        ];
 
   const [statusFilter, setStatusFilter] = useState({ value: "", label: "All" });
 
@@ -76,11 +79,11 @@ export function Tickets() {
 
   useEffect(() => {
     fetchTickets();
-
-    console.table(tickets);
+    const interval = setInterval(fetchTickets, 90000);
 
     return () => {
       sourceTickets.cancel();
+      clearInterval(interval);
     };
   }, [page, statusFilter]);
 
@@ -119,13 +122,13 @@ export function Tickets() {
         </div>
         {!loadingTickets ? (
           <div className='hidden w-full gap-6 lg:flex '>
-            <MetricCard content={openTickets} title="Open tickets" />
+            <MetricCard content={openTickets} title='Open tickets' />
             <MetricCard content={unresolvedTickets} title='Unresolved tickets' />
             <MetricCard content={yourTickets} title='Your tickets' />
           </div>
         ) : (
           <div className='hidden w-full gap-6 lg:flex '>
-            <MetricCard content={metricsSpinner} title="Open tickets" />
+            <MetricCard content={metricsSpinner} title='Open tickets' />
             <MetricCard content={metricsSpinner} title='Total tickets' />
             <MetricCard content={metricsSpinner} title='Your tickets' />
           </div>
@@ -149,6 +152,7 @@ export function Tickets() {
             <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
           </div>
         )}
+        <div className='flex justify-center w-full text-sm text-gray-500 dark:text-dark-400'>{translations[language]["tickets.refetch-description"]}</div>
       </div>
     </div>
   );

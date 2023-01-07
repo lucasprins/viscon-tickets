@@ -12,7 +12,7 @@ export function Breadcrumbs({ crumbs }: { crumbs: Array<string> }) {
       {crumbs.map((crumb, index) => (
         <div className='flex items-center gap-x-2' key={index}>
           <Link to={crumb === "Dashboard" ? "/" : "/" + crumb.toLowerCase()}>
-            <button className='px-2 py-1 text-sm font-semibold text-gray-700 transition-all duration-200 bg-white border border-gray-200 rounded-md dark:border-dark-700 hover:bg-gray-100 dark:hover:bg-dark-500 drop-shadow-sm dark:bg-dark-600 dark:font-medium dark:text-white'>
+            <button className='px-2 py-1 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-md dark:border-dark-700 hover:bg-gray-100 dark:hover:bg-dark-500 drop-shadow-sm dark:bg-dark-600 dark:font-medium dark:text-white'>
               {crumb}
             </button>
           </Link>

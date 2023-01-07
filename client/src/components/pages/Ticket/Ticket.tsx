@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import React, { Fragment, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import TicketService from "../../../features/tickets/ticketsService";
+import FileService from "../../../services/file-upload/fileService";
 import { useAppContext, useAppSelector } from "../../../utils/hooks";
 import { ticketType } from "../../../utils/types";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
@@ -85,9 +86,7 @@ export function Ticket() {
 
   const addSolution = async (solution: string) => {
     setAddingSolution(true);
-    console.log(solution);
     const response = await TicketService.addSolution(ticketID, accessToken, solution);
-    console.log(response);
     if (response.data.success) {
       setTicket(response.data.data);
     }
@@ -112,6 +111,14 @@ export function Ticket() {
 
   return (
     <>
+      <div className='absolute top-0 left-0 z-50 flex flex-col w-screen h-screen gap-3 bg-black/50'>
+        {ticket?.attachments?.map((attachment, index) => {
+          return (
+            <img className='object-contain w-3/4 max-w-3xl h-3/4 max-h-3xl' src={attachment.url} alt='attachment' />
+          );
+        })}
+      </div>
+
       <TicketModals ticketModals={ticketModals} setTicketModals={setTicketModals} />
       <div className='flex flex-col w-full h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
         <Layout />
@@ -314,7 +321,7 @@ export function Ticket() {
                         <Formik initialValues={ticket} onSubmit={(ticket) => addSolution(ticket.solution)}>
                           {({ values, errors, touched, isValidating }) => (
                             <Form className='flex flex-col items-end w-full gap-5'>
-                               {ticket.status === "Cancelled" ? (
+                              {ticket.status === "Cancelled" ? (
                                 <div className='flex flex-col w-full gap-1.5'>
                                   <InputLabel htmlFor='cancelReason' text='Reason for cancelling' />
                                   <InputTextArea disabled id='cancelReason' name='cancelReason' />
@@ -328,7 +335,7 @@ export function Ticket() {
                                   name='solution'
                                 />
                               </div>
-                             
+
                               {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
                                 <div>
                                   <Button

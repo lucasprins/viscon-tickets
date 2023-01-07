@@ -48,8 +48,9 @@ export function Login() {
   };
 
   useEffect(() => {
-    console.log(appState.isAuthenticated);
-  });
+    localStorage.removeItem("user");
+    appDispatch({ type: "USER_LOGOUT" });
+  }, []);
 
   if (useAuthentication()) {
     return <Navigate to='/tickets' />;
