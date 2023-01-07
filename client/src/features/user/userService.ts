@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authHeader } from "../auth/authHeader";
 
-const API_URL = "https://localhost:7295/api/user/";
+const API_URL = `${process.env.REACT_APP_API_URL}user/`;
 
 const getUsers = async () => {
   const response = await axios.get(API_URL + "GetUsers", {
