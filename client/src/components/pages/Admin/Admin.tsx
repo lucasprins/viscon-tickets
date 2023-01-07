@@ -8,6 +8,7 @@ import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import Layout from "../../organisms/Layout/Layout";
 import AdminCompanies from "./AdminCompanies";
 import AdminMachines from "./AdminMachines";
+import AdminUsers from "./AdminUsers";
 
 var translations = require("../../../translations/allTranslations.json");
 
@@ -113,7 +114,9 @@ const Admin = () => {
                     <Tab.Panel>Issues</Tab.Panel>
                   </>
                 )}
-                <Tab.Panel>Users</Tab.Panel>
+                <Tab.Panel>
+                  <AdminUsers />
+                </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
           </div>

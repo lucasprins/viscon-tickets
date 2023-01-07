@@ -32,6 +32,7 @@ namespace server
 
             CreateMap<Solution, GetSolutionDTO>();
             CreateMap<AddSolutionDTO, Solution>();
+            CreateMap<Attachment, AttachmentDTO>();
         }
     }
 }

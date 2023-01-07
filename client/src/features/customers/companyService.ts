@@ -1,7 +1,7 @@
 import axios, { CancelToken } from "axios";
 import { authHeader } from "../auth/authHeader";
 
-const API_URL = "https://localhost:7295/api/company/";
+const API_URL = `${process.env.REACT_APP_API_URL}company/`;
 
 const getAllCompanies = async (cancelToken: CancelToken) => {
   const response = await axios.get(API_URL + "GetAllCompanies/", {

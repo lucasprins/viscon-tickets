@@ -2,15 +2,11 @@ import { Tab } from "@headlessui/react";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import CompanyService from "../../../features/customers/companyService";
 import MachineService from "../../../features/machines/machinesService";
-import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
-import { CompanyMachineJoined, companyType, MachineType } from "../../../utils/types";
+import { useAppContext, useModalContext } from "../../../utils/hooks";
+import { MachineType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
-import { Spinner } from "../../atoms/Spinner/Spinner";
-import ModalAddCompany from "../../organisms/Modal/ModalAddCompany";
-import ModalAddCompanyMachine from "../../organisms/Modal/ModalAddCompanyMachine";
 import ModalAddMachine from "../../organisms/Modal/ModalAddMachine";
 import AdminMachinesTable from "./Tables/AdminMachinesTable";
 
@@ -21,7 +17,6 @@ const AdminMachines = () => {
   const { modalDispatch } = useModalContext();
 
   const user = appState.user;
-  const dispatch = useAppDispatch();
   const language = appState.language;
 
   const [queryMachine, setQueryMachine] = useState<string>("");

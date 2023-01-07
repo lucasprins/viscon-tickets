@@ -11,14 +11,13 @@ export default function Layout() {
 
 	const toggleSidebar = () => {
 		setSidebar((prevState) => !prevState);
-		modalDispatch({ type: "TOGGLE_BACKDROP", payload: "z-20" });
 	};
 
 	return (
 		<>
 			<NavigationMobile openSidebar={toggleSidebar} />
 			<Backdrop close={toggleSidebar} />
-			<NavigationSidebarMobile state={sidebar} />
+			<NavigationSidebarMobile state={sidebar} setState={setSidebar}  />
 			<NavigationSidebarDesktop />
 		</>
 	);

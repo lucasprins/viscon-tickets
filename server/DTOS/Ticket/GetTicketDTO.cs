@@ -23,6 +23,8 @@ namespace server.DTOS
         public string Solution { get; set; } = null!;
         public string CancelReason { get; set; } = null!;
 
+        public List<AttachmentDTO>? Attachments { get; set; } = null!;
+
         public GetCompanyDTO Company { get; set; } = null!;
         public GetTicketUserDTO Creator { get; set; } = null!;
         public GetTicketUserDTO? Assignee { get; set; }

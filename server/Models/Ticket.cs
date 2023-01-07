@@ -33,6 +33,6 @@ namespace server.Models
         public User? Assignee { get; set; } = null!;
         public Company Company { get; set; } = null!;
 
-
+        public ICollection<Attachment> Attachments { get; set; } = null!;
     }
 }

@@ -13,6 +13,8 @@ namespace server.Data
   {
     public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
+    public DataContext() { }
+
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
     public DbSet<Machine> Machines { get; set; } = null!;
@@ -22,11 +24,17 @@ namespace server.Data
     public DbSet<Solution> Solutions { get; set; } = null!;
     public DbSet<Issue> Issues { get; set; } = null!;
     public DbSet<Token> Tokens { get; set; } = null!;
+    public DbSet<Attachment> Attachments { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       Guid AdminCompanyGuid = Guid.NewGuid();
       Guid CustomerCompanyGuid = Guid.NewGuid();
+
+    modelBuilder.Entity<Attachment>()
+        .HasOne(a => a.Ticket)
+        .WithMany(t => t.Attachments)
+        .HasForeignKey(a => a.TicketId);
 
       modelBuilder.Entity<CompanyMachine>()
           .HasOne(cm => cm.Company)

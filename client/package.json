@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.5",
     "@headlessui/react": "^1.7.2",
     "@reduxjs/toolkit": "^1.8.5",
     "@tanstack/react-table": "^8.5.18",
@@ -10,6 +11,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "aws-sdk": "^2.1282.0",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "react": "^18.2.0",

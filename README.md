@@ -1,28 +1,19 @@
-## Viscon Tickets
+# Viscon Tickets
 
-In the project directory, you can run:
+A web application to help clients of Viscon solve their issues with various machines. User are able to consult a knowledgebase which provides a great way of self-sustainability. If the problem cant be solved by themselves, users can create a "ticket" which can be handled by a Viscon employee.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The package manager NPM has been used for this project. While NPM is compatible with the yarn registry it is generally recommended to stick with NPM to avoid any conflicts. 
 
-<<<<<<< Updated upstream
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-=======
 1. Download or clone the repository.
 2. Run `npm install` in the console while in the `client` directory to install the dependencies.
 3. Change the name of the .env.example file to .env
 4. Add the appropriate environment variables to the .env file.
 6. If you are using a local database you should run `dotnet ef database update` in the console while in the `server` directory to generate the database structure in your PostgreSQL database.
->>>>>>> Stashed changes
 
-### `npm test`
+## Starting the Project
 
-<<<<<<< Updated upstream
-Launches the test runner in the interactive watch mode.\
-=======
 1. Run `npm start` in the console while in the `client` directory
 2. Run `dotnet watch run` in the console while in the `server` directory.
 3. If port 3000 is open you can access the web application through a browser at `localhost:3000`. If it is not open, a different port will be specified in the console for the client folder.
@@ -58,4 +49,3 @@ Launches the test runner in the interactive watch mode.\
 - [Swashbuckle.AspNetCore](https://www.nuget.org/packages/Swashbuckle.AspNetCore) (version 6.2.3)
 - [Swashbuckle.AspNetCore.Filters](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Filters) (version 7.0.5)
 - [System.IdentityModel.Tokens.Jwt](https://www.nuget.org/packages/System.IdentityModel.Tokens.Jwt) (version 6.24.0)
->>>>>>> Stashed changes

@@ -39,6 +39,14 @@ export type companyMachineType = {
   machineId: string;
 };
 
+export type Attachment = {
+  id: string;
+  ticketId: string;
+  url: string;
+  key: string;
+  type: string; 
+}
+
 export type ticketType = {
   id: string;
   ticketNumber: Number;
@@ -51,6 +59,7 @@ export type ticketType = {
   actionExpected: string;
   actionPerformed: string;
   extraInfo: string;
+  attachments: Attachment[];
   solution: string;
   company: companyType;
   creator: ticketUserType;
