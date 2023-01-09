@@ -563,5 +563,29 @@ namespace server.Services.TicketService
 
       return serviceResponse;
     }
+
+    public async Task<ServiceResponse<GetTicketDTO>> ChangePriority(Guid ticketID, Priority priority)
+    {
+      ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+
+      try {
+        var ticket = _context.Tickets.FirstOrDefault(t => t.Id == ticketID);
+        if (ticket == null) {
+          serviceResponse.Success = false;
+          serviceResponse.Message = "Ticket not found.";
+          return serviceResponse;
+        }
+
+        ticket.Priority = priority;
+        _context.Tickets.Update(ticket);
+        await _context.SaveChangesAsync();
+        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+      } catch {
+        serviceResponse.Success = false;
+        serviceResponse.Message = "Unable to change priority of ticket with given id.";
+      }
+
+      return serviceResponse;
+    }
   }
 }

@@ -24,6 +24,8 @@
     },
     "nl": {
         "general.role": "Rol",
+        "general.priority": "Prioriteit",
+        "general.status": "Status",
 
         "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar tickets?",
         "createticket.modal.dashboard.button-primary": "Tickets",
@@ -46,6 +48,11 @@
         "admin.users.activate-user": "Activeer gebruiker",
         "admin.users.promote-user": "Promoveer gebruiker",
         "admin.users.demote-user": "Degradeer gebruiker",
+
+        "ticket.badge.priority.critical": "Kritiek",
+        "ticket.badge.priority.high": "Hoog",
+        "ticket.badge.priority.medium": "Gemiddeld",
+        "ticket.badge.priority.low": "Laag",
 
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
@@ -214,6 +221,8 @@
     },
     "en": {
         "general.role": "Role",
+        "general.priority": "Priority",
+        "general.status": "Status",
 
         "createticket.modal.dashboard.title": "Are you sure you want to go back to the tickets?",
         "createticket.modal.dashboard.button-primary": "Tickets",
@@ -237,9 +246,10 @@
         "admin.users.promote-user": "Promote user",
         "admin.users.demote-user": "Demote user",
 
-
-
-
+        "ticket.badge.priority.critical": "Critical",
+        "ticket.badge.priority.high": "High",
+        "ticket.badge.priority.medium": "Medium",
+        "ticket.badge.priority.low": "Low",
 
         
         "----------ClientFiles-------": "------ClientFiles------",

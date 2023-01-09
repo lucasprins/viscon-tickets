@@ -107,11 +107,6 @@ export function NavigationSidebar() {
             onclick={openLanguageModal}
             icon={<IconTranslate size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
           />
-          <NavigationItem
-            name={translations[language].notifications}
-            url='notifications'
-            icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-          />
         </ul>
 
         <Divider />

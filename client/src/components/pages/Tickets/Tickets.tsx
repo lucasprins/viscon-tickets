@@ -77,6 +77,7 @@ export function Tickets() {
     setLoadingTickets(false);
   };
 
+
   useEffect(() => {
     fetchTickets();
     const interval = setInterval(fetchTickets, 90000);
@@ -152,7 +153,9 @@ export function Tickets() {
             <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
           </div>
         )}
-        <div className='flex justify-center w-full text-sm text-gray-500 dark:text-dark-400'>{translations[language]["tickets.refetch-description"]}</div>
+        <div className='flex justify-center w-full text-sm text-gray-500 dark:text-dark-400'>
+          {translations[language]["tickets.refetch-description"]}
+        </div>
       </div>
     </div>
   );

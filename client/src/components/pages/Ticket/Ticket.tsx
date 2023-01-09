@@ -22,6 +22,7 @@ import { Spinner } from "../../atoms/Spinner/Spinner";
 import Layout from "../../organisms/Layout/Layout";
 import { TicketActions } from "./TicketActions";
 import { TicketModals } from "./TicketModals";
+import { TicketPriorityBadge } from "./TicketPriorityBadge";
 import { TicketStatusBadge } from "./TicketStatusBadge";
 
 var translations = require("../../../translations/allTranslations.json");
@@ -35,13 +36,14 @@ export interface ITicketModals {
 }
 
 export function Ticket() {
+  // Globals
   const { appState } = useAppContext();
-
   const user = appState.user;
   const language = appState.language;
   const accessToken = user?.accessToken || "";
   let ticketID = useParams().ticketID || "";
 
+  // State
   const [ticket, setTicket] = useState<ticketType>();
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchedTicketSuccess, setFetchedTicketSuccess] = useState<boolean>(false);
@@ -93,6 +95,17 @@ export function Ticket() {
     setAddingSolution(false);
   };
 
+  const handleChangeTicketPriority = async (priority: string) => {
+    await TicketService.changePriority(ticket?.id || "", priority)
+      .then((response) => {
+        setTicket(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
   useEffect(() => {
     fetchTicket();
 
@@ -111,14 +124,6 @@ export function Ticket() {
 
   return (
     <>
-      <div className='absolute top-0 left-0 z-50 flex flex-col w-screen h-screen gap-3 bg-black/50'>
-        {ticket?.attachments?.map((attachment, index) => {
-          return (
-            <img className='object-contain w-3/4 max-w-3xl h-3/4 max-h-3xl' src={attachment.url} alt='attachment' />
-          );
-        })}
-      </div>
-
       <TicketModals ticketModals={ticketModals} setTicketModals={setTicketModals} />
       <div className='flex flex-col w-full h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
         <Layout />
@@ -196,11 +201,22 @@ export function Ticket() {
                               <span className='font-medium text-gray-700 text-md dark:text-white'>
                                 {translations[language].creation_date}
                               </span>
-                              <div className='flex flex-row flex-wrap justify-between gap-1'>
-                                <span className='text-gray-700 dark:text-dark-300'>
-                                  {new Date(ticket.creationDate).toLocaleString()}
+                              <span className='text-gray-700 dark:text-dark-300'>
+                                {new Date(ticket.creationDate).toLocaleString()}
+                              </span>
+                            </div>
+                            <div className='flex gap-6'>
+                              <div className='flex flex-col flex-wrap justify-between gap-1'>
+                                <span className='font-medium text-gray-700 text-md dark:text-white'>
+                                  {translations[language]["general.status"]}
                                 </span>
                                 <TicketStatusBadge status={ticket.status} />
+                              </div>
+                              <div className='flex flex-col flex-wrap justify-between gap-1'>
+                                <span className='font-medium text-gray-700 text-md dark:text-white'>
+                                  {translations[language]["general.priority"]}
+                                </span>
+                                <TicketPriorityBadge handleChange={handleChangeTicketPriority} priority={ticket.priority} />
                               </div>
                             </div>
                             {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
@@ -371,11 +387,22 @@ export function Ticket() {
                       <span className='font-medium text-gray-700 text-md dark:text-white'>
                         {translations[language].creation_date}
                       </span>
-                      <div className='flex flex-row flex-wrap justify-between gap-1'>
-                        <span className='text-gray-700 dark:text-dark-300'>
-                          {new Date(ticket.creationDate).toLocaleString()}
+                      <span className='text-gray-700 dark:text-dark-300'>
+                        {new Date(ticket.creationDate).toLocaleString()}
+                      </span>
+                    </div>
+                    <div className='flex gap-6'>
+                      <div className='flex flex-col flex-wrap justify-between gap-1'>
+                        <span className='font-medium text-gray-700 text-md dark:text-white'>
+                          {translations[language]["general.status"]}
                         </span>
                         <TicketStatusBadge status={ticket.status} />
+                      </div>
+                      <div className='flex flex-col flex-wrap justify-between gap-1'>
+                        <span className='font-medium text-gray-700 text-md dark:text-white'>
+                          {translations[language]["general.priority"]}
+                        </span>
+                        <TicketPriorityBadge handleChange={handleChangeTicketPriority} priority={ticket.priority} />
                       </div>
                     </div>
                     {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (

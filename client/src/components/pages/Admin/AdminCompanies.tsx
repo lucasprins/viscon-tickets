@@ -140,8 +140,8 @@ const AdminCompanies = () => {
     };
   }, [selectedCompany]);
 
-  if(user?.role !== "VisconAdmin") {
-    return <Navigate to="access-denied" />
+  if (user?.role !== "VisconAdmin") {
+    return <Navigate to='access-denied' />;
   }
 
   return (
@@ -201,96 +201,31 @@ const AdminCompanies = () => {
                 />
               </div>
 
-              <Tab.Group>
-                <Tab.List className='flex w-full gap-6 border-b-2 border-gray-200 outline-none dark:border-dark-600 2xl:gap-8 no-scrollbar'>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={
-                          selected
-                            ? "text-primary-600 text-sm border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
-                            : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                        }
-                      >
-                        {translations[language].machines}
-                      </button>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={
-                          selected
-                            ? "text-primary-600 text-sm border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
-                            : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                        }
-                      >
-                        {translations[language].users}
-                      </button>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={
-                          selected
-                            ? "text-primary-600 text-sm border-b-2 border-primary-600 font-semibold px pb-3 -mb-0.5 outline-none"
-                            : "text-gray-500 text-sm dark:text-dark-300 dark:border-dark-600 border-b-2 font-semibold px pb-3 -mb-0.5 outline-none"
-                        }
-                      >
-                        {translations[language].tickets}
-                      </button>
-                    )}
-                  </Tab>
-                </Tab.List>
-
-                <Tab.Panels>
-                  {/* Machines Tab */}
-                  <Tab.Panel>
-                    <div className='flex flex-col items-end gap-6'>
-                      <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
-                        <div className='w-full'>
-                          <InputSearch
-                            value={queryMachine}
-                            placeholder={translations[language].search}
-                            onChange={(e) => setQueryMachine(e.target.value)}
-                          />
-                        </div>
-                        <Button
-                          size='medium'
-                          width='content'
-                          type='secondary-gray'
-                          text={translations[language].addMachine}
-                          onclick={() => toggleAddCompanyMachineModal()}
-                        />
-                      </div>
-                      {filteredCompanyMachines !== undefined ? (
-                        <AdminCompaniesMachinesTable companyMachines={filteredCompanyMachines} />
-                      ) : (
-                        <div className='flex items-center justify-center w-full mt-8 mb-8'>
-                          <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
-                        </div>
-                      )}
-                    </div>
-                  </Tab.Panel>
-
-                  {/* Users Tab */}
-                  <Tab.Panel>
-                    <div className='flex flex-col gap-6'>
-                      <InputSearch
-                        value={queryUser}
-                        placeholder={translations[language].search}
-                        onChange={(e) => setQueryUser(e.target.value)}
-                      />
-                    </div>
-                  </Tab.Panel>
-
-                  {/* Tickets Tab */}
-                  <Tab.Panel>
-                    <div className='flex flex-col gap-6'></div>
-                  </Tab.Panel>
-                </Tab.Panels>
-              </Tab.Group>
+              <div className='flex flex-col items-end gap-6'>
+                <div className='flex flex-col w-full gap-3 xl:flex xl:flex-row'>
+                  <div className='w-full'>
+                    <InputSearch
+                      value={queryMachine}
+                      placeholder={translations[language].search}
+                      onChange={(e) => setQueryMachine(e.target.value)}
+                    />
+                  </div>
+                  <Button
+                    size='medium'
+                    width='content'
+                    type='secondary-gray'
+                    text={translations[language].addMachine}
+                    onclick={() => toggleAddCompanyMachineModal()}
+                  />
+                </div>
+                {filteredCompanyMachines !== undefined ? (
+                  <AdminCompaniesMachinesTable companyMachines={filteredCompanyMachines} />
+                ) : (
+                  <div className='flex items-center justify-center w-full mt-8 mb-8'>
+                    <Spinner size='w-16 h-16' color='text-gray-200 dark:text-dark-600' fill='fill-primary-600' />
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <div></div>
