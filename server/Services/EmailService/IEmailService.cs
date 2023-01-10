@@ -8,6 +8,6 @@ namespace server.Services.EmailService
     public interface IEmailService
     {
         Task SendRegisterEmail(string email, string token);
-        Task SendNewTicketEmail(string email);
+        Task SendNewTicketEmail(Ticket ticket);
     }
 }

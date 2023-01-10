@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using server.Enums;
 using server.Services.AuthService;
+using server.Services.EmailService;
 
 namespace server.Services.TicketService
 {
@@ -13,13 +14,16 @@ namespace server.Services.TicketService
     private readonly IMapper _mapper;
     private readonly DataContext _context;
     private readonly IAuthService _authService;
+    private readonly IEmailService _emailService;
 
-    public TicketService(IMapper mapper, DataContext context, IAuthService authService)
+    public TicketService(DataContext context, IAuthService authService, IEmailService emailService, IMapper mapper)
     {
       _mapper = mapper;
-      _context = context;
+      _emailService = emailService;
       _authService = authService;
+      _context = context;
     }
+
 
     public async Task<GetTicketDTO> CreateGetTicketDTO(Ticket ticket)
     {
@@ -79,6 +83,7 @@ namespace server.Services.TicketService
         }
 
         _context.Tickets.Add(ticket);
+        await _emailService.SendNewTicketEmail(ticket);
         await _context.SaveChangesAsync();
         serviceResponse.Data = true;
       }
@@ -89,7 +94,6 @@ namespace server.Services.TicketService
         System.Console.WriteLine(ex.Message);
       }
 
-      // TODO: Stuur een notificatie naar alle viscon medewerkers
       return serviceResponse;
     }
 
