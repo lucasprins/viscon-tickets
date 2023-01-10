@@ -48,5 +48,11 @@ namespace server.Controllers
     {
       return Ok(await _userService.ChangeUserRole(id));
     }
+
+    [HttpPut("ChangeEmail/{id}/{email}")]
+    public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> ChangeEmail(Guid id, string email)
+    {
+      return Ok(await _userService.ChangeEmail(id, email));
+    }
   }
 }

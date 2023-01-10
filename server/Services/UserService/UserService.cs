@@ -65,58 +65,121 @@ namespace server.Services.UserService
       return response;
     }
 
-    public async Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id)
-    {
-      ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
-      var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
-
-      if (requestUser == null)
-      {
-        response.Success = false;
-        response.Message = "Requesting user not found.";
-        return response;
-      }
-
-      try
-      {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-
-        if (user == null)
+        public async Task<ServiceResponse<List<GetUserDTO>>> ChangeEmail(Guid id, string email)
         {
-          response.Success = false;
-          response.Message = "User not found.";
+          ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
+
+          try
+          {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+              response.Success = false;
+              response.Message = "User not found.";
+              return response;
+            }
+
+            user.Email = email;
+
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            response.Data = _context.Users.Where(u => u.CompanyId == user.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+          }
+
+          catch
+          {
+            response.Success = false;
+            response.Message = "Something went wrong while changing the users email.";
+          }
+
           return response;
         }
 
-        if (user.Role == Role.VisconAdmin)
+        public async Task<ServiceResponse<List<GetUserDTO>>> ChangePhoneNumber(Guid id, string phoneNumber)
         {
-          user.Role = Role.VisconEmployee;
-        }
-        else if (user.Role == Role.VisconEmployee)
-        {
-          user.Role = Role.VisconAdmin;
-        }
-        else if (user.Role == Role.CustomerAdmin)
-        {
-          user.Role = Role.CustomerEmployee;
-        }
-        else if (user.Role == Role.CustomerEmployee)
-        {
-          user.Role = Role.CustomerAdmin;
+          ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
+
+          try
+          {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+              response.Success = false;
+              response.Message = "User not found.";
+              return response;
+            }
+
+            user.PhoneNumber = phoneNumber;
+
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            response.Data = _context.Users.Where(u => u.CompanyId == user.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+          }
+
+          catch
+          {
+            response.Success = false;
+            response.Message = "Something went wrong while changing the users phone number.";
+          }
+
+          return response;
         }
 
-        _context.Update(user);
-        await _context.SaveChangesAsync();
-        response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
-      }
-      catch
+        public async Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id)
       {
-        response.Success = false;
-        response.Message = "Something went wrong while changing the user role.";
-      }
+        ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
+        var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
 
-      return response;
-    }
+        if (requestUser == null)
+        {
+          response.Success = false;
+          response.Message = "Requesting user not found.";
+          return response;
+        }
+
+        try
+        {
+          var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+          if (user == null)
+          {
+            response.Success = false;
+            response.Message = "User not found.";
+            return response;
+          }
+
+          if (user.Role == Role.VisconAdmin)
+          {
+            user.Role = Role.VisconEmployee;
+          }
+          else if (user.Role == Role.VisconEmployee)
+          {
+            user.Role = Role.VisconAdmin;
+          }
+          else if (user.Role == Role.CustomerAdmin)
+          {
+            user.Role = Role.CustomerEmployee;
+          }
+          else if (user.Role == Role.CustomerEmployee)
+          {
+            user.Role = Role.CustomerAdmin;
+          }
+
+          _context.Update(user);
+          await _context.SaveChangesAsync();
+          response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+        }
+
+        catch
+        {
+          response.Success = false;
+          response.Message = "Something went wrong while changing the user role.";
+        }
+
+        return response;
+      }
 
     public async Task<ServiceResponse<bool>> EmailExists(string email)
     {
