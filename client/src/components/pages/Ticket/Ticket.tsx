@@ -178,7 +178,7 @@ export function Ticket() {
                           </button>
                         )}
                       </Tab>
-                      <Tab as={Fragment}>
+                      {/* <Tab as={Fragment}>
                         {({ selected }) => (
                           <button
                             className={
@@ -190,7 +190,7 @@ export function Ticket() {
                             {translations[language].history}
                           </button>
                         )}
-                      </Tab>
+                      </Tab> */}
                     </Tab.List>
                     <Tab.Panels>
                       {/* Ticket */}
@@ -375,7 +375,7 @@ export function Ticket() {
                       </Tab.Panel>
 
                       {/* History Panel */}
-                      <Tab.Panel>History...</Tab.Panel>
+                      {/* <Tab.Panel>History...</Tab.Panel> */}
                     </Tab.Panels>
                   </Tab.Group>
                 </div>

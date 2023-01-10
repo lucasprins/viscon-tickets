@@ -26,6 +26,8 @@
         "general.role": "Rol",
         "general.priority": "Prioriteit",
         "general.status": "Status",
+        "general.issue": "Probleem",
+        "general.description": "Beschrijving",
 
         "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar tickets?",
         "createticket.modal.dashboard.button-primary": "Tickets",
@@ -48,6 +50,17 @@
         "admin.users.activate-user": "Activeer gebruiker",
         "admin.users.promote-user": "Promoveer gebruiker",
         "admin.users.demote-user": "Degradeer gebruiker",
+
+        "admin.issues.no-issues-found": "Geen problemen gevonden...",
+        "admin.issues.no-issues-found-subtitle": "Het lijkt er op dat er nog geen problemen zijn voor deze machine. Probeer de pagina te verversen als u denkt dat dit een fout is.",
+        "admin.issues.no-solutions-found": "Geen oplossingen gevonden...",
+        "admin.issues.no-solutions-found-subtitle": "Het lijkt er op dat er nog geen oplossingen zijn voor dit probleem. Probeer de pagina te verversen als u denkt dat dit een fout is.",
+        "admin.issues.add-issue-button": "Probleem toevoegen",
+        "admin.issues.add-issue-modal.title": "Probleem toevoegen",
+        "admin.issues.add-issue-modal.placeholder": "Beschrijf het probleem",
+        "admin.issues.add-solution-button": "Oplossing toevoegen",
+        "admin.issues.add-solution-modal.title": "Oplossing toevoegen",
+        "admin.issues.add-solution-modal.placeholder": "Beschrijf de oplossing",
 
         "ticket.badge.priority.critical": "Kritiek",
         "ticket.badge.priority.high": "Hoog",
@@ -223,6 +236,8 @@
         "general.role": "Role",
         "general.priority": "Priority",
         "general.status": "Status",
+        "general.issue": "Issue",
+        "general.description": "Description",
 
         "createticket.modal.dashboard.title": "Are you sure you want to go back to the tickets?",
         "createticket.modal.dashboard.button-primary": "Tickets",
@@ -245,6 +260,18 @@
         "admin.users.activate-user": "Activate user",
         "admin.users.promote-user": "Promote user",
         "admin.users.demote-user": "Demote user",
+
+        "admin.issues.no-issues-found": "No issues found...",
+        "admin.issues.no-issues-found-subtitle": "It looks like there are no issues in the system for this machine. Please try refreshing the page if you think this is an error.",
+        "admin.issues.no-solutions-found": "No solutions found...",
+        "admin.issues.no-solutions-found-subtitle": "It looks like there are no solutions in the system for this issue. Please try refreshing the page if you think this is an error.",
+        "admin.issues.add-issue-button": "Add issue",
+        "admin.issues.add-issue-modal.title": "Add an issue",
+        "admin.issues.add-issue-modal.placeholder": "Describe the issue",
+        "admin.issues.add-solution-button": "Add solution",
+        "admin.issues.add-solution-modal.title": "Add a solution",
+        "admin.issues.add-solution-modal.placeholder": "Describe the solution",
+
 
         "ticket.badge.priority.critical": "Critical",
         "ticket.badge.priority.high": "High",

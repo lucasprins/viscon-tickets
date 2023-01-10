@@ -48,7 +48,7 @@ function InputDropdownAutoComplete<T extends unknown>({
           <Combobox.Input
             onChange={(event) => setQuery(event.target.value)}
             displayValue={(item: T) => (item ? `${item[selectedKey]}` : "")}
-            className='focus:outline-4 font-medium outline-primary-500 dark:outline-0 w-full rounded-lg mb-2 flex border bg-white text-gray-800 drop-shadow-sm border-gray-200 py-2.5 px-3.5 dark:text-white dark:font-normal dark:border-dark-600 dark:bg-dark-700'
+            className='focus:outline-4 font-medium outline-primary-500 dark:outline-0 w-full rounded-lg flex border bg-white text-gray-800 drop-shadow-sm border-gray-200 py-2.5 px-3.5 dark:text-white dark:font-normal dark:border-dark-600 dark:bg-dark-700'
           />
           <Combobox.Options className='w-full absolute bg-white z-40 focus:outline-4 outline-primary-200 dark:outline-0 cursor-pointer overflow-y-scroll no-scrollbar p-1.5 max-h-72 rounded-lg drop-shadow-sm dark:bg-dark-700 text-gray-800 font-medium flex flex-col gap-1 border border-gray-200 dark:text-white dark:font-normal dark:border-dark-600'>
             {filteredItems.map((item) => (

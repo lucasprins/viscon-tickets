@@ -201,7 +201,7 @@ export const TicketActions = ({
             width='full'
             type='primary'
             text={translations[language].resolve}
-            disabled={unclaimingTicket || resolvingTicket || (ticket.solution != " " && ticket.solution != null )}
+            disabled={unclaimingTicket || resolvingTicket || (ticket.solution === "" ) || (ticket.solution === null)}
             onclick={resolveTicket}
             icon={
               resolvingTicket ? (

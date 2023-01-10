@@ -7,6 +7,7 @@ import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import Layout from "../../organisms/Layout/Layout";
 import AdminCompanies from "./AdminCompanies";
+import AdminIssues from "./AdminIssues";
 import AdminMachines from "./AdminMachines";
 import AdminUsers from "./AdminUsers";
 
@@ -111,7 +112,7 @@ const Admin = () => {
                     {/* Machines Tab */}
                     <AdminMachines />
                     {/* Issues Tab */}
-                    <Tab.Panel>Issues</Tab.Panel>
+                    <AdminIssues />
                   </>
                 )}
                 <Tab.Panel>

@@ -88,20 +88,20 @@ export const TicketPriorityBadge = ({
         >
           <Badge
             size='md'
-            color='success'
+            color='gray'
             text={translations[language]["ticket.badge.priority.medium"]}
             icon={
               <IconChevron
                 direction='down'
                 size='14'
-                fill='fill-success-600 dark:fill-success-400'
-                color='stroke-success-600 dark:stroke-success-400'
+                fill='fill-gray-600 dark:fill-gray-400'
+                color='stroke-gray-600 dark:stroke-gray-400'
               />
             }
           />
         </button>
       ) : (
-        <Badge size='md' color='success' text={translations[language]["ticket.badge.priority.medium"]} />
+        <Badge size='md' color='gray' text={translations[language]["ticket.badge.priority.medium"]} />
       );
       break;
     case "low":
@@ -135,7 +135,7 @@ export const TicketPriorityBadge = ({
     <div className='relative'>
       {showOptionsMenu && (
         <RadioGroup
-          className='absolute z-10 flex flex-col gap-1 p-4 mt-8 bg-white border border-gray-200 rounded-lg drop-shadow-sm'
+          className='absolute z-10 flex flex-col gap-1 p-4 mt-8 bg-white border border-gray-200 rounded-lg dark:border-dark-500 dark:bg-dark-600 drop-shadow-sm'
           value={value}
           onChange={(value: string) => handleChangePriority(value)}
         >
@@ -146,7 +146,7 @@ export const TicketPriorityBadge = ({
                 {checked && (
                   <IconCheck
                     size='16'
-                    color='stroke-primary-600 dark:stroke-primary-400'
+                    color='stroke-primary-600 dark:stroke-primary-500'
                   />
                 )}
               </span>
@@ -159,7 +159,7 @@ export const TicketPriorityBadge = ({
                 {checked && (
                   <IconCheck
                     size='16'
-                    color='stroke-primary-600 dark:stroke-primary-400'
+                    color='stroke-primary-600 dark:stroke-primary-500'
                   />
                 )}
               </span>
@@ -172,7 +172,7 @@ export const TicketPriorityBadge = ({
                 {checked && (
                   <IconCheck
                     size='16'
-                    color='stroke-primary-600 dark:stroke-primary-400'
+                    color='stroke-primary-600 dark:stroke-primary-500'
                   />
                 )}
               </span>
@@ -185,7 +185,7 @@ export const TicketPriorityBadge = ({
                 {checked && (
                   <IconCheck
                     size='16'
-                    color='stroke-primary-600 dark:stroke-primary-400'
+                    color='stroke-primary-600 dark:stroke-primary-500'
                   />
                 )}
               </span>
