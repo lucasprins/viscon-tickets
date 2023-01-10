@@ -49,10 +49,16 @@ namespace server.Controllers
       return Ok(await _userService.ChangeUserRole(id));
     }
 
-    [HttpPut("ChangeEmail/{id}/{email}")]
+    [HttpPut("ChangeEmail/{id}/{email}"), Authorize]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> ChangeEmail(Guid id, string email)
     {
       return Ok(await _userService.ChangeEmail(id, email));
+    }
+
+    [HttpPut("ChangePhoneNumber/{id}/{phoneNumber}"), Authorize]
+    public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> ChangePhoneNumber(Guid id, string phoneNumber)
+    {
+      return Ok(await _userService.ChangePhoneNumber(id, phoneNumber));
     }
   }
 }

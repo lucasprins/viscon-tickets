@@ -123,12 +123,6 @@ export function TableTickets({
         );
       },
     }),
-    columnHelper.accessor("priority", {
-      header: "Priority",
-      cell: (props) => {
-        return <TicketPriorityBadge priority={props.getValue()} />
-      },
-    }),
 
     columnHelper.accessor("machineName", {
       header: "Machine",
@@ -175,6 +169,21 @@ export function TableTickets({
       },
     }),
   ];
+
+  if (user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+    columnsNonMemoBig.splice(
+      4,
+      0,
+      columnHelper.accessor("priority", {
+        header: "Priority",
+        cell: (props) => {
+          return <TicketPriorityBadge priority={props.getValue()} />;
+        },
+      })
+    );
+  }
+
+  // change the code above to insert the helper at the 5th index instead
 
   const isMobile = useWindowMobile();
   // const [isMobile, setIsMobile] = useState(false);

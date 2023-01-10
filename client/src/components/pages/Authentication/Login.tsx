@@ -111,7 +111,7 @@ export function Login() {
                     text={loading ? translations[language].loggingIn : translations[language].login}
                     icon={loading ? <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' /> : undefined}
                   />
-                  <Button
+                  {/* <Button
                     disabled={loading}
                     formType='button'
                     size='medium'
@@ -119,7 +119,7 @@ export function Login() {
                     width='full'
                     type='secondary-gray'
                     text={translations[language].forgotPassword}
-                  />
+                  /> */}
                 </div>
                 {/* Error message */}
                 {error !== "" && (

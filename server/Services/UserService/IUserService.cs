@@ -13,7 +13,7 @@ namespace server.Services.UserService
         Task<ServiceResponse<List<GetUserDTO>>> ToggleUserStatus(Guid id);
         Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id);
         // Task<ServiceResponse<List<GetUserDTO>>> ChangePassword(Guid id);
-        Task<ServiceResponse<List<GetUserDTO>>> ChangePhoneNumber(Guid id, string phoneNumber);
-        Task<ServiceResponse<List<GetUserDTO>>> ChangeEmail(Guid id, string email);
+        Task<ServiceResponse<GetUserDTO>> ChangePhoneNumber(Guid id, string phoneNumber);
+        Task<ServiceResponse<GetUserDTO>> ChangeEmail(Guid id, string email);
     }
 }

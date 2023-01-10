@@ -105,7 +105,6 @@ export function Ticket() {
       });
   };
 
-
   useEffect(() => {
     fetchTicket();
 
@@ -213,10 +212,17 @@ export function Ticket() {
                                 <TicketStatusBadge status={ticket.status} />
                               </div>
                               <div className='flex flex-col flex-wrap justify-between gap-1'>
-                                <span className='font-medium text-gray-700 text-md dark:text-white'>
-                                  {translations[language]["general.priority"]}
-                                </span>
-                                <TicketPriorityBadge handleChange={handleChangeTicketPriority} priority={ticket.priority} />
+                                {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
+                                  <>
+                                    <span className='font-medium text-gray-700 text-md dark:text-white'>
+                                      {translations[language]["general.priority"]}
+                                    </span>
+                                    <TicketPriorityBadge
+                                      handleChange={handleChangeTicketPriority}
+                                      priority={ticket.priority}
+                                    />
+                                  </>
+                                )}
                               </div>
                             </div>
                             {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
@@ -399,10 +405,14 @@ export function Ticket() {
                         <TicketStatusBadge status={ticket.status} />
                       </div>
                       <div className='flex flex-col flex-wrap justify-between gap-1'>
-                        <span className='font-medium text-gray-700 text-md dark:text-white'>
-                          {translations[language]["general.priority"]}
-                        </span>
-                        <TicketPriorityBadge handleChange={handleChangeTicketPriority} priority={ticket.priority} />
+                        {(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") && (
+                          <>
+                            <span className='font-medium text-gray-700 text-md dark:text-white'>
+                              {translations[language]["general.priority"]}
+                            </span>
+                            <TicketPriorityBadge handleChange={handleChangeTicketPriority} priority={ticket.priority} />
+                          </>
+                        )}
                       </div>
                     </div>
                     {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
