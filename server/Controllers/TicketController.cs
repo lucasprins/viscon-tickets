@@ -75,5 +75,10 @@ namespace server.Controllers
         }
 
         // ADD SOLUTION ATTACHMENT
+        [HttpPut("ChangePriority/{ticketID}"), Authorize(Roles = "VisconAdmin, VisconEmployee")]
+        public async Task<ActionResult<ServiceResponse<GetTicketDTO>>> ChangePriority(Guid ticketID, Priority priority)
+        {
+            return Ok(await _ticketService.ChangePriority(ticketID, priority));
+        }
     }
 }

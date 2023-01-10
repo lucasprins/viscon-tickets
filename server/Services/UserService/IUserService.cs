@@ -12,5 +12,8 @@ namespace server.Services.UserService
         Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers();
         Task<ServiceResponse<List<GetUserDTO>>> ToggleUserStatus(Guid id);
         Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id);
+        // Task<ServiceResponse<List<GetUserDTO>>> ChangePassword(Guid id);
+        Task<ServiceResponse<GetUserDTO>> ChangePhoneNumber(Guid id, string phoneNumber);
+        Task<ServiceResponse<GetUserDTO>> ChangeEmail(Guid id, string email);
     }
 }

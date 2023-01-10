@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
 import { NavigationHeader } from "./NavigationHeader";
@@ -21,6 +21,7 @@ import { Divider } from "../../atoms/Divider/Divider";
 import { Link } from "react-router-dom";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import AuthService from "../../../features/auth/authService";
+import ModalAccount from "../Modal/ModalAccount";
 
 var translations = require("../../../translations/allTranslations.json");
 
@@ -34,9 +35,11 @@ export function NavigationSidebar() {
   const root = document.getElementsByTagName("html")[0];
 
   const openLanguageModal = () => {
-    modalDispatch({ type: "TOGGLE_LANGUAGE"});
-    modalDispatch({ type: "TOGGLE_BACKDROP"});
+    modalDispatch({ type: "TOGGLE_LANGUAGE" });
+    modalDispatch({ type: "TOGGLE_BACKDROP" });
   };
+
+  const [modalAccountOpen, setModalAccountOpen] = useState(false);
 
   const toggleAppearance = () => {
     if (localStorage.getItem("theme") === "dark") {
@@ -53,11 +56,12 @@ export function NavigationSidebar() {
   const handleLogout = useCallback(() => {
     AuthService.logout();
     appDispatch({ type: "USER_LOGOUT" });
-
   }, [dispatch]);
 
   return (
     <>
+      {user && <ModalAccount user={user} state={modalAccountOpen} onClose={() => setModalAccountOpen(false)} />}
+
       {/* Navigation Header */}
       <div className='flex flex-col gap-y-6'>
         <div className='pl-6 pr-4'>
@@ -82,15 +86,17 @@ export function NavigationSidebar() {
 
           <NavigationItem
             name={translations[language].account}
-            url='account'
+            onclick={() => setModalAccountOpen(true)}
             icon={<IconUser size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
           />
 
-          {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? <NavigationItem
-            name='Admin'
-            url='admin'
-            icon={<IconKey size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-          /> : null}
+          {user?.role === "VisconAdmin" || user?.role === "CustomerAdmin" ? (
+            <NavigationItem
+              name='Admin'
+              url='admin'
+              icon={<IconKey size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+            />
+          ) : null}
         </ul>
       </div>
 
@@ -107,16 +113,11 @@ export function NavigationSidebar() {
             onclick={openLanguageModal}
             icon={<IconTranslate size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
           />
-          <NavigationItem
-            name={translations[language].notifications}
-            url='notifications'
-            icon={<IconBell size='24' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
-          />
         </ul>
 
         <Divider />
         <div className='flex justify-between'>
-          <Link to='/account' className='flex items-center gap-3 ml-2'>
+          <div className="flex items-center gap-3">
             <Avatar name={user?.firstName + " " + user?.lastName} color='gray' />
             <div className='flex flex-col'>
               <span className='text-sm font-semibold text-gray-700 dark:text-white'>
@@ -124,7 +125,7 @@ export function NavigationSidebar() {
               </span>
               <span className='text-sm text-gray-500 dark:text-dark-300'>{user?.company.name}</span>
             </div>
-          </Link>
+          </div>
           <ButtonIcon
             onclick={handleLogout}
             icon={<IconLogout size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}

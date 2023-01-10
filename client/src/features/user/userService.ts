@@ -59,12 +59,38 @@ const emailExists = async (email: string) => {
   return response;
 };
 
+const changePhoneNumber = async (userId: string, phoneNumber: string) => {
+  const response = await axios.put(
+    API_URL + "ChangePhoneNumber/" + userId + "/" + phoneNumber,
+    {},
+    {
+      headers: authHeader(),
+    }
+  );
+
+  return response;
+};
+
+const changeEmail = async (userId: string, email: string) => {
+  const response = await axios.put(
+    API_URL + "ChangeEmail/" + userId + "/" + email,
+    {},
+    {
+      headers: authHeader(),
+    }
+  );
+
+  return response;
+};
+
 const UserService = {
   getUsers,
   addUser,
   toggleUserStatus,
   changeUserRole,
   emailExists,
+  changePhoneNumber,
+  changeEmail,
 };
 
 export default UserService;

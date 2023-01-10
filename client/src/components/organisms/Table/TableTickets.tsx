@@ -15,6 +15,7 @@ import { ticketType } from "../../../utils/types";
 import { EmptyState } from "../../molecules/EmptyState/EmptyState";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";
+import { TicketPriorityBadge } from "../../pages/Ticket/TicketPriorityBadge";
 
 interface TicketsTableType {
   id: string;
@@ -24,6 +25,7 @@ interface TicketsTableType {
   ticketNumber: string;
   machineName: string;
   status: string;
+  priority: string;
 }
 
 type TableTicketsProps = {
@@ -65,6 +67,7 @@ export function TableTickets({
       ticketNumber: ticket.ticketNumber.toString(),
       creationDate: ticket.creationDate,
       status: ticket.status,
+      priority: ticket.priority,
       creator: ticket.creator.firstName + " " + ticket.creator.lastName,
       company: ticket.company.name,
       machineName: ticket.machineName,
@@ -95,8 +98,8 @@ export function TableTickets({
       cell: (props: { getValue: () => any }) => {
         switch (props.getValue()) {
           case "Open":
-            if(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
-              return <Badge size='md' color='error' text={translations[language].Open}  />;
+            if (user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+              return <Badge size='md' color='error' text={translations[language].Open} />;
             } else {
               return <Badge size='md' color='primary' text={translations[language].In_progress} />;
             }
@@ -120,6 +123,7 @@ export function TableTickets({
         );
       },
     }),
+
     columnHelper.accessor("machineName", {
       header: "Machine",
       cell: (props) => {
@@ -127,7 +131,6 @@ export function TableTickets({
       },
     }),
   ];
-
   const columnsNonMemoSmall = [
     columnHelper.accessor("ticketNumber", {
       cell: (props) => {
@@ -151,8 +154,8 @@ export function TableTickets({
       cell: (props: { getValue: () => any }) => {
         switch (props.getValue()) {
           case "Open":
-            if(user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
-              return <Badge size='md' color='error' text={translations[language].Open}  />;
+            if (user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+              return <Badge size='md' color='error' text={translations[language].Open} />;
             } else {
               return <Badge size='md' color='primary' text={translations[language].In_progress} />;
             }
@@ -166,6 +169,21 @@ export function TableTickets({
       },
     }),
   ];
+
+  if (user?.role === "VisconAdmin" || user?.role === "VisconEmployee") {
+    columnsNonMemoBig.splice(
+      4,
+      0,
+      columnHelper.accessor("priority", {
+        header: "Priority",
+        cell: (props) => {
+          return <TicketPriorityBadge priority={props.getValue()} />;
+        },
+      })
+    );
+  }
+
+  // change the code above to insert the helper at the 5th index instead
 
   const isMobile = useWindowMobile();
   // const [isMobile, setIsMobile] = useState(false);
@@ -276,7 +294,7 @@ export function TableTickets({
           />
           <div className='flex gap-4'>
             <Button size='small' width='content' type='secondary-gray' text='Reset filters' onclick={resetFilters} />
-            {(user?.role !== "VisconAdmin" && user?.role !== "VisconEmployee") && (
+            {user?.role !== "VisconAdmin" && user?.role !== "VisconEmployee" && (
               <Button
                 size='small'
                 width='content'

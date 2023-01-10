@@ -21,6 +21,10 @@ type AppContextAction =
     }
   | {
       type: "USER_LOGOUT";
+    }
+  | {
+      type: "UPDATE_USER";
+      payload: UserType;
     };
 
 type AppState = {
@@ -58,6 +62,11 @@ const appReducer = (state: AppState, action: AppContextAction) => {
         ...state,
         isAuthenticated: false,
         user: undefined,
+      };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: action.payload,
       };
   }
 };

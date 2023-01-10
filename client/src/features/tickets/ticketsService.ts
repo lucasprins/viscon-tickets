@@ -137,6 +137,18 @@ const cancelTicket = async (ticketId: string, cancelReason: string) => {
   return response;
 };
 
+const changePriority = async (ticketId: string, priority: string) => {
+  const response = await axios.put(
+    API_URL + "ChangePriority/" + ticketId + "?priority=" + priority,
+    {},
+    {
+      headers: authHeader(),
+    }
+  );
+
+  return response;
+}
+
 const TicketService = {
   getTicket,
   createTicket,
@@ -147,6 +159,7 @@ const TicketService = {
   cancelTicket,
   getTickets,
   addSolution,
+  changePriority
 };
 
 export default TicketService;

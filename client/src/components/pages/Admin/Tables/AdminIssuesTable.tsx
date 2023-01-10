@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAppContext, useAppSelector } from "../../../../utils/hooks";
-import { MachineType } from "../../../../utils/types";
+import { IssueType, MachineType } from "../../../../utils/types";
 import { Badge } from "../../../atoms/Badge/Badge";
 import { Button } from "../../../atoms/Button/Button";
 import { FeaturedIcon } from "../../../atoms/Icons/FeaturedIcon";
@@ -16,30 +16,24 @@ import { IconAlert } from "../../../atoms/Icons/Icons";
 import { EmptyState } from "../../../molecules/EmptyState/EmptyState";
 
 interface Props {
-  machines: MachineType[];
+  issues: IssueType[];
   handleRowClick: (id: string) => void;
 }
 
 var translations = require("../../../../translations/allTranslations.json");
 
-function AdminMachinesTable({ machines, handleRowClick }: Props) {
+function AdminIssuesTable({ issues: machines, handleRowClick }: Props) {
   const { appState } = useAppContext();
   const language = appState.language;
 
-  const columnHelper = createColumnHelper<MachineType>();
+  const columnHelper = createColumnHelper<IssueType>();
 
   const columnNonMemo = [
-    columnHelper.accessor("type", {
+    columnHelper.accessor("description", {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: translations[language].machineType,
-    }),
-    columnHelper.accessor("blueprintNumber", {
-      cell: (props) => {
-        return <span className='font-medium text-gray-600 dark:text-dark-300'>{props.getValue()}</span>;
-      },
-      header: translations[language].blueprint_number,
+      header: translations[language]["general.issue"],
     }),
   ];
 
@@ -54,7 +48,7 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const handleNextPage = (table: Table<MachineType>) => {
+  const handleNextPage = (table: Table<IssueType>) => {
     if (table.getCanNextPage()) {
       table.nextPage();
     }
@@ -128,8 +122,8 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
         <div className='flex flex-col items-center justify-center w-full gap-6 p-8 lg:py-16'>
           <EmptyState
             color='primary'
-            title={translations[language].machinesNotFound}
-            subtitle={translations[language].machinesNotFoundSubtitle}
+            title={translations[language]["admin.issues.no-issues-found"]}
+            subtitle={translations[language]["admin.issues.no-issues-found-subtitle"]}
             featuredIcon={
               <FeaturedIcon
                 size='lg'
@@ -144,4 +138,4 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
   );
 }
 
-export default AdminMachinesTable;
+export default AdminIssuesTable;

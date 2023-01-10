@@ -15,6 +15,7 @@ namespace server.Services.TicketService
 
         Task<ServiceResponse<bool>> CreateTicket(CreateTicketDTO newTicket);
 
+        // These can all be refactored to one UpdateTicket method
         Task<ServiceResponse<GetTicketDTO>> ClaimTicket(TicketIdDTO ticketToClaim);
         Task<ServiceResponse<GetTicketDTO>> UnclaimTicket(TicketIdDTO ticketToUnclaim);
         Task<ServiceResponse<GetTicketDTO>> ResolveTicket(TicketIdDTO ticketToResolve);
@@ -22,5 +23,7 @@ namespace server.Services.TicketService
         Task<ServiceResponse<GetTicketDTO>> CancelTicket(CancelTicketDTO ticketToCancel);
 
         Task<ServiceResponse<GetTicketDTO>> AddSolution(AddTicketSolutionDTO solution);
+        Task<ServiceResponse<GetTicketDTO>> ChangePriority(Guid ticketID, Priority priority);
+
     }
 }

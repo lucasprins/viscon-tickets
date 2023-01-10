@@ -16,12 +16,13 @@ const addSolution = async (issueId: string, solution: string) => {
     API_URL + "AddSolution/",
     {
       issueId: issueId,
-      solution: solution,
+      description: solution,
     },
     {
       headers: authHeader(),
     }
   );
+  return response;
 };
 
 const deleteSolution = async (solutionId: string) => {

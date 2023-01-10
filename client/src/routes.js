@@ -1,7 +1,5 @@
 import { AccessDenied } from "./components/pages/AccessDenied/AccessDenied";
-import { Account } from "./components/pages/Account/Account";
 import { CreateTicket } from "./components/pages/CreateTicket/CreateTicket";
-import { Dashboard } from "./components/pages/Dashboard/Dashboard";
 import { Knowledgebase } from "./components/pages/Knowledgebase/Knowledgebase";
 import { Login } from "./components/pages/Authentication/Login";
 import { Notifications } from "./components/pages/Notifications/Notifications";
@@ -30,7 +28,6 @@ export const routes = [
     { path: '/playground', name: 'account', component: <Playground /> },
     { path: '/admin', name: 'admin', component: <Admin /> },
     { path: '/notifications', name: 'notifications', component: <Notifications /> },
-    { path: '/account', name: 'account', component: <Account /> },
     { path: '/access-denied', name: 'access-denied', component: <AccessDenied /> },
     { path: '/ticket-not-found', name: 'ticket-not-found', component: <TicketNotFound /> },
     { path: '*', name: 'page-not-found', component: <PageNotFound /> }

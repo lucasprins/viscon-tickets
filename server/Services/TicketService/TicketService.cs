@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using server.Enums;
 using server.Services.AuthService;
+using server.Services.EmailService;
 
 namespace server.Services.TicketService
 {
@@ -13,12 +14,14 @@ namespace server.Services.TicketService
     private readonly IMapper _mapper;
     private readonly DataContext _context;
     private readonly IAuthService _authService;
+    private readonly IEmailService _emailService;
 
-    public TicketService(IMapper mapper, DataContext context, IAuthService authService)
+    public TicketService(IMapper mapper, DataContext dataContext, IAuthService authService, IEmailService emailService)
     {
       _mapper = mapper;
-      _context = context;
+      _context = dataContext;
       _authService = authService;
+      _emailService = emailService;
     }
 
     public async Task<GetTicketDTO> CreateGetTicketDTO(Ticket ticket)
@@ -79,6 +82,7 @@ namespace server.Services.TicketService
         }
 
         _context.Tickets.Add(ticket);
+        await _emailService.SendNewTicketEmail(ticket);
         await _context.SaveChangesAsync();
         serviceResponse.Data = true;
       }
@@ -559,6 +563,30 @@ namespace server.Services.TicketService
         serviceResponse.Success = false;
         serviceResponse.Message = "Unable to add solution to ticket with given id.";
         System.Console.WriteLine(ex.Message);
+      }
+
+      return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<GetTicketDTO>> ChangePriority(Guid ticketID, Priority priority)
+    {
+      ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
+
+      try {
+        var ticket = _context.Tickets.FirstOrDefault(t => t.Id == ticketID);
+        if (ticket == null) {
+          serviceResponse.Success = false;
+          serviceResponse.Message = "Ticket not found.";
+          return serviceResponse;
+        }
+
+        ticket.Priority = priority;
+        _context.Tickets.Update(ticket);
+        await _context.SaveChangesAsync();
+        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+      } catch {
+        serviceResponse.Success = false;
+        serviceResponse.Message = "Unable to change priority of ticket with given id.";
       }
 
       return serviceResponse;

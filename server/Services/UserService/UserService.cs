@@ -65,6 +65,98 @@ namespace server.Services.UserService
       return response;
     }
 
+    public async Task<ServiceResponse<GetUserDTO>> ChangeEmail(Guid id, string email)
+    {
+      ServiceResponse<GetUserDTO> response = new ServiceResponse<GetUserDTO>();
+      var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+      if (requestUser == null)
+      {
+        response.Success = false;
+        response.Message = "Requesting user not found.";
+        return response;
+      }
+
+      if (requestUser.Id != id)
+      {
+        response.Success = false;
+        response.Message = "You are not allowed to change the phone number of another user.";
+        return response;
+      }
+
+      try
+      {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+        if (user == null)
+        {
+          response.Success = false;
+          response.Message = "User not found.";
+          return response;
+        }
+
+        user.Email = email;
+
+        _context.Update(user);
+        await _context.SaveChangesAsync();
+        response.Data = _mapper.Map<GetUserDTO>(user);
+      }
+
+      catch
+      {
+        response.Success = false;
+        response.Message = "Something went wrong while changing the users email.";
+      }
+
+      return response;
+    }
+
+    public async Task<ServiceResponse<GetUserDTO>> ChangePhoneNumber(Guid id, string phoneNumber)
+    {
+      ServiceResponse<GetUserDTO> response = new ServiceResponse<GetUserDTO>();
+      var requestUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == _authService.GetUserEmail());
+
+      if (requestUser == null)
+      {
+        response.Success = false;
+        response.Message = "Requesting user not found.";
+        return response;
+      }
+
+      if (requestUser.Id != id)
+      {
+        response.Success = false;
+        response.Message = "You are not allowed to change the phone number of another user.";
+        return response;
+      }
+
+      try
+      {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+        if (user == null)
+        {
+          response.Success = false;
+          response.Message = "User not found.";
+          return response;
+        }
+
+        user.PhoneNumber = phoneNumber;
+
+        _context.Update(user);
+        await _context.SaveChangesAsync();
+        response.Data = _mapper.Map<GetUserDTO>(user);
+      }
+
+      catch
+      {
+        response.Success = false;
+        response.Message = "Something went wrong while changing the users phone number.";
+      }
+
+      return response;
+    }
+
     public async Task<ServiceResponse<List<GetUserDTO>>> ChangeUserRole(Guid id)
     {
       ServiceResponse<List<GetUserDTO>> response = new ServiceResponse<List<GetUserDTO>>();
@@ -109,6 +201,7 @@ namespace server.Services.UserService
         await _context.SaveChangesAsync();
         response.Data = _context.Users.Where(u => u.CompanyId == requestUser.CompanyId).OrderByDescending(u => u.IsActive).ThenByDescending(u => u.Role).ThenBy(u => u.FirstName).Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
       }
+
       catch
       {
         response.Success = false;

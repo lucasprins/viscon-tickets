@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAppContext, useAppSelector } from "../../../../utils/hooks";
-import { MachineType } from "../../../../utils/types";
+import { IssueType, MachineType, SolutionType } from "../../../../utils/types";
 import { Badge } from "../../../atoms/Badge/Badge";
 import { Button } from "../../../atoms/Button/Button";
 import { FeaturedIcon } from "../../../atoms/Icons/FeaturedIcon";
@@ -16,36 +16,29 @@ import { IconAlert } from "../../../atoms/Icons/Icons";
 import { EmptyState } from "../../../molecules/EmptyState/EmptyState";
 
 interface Props {
-  machines: MachineType[];
-  handleRowClick: (id: string) => void;
+  solutions: SolutionType[];
 }
 
 var translations = require("../../../../translations/allTranslations.json");
 
-function AdminMachinesTable({ machines, handleRowClick }: Props) {
+function AdminSolutionsTable({ solutions }: Props) {
   const { appState } = useAppContext();
   const language = appState.language;
 
-  const columnHelper = createColumnHelper<MachineType>();
+  const columnHelper = createColumnHelper<SolutionType>();
 
   const columnNonMemo = [
-    columnHelper.accessor("type", {
+    columnHelper.accessor("description", {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: translations[language].machineType,
-    }),
-    columnHelper.accessor("blueprintNumber", {
-      cell: (props) => {
-        return <span className='font-medium text-gray-600 dark:text-dark-300'>{props.getValue()}</span>;
-      },
-      header: translations[language].blueprint_number,
+      header: translations[language]["general.issue"],
     }),
   ];
 
   const columns = columnNonMemo;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const data = useMemo(() => machines, [machines]);
+  const data = useMemo(() => solutions, [solutions]);
 
   const table = useReactTable({
     data,
@@ -54,7 +47,7 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const handleNextPage = (table: Table<MachineType>) => {
+  const handleNextPage = (table: Table<SolutionType>) => {
     if (table.getCanNextPage()) {
       table.nextPage();
     }
@@ -66,7 +59,7 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
 
   return (
     <div className='w-full bg-white border border-gray-200 rounded-xl dark:bg-dark-800 dark:border-dark-600 drop-shadow-sm'>
-      {machines.length > 0 ? (
+      {solutions.length > 0 ? (
         <>
           <table className='w-full min-w-full divide-y divide-gray-200 dark:border-dark-600 dark:divide-dark-600'>
             <thead className=''>
@@ -89,7 +82,6 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
             <tbody className=''>
               {table.getRowModel().rows.map((row) => (
                 <tr
-                  onClick={() => handleRowClick(row.original.id)}
                   key={row.id}
                   className='border-b border-gray-200 cursor-pointer odd:bg-gray-50 hover:odd:bg-gray-100 hover:even:bg-gray-100 even:bg-white dark:odd:bg-dark-700 dark:even:bg-dark-800 dark:hover:odd:bg-dark-600 dark:hover:even:bg-dark-600 dark:border-dark-600'
                 >
@@ -128,8 +120,8 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
         <div className='flex flex-col items-center justify-center w-full gap-6 p-8 lg:py-16'>
           <EmptyState
             color='primary'
-            title={translations[language].machinesNotFound}
-            subtitle={translations[language].machinesNotFoundSubtitle}
+            title={translations[language]["admin.issues.no-solutions-found"]}
+            subtitle={translations[language]["admin.issues.no-solutions-found-subtitle"]}
             featuredIcon={
               <FeaturedIcon
                 size='lg'
@@ -144,4 +136,4 @@ function AdminMachinesTable({ machines, handleRowClick }: Props) {
   );
 }
 
-export default AdminMachinesTable;
+export default AdminSolutionsTable;

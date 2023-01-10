@@ -24,8 +24,6 @@ namespace VisconTicketsTests.Issues
         _dataIssue = new DataIssue(_mockContext.Object, _mockMapper.Object);
     }
 
-    
-
     [Fact]
     public async Task GetIssues_Successful()
     {
@@ -36,8 +34,6 @@ namespace VisconTicketsTests.Issues
                 new Issue { Id = Guid.NewGuid(), Description = "Test issue 1", MachineId = machineId },
                 new Issue { Id = Guid.NewGuid(), Description = "Test issue 2", MachineId = machineId }
             };
-      _mockContext.Setup(x => x.Issues.Where(i => i.MachineId == machineId)).Returns(issues.AsQueryable());
-      _mockMapper.Setup(x => x.Map<GetIssueDTO>(It.IsAny<Issue>())).Returns((Issue i) => new GetIssueDTO { Id = i.Id, Description = i.Description });
 
       // Act
       var result = await _dataIssue.GetIssues(machineId);
