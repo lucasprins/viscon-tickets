@@ -28,6 +28,7 @@
         "general.status": "Status",
         "general.issue": "Probleem",
         "general.description": "Beschrijving",
+        "general.cancel": "Annuleren",
 
         "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar tickets?",
         "createticket.modal.dashboard.button-primary": "Tickets",
@@ -69,6 +70,9 @@
 
         "ticket.attachments.empty.title": "Geen bijlagen",
         "ticket.attachments.empty.subtitle": "Er zijn geen bijlagen voor dit ticket.",
+        
+        "account.modal.title": "Account",
+        "account.modal.button-primary": "Opslaan",
 
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
@@ -241,6 +245,7 @@
         "general.status": "Status",
         "general.issue": "Issue",
         "general.description": "Description",
+        "general.cancel": "Cancel",
 
         "createticket.modal.dashboard.title": "Are you sure you want to go back to the tickets?",
         "createticket.modal.dashboard.button-primary": "Tickets",
@@ -283,6 +288,9 @@
 
         "ticket.attachments.empty.title": "No attachments",
         "ticket.attachments.empty.subtitle": "There are no attachments for this ticket",
+
+        "account.modal.title": "Account",
+        "account.modal.button-primary": "Save",
         
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
