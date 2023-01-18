@@ -94,7 +94,7 @@ function AdminUsers() {
           <div className='w-full'>
             <InputSearch
               value={userQuery}
-              placeholder={translations[language]["admin.users.add-user-modal.title"]}
+              placeholder={translations[language]["search"]}
               onChange={(e) => setUserQuery(e.target.value)}
             />
           </div>
@@ -102,7 +102,7 @@ function AdminUsers() {
             size='medium'
             width='full'
             type='secondary-gray'
-            text='Add a user'
+            text={translations[language]["admin.users.add-user-button"]}
             onclick={() => setModalState({ ...modalState, addUser: true })}
           />
         </div>

@@ -113,7 +113,7 @@ export function TableTickets({
       },
     }),
     columnHelper.accessor("creator", {
-      header: "Customer",
+      header: translations[language].customer,
       cell: (props) => {
         return (
           <div className='flex flex-col'>
@@ -139,7 +139,7 @@ export function TableTickets({
       header: "Ticket ID",
     }),
     columnHelper.accessor("creator", {
-      header: "Customer",
+      header: translations[language].customer,
       cell: (props) => {
         return (
           <div className='flex flex-col'>
@@ -273,9 +273,9 @@ export function TableTickets({
           </table>
 
           <div className='flex items-center justify-between w-full min-w-full px-4 py-3'>
-            <Button size='small' width='content' type='secondary-gray' text='Previous' onclick={() => previousPage()} />
+            <Button size='small' width='content' type='secondary-gray' text={translations[language].previous} onclick={() => previousPage()} />
             <span className='text-sm font-medium text-gray-700 dark:text-dark-300'>{`${page} of ${pages}`}</span>
-            <Button size='small' width='content' type='secondary-gray' text='Next' onclick={() => nextPage()} />
+            <Button size='small' width='content' type='secondary-gray' text={translations[language].next} onclick={() => nextPage()} />
           </div>
         </>
       ) : (

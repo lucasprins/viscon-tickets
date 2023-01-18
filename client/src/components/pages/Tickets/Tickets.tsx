@@ -122,9 +122,9 @@ export function Tickets() {
         </div>
         {!loadingTickets ? (
           <div className='hidden w-full gap-6 lg:flex '>
-            <MetricCard content={openTickets} title='Open tickets' />
-            <MetricCard content={unresolvedTickets} title='Unresolved tickets' />
-            <MetricCard content={yourTickets} title='Your tickets' />
+            <MetricCard content={openTickets} title={translations[language].ticketsOpen} />
+            <MetricCard content={unresolvedTickets} title={translations[language].ticketsUnresolved} />
+            <MetricCard content={yourTickets} title={translations[language].ticketsYours} />
           </div>
         ) : (
           <div className='hidden w-full gap-6 lg:flex '>

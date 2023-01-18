@@ -6,8 +6,10 @@ import { IconUpload } from "../../atoms/Icons/Icons";
 import { ErrorHandler } from "./ErrorHandler";
 import { SingleFileUpload } from "./SingleFileUpload";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useAppContext } from "../../../utils/hooks";
 
 let currentId = 0;
+var translations = require("../../../translations/allTranslations.json");
 
 function getNewId() {
   return ++currentId;
@@ -22,6 +24,8 @@ export type UploadableFile = {
 };
 
 export function FileDropzone({ files, setFiles }: { files: UploadableFile[], setFiles: React.Dispatch<React.SetStateAction<UploadableFile[]>> }) {
+  const { appState } = useAppContext();
+  const language = appState.language;
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
 
   const onDrop = useCallback((accFiles: File[], rejFiles: FileRejection[]) => {
@@ -83,10 +87,9 @@ export function FileDropzone({ files, setFiles }: { files: UploadableFile[], set
           <input {...getInputProps()} />
           <div className='flex flex-col gap-1'>
             <p className='text-md'>
-              <span className='font-semibold text-primary-600 dark:text-primary-500'>Click to upload</span> or drag and
-              drop
+              <span className='font-semibold text-primary-600 dark:text-primary-500'>{translations[language].add_attachments_text_upload_part1}</span> {translations[language].add_attachments_text_upload_part2}
             </p>
-            <p className='text-sm dark:text-dark-300'>{"PNG, JPG, or MP4 (max. 30MB)"}</p>
+            <p className='text-sm dark:text-dark-300'>{translations[language].add_attachments_dataTypes_uploads}</p>
           </div>
         </div>
       </div>
