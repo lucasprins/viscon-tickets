@@ -67,6 +67,9 @@
         "ticket.badge.priority.medium": "Gemiddeld",
         "ticket.badge.priority.low": "Laag",
 
+        "ticket.attachments.empty.title": "Geen bijlagen",
+        "ticket.attachments.empty.subtitle": "Er zijn geen bijlagen voor dit ticket.",
+
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",
         "First_name": "Voornaam",
@@ -278,6 +281,8 @@
         "ticket.badge.priority.medium": "Medium",
         "ticket.badge.priority.low": "Low",
 
+        "ticket.attachments.empty.title": "No attachments",
+        "ticket.attachments.empty.subtitle": "There are no attachments for this ticket",
         
         "----------ClientFiles-------": "------ClientFiles------",
         "-----standard_Reusable------": "-----standard_Reusable------",

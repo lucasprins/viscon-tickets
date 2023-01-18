@@ -1,4 +1,4 @@
-import { Tab } from "@headlessui/react";
+import { Dialog, Tab, Transition } from "@headlessui/react";
 import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { Fragment, useEffect, useState } from "react";
@@ -6,19 +6,23 @@ import { Navigate, useParams } from "react-router-dom";
 import TicketService from "../../../features/tickets/ticketsService";
 import FileService from "../../../services/file-upload/fileService";
 import { useAppContext, useAppSelector } from "../../../utils/hooks";
-import { ticketType } from "../../../utils/types";
+import { Attachment, ticketType } from "../../../utils/types";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import { Button } from "../../atoms/Button/Button";
+import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { AssigneeCard } from "../../atoms/Cards/AssigneeCard";
 import { AvatarCard } from "../../atoms/Cards/AvatarCard";
 import { Divider } from "../../atoms/Divider/Divider";
-import { IconGear } from "../../atoms/Icons/Icons";
+import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
+import { IconAlert, IconClose, IconGear, IconImage } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";
 import { InputField } from "../../atoms/Input/InputField";
 import { InputLabel } from "../../atoms/Input/InputLabel";
 import { InputTextArea } from "../../atoms/Input/InputTextArea";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
 import { Spinner } from "../../atoms/Spinner/Spinner";
+import { EmptyState } from "../../molecules/EmptyState/EmptyState";
+import { FileHeader } from "../../molecules/FileUpload/FileHeader";
 import Layout from "../../organisms/Layout/Layout";
 import { TicketActions } from "./TicketActions";
 import { TicketModals } from "./TicketModals";
@@ -33,6 +37,7 @@ export interface ITicketModals {
   resolve: boolean;
   open: boolean;
   cancel: boolean;
+  files: boolean;
 }
 
 export function Ticket() {
@@ -56,7 +61,10 @@ export function Ticket() {
     resolve: false,
     open: false,
     cancel: false,
+    files: false,
   });
+
+  const [viewingFile, setViewingFile] = useState<Attachment | undefined>(undefined);
 
   let CancelToken = axios.CancelToken;
   let source = CancelToken.source();
@@ -123,6 +131,108 @@ export function Ticket() {
 
   return (
     <>
+      <Transition appear show={ticketModals.files} as={Fragment}>
+        <Dialog as='div' className='relative z-10' onClose={() => setViewingFile(undefined)}>
+          <Transition.Child
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+          >
+            <div className='fixed inset-0 bg-black bg-opacity-25' />
+          </Transition.Child>
+
+          <div className='fixed inset-0 overflow-y-auto'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
+              <Transition.Child
+                as={Fragment}
+                enter='ease-out duration-300'
+                enterFrom='opacity-0 scale-95'
+                enterTo='opacity-100 scale-100'
+                leave='ease-in duration-200'
+                leaveFrom='opacity-100 scale-100'
+                leaveTo='opacity-0 scale-95'
+              >
+                <Dialog.Panel className='w-full flex overflow-y-scroll flex-col items-start gap-3 max-w-4xl transform overflow-hidden rounded-2xl bg-white dark:bg-dark-800 dark:border dark:border-dark-600 px-6 pb-6 pt-4 align-middle shadow-lg transition-all'>
+                  <Dialog.Title
+                    as='h3'
+                    className='text-lg flex justify-between w-full items-center font-semibold text-gray-900 dark:text-white'
+                  >
+                    Files
+                    <ButtonIcon
+                      icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+                      onclick={() => setTicketModals({ ...ticketModals, files: false })}
+                    />
+                  </Dialog.Title>
+                  <ul className="flex flex-col gap-3">
+                    {ticket?.attachments.map((attachment) => (
+                      <li key={attachment.id}>
+                        <button
+                          onClick={() => setViewingFile(attachment)}
+                          className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-500'
+                        >
+                          <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
+                          <div className='flex flex-col w-full gap-2'>
+                            <span className='text-sm break-all font-medium text-gray-700 dark:text-white'>{attachment.key}</span>
+                          </div>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+      {viewingFile !== undefined && (
+        <Transition appear show={viewingFile !== undefined} as={Fragment}>
+          <Dialog as='div' className='relative z-10' onClose={() => setViewingFile(undefined)}>
+            <Transition.Child
+              as={Fragment}
+              enter='ease-out duration-300'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='fixed inset-0 bg-black bg-opacity-25 dark:bg-opacity-40' />
+            </Transition.Child>
+
+            <div className='fixed inset-0 overflow-y-auto'>
+              <div className='flex min-h-full items-center justify-center p-4 text-center'>
+                <Transition.Child
+                  as={Fragment}
+                  enter='ease-out duration-300'
+                  enterFrom='opacity-0 scale-95'
+                  enterTo='opacity-100 scale-100'
+                  leave='ease-in duration-200'
+                  leaveFrom='opacity-100 scale-100'
+                  leaveTo='opacity-0 scale-95'
+                >
+                  <Dialog.Panel className='w-full flex flex-col gap-3 max-w-4xl transform overflow-hidden rounded-2xl bg-white dark:bg-dark-800 dark:border dark:border-dark-600 px-6 pb-6 pt-4 align-middle shadow-lg transition-all'>
+                    <Dialog.Title as='h3' className='flex dark:text-white items-center justify-between font-medium text-gray-900'>
+                      {viewingFile.key}
+                      <ButtonIcon
+                        icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
+                        onclick={() => setViewingFile(undefined)}
+                      />
+                    </Dialog.Title>
+                    <div>
+                      <img className='rounded-xl' src={viewingFile.url} />
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+      )}
       <TicketModals ticketModals={ticketModals} setTicketModals={setTicketModals} />
       <div className='flex flex-col w-full h-screen md:flex-row dark:bg-dark-800 dark:text-white'>
         <Layout />
@@ -200,9 +310,7 @@ export function Ticket() {
                               <span className='font-medium text-gray-700 text-md dark:text-white'>
                                 {translations[language].creation_date}
                               </span>
-                              <span className='text-gray-700 dark:text-dark-300'>
-                                {new Date(ticket.creationDate).toLocaleString()}
-                              </span>
+                              <span className='text-gray-700 dark:text-dark-300'>{new Date(ticket.creationDate).toLocaleString()}</span>
                             </div>
                             <div className='flex gap-6'>
                               <div className='flex flex-col flex-wrap justify-between gap-1'>
@@ -217,43 +325,27 @@ export function Ticket() {
                                     <span className='font-medium text-gray-700 text-md dark:text-white'>
                                       {translations[language]["general.priority"]}
                                     </span>
-                                    <TicketPriorityBadge
-                                      handleChange={handleChangeTicketPriority}
-                                      priority={ticket.priority}
-                                    />
+                                    <TicketPriorityBadge handleChange={handleChangeTicketPriority} priority={ticket.priority} />
                                   </>
                                 )}
                               </div>
                             </div>
                             {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
                               <div className='flex flex-col w-full gap-2'>
-                                <span className='font-medium text-gray-700 text-md dark:text-white'>
-                                  {translations[language].assignee}
-                                </span>
+                                <span className='font-medium text-gray-700 text-md dark:text-white'>{translations[language].assignee}</span>
                                 <AssigneeCard
                                   subtitle={translations[language].assignee}
-                                  name={
-                                    ticket.assignee !== null
-                                      ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                                      : undefined
-                                  }
+                                  name={ticket.assignee !== null ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}` : undefined}
                                 />
                               </div>
                             ) : undefined}
                           </div>
                           <div className='flex flex-col w-full gap-2'>
-                            <span className='font-medium text-gray-700 text-md dark:text-white'>
-                              {translations[language].creator}
-                            </span>
-                            <AvatarCard
-                              name={`${ticket.creator.firstName} ${ticket.creator.lastName}`}
-                              subtitle={ticket.phoneNumber}
-                            />
+                            <span className='font-medium text-gray-700 text-md dark:text-white'>{translations[language].creator}</span>
+                            <AvatarCard name={`${ticket.creator.firstName} ${ticket.creator.lastName}`} subtitle={ticket.phoneNumber} />
                           </div>
                           <div className='flex flex-col w-full gap-2'>
-                            <span className='font-medium text-gray-700 text-md dark:text-white'>
-                              {translations[language].company}
-                            </span>
+                            <span className='font-medium text-gray-700 text-md dark:text-white'>{translations[language].company}</span>
                             <AvatarCard name={ticket.company.name} subtitle={ticket.company.country} />
                           </div>
                         </div>
@@ -276,13 +368,7 @@ export function Ticket() {
                                 )}
                                 <div className='flex flex-col w-full gap-1.5'>
                                   <InputLabel htmlFor='issueType' text='Issue type' />
-                                  <InputField
-                                    style='iconless'
-                                    type='text'
-                                    id='issueType'
-                                    name='issueType'
-                                    disabled={true}
-                                  />
+                                  <InputField style='iconless' type='text' id='issueType' name='issueType' disabled={true} />
                                 </div>
                               </div>
                               <div className='flex flex-col w-full gap-1.5'>
@@ -296,10 +382,7 @@ export function Ticket() {
                                 <InputErrorMessage name='issue' />
                               </div>
                               <div className='flex flex-col w-full gap-1.5'>
-                                <InputLabel
-                                  htmlFor='actionExpected'
-                                  text={translations[language].describe_issue_expectation}
-                                />
+                                <InputLabel htmlFor='actionExpected' text={translations[language].describe_issue_expectation} />
                                 <InputTextArea
                                   disabled={true}
                                   id='actionExpected'
@@ -309,10 +392,7 @@ export function Ticket() {
                                 <InputErrorMessage name='actionExpected' />
                               </div>
                               <div className='flex flex-col w-full gap-1.5'>
-                                <InputLabel
-                                  htmlFor='actionPerformed'
-                                  text={translations[language].describe_issue_tried}
-                                />
+                                <InputLabel htmlFor='actionPerformed' text={translations[language].describe_issue_tried} />
                                 <InputTextArea
                                   disabled={true}
                                   id='actionPerformed'
@@ -322,10 +402,7 @@ export function Ticket() {
                                 <InputErrorMessage name='actionPerformed' />
                               </div>
                               <div className='flex flex-col w-full gap-1.5'>
-                                <InputLabel
-                                  htmlFor='extraInfo'
-                                  text={translations[language].describe_issue_extra_info}
-                                />
+                                <InputLabel htmlFor='extraInfo' text={translations[language].describe_issue_extra_info} />
                                 <InputTextArea
                                   disabled={true}
                                   id='extraInfo'
@@ -367,9 +444,7 @@ export function Ticket() {
                                     type={values.solution === ticket.solution ? "secondary-gray" : "primary"}
                                     disabled={addingSolution || values.solution === ticket.solution}
                                     icon={
-                                      addingSolution ? (
-                                        <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' />
-                                      ) : undefined
+                                      addingSolution ? <Spinner size='w-4 h-4' color='text-primary-500' fill='fill-white' /> : undefined
                                     }
                                     text='Save solution'
                                   />
@@ -390,12 +465,8 @@ export function Ticket() {
                 <div className='flex-col hidden w-1/3 h-full gap-8 p-8 border-l border-gray-200 xl:flex dark:border-dark-600'>
                   <div className='flex flex-col gap-4'>
                     <div className='flex flex-col'>
-                      <span className='font-medium text-gray-700 text-md dark:text-white'>
-                        {translations[language].creation_date}
-                      </span>
-                      <span className='text-gray-700 dark:text-dark-300'>
-                        {new Date(ticket.creationDate).toLocaleString()}
-                      </span>
+                      <span className='font-medium text-gray-700 text-md dark:text-white'>{translations[language].creation_date}</span>
+                      <span className='text-gray-700 dark:text-dark-300'>{new Date(ticket.creationDate).toLocaleString()}</span>
                     </div>
                     <div className='flex gap-6'>
                       <div className='flex flex-col flex-wrap justify-between gap-1'>
@@ -417,21 +488,47 @@ export function Ticket() {
                     </div>
                     {user.role === "VisconAdmin" || user.role === "VisconEmployee" ? (
                       <div className='flex flex-col w-full gap-2'>
-                        <span className='font-medium text-gray-700 text-md dark:text-white'>
-                          {translations[language].assignee}
-                        </span>
+                        <span className='font-medium text-gray-700 text-md dark:text-white'>{translations[language].assignee}</span>
                         <AssigneeCard
                           subtitle={translations[language].assignee}
-                          name={
-                            ticket.assignee !== null
-                              ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}`
-                              : undefined
-                          }
+                          name={ticket.assignee !== null ? `${ticket.assignee?.firstName} ${ticket.assignee?.lastName}` : undefined}
                         />
                       </div>
                     ) : undefined}
                   </div>
                   <Divider />
+                  <div>
+                    {ticket.attachments.length > 0 ? (
+                      <ul className='flex flex-col gap-3'>
+                        {ticket.attachments.map((attachment) => (
+                          <li key={attachment.id}>
+                            <button
+                              onClick={() => setViewingFile(attachment)}
+                              className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-500'
+                            >
+                              <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
+                              <div className='flex flex-col w-full gap-2'>
+                                <span className='text-sm break-all font-medium text-gray-700 dark:text-white'>{attachment.key}</span>
+                              </div>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <EmptyState
+                        color='primary'
+                        title={translations[language]["ticket.attachments.empty.title"]}
+                        subtitle={translations[language]["ticket.attachments.empty.subtitle"]}
+                        featuredIcon={
+                          <FeaturedIcon
+                            size='lg'
+                            type='primary'
+                            icon={<IconAlert size='20' fill='fill-primary-500' color='stroke-primary-500' />}
+                          />
+                        }
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

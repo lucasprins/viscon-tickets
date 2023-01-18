@@ -95,6 +95,7 @@ export const TicketActions = ({
       width='full'
       type='secondary-gray'
       text={translations[language].view_files}
+      onclick={() => setTicketModals({ ...ticketModals, files: true })}
       icon={<IconFileSearch size='20' color='stroke-gray-700 dark:stroke-white' fill='fill-gray-700' />}
     />
   );
