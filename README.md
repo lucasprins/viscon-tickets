@@ -7,17 +7,18 @@ A web application to help clients of Viscon solve their issues with various mach
 The package manager NPM has been used for this project. While NPM is compatible with the yarn registry it is generally recommended to stick with NPM to avoid any conflicts. 
 
 1. Download or clone the repository.
-2. Run `npm install` in the console while in the 'client' directory to install the dependencies.
+2. Run `npm install` in the console while in the `client` directory to install the dependencies.
 3. Change the name of the .env.example file to .env
 4. Add the appropriate environment variables to the .env file.
-6. If you are using a local database you should run 'dotnet ef database update' in the console while in the 'server' directory to generate the database structure in your PostgreSQL database. You also need to change the
+5. If you are using a local database you should run 'dotnet ef database update' in the console while in the 'server' directory to generate the database structure in your PostgreSQL database. You also need to change the
 connection string in the appsettings.json in the server folder.
+
 
 ## Starting the Project
 
-1. Run 'npm start' in the console while in the 'client' directory
-2. Run 'dotnet watch run' in the console while in the 'server' directory.
-3. If port 3000 is open you can access the web application through a browser at 'localhost:3000'. If it is not open, a different port will be specified in the console for the client folder.
+1. Run `npm start` in the console while in the `client` directory
+2. Run `dotnet watch run` in the console while in the `server` directory.
+3. If port 3000 is open you can access the web application through a browser at `localhost:3000`. If it is not open, a different port will be specified in the console for the client folder.
 
 ## Dependencies
 
