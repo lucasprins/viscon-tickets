@@ -272,7 +272,12 @@ namespace server.Services.TicketService
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {
@@ -334,7 +339,12 @@ namespace server.Services.TicketService
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {
@@ -395,7 +405,12 @@ namespace server.Services.TicketService
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {
@@ -457,7 +472,12 @@ namespace server.Services.TicketService
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {
@@ -518,7 +538,12 @@ namespace server.Services.TicketService
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {
@@ -556,7 +581,12 @@ namespace server.Services.TicketService
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
       }
       catch (Exception ex)
       {
@@ -572,9 +602,11 @@ namespace server.Services.TicketService
     {
       ServiceResponse<GetTicketDTO> serviceResponse = new ServiceResponse<GetTicketDTO>();
 
-      try {
+      try
+      {
         var ticket = _context.Tickets.FirstOrDefault(t => t.Id == ticketID);
-        if (ticket == null) {
+        if (ticket == null)
+        {
           serviceResponse.Success = false;
           serviceResponse.Message = "Ticket not found.";
           return serviceResponse;
@@ -583,8 +615,15 @@ namespace server.Services.TicketService
         ticket.Priority = priority;
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
-        serviceResponse.Data = await CreateGetTicketDTO(ticket);
-      } catch {
+        var ticketDTO = await CreateGetTicketDTO(ticket);
+        List<Attachment> ticketAttachments = await _context.Attachments.Where(a => a.TicketId == ticket.Id).ToListAsync();
+
+        ticketDTO.Attachments = _mapper.Map<List<AttachmentDTO>>(ticketAttachments);
+
+        serviceResponse.Data = ticketDTO;
+      }
+      catch
+      {
         serviceResponse.Success = false;
         serviceResponse.Message = "Unable to change priority of ticket with given id.";
       }

@@ -43,9 +43,14 @@ async function removeFile(key: string) {
   return result;
 }
 
+const getFileExtension = (fileName: string) => {
+  return fileName.split(".").pop();
+}
+
 const FileService = {
   uploadFile,
   removeFile,
+  getFileExtension,
 };
 
 export default FileService;

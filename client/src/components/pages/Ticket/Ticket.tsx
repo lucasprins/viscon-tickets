@@ -146,7 +146,7 @@ export function Ticket() {
           </Transition.Child>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex items-center justify-center min-h-full p-4 text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -156,10 +156,10 @@ export function Ticket() {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full flex overflow-y-scroll flex-col items-start gap-3 max-w-4xl transform overflow-hidden rounded-2xl bg-white dark:bg-dark-800 dark:border dark:border-dark-600 px-6 pb-6 pt-4 align-middle shadow-lg transition-all'>
+                <Dialog.Panel className='flex flex-col items-start w-full max-w-4xl gap-3 px-6 pt-4 pb-6 overflow-hidden overflow-y-scroll align-middle transition-all transform bg-white shadow-lg rounded-2xl dark:bg-dark-800 dark:border dark:border-dark-600'>
                   <Dialog.Title
                     as='h3'
-                    className='text-lg flex justify-between w-full items-center font-semibold text-gray-900 dark:text-white'
+                    className='flex items-center justify-between w-full text-lg font-semibold text-gray-900 dark:text-white'
                   >
                     Files
                     <ButtonIcon
@@ -172,11 +172,11 @@ export function Ticket() {
                       <li key={attachment.id}>
                         <button
                           onClick={() => setViewingFile(attachment)}
-                          className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-600'
+                          className='flex flex-row w-full gap-3 p-4 text-left bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-600'
                         >
                           <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
                           <div className='flex flex-col w-full gap-2'>
-                            <span className='text-sm break-all font-medium text-gray-700 dark:text-white'>{attachment.key}</span>
+                            <span className='text-sm font-medium text-gray-700 break-all dark:text-white'>{attachment.key}</span>
                           </div>
                         </button>
                       </li>
@@ -205,7 +205,7 @@ export function Ticket() {
             </Transition.Child>
 
             <div className='fixed inset-0 overflow-y-auto'>
-              <div className='flex min-h-full items-center justify-center p-4 text-center'>
+              <div className='flex items-center justify-center min-h-full p-4 text-center'>
                 <Transition.Child
                   as={Fragment}
                   enter='ease-out duration-300'
@@ -215,8 +215,8 @@ export function Ticket() {
                   leaveFrom='opacity-100 scale-100'
                   leaveTo='opacity-0 scale-95'
                 >
-                  <Dialog.Panel className='w-full flex flex-col gap-3 max-w-4xl transform overflow-hidden rounded-2xl bg-white dark:bg-dark-800 dark:border dark:border-dark-600 px-6 pb-6 pt-4 align-middle shadow-lg transition-all'>
-                    <Dialog.Title as='h3' className='flex dark:text-white items-center justify-between font-medium text-gray-900'>
+                  <Dialog.Panel className='flex flex-col w-full max-w-4xl gap-3 px-6 pt-4 pb-6 overflow-hidden align-middle transition-all transform bg-white shadow-lg rounded-2xl dark:bg-dark-800 dark:border dark:border-dark-600'>
+                    <Dialog.Title as='h3' className='flex items-center justify-between font-medium text-gray-900 dark:text-white'>
                       {viewingFile.key}
                       <ButtonIcon
                         icon={<IconClose size='20' color='stroke-gray-500 dark:stroke-gray-300' fill='fill-gray-500' />}
@@ -224,7 +224,15 @@ export function Ticket() {
                       />
                     </Dialog.Title>
                     <div>
-                      <img className='rounded-xl' src={viewingFile.url} />
+                      {FileService.getFileExtension(viewingFile.key) === 'mp4' ? (
+                        <video
+                          controls
+                          className='w-full h-full rounded-xl'
+                          src={viewingFile.url}
+                        />
+                      ) : (
+                        <img src={viewingFile.url} className="rounded-xl" />
+                      )}
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
@@ -504,11 +512,11 @@ export function Ticket() {
                           <li key={attachment.id}>
                             <button
                               onClick={() => setViewingFile(attachment)}
-                              className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-600'
+                              className='flex flex-row w-full gap-3 p-4 text-left bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-600'
                             >
                               <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
                               <div className='flex flex-col w-full gap-2'>
-                                <span className='text-sm break-all font-medium text-gray-700 dark:text-white'>{attachment.key}</span>
+                                <span className='text-sm font-medium text-gray-700 break-all dark:text-white'>{attachment.key}</span>
                               </div>
                             </button>
                           </li>
