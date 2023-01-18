@@ -8,8 +8,8 @@ The package manager NPM has been used for this project. While NPM is compatible 
 
 1. Download or clone the repository.
 2. Run `npm install` in the console while in the `client` directory to install the dependencies.
-3. Change the name of the .env.example file to .env
-4. Add the appropriate environment variables to the .env file.
+3. Change the name of the .env.example file to .env in the `client` directory.
+4. Add the appropriate environment variables to the .env file in the `client` directory.
 5. If you are using a local database you should run 'dotnet ef database update' in the console while in the 'server' directory to generate the database structure in your PostgreSQL database. You also need to change the
 connection string in the appsettings.json in the server folder.
 
