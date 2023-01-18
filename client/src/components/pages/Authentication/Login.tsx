@@ -35,14 +35,12 @@ export function Login() {
 
     try {
       const response = await AuthService.login(email, password);
-      console.log(response);
       if (response.data.success) {
         appDispatch({ type: "USER_LOGIN", payload: response.data.data });
       } else {
         setError(response.data.message);
       }
     } catch {
-      console.log("Unable to login");
     }
     setLoading(false);
   };

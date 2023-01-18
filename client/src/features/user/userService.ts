@@ -30,7 +30,6 @@ const addUser = async (firstName: string, lastName: string, email: string, role:
 };
 
 const toggleUserStatus = async (userId: string) => {
-  console.log(userId);
   const response = await axios.put(
     API_URL + "ToggleUserStatus/" + userId,
     {},

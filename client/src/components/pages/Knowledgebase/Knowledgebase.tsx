@@ -38,7 +38,6 @@ export function Knowledgebase() {
   const fetchAllMachines = async () => {
     setLoading(true);
     const response = await MachineService.getAllMachines(source.token);
-    console.log(response);
     if (response.data.success) {
       setMachines(response.data.data);
       setSelectedMachine(response.data.data[0]);
@@ -53,10 +52,6 @@ export function Knowledgebase() {
       source.cancel();
     };
   }, []);
-
-  useEffect(() => {
-    console.log(selectedIssue);
-  }, [selectedIssue]);
 
   const handleChange = (payload: MachineType) => {
     setSelectedMachine(payload);

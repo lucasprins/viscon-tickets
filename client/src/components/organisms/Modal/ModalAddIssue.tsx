@@ -52,7 +52,6 @@ const ModalAddIssue = ({
 
   const submitAddIssue = async (values: formValues) => {
     setAddingIssue(true);
-    console.log(values.description);
     if (selectedMachine) {
       await IssueService.addIssue(selectedMachine.id, values.description).then((response) => {
         if (response.data.success) {

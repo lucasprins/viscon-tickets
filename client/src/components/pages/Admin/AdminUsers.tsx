@@ -32,7 +32,6 @@ function AdminUsers() {
     if (userId !== user?.id) {
       try {
         await UserService.toggleUserStatus(userId).then((response) => {
-          console.log(response);
           if (response.data.success) {
             setUsers(response.data.data);
           }
@@ -45,7 +44,6 @@ function AdminUsers() {
     if (userId !== user?.id) {
       try {
         await UserService.changeUserRole(userId).then((response) => {
-          console.log(response);
           if (response.data.success) {
             setUsers(response.data.data);
           }
@@ -70,7 +68,6 @@ function AdminUsers() {
         await UserService.getUsers().then((response) => {
           if (response.data.success) {
             setUsers(response.data.data);
-            console.log(response.data.data);
           } else {
             setFetchingError(true);
           }
@@ -78,7 +75,6 @@ function AdminUsers() {
       };
       fetchData();
     } catch {
-      console.log("error");
     }
   }, []);
 

@@ -50,7 +50,6 @@ const ModalAddSolution = ({
 
   const submitAddSolution = async (values: formValues) => {
     setAddingSolution(true);
-    console.log(values.description);
     if (issue) {
       await SolutionService.addSolution(issue.id, values.description).then((response) => {
         if (response.data.success) {

@@ -65,7 +65,6 @@ export function Tickets() {
   const fetchTickets = async () => {
     setLoadingTickets(true);
     const response = await TicketService.getTickets(page, statusFilter.value, sourceTickets.token);
-    console.log(response);
     if (response.data.success) {
       setTickets(response.data.data.tickets);
       setUnresolvedTickets(response.data.data.unresolvedTickets);

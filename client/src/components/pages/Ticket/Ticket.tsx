@@ -72,7 +72,6 @@ export function Ticket() {
   const fetchTicket = async () => {
     const response = TicketService.getTicket(ticketID, accessToken, source.token)
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           if (response.data.data.solution == null) {
             response.data.data.solution = "";

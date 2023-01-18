@@ -68,7 +68,6 @@ const AdminIssues = () => {
 
   const fetchIssues = async (machine: MachineType) => {
     await IssueService.getIssues(machine.id, source.token).then((response) => {
-      console.log(response);
       if (response.data.success) {
         setIssues(response.data.data);
       }
@@ -77,7 +76,6 @@ const AdminIssues = () => {
 
   const fetchSolutions = async (issue: IssueType) => {
     await SolutionService.getSolutions(issue.id, source.token).then((response) => {
-      console.log(response);
       if (response.data.success) {
         setSolutions(response.data.data);
       }

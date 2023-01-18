@@ -88,7 +88,6 @@ export const validateCompanyName = async (companyName: string, language: string)
     error = translations[language].inputTooShort;
   } else {
     const response = await CompanyService.companyExists(companyName);
-    console.log(response);
     if (response.data.data == true) {
       error = translations[language].companyExists;
     }
@@ -100,7 +99,6 @@ export const validateCompanyName = async (companyName: string, language: string)
 export const emailExists = async (email: string, language: string) => {
   let error;
   const response = await UserService.emailExists(email);
-  console.log(response);
   if (response.data.data == true) {
     error = translations[language].emailExists;
   }
@@ -110,7 +108,6 @@ export const emailExists = async (email: string, language: string) => {
 export const companyMachineExists = async (companyId: string, machineName: string, language: string) => {
   let error;
   const response = await MachineService.companyMachineExists(companyId, machineName);
-  console.log(response);
   if (response.data.data == true) {
     error = "Company machine already exists";
   }

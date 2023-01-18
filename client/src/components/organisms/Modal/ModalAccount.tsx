@@ -46,7 +46,6 @@ const ModalAccount = ({ state, onClose, user }: { state: boolean; onClose: () =>
         type: "UPDATE_USER",
         payload: { ...user, email: res[0].data.data.email, phoneNumber: res[1].data.data.phoneNumber },
       });
-      console.log(appState.user);
     });
 
     setChangingAccountData(false);
