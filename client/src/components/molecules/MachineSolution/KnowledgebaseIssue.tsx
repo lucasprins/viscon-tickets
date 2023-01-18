@@ -40,8 +40,6 @@ function KnowledgebaseIssue({ issue }: { issue: IssueType }) {
               {solutions !== undefined &&
                 solutions.length > 0 &&
                 solutions.map((solution) => <div key={solution.id}>{solution.description}</div>)}
-                        <div>Lorem ipsum dolor sit amet consectetur, adipisicing elit. A, at sed cupiditate dolor doloremque iusto modi pariatur quisquam nesciunt, necessitatibus ab repellat molestias earum architecto consequatur accusamus illum, quod fugiat!</div>
-
             </Disclosure.Panel>
           </>
         )}
