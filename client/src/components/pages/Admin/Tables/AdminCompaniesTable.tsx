@@ -7,7 +7,7 @@ import {
   Table,
 } from "@tanstack/react-table";
 import React, { useEffect, useMemo, useState } from "react";
-import { useAppContext, useAppSelector, useWindowMobile } from "../../../../utils/hooks";
+import { useAppContext, useWindowMobile } from "../../../../utils/hooks";
 import { companyType } from "../../../../utils/types";
 import { Badge } from "../../../atoms/Badge/Badge";
 import { Button } from "../../../atoms/Button/Button";

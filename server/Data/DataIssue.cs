@@ -17,8 +17,6 @@ namespace server.Data
       _mapper = mapper;
     }
 
-    public DataIssue() { }
-
     public async Task<List<GetIssueDTO>> GetIssues(Guid machineId)
     {
       try

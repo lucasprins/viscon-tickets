@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import CompanyService from "../../../features/customers/companyService";
 import MachineService from "../../../features/machines/machinesService";
-import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
+import { useAppContext, useModalContext } from "../../../utils/hooks";
 import { CompanyMachineJoined, companyType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { InputSearch } from "../../atoms/Input/InputSearch";
@@ -21,7 +21,6 @@ const AdminCompanies = () => {
   const { modalDispatch } = useModalContext();
 
   const user = appState.user;
-  const dispatch = useAppDispatch();
   const language = appState.language;
 
   const [queryCompany, setQueryCompany] = useState<string>("");

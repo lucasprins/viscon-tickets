@@ -1,6 +1,6 @@
 import React from "react";
 import TicketService from "../../../features/tickets/ticketsService";
-import { useAppContext, useAppDispatch, useModalContext } from "../../../utils/hooks";
+import { useAppContext, useModalContext } from "../../../utils/hooks";
 import { ticketType, userType } from "../../../utils/types";
 import { Button } from "../../atoms/Button/Button";
 import { IconFlipBackwards, IconCheck, IconFileSearch } from "../../atoms/Icons/Icons";
@@ -24,7 +24,6 @@ export const TicketActions = ({
   setTicketModals: React.Dispatch<React.SetStateAction<ITicketModals>>;
 }) => {
   const language = useAppContext().appState.language;
-  const dispatch = useAppDispatch();
   const { modalDispatch } = useModalContext();
 
   const [claimingTicket, setClaimingTicket] = React.useState(false);

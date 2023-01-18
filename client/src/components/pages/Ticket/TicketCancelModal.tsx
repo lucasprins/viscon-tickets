@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Formik, Form } from "formik";
-import React, { Fragment, useEffect, useState } from "react";
-import { useAppContext, useAppDispatch, useModalContext } from "../../../utils/hooks";
-import { emailExists, validateCompanyName, validateTextInput } from "../../../utils/input-validation";
+import React, { Fragment, useState } from "react";
+import { useAppContext, useModalContext } from "../../../utils/hooks";
+import { validateTextInput } from "../../../utils/input-validation";
 import { ButtonIcon } from "../../atoms/Button/ButtonIcon";
 import { IconClose } from "../../atoms/Icons/Icons";
 import { InputErrorMessage } from "../../atoms/Input/InputErrorMessage";

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "../../../App";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { Breadcrumbs } from "../../atoms/Breadcrumbs/Breadcrumbs";
 import Layout from "../../organisms/Layout/Layout";
 

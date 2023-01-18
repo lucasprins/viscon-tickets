@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../../../features/auth/authService";
-import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
+import { useAppContext, useAuthentication } from "../../../utils/hooks";
 import { validateEmail, validatePassword } from "../../../utils/input-validation";
 import { Button } from "../../atoms/Button/Button";
 import { IconKey, IconMail, IconTranslate } from "../../atoms/Icons/Icons";

@@ -4,7 +4,7 @@ import { InlineCTA } from "../../molecules/CTA/InlineCTA";
 import { Divider } from "../../atoms/Divider/Divider";
 import Layout from "../../organisms/Layout/Layout";
 import { PageHeader } from "../../atoms/PageHeader/PageHeader";
-import { useAppContext, useAppSelector, useAuthentication } from "../../../utils/hooks";
+import { useAppContext, useAuthentication } from "../../../utils/hooks";
 import { Navigate } from "react-router-dom";
 import { IssueType, MachineType } from "../../../utils/types";
 import { InputDropdown } from "../../atoms/Input/InputDropdown";

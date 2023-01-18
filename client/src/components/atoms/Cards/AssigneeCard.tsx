@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { getInitials } from "../../../utils/textManipulation";
 import { Avatar } from "../Avatar/Avatar";
 import { FeaturedIcon } from "../Icons/FeaturedIcon";

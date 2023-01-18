@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { getSolutions } from "../../../features/solutions/solutionsSlice";
 import { KnowledgebaseItem } from "./KnowledgebaseItem";
 import { EmptyState } from "../EmptyState/EmptyState";

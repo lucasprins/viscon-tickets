@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect } from 'react'
-import { useAppDispatch, useModalContext } from '../../../utils/hooks';
+import { useModalContext } from '../../../utils/hooks';
 import { Button } from '../../atoms/Button/Button';
 import { FeaturedIcon } from '../../atoms/Icons/FeaturedIcon';
 import { IconAlert, IconCheck } from '../../atoms/Icons/Icons';

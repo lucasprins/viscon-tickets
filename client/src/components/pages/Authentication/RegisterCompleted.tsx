@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { Button } from "../../atoms/Button/Button";
 import { FeaturedIcon } from "../../atoms/Icons/FeaturedIcon";
 import { IconCheck } from "../../atoms/Icons/Icons";

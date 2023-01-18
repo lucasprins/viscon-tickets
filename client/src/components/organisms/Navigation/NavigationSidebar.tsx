@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppContext, useAppDispatch, useAppSelector, useModalContext } from "../../../utils/hooks";
+import { useAppContext, useModalContext } from "../../../utils/hooks";
 import { NavigationHeader } from "./NavigationHeader";
 import { NavigationItem } from "./NavigationItem";
 import {
@@ -30,7 +30,6 @@ export function NavigationSidebar() {
   const { modalDispatch } = useModalContext();
   const user = appState.user;
 
-  const dispatch = useAppDispatch();
   const language: string = appState.language;
   const root = document.getElementsByTagName("html")[0];
 
@@ -56,7 +55,7 @@ export function NavigationSidebar() {
   const handleLogout = useCallback(() => {
     AuthService.logout();
     appDispatch({ type: "USER_LOGOUT" });
-  }, [dispatch]);
+  }, [appDispatch]);
 
   return (
     <>

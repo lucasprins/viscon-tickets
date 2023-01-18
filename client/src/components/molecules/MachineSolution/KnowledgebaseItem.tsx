@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppContext, useAppSelector } from "../../../utils/hooks";
+import { useAppContext } from "../../../utils/hooks";
 import { IssueType, MachineType, SolutionType } from "../../../utils/types";
 import { Tag } from "../../atoms/Tag/Tag";
 
