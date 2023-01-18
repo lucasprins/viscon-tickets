@@ -172,7 +172,7 @@ export function Ticket() {
                       <li key={attachment.id}>
                         <button
                           onClick={() => setViewingFile(attachment)}
-                          className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-500'
+                          className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-600'
                         >
                           <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
                           <div className='flex flex-col w-full gap-2'>
@@ -504,7 +504,7 @@ export function Ticket() {
                           <li key={attachment.id}>
                             <button
                               onClick={() => setViewingFile(attachment)}
-                              className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-500'
+                              className='flex flex-row text-left w-full gap-3 p-4 bg-white border border-gray-200 shadow-sm outline-none dark:bg-dark-700 rounded-xl dark:border-dark-600'
                             >
                               <IconImage size='26' color='stroke-primary-500 dark:stroke-gray-300' fill='fill-primary-500' />
                               <div className='flex flex-col w-full gap-2'>
