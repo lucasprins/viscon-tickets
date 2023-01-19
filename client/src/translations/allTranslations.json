@@ -29,6 +29,7 @@
         "general.issue": "Probleem",
         "general.description": "Beschrijving",
         "general.cancel": "Annuleren",
+        "general.solution": "Oplossing",
         
 
         "createticket.modal.dashboard.title": "Weet u zeker dat u terug wilt naar tickets?",
@@ -254,6 +255,7 @@
         "general.issue": "Issue",
         "general.description": "Description",
         "general.cancel": "Cancel",
+        "general.solution": "Solution",
         
 
         "createticket.modal.dashboard.title": "Are you sure you want to go back to the tickets?",

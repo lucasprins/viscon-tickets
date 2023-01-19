@@ -32,7 +32,7 @@ function AdminSolutionsTable({ solutions }: Props) {
       cell: (props) => {
         return <span className='font-medium text-gray-900 dark:text-white'>{props.getValue()}</span>;
       },
-      header: translations[language]["general.issue"],
+      header: translations[language]["general.solution"],
     }),
   ];
 
